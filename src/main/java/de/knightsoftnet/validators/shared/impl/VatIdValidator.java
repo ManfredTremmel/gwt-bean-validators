@@ -1,3 +1,18 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for additional information regarding
+ * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.VatId;
@@ -126,8 +141,8 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumFi = pvatId.charAt(9) - '0';
         final int sumFi =
             (pvatId.charAt(2) - '0') * 7 + (pvatId.charAt(3) - '0') * 9 + (pvatId.charAt(4) - '0')
-            * 10 + (pvatId.charAt(5) - '0') * 5 + (pvatId.charAt(6) - '0') * 8
-            + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 2;
+                * 10 + (pvatId.charAt(5) - '0') * 5 + (pvatId.charAt(6) - '0') * 8
+                + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 2;
         final int calculatedCheckSumFi = modulo11 - sumFi % modulo11;
         checkSumOk = checkSumFi == calculatedCheckSumFi;
         break;
@@ -135,9 +150,9 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumGr = pvatId.charAt(10) - '0';
         final int sumGr =
             (pvatId.charAt(2) - '0') * 256 + (pvatId.charAt(3) - '0') * 128
-            + (pvatId.charAt(4) - '0') * 64 + (pvatId.charAt(5) - '0') * 32
-            + (pvatId.charAt(6) - '0') * 16 + (pvatId.charAt(7) - '0') * 8
-            + (pvatId.charAt(8) - '0') * 4 + (pvatId.charAt(9) - '0') * 2;
+                + (pvatId.charAt(4) - '0') * 64 + (pvatId.charAt(5) - '0') * 32
+                + (pvatId.charAt(6) - '0') * 16 + (pvatId.charAt(7) - '0') * 8
+                + (pvatId.charAt(8) - '0') * 4 + (pvatId.charAt(9) - '0') * 2;
         final int calculatedCheckSumGr = sumGr % modulo11;
         checkSumOk = checkSumGr == calculatedCheckSumGr;
         break;
@@ -148,13 +163,13 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
           // old id, can be transfered to new form
           vatIdIe =
               pvatId.substring(0, 2) + "0" + pvatId.substring(4, 9) + pvatId.substring(3, 4)
-              + pvatId.substring(9);
+                  + pvatId.substring(9);
         }
         final int sumIe =
             (vatIdIe.charAt(2) - '0') * 8 + (vatIdIe.charAt(3) - '0') * 7
-            + (vatIdIe.charAt(4) - '0') * 6 + (vatIdIe.charAt(5) - '0') * 5
-            + (vatIdIe.charAt(6) - '0') * 4 + (vatIdIe.charAt(7) - '0') * 3
-            + (vatIdIe.charAt(8) - '0') * 2;
+                + (vatIdIe.charAt(4) - '0') * 6 + (vatIdIe.charAt(5) - '0') * 5
+                + (vatIdIe.charAt(6) - '0') * 4 + (vatIdIe.charAt(7) - '0') * 3
+                + (vatIdIe.charAt(8) - '0') * 2;
         final int calculatedCheckSumIe = sumIe % 23;
         final char calculatedCheckSumCharIe;
         if (calculatedCheckSumIe == 0) {
@@ -168,10 +183,10 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumIt = pvatId.charAt(12) - '0';
         final int sumIt =
             pvatId.charAt(2) - '0' + squareSum((pvatId.charAt(3) - '0') * 2) + pvatId.charAt(4)
-            - '0' + squareSum((pvatId.charAt(5) - '0') * 2) + pvatId.charAt(6) - '0'
-            + squareSum((pvatId.charAt(7) - '0') * 2) + pvatId.charAt(8) - '0'
-            + squareSum((pvatId.charAt(9) - '0') * 2) + pvatId.charAt(10) - '0'
-            + squareSum((pvatId.charAt(11) - '0') * 2);
+                - '0' + squareSum((pvatId.charAt(5) - '0') * 2) + pvatId.charAt(6) - '0'
+                + squareSum((pvatId.charAt(7) - '0') * 2) + pvatId.charAt(8) - '0'
+                + squareSum((pvatId.charAt(9) - '0') * 2) + pvatId.charAt(10) - '0'
+                + squareSum((pvatId.charAt(11) - '0') * 2);
         final int calculatedCheckSumIt = 10 - sumIt % 10;
         checkSumOk = checkSumIt == calculatedCheckSumIt;
         break;
@@ -185,9 +200,9 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumNl = pvatId.charAt(10) - '0';
         final int sumNl =
             (pvatId.charAt(2) - '0') * 9 + (pvatId.charAt(3) - '0') * 8 + (pvatId.charAt(4) - '0')
-            * 7 + (pvatId.charAt(5) - '0') * 6 + (pvatId.charAt(6) - '0') * 5
-            + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 3
-            + (pvatId.charAt(9) - '0') * 2;
+                * 7 + (pvatId.charAt(5) - '0') * 6 + (pvatId.charAt(6) - '0') * 5
+                + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 3
+                + (pvatId.charAt(9) - '0') * 2;
         final int calculatedCheckSumNl = sumNl % modulo11;
         checkSumOk = checkSumNl == calculatedCheckSumNl;
         break;
@@ -195,9 +210,9 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumPl = pvatId.charAt(11) - '0';
         final int sumPl =
             (pvatId.charAt(2) - '0') * 6 + (pvatId.charAt(3) - '0') * 5 + (pvatId.charAt(4) - '0')
-            * 7 + (pvatId.charAt(5) - '0') * 2 + (pvatId.charAt(6) - '0') * 3
-            + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 5
-            + (pvatId.charAt(9) - '0') * 6 + (pvatId.charAt(10) - '0') * 7;
+                * 7 + (pvatId.charAt(5) - '0') * 2 + (pvatId.charAt(6) - '0') * 3
+                + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 5
+                + (pvatId.charAt(9) - '0') * 6 + (pvatId.charAt(10) - '0') * 7;
         final int calculatedCheckSumPl = sumPl % modulo11;
         checkSumOk = checkSumPl == calculatedCheckSumPl;
         break;
@@ -205,9 +220,9 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumPt = pvatId.charAt(10) - '0';
         final int sumPt =
             (pvatId.charAt(2) - '0') * 9 + (pvatId.charAt(3) - '0') * 8 + (pvatId.charAt(4) - '0')
-            * 7 + (pvatId.charAt(5) - '0') * 6 + (pvatId.charAt(6) - '0') * 5
-            + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 3
-            + (pvatId.charAt(9) - '0') * 2;
+                * 7 + (pvatId.charAt(5) - '0') * 6 + (pvatId.charAt(6) - '0') * 5
+                + (pvatId.charAt(7) - '0') * 4 + (pvatId.charAt(8) - '0') * 3
+                + (pvatId.charAt(9) - '0') * 2;
         final int calculatedCheckSumPt = modulo11 - sumPt % modulo11;
         checkSumOk = checkSumPt == calculatedCheckSumPt;
         break;
@@ -215,10 +230,10 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumSe = pvatId.charAt(11) - '0';
         final int sumSe =
             squareSum((pvatId.charAt(2) - '0') * 2) + pvatId.charAt(3) - '0'
-            + squareSum((pvatId.charAt(4) - '0') * 2) + pvatId.charAt(5) - '0'
-            + squareSum((pvatId.charAt(6) - '0') * 2) + pvatId.charAt(7) - '0'
-            + squareSum((pvatId.charAt(8) - '0') * 2) + pvatId.charAt(9) - '0'
-            + squareSum((pvatId.charAt(10) - '0') * 2);
+                + squareSum((pvatId.charAt(4) - '0') * 2) + pvatId.charAt(5) - '0'
+                + squareSum((pvatId.charAt(6) - '0') * 2) + pvatId.charAt(7) - '0'
+                + squareSum((pvatId.charAt(8) - '0') * 2) + pvatId.charAt(9) - '0'
+                + squareSum((pvatId.charAt(10) - '0') * 2);
         final int calculatedCheckSumSe = 10 - sumSe % 10;
         checkSumOk = checkSumSe == calculatedCheckSumSe;
         break;
@@ -226,8 +241,8 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumSi = pvatId.charAt(9) - '0';
         final int sumSi =
             (pvatId.charAt(2) - '0') * 8 + (pvatId.charAt(3) - '0') * 7 + (pvatId.charAt(4) - '0')
-            * 6 + (pvatId.charAt(5) - '0') * 5 + (pvatId.charAt(6) - '0') * 4
-            + (pvatId.charAt(7) - '0') * 3 + (pvatId.charAt(8) - '0') * 2;
+                * 6 + (pvatId.charAt(5) - '0') * 5 + (pvatId.charAt(6) - '0') * 4
+                + (pvatId.charAt(7) - '0') * 3 + (pvatId.charAt(8) - '0') * 2;
         final int calculatedCheckSumSi = modulo11 - sumSi % modulo11;
         checkSumOk = checkSumSi == calculatedCheckSumSi;
         break;
@@ -235,9 +250,9 @@ public class VatIdValidator implements ConstraintValidator<VatId, HasGetFieldByN
         final int checkSumEs = pvatId.charAt(10) - '0';
         final int sumEs =
             squareSum((pvatId.charAt(3) - '0') * 2) + pvatId.charAt(4) - '0'
-            + squareSum((pvatId.charAt(5) - '0') * 2) + pvatId.charAt(6) - '0'
-            + squareSum((pvatId.charAt(7) - '0') * 2) + pvatId.charAt(8) - '0'
-            + squareSum((pvatId.charAt(9) - '0') * 2);
+                + squareSum((pvatId.charAt(5) - '0') * 2) + pvatId.charAt(6) - '0'
+                + squareSum((pvatId.charAt(7) - '0') * 2) + pvatId.charAt(8) - '0'
+                + squareSum((pvatId.charAt(9) - '0') * 2);
         final int calculatedCheckSumEs = 10 - sumEs % 10;
         checkSumOk = checkSumEs == calculatedCheckSumEs;
         break;

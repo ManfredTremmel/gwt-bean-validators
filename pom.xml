@@ -316,4 +316,15 @@
 		</plugins>
 	</reporting>
 
+	<distributionManagement>
+		<downloadUrl>http://www.knightsoft-net.de/maven/</downloadUrl>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>de.knightsoft-net</id>
+			<name>KnightSoft-Net Maven Repository</name>
+			<url>scp://www.knightsoft-net.de:2904/srv/www/htdocs/manfred/www.knightsoft-net.de/maven/</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+
 </project>
