@@ -1,7 +1,7 @@
 gwt-bean-validators
 ===================
 
-A collection of JSR-303 bean validators that can also be used on the client side of gwt client side
+A collection of JSR-303 bean validators that can also be used on the client side of gwt
 
 Included Validators - single field
 ----------------------------------
@@ -83,4 +83,13 @@ The dependency itself:
       <artifactId>gwt-bean-validators</artifactId>
       <version>0.5.0</version>
     </dependency>
+```
+
+GWT Integration
+---------------
+
+Add this inherit command into your project .gwt.xml file:
+
+```
+<inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
 ```
