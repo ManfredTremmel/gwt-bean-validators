@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -16,11 +16,9 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.NotEmptyAlternateIfOtherHasValue;
-import de.knightsoftnet.validators.shared.interfaces.HasGetFieldByName;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -32,7 +30,7 @@ import javax.validation.ConstraintValidatorContext;
  *
  */
 public class NotEmptyAlternateIfOtherHasValueValidator implements
-    ConstraintValidator<NotEmptyAlternateIfOtherHasValue, HasGetFieldByName> {
+    ConstraintValidator<NotEmptyAlternateIfOtherHasValue, Object> {
 
   /**
    * error message key.
@@ -76,17 +74,12 @@ public class NotEmptyAlternateIfOtherHasValueValidator implements
    *      javax.validation.ConstraintValidatorContext)
    */
   @Override
-  public final boolean isValid(final HasGetFieldByName pvalue,
-      final ConstraintValidatorContext pcontext) {
+  public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     try {
-      // final String fieldCheckValue = BeanUtils.getProperty(pValue,
-      // this.fieldCheckName);
-      final String fieldCheckValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldCheckName), null);
+      final String fieldCheckValue = BeanUtils.getProperty(pvalue, this.fieldCheckName);
       final String fieldAlternateCheckValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldAlternateCheckName), null);
-      final String fieldCompareValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldCompareName), null);
+          BeanUtils.getProperty(pvalue, this.fieldAlternateCheckName);
+      final String fieldCompareValue = BeanUtils.getProperty(pvalue, this.fieldCompareName);
       if (StringUtils.isEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldAlternateCheckValue)
           && StringUtils.equals(this.valueCompare, fieldCompareValue)) {
         pcontext.disableDefaultConstraintViolation();

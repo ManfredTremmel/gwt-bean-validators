@@ -12,7 +12,7 @@ Included Validators - single field
 |AlternateSize | `size1` and `size2` (no defaults) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long.
 |Bic | - | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers
-|Email | - | uses email-check routines of apache commons validator
+|Email | - | formal email check
 |Gln | - | checks length, format and checksum of a Global Location Number (also known as International Location Number)
 |Gtin | - | checks length, format and checksum of a Global Trade Item Number, short (8 digits) and long (13 digits) are allowed (Gtin is also known as European Article Number)
 |Gtin8 | - | checks length, format and checksum of a Global Trade Item Number, only short version (8 digits) is allowed (Gtin is also known as European Article Number)
@@ -28,7 +28,7 @@ Included Validators - single field
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
 |Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled 
 |RegularExpression | - | checks if value itself is a regular expression
-|Url | - | uses url-check routines of apache commons validator
+|Url | - | formal url check
 
 
 Included Validators - multi fields
@@ -52,7 +52,7 @@ Included Validators - multi fields
 
 Dependencies
 ------------
-If you wan't to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add apache-commons-lang3 3.3.2 and apache-commons-validator 1.4.0.
+If you wan't to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add apache-commons-lang3 3.3.2, apache-commons-validator 1.4.0 and apache-commons-beanutils-core 1.8.3.
 On the gwt frontend side, you have to include my gwt-commons-lang3 3.3.2-SNAPSHOT and gwt-commons-validators 1.4.0-SNAPSHOT src.jars instead. Maven will include them automaticly.
 
 Maven integraten

@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -37,6 +37,12 @@ public class UrlValidator implements ConstraintValidator<Url, String> {
   public static final int LENGTH_URL = 255;
 
   /**
+   * regular expression to check URLs.
+   */
+  private static final String URL_PATTERN = "^(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+"
+      + "([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?$";
+
+  /**
    * {@inheritDoc} initialize the validator.
    *
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
@@ -58,10 +64,10 @@ public class UrlValidator implements ConstraintValidator<Url, String> {
       return true;
     }
     if (pvalue.length() > LENGTH_URL) {
-      // Email is to long, but that's handled by size annotation
+      // url is to long, but that's handled by size annotation
       return true;
     }
-    return org.apache.commons.validator.routines.UrlValidator.getInstance().isValid(pvalue);
+    return pvalue.matches(URL_PATTERN);
   }
 
 }

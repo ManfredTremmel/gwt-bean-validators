@@ -16,11 +16,9 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.NotEmptyAlternateIfOtherIsNotEmpty;
-import de.knightsoftnet.validators.shared.interfaces.HasGetFieldByName;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -33,7 +31,7 @@ import javax.validation.ConstraintValidatorContext;
  *
  */
 public class NotEmptyAlternateIfOtherIsNotEmptyValidator implements
-    ConstraintValidator<NotEmptyAlternateIfOtherIsNotEmpty, HasGetFieldByName> {
+    ConstraintValidator<NotEmptyAlternateIfOtherIsNotEmpty, Object> {
 
   /**
    * error message key.
@@ -68,19 +66,16 @@ public class NotEmptyAlternateIfOtherIsNotEmptyValidator implements
   /**
    * {@inheritDoc} check if given object.
    *
-   * @see javax.validation.ConstraintValidator#isValid(HasGetFieldByName,
+   * @see javax.validation.ConstraintValidator#isValid(Object,
    *      javax.validation.ConstraintValidatorContext)
    */
   @Override
-  public final boolean isValid(final HasGetFieldByName pvalue,
-      final ConstraintValidatorContext pcontext) {
+  public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     try {
-      final String fieldCheckValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldCheckName), null);
+      final String fieldCheckValue = BeanUtils.getProperty(pvalue, this.fieldCheckName);
       final String fieldAlternateCheckValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldAlternateCheckName), null);
-      final String fieldCompareValue =
-          Objects.toString(pvalue.getFieldByName(this.fieldCompareName), null);
+          BeanUtils.getProperty(pvalue, this.fieldAlternateCheckName);
+      final String fieldCompareValue = BeanUtils.getProperty(pvalue, this.fieldCompareName);
       if (StringUtils.isNotEmpty(fieldCompareValue) && StringUtils.isEmpty(fieldCheckValue)
           && StringUtils.isEmpty(fieldAlternateCheckValue)) {
         pcontext.disableDefaultConstraintViolation();

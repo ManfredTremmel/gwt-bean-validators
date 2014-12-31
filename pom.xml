@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.0</version>
+	<version>0.5.5</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -19,8 +19,10 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<gwtCommonsLang.version>3.3.2-SNAPSHOT</gwtCommonsLang.version>
 		<gwtCommonsValidator.version>1.4.0-SNAPSHOT</gwtCommonsValidator.version>
+		<commonsBeanutils.version>1.8.3</commonsBeanutils.version>
 		<wagonSSH.version>2.4</wagonSSH.version>
 		<mavenResource.version>2.7</mavenResource.version>
+		<surefirePlugin.version>2.18</surefirePlugin.version>
 		<checkstyle.version>2.13</checkstyle.version>
 		<checkstyleTool.version>6.1.1</checkstyleTool.version>
 		<pmd.version>3.2</pmd.version>
@@ -142,9 +144,33 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils-core</artifactId>
+			<version>${commonsBeanutils.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<!-- the java source files must be on the classpath during gwt:compile -->
+				<directory>src/main/java</directory>
+			</resource>
+			<resource>
+				<!-- the java source files that override/emulate server-side classes 
+					in the client must be on the classpath during gwt:compile -->
+				<directory>src/main/super</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -155,6 +181,7 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
+							<goal>test</goal>
 							<goal>resources</goal>
 						</goals>
 					</execution>
@@ -165,7 +192,6 @@
 					<modules>
 						<module>de.knightsoftnet.validators.GwtBeanValidators</module>
 					</modules>
-					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<logLevel>INFO</logLevel>
 					<inplace>false</inplace>
 					<style>OBFUSCATED</style>
@@ -173,6 +199,52 @@
 					<localWorkers>-1</localWorkers>
 					<extraJvmArgs>-Xms512m -Xmx1g -XX:MaxPermSize=256m</extraJvmArgs>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<value>**/supersource/**/*.java</value>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<value>**/supersource/**/*.java</value>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefirePlugin.version}</version>
+				<configuration>
+					<skip>true</skip>
+					<trimStackTrace>false</trimStackTrace>
+				</configuration>
+				<executions>
+					<execution>
+						<id>unit-tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<includes>
+								<include>**/*Test.java</include>
+							</includes>
+							<excludes>
+								<exclude>**/Abstract*Test.java</exclude>
+								<exclude>**/GwtTest*Test.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>

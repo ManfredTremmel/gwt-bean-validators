@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="GwtBeanValidatorsTest">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='de.knightsoftnet.validators.GwtBeanValidators' />
+
+  <!-- validation by annotation -->
+  <inherits name="org.hibernate.validator.HibernateValidator" />
+
+  <!-- message resolver for localized error messages -->
+  <replace-with class="de.knightsoftnet.validators.client.CustomValidationMessagesResolver">
+    <when-type-is class="com.google.gwt.validation.client.UserValidationMessagesResolver" />
+  </replace-with>
+
+  <!-- use own class for validation on client side, FOR TESTING ONLY -->
+  <replace-with class="de.knightsoftnet.validators.client.ValidatorFactory">
+    <when-type-is class="javax.validation.ValidatorFactory" />
+  </replace-with>
+</module>
