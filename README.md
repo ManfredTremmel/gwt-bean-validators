@@ -81,7 +81,7 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.5</version>
     </dependency>
 ```
 
