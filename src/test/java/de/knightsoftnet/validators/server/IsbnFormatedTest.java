@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.IsbnFormatedTestBean;
+import de.knightsoftnet.validators.shared.beans.IsbnFormatedTestBean;
 
 import org.junit.Test;
 

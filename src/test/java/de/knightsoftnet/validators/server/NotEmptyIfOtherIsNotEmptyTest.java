@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.NotEmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBean;
 
 import org.junit.Test;
 

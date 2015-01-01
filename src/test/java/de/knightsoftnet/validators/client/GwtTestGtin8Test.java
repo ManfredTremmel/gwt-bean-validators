@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.Gtin8TestBean;
+import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 
 public class GwtTestGtin8Test extends AbstractValidationTest<Gtin8TestBean> {
 

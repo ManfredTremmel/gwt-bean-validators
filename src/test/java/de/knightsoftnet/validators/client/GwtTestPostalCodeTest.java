@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.PostalCodeTestBean;
+import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 
 public class GwtTestPostalCodeTest extends AbstractValidationTest<PostalCodeTestBean> {
 

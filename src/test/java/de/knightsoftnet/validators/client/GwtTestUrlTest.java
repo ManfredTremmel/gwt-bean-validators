@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.UrlTestBean;
+import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 
 public class GwtTestUrlTest extends AbstractValidationTest<UrlTestBean> {
 

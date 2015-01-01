@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.UrlTestBean;
+import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 
 import org.junit.Test;
 

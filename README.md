@@ -52,8 +52,8 @@ Included Validators - multi fields
 
 Dependencies
 ------------
-If you wan't to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add apache-commons-lang3 3.3.2, apache-commons-validator 1.4.0 and apache-commons-beanutils-core 1.8.3.
-On the gwt frontend side, you have to include my gwt-commons-lang3 3.3.2-SNAPSHOT and gwt-commons-validators 1.4.0-SNAPSHOT src.jars instead. Maven will include them automaticly.
+If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add apache-commons-lang3 3.3.2, apache-commons-validator 1.4.0 and apache-commons-beanutils-core 1.8.3.
+On the gwt frontend side, you have to include my gwt-commons-lang3 3.3.2-SNAPSHOT and gwt-commons-validators 1.4.0-SNAPSHOT src.jars instead and additional gwt-bean-reflect 0.2 as reflections replacement. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
 ----------------
@@ -81,7 +81,7 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.5.5</version>
+      <version>0.6.0</version>
     </dependency>
 ```
 
@@ -93,3 +93,4 @@ Add this inherit command into your project .gwt.xml file:
 ```
 <inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
 ```
+Each bean you want to check with a multi value validator has to implement org.valkyrie.gwt.bean.client.ReflectedBean, it's used by a special code generator from gwt-bean-reflect which enables us to access properties by name without reflections.

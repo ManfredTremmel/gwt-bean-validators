@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.IbanTestBean;
+import de.knightsoftnet.validators.shared.beans.IbanTestBean;
 
 public class GwtTestIbanTest extends AbstractValidationTest<IbanTestBean> {
 

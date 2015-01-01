@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.Gtin8TestBean;
+import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 
 import org.junit.Test;
 

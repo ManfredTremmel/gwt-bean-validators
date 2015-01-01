@@ -15,7 +15,8 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.EmailTestBean;
+import de.knightsoftnet.validators.shared.beans.EmailTestBean;
+import de.knightsoftnet.validators.shared.testcases.EmailTestCases;
 
 import org.junit.Test;
 
@@ -23,11 +24,11 @@ public class EmailTest extends AbstractValidationTest<EmailTestBean> {
 
 
   /**
-   * empty gln is allowed.
+   * empty email is allowed.
    */
   @Test
   public final void testEmptyEmailIsAllowed() {
-    super.validationTest(new EmailTestBean(null), true, null);
+    super.validationTest(EmailTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
@@ -35,11 +36,9 @@ public class EmailTest extends AbstractValidationTest<EmailTestBean> {
    */
   @Test
   public final void testCorrectEmailsAreAllowed() {
-    super.validationTest(new EmailTestBean("jsmith@apache.org"), true, null);
-    super.validationTest(new EmailTestBean("jsmith@apache.com"), true, null);
-    super.validationTest(new EmailTestBean("jsmith@apache.net"), true, null);
-    super.validationTest(new EmailTestBean("jsmith@apache.info"), true, null);
-    super.validationTest(new EmailTestBean("someone@yahoo.museum"), true, null);
+    for (final EmailTestBean testBean : EmailTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -47,11 +46,9 @@ public class EmailTest extends AbstractValidationTest<EmailTestBean> {
    */
   @Test
   public final void testWrongEmailsAreWrong() {
-    super.validationTest(new EmailTestBean("jsmith@apache."), false,
-        "de.knightsoftnet.validators.shared.impl.EmailValidator");
-    super.validationTest(new EmailTestBean("jsmith@apache.c"), false,
-        "de.knightsoftnet.validators.shared.impl.EmailValidator");
-    super.validationTest(new EmailTestBean("someone@yahoo.mu-seum"), false,
-        "de.knightsoftnet.validators.shared.impl.EmailValidator");
+    for (final EmailTestBean testBean : EmailTestCases.getWrongTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.EmailValidator");
+    }
   }
 }

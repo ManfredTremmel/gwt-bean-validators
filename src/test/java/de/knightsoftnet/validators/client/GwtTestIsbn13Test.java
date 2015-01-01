@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.Isbn13TestBean;
+import de.knightsoftnet.validators.shared.beans.Isbn13TestBean;
 
 /**
  * test for isbn 13 validator.

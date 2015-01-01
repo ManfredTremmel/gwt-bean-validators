@@ -15,7 +15,8 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.BankCountryTestBean;
+import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
+import de.knightsoftnet.validators.shared.testcases.BankCountryTestCases;
 
 public class GwtTestBankCountryTest extends AbstractValidationTest<BankCountryTestBean> {
 
@@ -24,72 +25,45 @@ public class GwtTestBankCountryTest extends AbstractValidationTest<BankCountryTe
    * empty bank, iban and bic are allowed.
    */
   public final void testEmptyBankCountryIsAllowed() {
-    super.validationTest(new BankCountryTestBean(null, null, null), true, null);
+    super.validationTest(BankCountryTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
    * correct bank, iban and bic are allowed.
    */
   public final void testCorrectBankCountryIsAllowed() {
-    super.validationTest(new BankCountryTestBean("DE", "DE16701600000000555444", "GENODEFF701"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("DE", "DE49430609670000033401", "GENODEM1GLS"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("AT", "AT242011182221219800", "GIBAATWWXXX"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("CH", "CH1609000000877768766", "POFICHBEXXX"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("IT", "IT73O0501803200000000125125", "CCRTIT21"),
-        true, null);
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * correct bank, iban and bic with wrong country.
    */
   public final void testWrongCountryBankCountryIsWrong() {
-    super.validationTest(new BankCountryTestBean("AT", "DE16701600000000555444", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "DE49430609670000033401", "GENODEM1GLS"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("IT", "AT242011182221219800", "GIBAATWWXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "CH1609000000877768766", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "IT73O0501803200000000125125", "CCRTIT21"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 
   /**
    * correct bank, iban and bic with wrong country in iban.
    */
   public final void testWrongCountryBankCountryIbanIsWrong() {
-    super.validationTest(new BankCountryTestBean("DE", "AT242011182221219800", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "CH1609000000877768766", "GENODEM1GLS"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(
-        new BankCountryTestBean("AT", "IT73O0501803200000000125125", "GIBAATWWXXX"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "DE16701600000000555444", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("IT", "DE49430609670000033401", "CCRTIT21"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongIbanCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 
   /**
    * correct bank, iban and bic with wrong country in bic.
    */
   public final void testWrongCountryBankCountryBicIsWrong() {
-    super.validationTest(new BankCountryTestBean("DE", "DE16701600000000555444", "GIBAATWWXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "DE49430609670000033401", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("AT", "AT242011182221219800", "CCRTIT21"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "CH1609000000877768766", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(
-        new BankCountryTestBean("IT", "IT73O0501803200000000125125", "GENODEM1GLS"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongBicCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 }

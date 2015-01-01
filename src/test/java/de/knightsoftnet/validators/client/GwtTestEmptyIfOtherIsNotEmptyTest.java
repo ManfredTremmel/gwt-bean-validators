@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.EmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
 
 public class GwtTestEmptyIfOtherIsNotEmptyTest extends
     AbstractValidationTest<EmptyIfOtherIsNotEmptyTestBean> {

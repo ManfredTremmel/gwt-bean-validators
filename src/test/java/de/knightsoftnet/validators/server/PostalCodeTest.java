@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.PostalCodeTestBean;
+import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 
 import org.junit.Test;
 

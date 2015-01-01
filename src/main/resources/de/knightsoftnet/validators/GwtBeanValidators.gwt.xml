@@ -12,6 +12,9 @@
   <!-- apache commons validator                                   -->
   <inherits name="org.apache.commons.GWTCommonsValidator" />
 
+  <!-- simple reflection replacement on client side -->
+  <inherits name="org.valkyrie.gwt.bean.ValkyrieBean"/> 
+
   <!-- Specify the app entry point class.                         -->
   <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidators' />
 

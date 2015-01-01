@@ -15,7 +15,8 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.CreditCardNumberTestBean;
+import de.knightsoftnet.validators.shared.beans.CreditCardNumberTestBean;
+import de.knightsoftnet.validators.shared.testcases.CreditCardTestCases;
 
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class CreditCardNumberTest extends AbstractValidationTest<CreditCardNumbe
    */
   @Test
   public final void testEmptyCreditCardIsAllowed() {
-    super.validationTest(new CreditCardNumberTestBean(null), true, null);
+    super.validationTest(CreditCardTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
@@ -35,11 +36,9 @@ public class CreditCardNumberTest extends AbstractValidationTest<CreditCardNumbe
    */
   @Test
   public final void testCorrectCreditCardsAreAllowed() {
-    super.validationTest(new CreditCardNumberTestBean("4417123456789113"), true, null);
-    super.validationTest(new CreditCardNumberTestBean("4222222222222"), true, null);
-    super.validationTest(new CreditCardNumberTestBean("378282246310005"), true, null);
-    super.validationTest(new CreditCardNumberTestBean("5105105105105100"), true, null);
-    super.validationTest(new CreditCardNumberTestBean("6011000990139424"), true, null);
+    for (final CreditCardNumberTestBean testBean : CreditCardTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -47,13 +46,20 @@ public class CreditCardNumberTest extends AbstractValidationTest<CreditCardNumbe
    */
   @Test
   public final void testWrongCreditCardsAreWrong() {
-    super.validationTest(new CreditCardNumberTestBean("123456789012"), false,
-        "de.knightsoftnet.validators.shared.impl.CreditCardNumberValidator");
-    super.validationTest(new CreditCardNumberTestBean("12345678901234567890"), false,
-        "org.hibernate.validator.constraints.impl.SizeValidatorForString");
-    super.validationTest(new CreditCardNumberTestBean("4417123456789112"), false,
-        "de.knightsoftnet.validators.shared.impl.CreditCardNumberValidator");
-    super.validationTest(new CreditCardNumberTestBean("4417q23456w89113"), false,
-        "de.knightsoftnet.validators.shared.impl.CreditCardNumberValidator");
+    for (final CreditCardNumberTestBean testBean : CreditCardTestCases.getWrongTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.CreditCardNumberValidator");
+    }
+  }
+
+  /**
+   * wrong credit card numbers are not allowed.
+   */
+  @Test
+  public final void testWrongCreditCardsSizeAreWrong() {
+    for (final CreditCardNumberTestBean testBean : CreditCardTestCases.getWrongSizeTestBeans()) {
+      super.validationTest(testBean, false,
+          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+    }
   }
 }

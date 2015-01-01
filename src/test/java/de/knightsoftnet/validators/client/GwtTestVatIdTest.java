@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.VatIdTestBean;
+import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
 public class GwtTestVatIdTest extends AbstractValidationTest<VatIdTestBean> {
 

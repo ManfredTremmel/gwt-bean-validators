@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.IbanTestBean;
+import de.knightsoftnet.validators.shared.beans.IbanTestBean;
 
 import org.junit.Test;
 

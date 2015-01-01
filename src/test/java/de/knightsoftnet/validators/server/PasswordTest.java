@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.PasswordTestBean;
+import de.knightsoftnet.validators.shared.beans.PasswordTestBean;
 
 import org.junit.Test;
 

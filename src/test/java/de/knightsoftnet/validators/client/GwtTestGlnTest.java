@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.GlnTestBean;
+import de.knightsoftnet.validators.shared.beans.GlnTestBean;
 
 public class GwtTestGlnTest extends AbstractValidationTest<GlnTestBean> {
 

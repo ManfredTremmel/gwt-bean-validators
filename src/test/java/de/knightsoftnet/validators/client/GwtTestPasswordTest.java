@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.PasswordTestBean;
+import de.knightsoftnet.validators.shared.beans.PasswordTestBean;
 
 public class GwtTestPasswordTest extends AbstractValidationTest<PasswordTestBean> {
 

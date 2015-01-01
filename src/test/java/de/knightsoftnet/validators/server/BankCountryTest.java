@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -15,7 +15,8 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.BankCountryTestBean;
+import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
+import de.knightsoftnet.validators.shared.testcases.BankCountryTestCases;
 
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class BankCountryTest extends AbstractValidationTest<BankCountryTestBean>
    */
   @Test
   public final void testEmptyBankCountryIsAllowed() {
-    super.validationTest(new BankCountryTestBean(null, null, null), true, null);
+    super.validationTest(BankCountryTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
@@ -35,16 +36,9 @@ public class BankCountryTest extends AbstractValidationTest<BankCountryTestBean>
    */
   @Test
   public final void testCorrectBankCountryIsAllowed() {
-    super.validationTest(new BankCountryTestBean("DE", "DE16701600000000555444", "GENODEFF701"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("DE", "DE49430609670000033401", "GENODEM1GLS"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("AT", "AT242011182221219800", "GIBAATWWXXX"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("CH", "CH1609000000877768766", "POFICHBEXXX"),
-        true, null);
-    super.validationTest(new BankCountryTestBean("IT", "IT73O0501803200000000125125", "CCRTIT21"),
-        true, null);
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -52,16 +46,10 @@ public class BankCountryTest extends AbstractValidationTest<BankCountryTestBean>
    */
   @Test
   public final void testWrongCountryBankCountryIsWrong() {
-    super.validationTest(new BankCountryTestBean("AT", "DE16701600000000555444", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "DE49430609670000033401", "GENODEM1GLS"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("IT", "AT242011182221219800", "GIBAATWWXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "CH1609000000877768766", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "IT73O0501803200000000125125", "CCRTIT21"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 
   /**
@@ -69,17 +57,10 @@ public class BankCountryTest extends AbstractValidationTest<BankCountryTestBean>
    */
   @Test
   public final void testWrongCountryBankCountryIbanIsWrong() {
-    super.validationTest(new BankCountryTestBean("DE", "AT242011182221219800", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "CH1609000000877768766", "GENODEM1GLS"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(
-        new BankCountryTestBean("AT", "IT73O0501803200000000125125", "GIBAATWWXXX"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "DE16701600000000555444", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("IT", "DE49430609670000033401", "CCRTIT21"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongIbanCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 
   /**
@@ -87,16 +68,9 @@ public class BankCountryTest extends AbstractValidationTest<BankCountryTestBean>
    */
   @Test
   public final void testWrongCountryBankCountryBicIsWrong() {
-    super.validationTest(new BankCountryTestBean("DE", "DE16701600000000555444", "GIBAATWWXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("DE", "DE49430609670000033401", "POFICHBEXXX"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("AT", "AT242011182221219800", "CCRTIT21"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(new BankCountryTestBean("CH", "CH1609000000877768766", "GENODEFF701"),
-        false, "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
-    super.validationTest(
-        new BankCountryTestBean("IT", "IT73O0501803200000000125125", "GENODEM1GLS"), false,
-        "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongBicCountryTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
   }
 }

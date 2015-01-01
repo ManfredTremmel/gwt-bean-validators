@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.VatIdTestBean;
+import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
 import org.junit.Test;
 

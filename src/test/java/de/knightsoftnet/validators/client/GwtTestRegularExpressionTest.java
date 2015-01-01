@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.RegularExpressionTestBean;
+import de.knightsoftnet.validators.shared.beans.RegularExpressionTestBean;
 
 public class GwtTestRegularExpressionTest
     extends AbstractValidationTest<RegularExpressionTestBean> {

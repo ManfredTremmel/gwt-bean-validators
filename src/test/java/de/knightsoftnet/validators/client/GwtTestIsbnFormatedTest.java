@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.IsbnFormatedTestBean;
+import de.knightsoftnet.validators.shared.beans.IsbnFormatedTestBean;
 
 public class GwtTestIsbnFormatedTest extends AbstractValidationTest<IsbnFormatedTestBean> {
 

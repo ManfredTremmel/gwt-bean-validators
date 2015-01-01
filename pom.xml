@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.5</version>
+	<version>0.6.0</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -19,9 +19,13 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<gwtCommonsLang.version>3.3.2-SNAPSHOT</gwtCommonsLang.version>
 		<gwtCommonsValidator.version>1.4.0-SNAPSHOT</gwtCommonsValidator.version>
+		<gwtBeanReflect.version>0.2</gwtBeanReflect.version>
 		<commonsBeanutils.version>1.8.3</commonsBeanutils.version>
 		<wagonSSH.version>2.4</wagonSSH.version>
 		<mavenResource.version>2.7</mavenResource.version>
+		<mavenCompilerPlugin.version>3.2</mavenCompilerPlugin.version>
+		<mavenSourcePlugin.version>2.4</mavenSourcePlugin.version>
+		<mavenJavaDocPlugin.version>2.10.1</mavenJavaDocPlugin.version>
 		<surefirePlugin.version>2.18</surefirePlugin.version>
 		<checkstyle.version>2.13</checkstyle.version>
 		<checkstyleTool.version>6.1.1</checkstyleTool.version>
@@ -145,6 +149,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>gwt-bean-reflect</groupId>
+			<artifactId>gwt-bean-reflect</artifactId>
+			<version>${gwtBeanReflect.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
 			<version>${commonsBeanutils.version}</version>
@@ -202,16 +211,8 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<value>**/supersource/**/*.java</value>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${mavenCompilerPlugin.version}</version>
 				<configuration>
 					<excludes>
 						<value>**/supersource/**/*.java</value>
@@ -274,10 +275,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>${mavenSourcePlugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>verify</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -290,6 +291,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${mavenJavaDocPlugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>

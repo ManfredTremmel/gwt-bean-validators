@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.RegularExpressionTestBean;
+import de.knightsoftnet.validators.shared.beans.RegularExpressionTestBean;
 
 import org.junit.Test;
 

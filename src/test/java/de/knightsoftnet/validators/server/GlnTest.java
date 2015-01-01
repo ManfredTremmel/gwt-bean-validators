@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.server;
 
-import de.knightsoftnet.validators.shared.GlnTestBean;
+import de.knightsoftnet.validators.shared.beans.GlnTestBean;
 
 import org.junit.Test;
 

@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.IsinTestBean;
+import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 
 public class GwtTestIsinTest extends AbstractValidationTest<IsinTestBean> {
 
