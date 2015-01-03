@@ -15,54 +15,35 @@
 
 package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.beans.RegularExpressionTestBean;
+import de.knightsoftnet.validators.shared.beans.RegExTestBean;
+import de.knightsoftnet.validators.shared.testcases.RegExTestCases;
 
-public class GwtTestRegularExpressionTest
-    extends AbstractValidationTest<RegularExpressionTestBean> {
+public class GwtTestRegularExpressionTest extends AbstractValidationTest<RegExTestBean> {
 
 
   /**
    * empty regular expression is allowed.
    */
   public final void testEmptyRecExIsAllowed() {
-    super.validationTest(new RegularExpressionTestBean(null), true, null);
+    super.validationTest(RegExTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
    * correct regular expressions are allowed.
    */
   public final void testCorrectRegExAreAllowed() {
-    super.validationTest(new RegularExpressionTestBean(
-        "^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"), true, null);
-    super.validationTest(new RegularExpressionTestBean(
-        ".*(\\.[Jj][Pp][Gg]|\\.[Gg][Ii][Ff]|\\.[Jj][Pp][Ee][Gg]|\\.[Pp][Nn][Gg])"), true, null);
-    super.validationTest(new RegularExpressionTestBean("^([a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*)$"), true,
-        null);
-    super.validationTest(new RegularExpressionTestBean(
-        "^http[s]?://twitter\\.com/(#!/)?[a-zA-Z0-9]{1,15}[/]?$"), true, null);
-    super.validationTest(new RegularExpressionTestBean("((EE|EL|DE|PT)-?)?[0-9]{9}"), true, null);
-    super.validationTest(new RegularExpressionTestBean("^((\\-|d|l|p|s){1}(\\-|r|w|x){9})$"), true,
-        null);
+    for (final RegExTestBean testBean : RegExTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * wrong regular expressions are not allowed.
    */
   public final void testWrongRegExAreWrong() {
-    super.validationTest(new RegularExpressionTestBean(
-        "^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{d2})?$"), false,
-        "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
-    super.validationTest(new RegularExpressionTestBean(
-        ".*\\.[Jj][Pp][Gg]|\\.[Gg][Ii][Ff]|\\.[Jj][Pp][Ee][Gg]|\\.[Pp][Nn][Gg])"), false,
-        "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
-    super.validationTest(new RegularExpressionTestBean("^([a-zA-Z0-9+(?: [a-zA-Z0-9]+)*)$"), false,
-        "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
-    super.validationTest(new RegularExpressionTestBean(
-        "^http[s]?://twitter\\.com/(#!/)?[a-zA-Z0-9]{1,a5}[/]?$"), false,
-        "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
-    super.validationTest(new RegularExpressionTestBean("((EE|EL|DE|PT)-?)?[0-9]{9"), false,
-        "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
-    super.validationTest(new RegularExpressionTestBean("^((\\-|d|l|p|s){1}(\\-|r|w|\\x){9})$"),
-        false, "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
+    for (final RegExTestBean testBean : RegExTestCases.getWrongTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.RegularExpressionValidator");
+    }
   }
 }

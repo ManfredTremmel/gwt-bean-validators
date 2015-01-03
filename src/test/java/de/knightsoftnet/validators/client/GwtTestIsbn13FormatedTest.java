@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.client;
 
 import de.knightsoftnet.validators.shared.beans.Isbn13FormatedTestBean;
+import de.knightsoftnet.validators.shared.testcases.Isbn13FormatedTestCases;
 
 public class GwtTestIsbn13FormatedTest extends AbstractValidationTest<Isbn13FormatedTestBean> {
 
@@ -24,43 +25,56 @@ public class GwtTestIsbn13FormatedTest extends AbstractValidationTest<Isbn13Form
    * empty isbn13 is allowed.
    */
   public final void testEmptyIsbn13IsAllowed() {
-    super.validationTest(new Isbn13FormatedTestBean(null), true, null);
+    super.validationTest(Isbn13FormatedTestCases.getEmptyTestBean(), true, null);
   }
 
   /**
    * correct isbn13 is allowed.
    */
   public final void testCorrectIsbn13IsAllowed() {
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-621802-3"), true, null);
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-621507-7"), true, null);
-    super.validationTest(new Isbn13FormatedTestBean("978-3-89-864471-6"), true, null);
+    for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * isbn13 with wrong checksum.
    */
   public final void testWrongChecksumIsbn13IsWrong() {
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-621803-2"), false,
-        "de.knightsoftnet.validators.shared.impl.Isbn13FormatedValidator");
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-821507-7"), false,
-        "de.knightsoftnet.validators.shared.impl.Isbn13FormatedValidator");
-    super.validationTest(new Isbn13FormatedTestBean("978-3-89-964471-6"), false,
-        "de.knightsoftnet.validators.shared.impl.Isbn13FormatedValidator");
+    for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getWrongTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.Isbn13FormatedValidator");
+    }
   }
 
   /**
    * isbn13 which is to small.
    */
   public final void testToSmallIsbn13IsWrong() {
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-621803"), false,
-        "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+    for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getToSmallTestBeans()) {
+      super.validationTest(testBean, false,
+          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+    }
   }
 
   /**
    * isbn13 which is to big.
    */
   public final void testToBigIsbn13IsWrong() {
-    super.validationTest(new Isbn13FormatedTestBean("978-3-83-621803-21"), false,
-        "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+    for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getToBigTestBeans()) {
+      super.validationTest(testBean, false,
+          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+    }
+  }
+
+  /**
+   * isbn13 which has wrong format.
+   */
+  public final void testWrongFormatIsbn13IsWrong() {
+    for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases
+        .getWrongFormatedTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.Isbn13FormatedValidator");
+    }
   }
 }

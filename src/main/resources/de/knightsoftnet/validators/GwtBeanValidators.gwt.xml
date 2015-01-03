@@ -6,6 +6,9 @@
   <inherits name='com.google.gwt.user.User' />
   <inherits name='com.google.gwt.i18n.I18N'/>
 
+  <!-- validation by annotation -->
+  <inherits name="org.hibernate.validator.HibernateValidator" />
+
   <!-- apache commons lang3 -->
   <inherits name="org.apache.commons.GWTCommonsLang3" />
 

@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.server;
 
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
+import de.knightsoftnet.validators.shared.testcases.EmptyIfOtherIsEmptyTestCases;
 
 import org.junit.Test;
 
@@ -27,10 +28,10 @@ public class EmptyIfOtherIsEmptyTest extends AbstractValidationTest<EmptyIfOther
    */
   @Test
   public final void testNoStreetNoNumberIsAllowed() {
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean(null, null), true, null);
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean(null, ""), true, null);
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("", null), true, null);
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("", ""), true, null);
+    for (final EmptyIfOtherIsEmptyTestBean testBean : EmptyIfOtherIsEmptyTestCases
+        .getEmptyTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -38,9 +39,10 @@ public class EmptyIfOtherIsEmptyTest extends AbstractValidationTest<EmptyIfOther
    */
   @Test
   public final void testStreetFlexibleNumberIsAllowed() {
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("filled", null), true, null);
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("filled", ""), true, null);
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("filled", "filled"), true, null);
+    for (final EmptyIfOtherIsEmptyTestBean testBean : EmptyIfOtherIsEmptyTestCases
+        .getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -48,9 +50,10 @@ public class EmptyIfOtherIsEmptyTest extends AbstractValidationTest<EmptyIfOther
    */
   @Test
   public final void testNumberWithoutStreetWrong() {
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean(null, "filled"), false,
-        "de.knightsoftnet.validators.shared.impl.EmptyIfOtherIsEmptyValidator");
-    super.validationTest(new EmptyIfOtherIsEmptyTestBean("", "filled"), false,
-        "de.knightsoftnet.validators.shared.impl.EmptyIfOtherIsEmptyValidator");
+    for (final EmptyIfOtherIsEmptyTestBean testBean : EmptyIfOtherIsEmptyTestCases
+        .getWrongTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.EmptyIfOtherIsEmptyValidator");
+    }
   }
 }

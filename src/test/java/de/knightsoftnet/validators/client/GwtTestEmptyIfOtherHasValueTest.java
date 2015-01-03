@@ -16,64 +16,49 @@
 package de.knightsoftnet.validators.client;
 
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherHasValueTestBean;
+import de.knightsoftnet.validators.shared.testcases.NotEmptyIfOtherHasValueTestCases;
 
 public class GwtTestEmptyIfOtherHasValueTest extends
     AbstractValidationTest<NotEmptyIfOtherHasValueTestBean> {
-
 
   /**
    * the value we request is not set, so everything is allowed.
    */
   public final void testValueIsNotSetEverythingIsAllowed() {
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, null, null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "", null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, null, ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "filled", null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, null, "filled"), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "filled", "filled"), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "filled", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "", "filled"), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean(null, "filled", "filled"), true, null);
+    for (final NotEmptyIfOtherHasValueTestBean testBean : NotEmptyIfOtherHasValueTestCases
+        .getValueIsNotSetBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * the value we request is set to a type, we do not request, so everything is allowed.
    */
   public final void testValueIsSetDifferentEverythingIsAllowed() {
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", null, null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "", null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", null, ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "filled", null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", null, "filled"), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "filled", "filled"), true,
-        null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "filled", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "", "filled"), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("filled", "filled", "filled"), true,
-        null);
+    for (final NotEmptyIfOtherHasValueTestBean testBean : NotEmptyIfOtherHasValueTestCases
+        .getValueUncheckedSetBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * the value we request is set, and requested fields match.
    */
   public final void testValueIsSetFieldsToAllowed() {
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("street", "filled", null), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("street", "filled", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("postOfficeBox", null, "filled"),
-        true, null);
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("postOfficeBox", "", "filled"), true,
-        null);
+    for (final NotEmptyIfOtherHasValueTestBean testBean : NotEmptyIfOtherHasValueTestCases
+        .getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * the value we request is set, and requested fields do not match.
    */
   public final void testValueIsSetFieldsNotWrong() {
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("street", "filled", "filled"), false,
-        "de.knightsoftnet.validators.shared.impl.EmptyIfOtherHasValueValidator");
-    super.validationTest(new NotEmptyIfOtherHasValueTestBean("postOfficeBox", "filled", "filled"),
-        false, "de.knightsoftnet.validators.shared.impl.EmptyIfOtherHasValueValidator");
+    for (final NotEmptyIfOtherHasValueTestBean testBean : NotEmptyIfOtherHasValueTestCases
+        .getWrongEmptyTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.EmptyIfOtherHasValueValidator");
+    }
   }
 }

@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.client;
 
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
+import de.knightsoftnet.validators.shared.testcases.NotEmptyAlternateIfOhvTestCases;
 
 public class GwtTestNotEmptyAlternateIfOtherHasValueTest extends
     AbstractValidationTest<NotEmptyAlternateIfOtherHasValueTestBean> {
@@ -25,76 +26,30 @@ public class GwtTestNotEmptyAlternateIfOtherHasValueTest extends
    * the value we request is not set, so everything is allowed.
    */
   public final void testValueIsNotSetEverythingIsAllowed() {
-    super
-        .validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, null, null), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "", null), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, null, ""), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "", ""), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "filled", null), true,
-        null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, null, "filled"), true,
-        null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "filled", "filled"),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "filled", ""), true,
-        null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "", "filled"), true,
-        null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(null, "filled", "filled"),
-        true, null);
-
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, null, null),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "", null),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, null, ""),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "", ""), true,
-        null);
-    super.validationTest(
-        new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "filled", null), true, null);
-    super.validationTest(
-        new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, null, "filled"), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "filled",
-        "filled"), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "filled", ""),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "", "filled"),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.FALSE, "filled",
-        "filled"), true, null);
+    for (final NotEmptyAlternateIfOtherHasValueTestBean testBean : NotEmptyAlternateIfOhvTestCases
+        .getValueIsNotSetBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * the value we request is set, and alternate fields match.
    */
   public final void testValueIsSetFieldsToAllowed() {
-
-    super.validationTest(
-        new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "filled", null), true, null);
-    super.validationTest(
-        new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, null, "filled"), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "filled",
-        "filled"), true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "filled", ""),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "", "filled"),
-        true, null);
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "filled",
-        "filled"), true, null);
+    for (final NotEmptyAlternateIfOtherHasValueTestBean testBean : NotEmptyAlternateIfOhvTestCases
+        .getCorrectTestBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
    * the value we request is set, and alternate fields match.
    */
   public final void testValueIsSetFieldsNotWrong() {
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, null, null),
-        false, "de.knightsoftnet.validators.shared.impl.NotEmptyAlternateIfOtherHasValueValidator");
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, null, ""),
-        false, "de.knightsoftnet.validators.shared.impl.NotEmptyAlternateIfOtherHasValueValidator");
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "", null),
-        false, "de.knightsoftnet.validators.shared.impl.NotEmptyAlternateIfOtherHasValueValidator");
-    super.validationTest(new NotEmptyAlternateIfOtherHasValueTestBean(Boolean.TRUE, "", ""), false,
-        "de.knightsoftnet.validators.shared.impl.NotEmptyAlternateIfOtherHasValueValidator");
+    for (final NotEmptyAlternateIfOtherHasValueTestBean testBean : NotEmptyAlternateIfOhvTestCases
+        .getWrongEmptyTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.NotEmptyAlternateIfOtherHasValueValidator");
+    }
   }
 }

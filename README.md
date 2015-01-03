@@ -8,7 +8,7 @@ Included Validators - single field
 
 |Annotation | Parameters | Checks
 |------|----------|----------
-|AgeLimit | `minYears` (no default) | checks a date field, it must be `minYears` ago
+|AgeLimitCheck | `minYears` (no default) | checks a date field, it must be `minYears` ago
 |AlternateSize | `size1` and `size2` (no defaults) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long.
 |Bic | - | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers

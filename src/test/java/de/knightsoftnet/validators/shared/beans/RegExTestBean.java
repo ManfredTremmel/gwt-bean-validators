@@ -17,12 +17,12 @@ package de.knightsoftnet.validators.shared.beans;
 
 import de.knightsoftnet.validators.shared.RegularExpression;
 
-public class RegularExpressionTestBean {
+public class RegExTestBean {
 
   @RegularExpression
   private final String regEx;
 
-  public RegularExpressionTestBean(final String pregEx) {
+  public RegExTestBean(final String pregEx) {
     super();
     this.regEx = pregEx;
   }

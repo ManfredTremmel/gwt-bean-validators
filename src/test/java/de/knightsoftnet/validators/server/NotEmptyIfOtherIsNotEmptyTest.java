@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.server;
 
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.testcases.NotEmptyIfOtherIsNotEmptyTestCases;
 
 import org.junit.Test;
 
@@ -28,10 +29,10 @@ public class NotEmptyIfOtherIsNotEmptyTest extends
    */
   @Test
   public final void testNoStreetNoNumberIsAllowed() {
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean(null, null), true, null);
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean(null, ""), true, null);
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("", null), true, null);
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("", ""), true, null);
+    for (final NotEmptyIfOtherIsNotEmptyTestBean testBean : NotEmptyIfOtherIsNotEmptyTestCases
+        .getBothEmptyBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -39,9 +40,10 @@ public class NotEmptyIfOtherIsNotEmptyTest extends
    */
   @Test
   public final void testStreetFlexibleNumberIsAllowed() {
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("filled", null), true, null);
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("filled", ""), true, null);
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("filled", "filled"), true, null);
+    for (final NotEmptyIfOtherIsNotEmptyTestBean testBean : NotEmptyIfOtherIsNotEmptyTestCases
+        .getCompareNotEmptyBeans()) {
+      super.validationTest(testBean, true, null);
+    }
   }
 
   /**
@@ -49,9 +51,10 @@ public class NotEmptyIfOtherIsNotEmptyTest extends
    */
   @Test
   public final void testNumberWithoutStreetWrong() {
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean(null, "filled"), false,
-        "de.knightsoftnet.validators.shared.impl.NotEmptyIfOtherIsNotEmptyValidator");
-    super.validationTest(new NotEmptyIfOtherIsNotEmptyTestBean("", "filled"), false,
-        "de.knightsoftnet.validators.shared.impl.NotEmptyIfOtherIsNotEmptyValidator");
+    for (final NotEmptyIfOtherIsNotEmptyTestBean testBean : NotEmptyIfOtherIsNotEmptyTestCases
+        .getWrongCompareEmptyTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.NotEmptyIfOtherIsNotEmptyValidator");
+    }
   }
 }
