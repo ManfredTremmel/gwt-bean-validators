@@ -49,6 +49,14 @@ public class GwtReflectGetterGenerator extends Generator {
         src.println("public final Object getProperty(final Object pbean, final String pname)"
             + " throws NoSuchMethodException, ReflectiveOperationException {");
 
+        src.println("  if (pbean == null) {");
+        src.println("    throw new NoSuchMethodException(\"A null object has no getters\");");
+        src.println("  }");
+        src.println("  if (pname == null) {");
+        src.println("    throw new NoSuchMethodException(\"No method to get property for null\");");
+        src.println("  }");
+        src.println("");
+
         for (final Class<?> clazz : classes) {
           final String className = clazz.getName();
           plogger.log(TreeLogger.DEBUG, "Generating getter reflections for class " + className);
@@ -56,7 +64,7 @@ public class GwtReflectGetterGenerator extends Generator {
           // Describe the bean properties
           final PropertyDescriptor[] properties = PropertyUtils.getPropertyDescriptors(clazz);
 
-          src.println("  if (pbean instanceof " + className + ") {");
+          src.println("  if (pbean.getClass() == " + className + ".class) {");
           src.println("    switch (pname) {");
 
           // for all getters generate a case and return entry

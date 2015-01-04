@@ -26,7 +26,7 @@ Included Validators - single field
 |Isbn13 | - | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be written in one block
 |Isbn13Formated | - | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be grouped with - as separator
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
-|Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled 
+|Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled
 |RegularExpression | - | checks if value itself is a regular expression
 |Url | - | formal url check
 
@@ -62,15 +62,15 @@ The build packages are currently not on a indexed maven repository, but you can 
 
 ```
   <repositories>
-    <repository>    
-      <id>de.knightsoft-net</id>    
-      <url>http://www.knightsoft-net.de/maven/</url>    
-      <snapshots>      
-        <enabled>true</enabled> 
-      </snapshots>    
-      <releases>      
+    <repository>
+      <id>de.knightsoft-net</id>
+      <url>http://www.knightsoft-net.de/maven/</url>
+      <snapshots>
         <enabled>true</enabled>
-      </releases>  
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
     </repository>
   </repositories>
 ```
@@ -81,7 +81,7 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.6.5</version>
+      <version>0.6.6</version>
     </dependency>
 ```
 
@@ -101,4 +101,3 @@ Because we don't have Reflections in GWT, you have to add a Validator Factory Im
 Multi value annotations, which are not annotated on the property field itself, but on the top of the bean, need still access to the properties to check. To make this work without reflections, I've included a code generator which generates a helper class out of the beans and a BeanUtil replacement which uses it, so the Validators can work with the server side common `BeanUtils.getProperty(bean, name)` even on the client. To tell the generator which beans need such access, you also have to generate a Factory class. It looks nearly the same way as the ValidatoryFactory and has also to be annotated with @GwtValidation which includes the beans. The version in the test cases should show you, how to use it: [ReflectGetterFactory.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/java/de/knightsoftnet/validators/client/factories/ReflectGetterFactory.java), it has to replace de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface in the project gwt.xml file, you can see this also in the [Project .gwt.xml file of the test cases](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/resources/de/knightsoftnet/validators/GwtBeanValidatorsJUnit.gwt.xml)
 
 Because we never can trust client side checks, this checks always should be repeated on server side. To bring back validation results to the frontend, to display them with the editor framework, I've also included the [ValidationException.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/shared/exceptions/ValidationException.java). If you use RPC, you can just add the set of validation errors to the constructor of the bean and throw it, on client side catch it and add the results to the editor.
- 
