@@ -4,48 +4,36 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 
-package de.knightsoftnet.validators.shared.beans;
+package de.knightsoftnet.validators.client;
 
-import de.knightsoftnet.validators.shared.VatId;
-
-@VatId
-public class VatIdTestBean {
-
-  private final String countryCode;
-
-  private final String vatId;
+/**
+ * abstract getter reflector interface.
+ *
+ * @author Manfred Tremmel
+ */
+public interface GwtReflectGetterFactoryInterface {
 
   /**
-   * constructor initializing fields.
+   * create a gwt reflect getter implementation.
    *
-   * @param pcountryCode country code
-   * @param pvatId postal code
+   * @return gwt reflect getter
    */
-  public VatIdTestBean(final String pcountryCode, final String pvatId) {
-    super();
-    this.countryCode = pcountryCode;
-    this.vatId = pvatId;
-  }
+  GwtReflectGetterInterface createGwtReflectGetter();
 
-  public String getCountryCode() {
-    return this.countryCode;
-  }
+  /**
+   * get gwt reflect getter implementation, it's reused if you call it more then once.
+   *
+   * @return gwt reflect getter
+   */
+  GwtReflectGetterInterface getGwtReflectGetter();
 
-  public String getVatId() {
-    return this.vatId;
-  }
-
-  @Override
-  public String toString() {
-    return "VatIdTestBean [countryCode=" + this.countryCode + ", vatId=" + this.vatId + "]";
-  }
 }

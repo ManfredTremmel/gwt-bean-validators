@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.0</version>
+	<version>0.6.5</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -19,7 +19,6 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<gwtCommonsLang.version>3.3.2-SNAPSHOT</gwtCommonsLang.version>
 		<gwtCommonsValidator.version>1.4.0-SNAPSHOT</gwtCommonsValidator.version>
-		<gwtBeanReflect.version>0.2</gwtBeanReflect.version>
 		<commonsBeanutils.version>1.8.3</commonsBeanutils.version>
 		<wagonSSH.version>2.4</wagonSSH.version>
 		<mavenResource.version>2.7</mavenResource.version>
@@ -147,11 +146,6 @@
 			<version>${gwtCommonsValidator.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>gwt-bean-reflect</groupId>
-			<artifactId>gwt-bean-reflect</artifactId>
-			<version>${gwtBeanReflect.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>

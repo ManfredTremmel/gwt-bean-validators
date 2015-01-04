@@ -5,8 +5,15 @@
   <!-- Inherit our applications main module.                      -->
   <inherits name='de.knightsoftnet.validators.GwtBeanValidators' />
 
-  <!-- use own class for validation on client side, FOR TESTING ONLY -->
-  <replace-with class="de.knightsoftnet.validators.client.ValidatorFactory">
+  <!-- our own validation factory implementation with @GwtValidation entries for each bean we
+       want to validate -->
+  <replace-with class="de.knightsoftnet.validators.client.factories.ValidatorFactory">
     <when-type-is class="javax.validation.ValidatorFactory" />
+  </replace-with>
+
+  <!-- our own reflection factory implementation with @GwtValidation entries for each bean we
+       need getter access by reflection -->
+  <replace-with class="de.knightsoftnet.validators.client.factories.ReflectGetterFactory">
+    <when-type-is class="de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface" />
   </replace-with>
 </module>

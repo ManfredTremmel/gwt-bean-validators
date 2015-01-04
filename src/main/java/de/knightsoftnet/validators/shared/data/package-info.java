@@ -1,5 +1,5 @@
 /**
- * data neded by validators.
+ * data needed by validators.
  */
 package de.knightsoftnet.validators.shared.data;
 

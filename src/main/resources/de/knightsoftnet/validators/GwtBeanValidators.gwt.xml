@@ -2,34 +2,33 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
  "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module rename-to='GwtBeanValidators'>
-  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <!-- Inherit the core Web Toolkit stuff. -->
   <inherits name='com.google.gwt.user.User' />
+
+  <!-- I18N support is required for localized validation messages. -->
   <inherits name='com.google.gwt.i18n.I18N'/>
 
-  <!-- validation by annotation -->
+  <!-- validation by annotation support. -->
   <inherits name="org.hibernate.validator.HibernateValidator" />
 
-  <!-- apache commons lang3 -->
+  <!-- gwt version of apache commons lang3. -->
   <inherits name="org.apache.commons.GWTCommonsLang3" />
 
-  <!-- apache commons validator                                   -->
+  <!-- gwt version of apache commons validator. -->
   <inherits name="org.apache.commons.GWTCommonsValidator" />
 
-  <!-- simple reflection replacement on client side -->
-  <inherits name="org.valkyrie.gwt.bean.ValkyrieBean"/> 
-
-  <!-- Specify the app entry point class.                         -->
+  <!-- Specify the app entry point class, in this case a dummy class. -->
   <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidators' />
 
-  <!-- use own class for validation on client side
-  <replace-with class="de.knightsoftnet.validators.client.ValidatorFactory">
-    <when-type-is class="javax.validation.ValidatorFactory" />
-  </replace-with> -->
-
-  <!-- message resolver for localized error messages -->
+  <!-- message resolver for localized error messages, use our version. -->
   <replace-with class="de.knightsoftnet.validators.client.CustomValidationMessagesResolver">
     <when-type-is class="com.google.gwt.validation.client.UserValidationMessagesResolver" />
   </replace-with>
+
+  <!-- reflection replacement to get properties from validated beans by name. -->
+  <generate-with class="de.knightsoftnet.validators.rebind.GwtReflectGetterGenerator">
+    <when-type-assignable class="de.knightsoftnet.validators.client.GwtReflectGetterInterface" />
+  </generate-with>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />

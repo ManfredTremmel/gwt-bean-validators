@@ -52,8 +52,8 @@ Included Validators - multi fields
 
 Dependencies
 ------------
-If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add apache-commons-lang3 3.3.2, apache-commons-validator 1.4.0 and apache-commons-beanutils-core 1.8.3.
-On the gwt frontend side, you have to include my gwt-commons-lang3 3.3.2-SNAPSHOT and gwt-commons-validators 1.4.0-SNAPSHOT src.jars instead and additional gwt-bean-reflect 0.2 as reflections replacement. If you use Maven, it will include everything automaticly for you.
+If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.3.2](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.0](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.8.3] (https://commons.apache.org/proper/commons-beanutils/).
+On the gwt frontend side, you have to include my [gwt-commons-lang3 3.3.2-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.4.0-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
 ----------------
@@ -81,16 +81,24 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.6.0</version>
+      <version>0.6.5</version>
     </dependency>
 ```
 
 GWT Integration
 ---------------
 
-Add this inherit command into your project .gwt.xml file:
+The basics of Bean Validation in GWT you can find on the [GWT-Project Page](http://www.gwtproject.org/doc/latest/DevGuideValidation.html). This package should make it easier to enable bean validation. All depending libs are provided by maven (if you use it) and a message resolver with localized texts ([English](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/resources/de/knightsoftnet/validators/client/ValidationMessages.properties) and [German](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/resources/de/knightsoftnet/validators/client/ValidationMessages_de.properties) at the moment, more translations are welcome, just translate the property file) is already activated, but you can override it in your project .gwt.xml file.
+
+What you still have to do, inherit GwtBeanValidators into your project .gwt.xml file:
 
 ```
 <inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
 ```
-Each bean you want to check with a multi value validator has to implement org.valkyrie.gwt.bean.client.ReflectedBean, it's used by a special code generator from gwt-bean-reflect which enables us to access properties by name without reflections.
+
+Because we don't have Reflections in GWT, you have to add a Validator Factory Implementation with all your beans to validate, annotated with @GwtValidation. As Example you can take a look in the test cases of this Project: [ValidatorFactory.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/java/de/knightsoftnet/validators/client/factories/ValidatorFactory.java) you have to add this Factory as replacement for javax.validation.ValidatorFactory, you can see this also in the [Project .gwt.xml file of the test cases](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/resources/de/knightsoftnet/validators/GwtBeanValidatorsJUnit.gwt.xml)
+
+Multi value annotations, which are not annotated on the property field itself, but on the top of the bean, need still access to the properties to check. To make this work without reflections, I've included a code generator which generates a helper class out of the beans and a BeanUtil replacement which uses it, so the Validators can work with the server side common `BeanUtils.getProperty(bean, name)` even on the client. To tell the generator which beans need such access, you also have to generate a Factory class. It looks nearly the same way as the ValidatoryFactory and has also to be annotated with @GwtValidation which includes the beans. The version in the test cases should show you, how to use it: [ValidatorFactory.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/java/de/knightsoftnet/validators/client/factories/ReflectGetterFactory.java), it has to replace de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface in the project gwt.xml file, you can see this also in the [Project .gwt.xml file of the test cases](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/resources/de/knightsoftnet/validators/GwtBeanValidatorsJUnit.gwt.xml)
+
+Because we never can trust client side checks, this checks always should be repeated on server side. To bring back validation results to the frontend, to display them with the editor framework, I've also included the [ValidationException.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/shared/exceptions/ValidationException.java). If you use RPC, you can just add the set of validation errors to the constructor of the bean and throw it, on client side catch it and add the results to the editor.
+ 
