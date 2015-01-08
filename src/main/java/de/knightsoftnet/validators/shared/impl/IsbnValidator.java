@@ -17,10 +17,11 @@ package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.Isbn;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
+
+import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -40,9 +41,14 @@ public class IsbnValidator implements ConstraintValidator<Isbn, Object> {
   private static final ISBN10CheckDigit CHECK_ISBN10 = new ISBN10CheckDigit();
 
   /**
-   * apache commons class to check/calculate GLN/EAN13 check sums.
+   * apache commons class to check/calculate GLN/EAN13 check sums (it's the same for isbn13).
    */
   private static final EAN13CheckDigit CHECK_ISBN13 = new EAN13CheckDigit();
+
+  /**
+   * should separating minus signs be ignored (true/false).
+   */
+  private boolean ignoreSeparators;
 
   /**
    * {@inheritDoc} initialize the validator.
@@ -51,7 +57,7 @@ public class IsbnValidator implements ConstraintValidator<Isbn, Object> {
    */
   @Override
   public final void initialize(final Isbn pconstraintAnnotation) {
-    // nothing to do
+    this.ignoreSeparators = pconstraintAnnotation.ignoreSeparators();
   }
 
   /**
@@ -62,7 +68,12 @@ public class IsbnValidator implements ConstraintValidator<Isbn, Object> {
    */
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
-    final String valueAsString = ObjectUtils.toString(pvalue);
+    final String valueAsString;
+    if (this.ignoreSeparators) {
+      valueAsString = Objects.toString(pvalue, "").replaceAll("[\\s-]+", "");
+    } else {
+      valueAsString = Objects.toString(pvalue, null);
+    }
     if (StringUtils.isEmpty(valueAsString)) {
       return true;
     }

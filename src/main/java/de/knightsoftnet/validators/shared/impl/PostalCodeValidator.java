@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -44,6 +44,11 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   private String fieldCountryCode;
 
   /**
+   * are lower case country codes allowed (true/false).
+   */
+  private boolean allowLowerCaseCountryCode;
+
+  /**
    * field name of the postal code (zip) field.
    */
   private String fieldPostalCode;
@@ -57,6 +62,7 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   public final void initialize(final PostalCode pconstraintAnnotation) {
     this.message = pconstraintAnnotation.message();
     this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
     this.fieldPostalCode = pconstraintAnnotation.fieldPostalCode();
   }
 
@@ -69,10 +75,14 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     try {
-      final String countryCode = BeanUtils.getProperty(pvalue, this.fieldCountryCode);
+      String countryCode = BeanUtils.getProperty(pvalue, this.fieldCountryCode);
       final String postalCode = BeanUtils.getProperty(pvalue, this.fieldPostalCode);
       if (StringUtils.isEmpty(postalCode)) {
         return true;
+      }
+
+      if (this.allowLowerCaseCountryCode) {
+        countryCode = StringUtils.upperCase(countryCode);
       }
 
       final String regExCheck = PostalCodeDefinitions.COUNTRY_POSTAL_CODE_REGEX.get(countryCode);

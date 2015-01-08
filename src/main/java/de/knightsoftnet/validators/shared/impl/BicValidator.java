@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -18,8 +18,9 @@ package de.knightsoftnet.validators.shared.impl;
 import de.knightsoftnet.validators.shared.Bic;
 import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -42,13 +43,18 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
   public static final int BIC_LENGTH_MAX = 11;
 
   /**
+   * should whitespaces be ignored (true/false).
+   */
+  private boolean ignoreWhitspaces;
+
+  /**
    * {@inheritDoc} initialize the validator.
    *
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
    */
   @Override
   public final void initialize(final Bic pconstraintAnnotation) {
-    // nothing to do
+    this.ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
   }
 
   /**
@@ -59,7 +65,12 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
    */
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
-    final String valueAsString = ObjectUtils.toString(pvalue);
+    final String valueAsString;
+    if (this.ignoreWhitspaces) {
+      valueAsString = Objects.toString(pvalue, "").replaceAll("\\s+", "");
+    } else {
+      valueAsString = Objects.toString(pvalue, null);
+    }
     if (StringUtils.isEmpty(valueAsString)) {
       // empty field is ok
       return true;

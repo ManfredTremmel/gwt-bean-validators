@@ -10,20 +10,20 @@ Included Validators - single field
 |------|----------|----------
 |AgeLimitCheck | `minYears` (no default) | checks a date field, it must be `minYears` ago
 |AlternateSize | `size1` and `size2` (no defaults) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long.
-|Bic | - | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
+|Bic | `ignoreWhitspaces` (default false) | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers
 |Email | - | formal email check
 |Gln | - | checks length, format and checksum of a Global Location Number (also known as International Location Number)
 |Gtin | - | checks length, format and checksum of a Global Trade Item Number, short (8 digits) and long (13 digits) are allowed (Gtin is also known as European Article Number)
 |Gtin8 | - | checks length, format and checksum of a Global Trade Item Number, only short version (8 digits) is allowed (Gtin is also known as European Article Number)
 |Gtin13 | - | checks length, format and checksum of a Global Trade Item Number, only long (13 digits) are allowed (Gtin is also known as European Article Number)
-|Iban | - | checks length, format and checksum of a International Bank Account Number, the country specific length definitions are used, iban must be written in one block
+|Iban | `ignoreWhitspaces` (default false) | checks length, format and checksum of a International Bank Account Number, the country specific length definitions are used, iban must be written in one block
 |IbanFormated | - | checks length, format and checksum of a International Bank Account Number, the country specific length definitions are used, iban must be written in groups separated with spaces
-|Isbn | - | checks length, format and checksum of a International Standard Book Number, short (10 digits) and long (13 digits) are allowed, isbn must be written in one block
+|Isbn | `ignoreSeparators` (default false) | checks length, format and checksum of a International Standard Book Number, short (10 digits) and long (13 digits) are allowed, isbn must be written in one block, if `ignoreSeparators` is set to true, minus signs are filtered
 |IsbnFormated | - | checks length, numeric and checksum of a International Standard Book Number, short (10 digits) and long (13 digits) are allowed, isbn must be grouped with - as separator
-|Isbn10 | - | checks length, format and checksum of a International Standard Book Number, only short version (10 digits) is allowed, isbn must be written in one block
+|Isbn10 | `ignoreSeparators` (default false) | checks length, format and checksum of a International Standard Book Number, only short version (10 digits) is allowed, isbn must be written in one block, if `ignoreSeparators` is set to true, minus signs are filtered
 |Isbn10Formated | - | checks length, format and checksum of a International Standard Book Number, only short version (10 digits) is allowed, isbn must be grouped with - as separator
-|Isbn13 | - | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be written in one block
+|Isbn13 | `ignoreSeparators` (default false) | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be written in one block, if `ignoreSeparators` is set to true, minus signs are filtered
 |Isbn13Formated | - | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be grouped with - as separator
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
 |Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled
@@ -36,7 +36,7 @@ Included Validators - multi fields
 
 |Annotation | Parameters | Checks
 |------|----------|----------
-|BankCountry | `fieldCountryCode` (default = countryCode), `fieldIban` (default = iban), `fieldBic` (default = bic), | in a sepa bank account, iban and bic contains the country code, both must match and can be validated against another countryCode field
+|BankCountry | `fieldCountryCode` (default = countryCode), `fieldIban` (default = iban), `fieldBic` (default = bic) and `allowLowerCaseCountryCode` (default: false) | in a sepa bank account, iban and bic contains the country code, both must match and can be validated against another countryCode field
 |EmptyIfOtherHasValue | `field`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` contains `valueCompare`
 |EmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is empty
 |EmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is not empty
@@ -46,8 +46,8 @@ Included Validators - multi fields
 |NotEmptyIfOtherHasValue | `field`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` contains `valueCompare`
 |NotEmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is empty
 |NotEmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is not empty
-|PostalCode | `fieldCountryCode` (default: countryCode) and `fieldPostalCode` (default postalCode) | postal code, post code or zip is validated using country specific rules, the country code is read from `fieldCountryCode`, there are rules for 161 countries included
-|VatId | `fieldCountryCode` (default: countryCode) and `fieldVatId` (default vatId) | vat registration number is validated using country specific rules, the country code is read from `fieldCountryCode`, there are format rules for 29 and checksum checks for 15 countries  included
+|PostalCode | `fieldCountryCode` (default: countryCode), `fieldPostalCode` (default postalCode) and `allowLowerCaseCountryCode` (default: false) | postal code, post code or zip is validated using country specific rules, the country code is read from `fieldCountryCode`, there are rules for 161 countries included
+|VatId | `fieldCountryCode` (default: countryCode), `fieldVatId` (default vatId) and `allowLowerCaseCountryCode` (default: false) | vat registration number is validated using country specific rules, the country code is read from `fieldCountryCode`, there are format rules for 29 and checksum checks for 15 countries  included
 
 
 Dependencies
@@ -81,7 +81,7 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.6.6</version>
+      <version>0.6.7</version>
     </dependency>
 ```
 

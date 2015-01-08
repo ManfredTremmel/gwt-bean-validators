@@ -43,6 +43,11 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
   private String fieldCountryCode;
 
   /**
+   * are lower case country codes allowed (true/false).
+   */
+  private boolean allowLowerCaseCountryCode;
+
+  /**
    * field name of the iban field.
    */
   private String fieldIban;
@@ -60,6 +65,7 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
   @Override
   public final void initialize(final BankCountry pconstraintAnnotation) {
     this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
     this.fieldIban = pconstraintAnnotation.fieldIban();
     this.fieldBic = pconstraintAnnotation.fieldBic();
     this.message = pconstraintAnnotation.message();
@@ -96,12 +102,19 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
         return false;
       } else if (StringUtils.length(valueIban) >= IbanValidator.IBAN_LENGTH_MIN
           && StringUtils.length(valueBic) >= BicValidator.BIC_LENGTH_MIN) {
-        final String countryIban = valueIban.substring(0, 2);
-        final String countryBic = valueBic.substring(4, 6);
+        String countryIban = valueIban.replaceAll("\\s+", "").substring(0, 2);
+        String countryBic = valueBic.replaceAll("\\s+", "").substring(4, 6);
         if (StringUtils.length(valueCountry) != 2) {
           // missing country selection, us country of iban
           valueCountry = countryIban;
         }
+
+        if (this.allowLowerCaseCountryCode) {
+          valueCountry = StringUtils.upperCase(valueCountry);
+          countryIban = StringUtils.upperCase(countryIban);
+          countryBic = StringUtils.upperCase(countryIban);
+        }
+
         if (!valueCountry.equals(countryIban) || !valueCountry.equals(countryBic)) {
           pcontext.disableDefaultConstraintViolation();
           if (!valueCountry.equals(countryIban)) {
