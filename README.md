@@ -12,7 +12,7 @@ Included Validators - single field
 |AlternateSize | `size1` and `size2` (no defaults) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long.
 |Bic | `ignoreWhitspaces` (default false) | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers
-|Email | - | formal email check
+|Email | - | uses email-check routines of apache commons validator
 |Gln | - | checks length, format and checksum of a Global Location Number (also known as International Location Number)
 |Gtin | - | checks length, format and checksum of a Global Trade Item Number, short (8 digits) and long (13 digits) are allowed (Gtin is also known as European Article Number)
 |Gtin8 | - | checks length, format and checksum of a Global Trade Item Number, only short version (8 digits) is allowed (Gtin is also known as European Article Number)
@@ -28,7 +28,7 @@ Included Validators - single field
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
 |Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled
 |RegularExpression | - | checks if value itself is a regular expression
-|Url | - | formal url check
+|Url | - | uses url-check routines of apache commons validator
 
 
 Included Validators - multi fields
