@@ -27,7 +27,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Check if a field's size has one of the two given sizes - interface.
+ * The annotated element size must be exactly match size1 or size2.<br />
+ * Supported types are Strings <code>null</code> elements are considered valid.<br />
+ * With the following options separator characters can be removed before size is checked:
+ * <ul>
+ * <li>ignoreWhiteSpaces (true/false, default false)</li>
+ * <li>ignoreMinus (true/false, default false)</li>
+ * <li>ignoreSlashes (true/false, default false)</li>
+ * </ul>
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -58,6 +65,21 @@ public @interface AlternateSize {
    * second possible size.
    */
   int size2();
+
+  /**
+   * true if whitespaces should be ignored.
+   */
+  boolean ignoreWhiteSpaces() default false;
+
+  /**
+   * true if minus should be ignored.
+   */
+  boolean ignoreMinus() default false;
+
+  /**
+   * true if slashes should be ignored.
+   */
+  boolean ignoreSlashes() default false;
 
   /**
    * payload whatever.

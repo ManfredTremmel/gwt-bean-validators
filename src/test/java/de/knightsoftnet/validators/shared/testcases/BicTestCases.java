@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -48,6 +48,8 @@ public class BicTestCases {
     correctCases.add(new BicTestBean("GIBAATWWXXX"));
     correctCases.add(new BicTestBean("POFICHBEXXX"));
     correctCases.add(new BicTestBean("CCRTIT21"));
+    correctCases.add(new BicTestBean("HELADEF1RRS"));
+    correctCases.add(new BicTestBean("CHASGB2LXXX"));
     return correctCases;
   }
 
@@ -67,9 +69,10 @@ public class BicTestCases {
    *
    * @return wrong test beans
    */
-  public static final List<BicTestBean> getWrongLowercaseTestBeans() {
+  public static final List<BicTestBean> getWrongFormatTestBeans() {
     final List<BicTestBean> wrongCases = new ArrayList<BicTestBean>();
     wrongCases.add(new BicTestBean("GeNODEFF701"));
+    wrongCases.add(new BicTestBean("CCRTIT01"));
     return wrongCases;
   }
 
@@ -80,7 +83,7 @@ public class BicTestCases {
    */
   public static final List<BicTestBean> getWrongToShortTestBeans() {
     final List<BicTestBean> wrongCases = new ArrayList<BicTestBean>();
-    wrongCases.add(new BicTestBean("GeNODEFF70"));
+    wrongCases.add(new BicTestBean("GENODEFF70"));
     return wrongCases;
   }
 

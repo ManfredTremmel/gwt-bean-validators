@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -65,7 +65,7 @@ public class Isbn13Test extends AbstractValidationTest<Isbn13TestBean> {
   public final void testToSmallIsbn13IsWrong() {
     for (final Isbn13TestBean testBean : Isbn13TestCases.getToSmallTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+          "de.knightsoftnet.validators.shared.impl.SizeWithoutSeparatorsValidator");
     }
   }
 
@@ -76,7 +76,7 @@ public class Isbn13Test extends AbstractValidationTest<Isbn13TestBean> {
   public final void testToBigIsbn13IsWrong() {
     for (final Isbn13TestBean testBean : Isbn13TestCases.getToBigTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+          "de.knightsoftnet.validators.shared.impl.SizeWithoutSeparatorsValidator");
     }
   }
 
@@ -87,7 +87,7 @@ public class Isbn13Test extends AbstractValidationTest<Isbn13TestBean> {
   public final void testNotNumericIsbn13IsWrong() {
     for (final Isbn13TestBean testBean : Isbn13TestCases.getNotNumericTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+          "de.knightsoftnet.validators.shared.impl.Isbn13Validator");
     }
   }
 }

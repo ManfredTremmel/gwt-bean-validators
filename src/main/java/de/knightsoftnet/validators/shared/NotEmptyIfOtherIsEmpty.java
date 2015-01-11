@@ -27,7 +27,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Check if a field is filled if another field is empty.
+ * The annotated bean must contain at least two properties:
+ * <ul>
+ * <li>a field that has to be checked (option <code>field</code>)</li>
+ * <li>a field which entry is compared (option <code>fieldCompare</code>)</li>
+ * </ul>
+ * if the entry of <code>fieldCompare</code> is empty (null or ""), <code>field</code> must not be
+ * empty (null or "").<br />
+ * Supported types are beans, <code>null</code> elements are considered valid.<br />
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$

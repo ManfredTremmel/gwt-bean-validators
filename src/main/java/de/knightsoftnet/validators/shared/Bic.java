@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -24,10 +24,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
 
 /**
- * Check a string if it's a valid BIC.
+ * The annotated element must be a valid BIC (Business Identifier Code in the past also known as
+ * Bank Identifier Code).<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid.<br />
+ * If <code>ignoreWhiteSpaces</code> is set to <code>true</code>, whitespaces are removed before
+ * test is done.<br />
+ * It's a formal test, against format definition, size and SWIFT country list.<br />
+ * There is no test of validity of the BIC!
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -58,6 +66,7 @@ public @interface Bic {
   /**
    * should whitespaces be ignored (true/false).
    */
+  @OverridesAttribute(constraint = AlternateSize.class, name = "ignoreWhiteSpaces")
   boolean ignoreWhitspaces() default false;
 
   /**

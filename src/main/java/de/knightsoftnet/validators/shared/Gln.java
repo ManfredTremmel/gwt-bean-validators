@@ -29,7 +29,11 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
 /**
- * Check a string if it's a valid GLN.
+ * The annotated element must be a valid Global Location Number (until 2009 known as International
+ * Location Number).<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid.<br />
+ * There are numeric, size and checksum tests by apache commons validation routines.<br />
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -59,7 +63,7 @@ public @interface Gln {
   Class<? extends Payload>[] payload() default {};
 
   /**
-   * Defines several {@code @GLN} annotations on the same element.
+   * Defines several {@code @Gln} annotations on the same element.
    */
   @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
       ElementType.CONSTRUCTOR, ElementType.PARAMETER})
@@ -67,7 +71,7 @@ public @interface Gln {
   @Documented
   public @interface List {
     /**
-     * email value.
+     * gln value.
      */
     Gln[] value();
   }

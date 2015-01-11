@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -27,7 +27,15 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Check if a vat id field is valid for the selected country - interface.
+ * The annotated bean must contain two properties:
+ * <ul>
+ * <li>country code (option <code>fieldCountryCode</code>)</li>
+ * <li>vat id (option <code>fieldVatId</code>)</li>
+ * </ul>
+ * The vat id is checked against country specific rules for validity. Checksum checks are done, when
+ * available.<br />
+ * Supported types are beans, <code>null</code> elements are considered valid.<br />
+ * If <code>allowLowerCaseCountryCode</code> is set to true, lower case country codes are accepted.
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$

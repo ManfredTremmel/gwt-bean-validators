@@ -18,9 +18,10 @@ package de.knightsoftnet.validators.shared.impl;
 import de.knightsoftnet.validators.shared.IbanFormated;
 import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+
+import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -65,7 +66,7 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
    */
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
-    final String valueAsString = ObjectUtils.toString(pvalue);
+    final String valueAsString = Objects.toString(pvalue, null);
     if (StringUtils.isEmpty(valueAsString)) {
       // empty field is ok
       return true;
@@ -77,7 +78,8 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
     final String countryCode = valueAsString.substring(0, 2);
     final Integer validIbanLength = SwiftDefinitions.COUNTRY_IBAN_LENGTH.get(countryCode);
     if (validIbanLength == null
-        || valueAsString.replaceAll("\\s", "").length() != validIbanLength.intValue()) {
+        || valueAsString.replaceAll("\\s", StringUtils.EMPTY).length() != validIbanLength
+            .intValue()) {
       // unknown country or wrong length for the country!
       return false;
     }
@@ -86,7 +88,7 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
       return false;
     }
 
-    return CHECK_IBAN.isValid(valueAsString.replaceAll("\\s", ""));
+    return CHECK_IBAN.isValid(valueAsString.replaceAll("\\s", StringUtils.EMPTY));
   }
 
 }

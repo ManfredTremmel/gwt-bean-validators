@@ -56,7 +56,7 @@ public class BicTest extends AbstractValidationTest<BicTestBean> {
    */
   @Test
   public final void testLowerCaseBicIsWrong() {
-    for (final BicTestBean testBean : BicTestCases.getWrongLowercaseTestBeans()) {
+    for (final BicTestBean testBean : BicTestCases.getWrongFormatTestBeans()) {
       super.validationTest(testBean, false, "de.knightsoftnet.validators.shared.impl.BicValidator");
     }
   }

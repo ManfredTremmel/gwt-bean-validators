@@ -24,11 +24,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
-import javax.validation.constraints.Size;
 
 /**
- * Check a string if it's a valid IBAN.
+ * The annotated element must be a valid International Bank Account Number.<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid. Whitespaces as separators are allowed when <code>ignoreWhitspaces</code> is
+ * set to <code>true</code>.<br />
+ * There are format, size, SEPA country and checksum tests by apache commons validation routines.
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -39,7 +43,7 @@ import javax.validation.constraints.Size;
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
     ElementType.CONSTRUCTOR, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-@Size(min = IbanValidator.IBAN_LENGTH_MIN, max = IbanValidator.IBAN_LENGTH_MAX)
+@SizeWithoutSeparators(min = IbanValidator.IBAN_LENGTH_MIN, max = IbanValidator.IBAN_LENGTH_MAX)
 public @interface Iban {
   /**
    * localized message.
@@ -59,10 +63,11 @@ public @interface Iban {
   /**
    * should whitespaces be ignored (true/false).
    */
+  @OverridesAttribute(constraint = SizeWithoutSeparators.class, name = "ignoreWhiteSpaces")
   boolean ignoreWhitspaces() default false;
 
   /**
-   * Defines several {@code @IBAN} annotations on the same element.
+   * Defines several {@code @Iban} annotations on the same element.
    */
   @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
       ElementType.CONSTRUCTOR, ElementType.PARAMETER})
@@ -70,7 +75,7 @@ public @interface Iban {
   @Documented
   public @interface List {
     /**
-     * email value.
+     * iban value.
      */
     Iban[] value();
   }

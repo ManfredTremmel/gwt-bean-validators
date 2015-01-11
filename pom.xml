@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.8</version>
+	<version>0.7.0</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>

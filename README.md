@@ -9,7 +9,7 @@ Included Validators - single field
 |Annotation | Parameters | Checks
 |------|----------|----------
 |AgeLimitCheck | `minYears` (no default) | checks a date field, it must be `minYears` ago
-|AlternateSize | `size1` and `size2` (no defaults) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long.
+|AlternateSize | `size1` and `size2` (no defaults), `ignoreWhiteSpaces`, `ignoreMinus` and `ignoreSlashes` (default false) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long. With the `ignore*` parameters some characters can be filtered out, before the check is done.
 |Bic | `ignoreWhitspaces` (default false) | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers
 |Email | - | uses email-check routines of apache commons validator
@@ -28,6 +28,7 @@ Included Validators - single field
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
 |Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled
 |RegularExpression | - | checks if value itself is a regular expression
+|SizeWithoutSeparators | `min` (default 0) and `max` (default max integer), `ignoreWhiteSpaces`, `ignoreMinus` and `ignoreSlashes` (default false) | works like default `Size` validator for Strings, with the `ignore*` parameters some characters can be filtered out, before the check is done.
 |Url | - | uses url-check routines of apache commons validator
 
 
@@ -81,7 +82,7 @@ The dependency itself:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.6.8</version>
+      <version>0.7.0</version>
     </dependency>
 ```
 

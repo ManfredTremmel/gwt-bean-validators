@@ -50,7 +50,7 @@ public class GwtTestBicTest extends AbstractValidationTest<BicTestBean> {
    * bic with lowercase chars inside.
    */
   public final void testLowerCaseBicIsWrong() {
-    for (final BicTestBean testBean : BicTestCases.getWrongLowercaseTestBeans()) {
+    for (final BicTestBean testBean : BicTestCases.getWrongFormatTestBeans()) {
       super.validationTest(testBean, false, "de.knightsoftnet.validators.shared.impl.BicValidator");
     }
   }

@@ -2,7 +2,7 @@
 /.settings/
 /.classpath
 /.project
-/sample.log
+/sample.log*
 /war/
 /www-test/
 /gwt-unitCache/

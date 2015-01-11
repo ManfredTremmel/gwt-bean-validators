@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -27,13 +27,17 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Check passwords if they fulfill some complexity rules - interface.
+ * The annotated element must be a valid password.<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid.<br />
+ * There are the following rules checked (with <code>minRules</code> parameter the number rules can
+ * be defined that have to be fullfilled):
  * <ul>
  * <li>upper-/lowercase</li>
  * <li>digits</li>
  * <li>special character</li>
  * </ul>
- * size limits should be added by separate size annotation.
+ * size limits should be checked by separate size annotation.
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -74,7 +78,7 @@ public @interface Password {
   @Documented
   public @interface List {
     /**
-     * must be filled if other is empty value.
+     * password value.
      */
     Password[] value();
   }

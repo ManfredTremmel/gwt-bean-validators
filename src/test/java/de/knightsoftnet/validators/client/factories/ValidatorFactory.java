@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -24,6 +24,7 @@ import de.knightsoftnet.validators.shared.beans.AgeLimitTestBean;
 import de.knightsoftnet.validators.shared.beans.AlternateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.BicTestBean;
+import de.knightsoftnet.validators.shared.beans.BicWithSpacesTestBean;
 import de.knightsoftnet.validators.shared.beans.CreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.EmailTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
@@ -34,12 +35,16 @@ import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 import de.knightsoftnet.validators.shared.beans.GtinTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
+import de.knightsoftnet.validators.shared.beans.IbanWithSpacesTestBean;
 import de.knightsoftnet.validators.shared.beans.Isbn10FormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.Isbn10TestBean;
+import de.knightsoftnet.validators.shared.beans.Isbn10WithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.Isbn13FormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.Isbn13TestBean;
+import de.knightsoftnet.validators.shared.beans.Isbn13WithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsbnFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IsbnTestBean;
+import de.knightsoftnet.validators.shared.beans.IsbnWithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
@@ -50,6 +55,7 @@ import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBea
 import de.knightsoftnet.validators.shared.beans.PasswordTestBean;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.beans.RegExTestBean;
+import de.knightsoftnet.validators.shared.beans.SizeWithoutSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
@@ -69,18 +75,20 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
    * {@link GwtValidation} annotation can be validated.
    */
   @GwtValidation(value = {AgeLimitTestBean.class, AlternateSizeTestBean.class,
-      BankCountryTestBean.class, BicTestBean.class, CreditCardNumberTestBean.class,
-      EmailTestBean.class, EmptyIfOtherIsEmptyTestBean.class, EmptyIfOtherIsNotEmptyTestBean.class,
-      GlnTestBean.class, Gtin13TestBean.class, Gtin8TestBean.class, GtinTestBean.class,
-      IbanFormatedTestBean.class, IbanTestBean.class, Isbn10FormatedTestBean.class,
-      Isbn10TestBean.class, Isbn13FormatedTestBean.class, Isbn13TestBean.class,
-      IsbnFormatedTestBean.class, IsbnTestBean.class, IsinTestBean.class,
+      BankCountryTestBean.class, BicTestBean.class, BicWithSpacesTestBean.class,
+      CreditCardNumberTestBean.class, EmailTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
+      EmptyIfOtherIsNotEmptyTestBean.class, GlnTestBean.class, Gtin13TestBean.class,
+      Gtin8TestBean.class, GtinTestBean.class, IbanFormatedTestBean.class, IbanTestBean.class,
+      IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class, Isbn10TestBean.class,
+      Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class, Isbn13TestBean.class,
+      Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class, IsbnTestBean.class,
+      IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
       NotEmptyAlternateIfOtherHasValueTestBean.class,
       NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
-      PasswordTestBean.class, PostalCodeTestBean.class, RegExTestBean.class, UrlTestBean.class,
-      VatIdTestBean.class})
+      PasswordTestBean.class, PostalCodeTestBean.class, RegExTestBean.class,
+      SizeWithoutSeparatorsTestBean.class, UrlTestBean.class, VatIdTestBean.class})
   public interface GwtValidator extends Validator {
   }
 

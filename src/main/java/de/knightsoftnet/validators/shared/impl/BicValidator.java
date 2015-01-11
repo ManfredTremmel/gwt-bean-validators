@@ -67,7 +67,8 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
     if (this.ignoreWhitspaces) {
-      valueAsString = Objects.toString(pvalue, "").replaceAll("\\s+", "");
+      valueAsString =
+          Objects.toString(pvalue, StringUtils.EMPTY).replaceAll("\\s+", StringUtils.EMPTY);
     } else {
       valueAsString = Objects.toString(pvalue, null);
     }
@@ -79,7 +80,8 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
       // to short or to long, but it's handled by size validator!
       return true;
     }
-    if (!valueAsString.matches("^[A-Z0-9]{4}[A-Z]{2}([A-Z0-9]{2}|[A-Z0-9]{5})$")) {
+    if (!valueAsString
+        .matches("^[A-Z]{4}[A-Z]{2}([01][A-Z]|[A-Z2-9][A-Z0-9])(XXX|[A-WYZ0-9][A-Z0-9]{2}|)$")) {
       // format is wrong!
       return false;
     }

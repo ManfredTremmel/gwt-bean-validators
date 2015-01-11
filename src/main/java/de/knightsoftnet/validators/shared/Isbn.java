@@ -26,11 +26,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
-import javax.validation.constraints.Digits;
 
 /**
- * Check a string if it's a valid ISBN (10 or 13 digits long).
+ * The annotated element must be a valid International Standard Book Number in the long (13 digits)
+ * or short (10 digits) format.<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid. Minus signs as separators are allowed, when <code>ignoreSeparators</code>
+ * is set to <code>true</code>.<br />
+ * There are numeric, size and checksum tests by apache commons validation routines.<br />
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -42,7 +47,6 @@ import javax.validation.constraints.Digits;
     ElementType.CONSTRUCTOR, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @AlternateSize(size1 = Isbn10Validator.ISBN10_LENGTH, size2 = Isbn13Validator.ISBN13_LENGTH)
-@Digits(integer = Isbn13Validator.ISBN13_LENGTH, fraction = 0)
 public @interface Isbn {
   /**
    * localized message.
@@ -62,10 +66,11 @@ public @interface Isbn {
   /**
    * should separating minus signs be ignored (true/false).
    */
+  @OverridesAttribute(constraint = AlternateSize.class, name = "ignoreMinus")
   boolean ignoreSeparators() default false;
 
   /**
-   * Defines several {@code @ISBN} annotations on the same element.
+   * Defines several {@code @Isbn} annotations on the same element.
    */
   @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
       ElementType.CONSTRUCTOR, ElementType.PARAMETER})
@@ -73,7 +78,7 @@ public @interface Isbn {
   @Documented
   public @interface List {
     /**
-     * email value.
+     * isbn value.
      */
     Isbn[] value();
   }

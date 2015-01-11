@@ -79,6 +79,9 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
    */
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
+    if (pvalue == null) {
+      return true;
+    }
     try {
       String valueCountry = BeanUtils.getProperty(pvalue, this.fieldCountryCode);
       final String valueIban = BeanUtils.getProperty(pvalue, this.fieldIban);
@@ -102,8 +105,8 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
         return false;
       } else if (StringUtils.length(valueIban) >= IbanValidator.IBAN_LENGTH_MIN
           && StringUtils.length(valueBic) >= BicValidator.BIC_LENGTH_MIN) {
-        String countryIban = valueIban.replaceAll("\\s+", "").substring(0, 2);
-        String countryBic = valueBic.replaceAll("\\s+", "").substring(4, 6);
+        String countryIban = valueIban.replaceAll("\\s+", StringUtils.EMPTY).substring(0, 2);
+        String countryBic = valueBic.replaceAll("\\s+", StringUtils.EMPTY).substring(4, 6);
         if (StringUtils.length(valueCountry) != 2) {
           // missing country selection, us country of iban
           valueCountry = countryIban;
@@ -115,19 +118,51 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
           countryBic = StringUtils.upperCase(countryIban);
         }
 
-        if (!valueCountry.equals(countryIban) || !valueCountry.equals(countryBic)) {
-          pcontext.disableDefaultConstraintViolation();
-          if (!valueCountry.equals(countryIban)) {
-            pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldIban)
-                .addConstraintViolation();
-          }
-          if (!valueCountry.equals(countryBic)) {
-            pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldBic)
-                .addConstraintViolation();
-          }
-          return false;
+        boolean ibanCodeMatches = false;
+        boolean bicCodeMatches = false;
+        switch (valueCountry) {
+          case "GF": // French Guyana
+          case "GP": // Guadeloupe
+          case "MQ": // Martinique
+          case "RE": // Reunion
+          case "PF": // French Polynesia
+          case "TF": // French Southern Territories
+          case "YT": // Mayotte
+          case "NC": // New Caledonia
+          case "BL": // Saint Barthelemy
+          case "MF": // Saint Martin
+          case "PM": // Saint Pierre et Miquelon
+          case "WF": // Wallis and Futuna Islands
+            // special solution for French oversea teritorials with french registry
+            ibanCodeMatches = "FR".equals(countryIban);
+            bicCodeMatches = "FR".equals(countryBic);
+            break;
+          case "JE": // Jersey
+          case "GG": // Guernsey
+            // they can use GB or FR registry, but iban and bic code must match
+            ibanCodeMatches =
+                ("GB".equals(countryIban) || "FR".equals(countryIban))
+                    && countryBic.equals(countryIban);
+            bicCodeMatches = "GB".equals(countryBic) || "FR".equals(countryBic);
+            break;
+          default:
+            ibanCodeMatches = valueCountry.equals(countryIban);
+            bicCodeMatches = valueCountry.equals(countryBic);
+            break;
         }
-        return true;
+        if (ibanCodeMatches && bicCodeMatches) {
+          return true;
+        }
+        pcontext.disableDefaultConstraintViolation();
+        if (!ibanCodeMatches) {
+          pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldIban)
+              .addConstraintViolation();
+        }
+        if (!bicCodeMatches) {
+          pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldBic)
+              .addConstraintViolation();
+        }
+        return false;
       } else {
         // wrong format, should be handled by other validators
         return true;

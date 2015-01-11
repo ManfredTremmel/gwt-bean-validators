@@ -28,7 +28,10 @@ import javax.validation.Payload;
 import javax.validation.constraints.Size;
 
 /**
- * Check a string if it's a valid IBAN formated.
+ * The annotated element must be a valid International Bank Account Number.<br />
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid. Whitespaces must be correct set as separators.<br />
+ * There are format, size, SEPA country and checksum tests by apache commons validation routines.
  *
  * @author Manfred Tremmel
  * @version $Rev$, $Date$
@@ -57,7 +60,7 @@ public @interface IbanFormated {
   Class<? extends Payload>[] payload() default {};
 
   /**
-   * Defines several {@code @IBANFormated} annotations on the same element.
+   * Defines several {@code @IbanFormated} annotations on the same element.
    */
   @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
       ElementType.CONSTRUCTOR, ElementType.PARAMETER})
@@ -65,7 +68,7 @@ public @interface IbanFormated {
   @Documented
   public @interface List {
     /**
-     * email value.
+     * iban value.
      */
     IbanFormated[] value();
   }
