@@ -50,6 +50,9 @@ public class BicTestCases {
     correctCases.add(new BicTestBean("CCRTIT21"));
     correctCases.add(new BicTestBean("HELADEF1RRS"));
     correctCases.add(new BicTestBean("CHASGB2LXXX"));
+    correctCases.add(new BicTestBean("BBRUBEBB"));
+    correctCases.add(new BicTestBean("SYBKDK22"));
+    correctCases.add(new BicTestBean("INGBNL2A"));
     return correctCases;
   }
 

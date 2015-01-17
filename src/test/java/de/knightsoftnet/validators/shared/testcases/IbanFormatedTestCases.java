@@ -48,6 +48,11 @@ public class IbanFormatedTestCases {
     correctCases.add(new IbanFormatedTestBean("AT24 2011 1822 2121 9800"));
     correctCases.add(new IbanFormatedTestBean("CH16 0900 0000 8777 6876 6"));
     correctCases.add(new IbanFormatedTestBean("IT73 O050 1803 2000 0000 0125 125"));
+    correctCases.add(new IbanFormatedTestBean("BE51 3630 3644 5162"));
+    correctCases.add(new IbanFormatedTestBean("DK62 8065 0002 0071 98"));
+    correctCases.add(new IbanFormatedTestBean("NL42 INGB 0006 3919 52"));
+    correctCases.add(new IbanFormatedTestBean("SE28 5000 0000 0530 4100 2965"));
+    correctCases.add(new IbanFormatedTestBean("SI56 0201 0001 1603 397"));
     return correctCases;
   }
 

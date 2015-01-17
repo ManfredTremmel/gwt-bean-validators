@@ -48,11 +48,21 @@ public class IbanWithSpacesTestCases {
     correctCases.add(new IbanWithSpacesTestBean("AT242011182221219800"));
     correctCases.add(new IbanWithSpacesTestBean("CH1609000000877768766"));
     correctCases.add(new IbanWithSpacesTestBean("IT73O0501803200000000125125"));
+    correctCases.add(new IbanWithSpacesTestBean("BE51363036445162"));
+    correctCases.add(new IbanWithSpacesTestBean("DK6280650002007198"));
+    correctCases.add(new IbanWithSpacesTestBean("NL42INGB0006391952"));
+    correctCases.add(new IbanWithSpacesTestBean("SE2850000000053041002965"));
+    correctCases.add(new IbanWithSpacesTestBean("SI56020100011603397"));
     correctCases.add(new IbanWithSpacesTestBean("DE16 7016 0000 0000 5554 44"));
     correctCases.add(new IbanWithSpacesTestBean("DE49 4306 0967 0000 0334 01"));
     correctCases.add(new IbanWithSpacesTestBean("AT24 2011 1822 2121 9800"));
     correctCases.add(new IbanWithSpacesTestBean("CH16 0900 0000 8777 6876 6"));
     correctCases.add(new IbanWithSpacesTestBean("IT73 O050 1803 2000 0000 0125 125"));
+    correctCases.add(new IbanWithSpacesTestBean("BE51 3630 3644 5162"));
+    correctCases.add(new IbanWithSpacesTestBean("DK62 8065 0002 0071 98"));
+    correctCases.add(new IbanWithSpacesTestBean("NL42 INGB 0006 3919 52"));
+    correctCases.add(new IbanWithSpacesTestBean("SE28 5000 0000 0530 4100 2965"));
+    correctCases.add(new IbanWithSpacesTestBean("SI56 0201 0001 1603 397"));
     return correctCases;
   }
 
