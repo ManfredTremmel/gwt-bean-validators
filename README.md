@@ -76,13 +76,56 @@ The build packages are currently not on a indexed maven repository, but you can 
   </repositories>
 ```
 
-The dependency itself:
+The dependency itself for GWT-Projects:
 
 ```
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
       <version>0.7.1</version>
+    </dependency>
+    <dependency>
+      <groupId>gwt-commons-lang3</groupId>
+      <artifactId>gwt-commons-lang3</artifactId>
+      <version>3.3.2-SNAPSHOT</version>
+      <classifier>sources</classifier>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>gwt-commons-validator</groupId>
+      <artifactId>gwt-commons-validator</artifactId>
+      <version>1.4.0-SNAPSHOT</version>
+      <classifier>sources</classifier>
+      <scope>provided</scope>
+    </dependency>
+```
+For non GWT-Projects you can get rid of all gwt dependencies and use the original apache commons libs:
+
+```
+    <dependency>
+      <groupId>gwt-bean-validators</groupId>
+      <artifactId>gwt-bean-validators</artifactId>
+      <version>0.7.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>gwt-commons-lang3</groupId>
+          <artifactId>gwt-commons-lang3</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>gwt-commons-validator</groupId>
+          <artifactId>gwt-commons-validator</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+      <version>1.4.0</version>
     </dependency>
 ```
 
