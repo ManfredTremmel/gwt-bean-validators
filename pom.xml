@@ -200,6 +200,7 @@
 					<style>OBFUSCATED</style>
 					<failOnError>true</failOnError>
 					<localWorkers>-1</localWorkers>
+					<testTimeOut>300</testTimeOut>
 					<extraJvmArgs>-Xms512m -Xmx1g -XX:MaxPermSize=256m</extraJvmArgs>
 				</configuration>
 			</plugin>

@@ -2,8 +2,14 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
  "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module rename-to="GwtBeanValidatorsTest">
-  <!-- Inherit our applications main module.                      -->
+  <!-- Inherit the core Web Toolkit stuff. -->
+  <inherits name='com.google.gwt.user.User' />
+
+  <!-- Inherit our applications main module. -->
   <inherits name='de.knightsoftnet.validators.GwtBeanValidators' />
+
+  <!-- Inherit the gwt junit stuff. -->
+  <inherits name='com.google.gwt.junit.JUnit' />
 
   <!-- our own validation factory implementation with @GwtValidation entries for each bean we
        want to validate -->
@@ -16,4 +22,9 @@
   <replace-with class="de.knightsoftnet.validators.client.factories.ReflectGetterFactory">
     <when-type-is class="de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface" />
   </replace-with>
+
+  <!-- Specify the paths for translatable code -->
+  <source path='client' />
+  <source path='shared' />
+
 </module>
