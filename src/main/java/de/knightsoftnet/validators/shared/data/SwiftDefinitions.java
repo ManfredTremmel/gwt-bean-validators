@@ -22,7 +22,7 @@ import java.util.Map;
  * Some SWIFT definitions for bank accounts.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public final class SwiftDefinitions {

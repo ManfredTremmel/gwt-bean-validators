@@ -22,7 +22,7 @@ import java.util.Map;
  * Postal code regex definitions for the known countrys.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public final class PostalCodeDefinitions {

@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a postal code field is valid for the selected country.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class PostalCodeValidator implements ConstraintValidator<PostalCode, Object> {
@@ -67,7 +67,7 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

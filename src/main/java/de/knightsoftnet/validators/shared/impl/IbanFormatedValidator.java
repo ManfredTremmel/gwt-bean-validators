@@ -30,7 +30,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid IBAN formated.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, Object> {

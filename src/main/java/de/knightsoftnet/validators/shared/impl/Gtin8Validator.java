@@ -29,7 +29,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid GTIN8/EAN8.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class Gtin8Validator implements ConstraintValidator<Gtin8, Object> {

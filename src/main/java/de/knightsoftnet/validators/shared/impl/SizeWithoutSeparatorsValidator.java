@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a field's size has one of the two given sizes.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class SizeWithoutSeparatorsValidator implements

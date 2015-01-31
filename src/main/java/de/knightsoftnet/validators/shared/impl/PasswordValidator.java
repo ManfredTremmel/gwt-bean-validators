@@ -34,7 +34,7 @@ import javax.validation.ConstraintValidatorContext;
  * size limits should be added by separate size annotation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class PasswordValidator implements ConstraintValidator<Password, Object> {
@@ -60,7 +60,7 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(Object,
    *      javax.validation.ConstraintValidatorContext)

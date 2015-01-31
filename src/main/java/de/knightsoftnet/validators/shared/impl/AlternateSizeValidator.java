@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a field's size has one of the two given sizes.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class AlternateSizeValidator implements ConstraintValidator<AlternateSize, Object> {
@@ -72,7 +72,7 @@ public class AlternateSizeValidator implements ConstraintValidator<AlternateSize
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(Object,
    *      javax.validation.ConstraintValidatorContext)

@@ -25,7 +25,7 @@ import com.google.gwt.validation.client.UserValidationMessagesResolver;
  * message resolver, this enables us to add own localized messages to the annotations.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  */
 public class CustomValidationMessagesResolver extends AbstractValidationMessageResolver implements
     UserValidationMessagesResolver {

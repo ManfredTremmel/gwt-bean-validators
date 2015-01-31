@@ -32,7 +32,7 @@ import javax.validation.Payload;
  * are considered valid.<br />
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

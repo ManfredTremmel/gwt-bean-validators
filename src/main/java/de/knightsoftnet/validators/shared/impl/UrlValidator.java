@@ -26,7 +26,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid URL.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class UrlValidator implements ConstraintValidator<Url, String> {

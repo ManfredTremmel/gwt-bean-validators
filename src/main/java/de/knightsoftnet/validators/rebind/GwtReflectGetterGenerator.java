@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  * this class generates a simple class to get properties of all validated classes by name.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class GwtReflectGetterGenerator extends Generator {

@@ -21,7 +21,7 @@ import de.knightsoftnet.validators.client.AbstractGwtReflectGetterFactory;
  * interface for beans which provides a get field by name method.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  * @deprecated As of release 0.6.0, replaced by {@link AbstractGwtReflectGetterFactory}
  */
 @Deprecated

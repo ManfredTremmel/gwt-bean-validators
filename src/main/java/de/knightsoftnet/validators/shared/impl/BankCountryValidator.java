@@ -27,7 +27,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a country field and the country in iban and bic match, implementation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class BankCountryValidator implements ConstraintValidator<BankCountry, Object> {
@@ -72,7 +72,7 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(Object,
    *      javax.validation.ConstraintValidatorContext)

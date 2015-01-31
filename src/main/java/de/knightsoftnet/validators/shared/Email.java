@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
  * routines.<br />
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

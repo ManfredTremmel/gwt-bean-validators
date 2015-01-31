@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -23,6 +23,7 @@ import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmptyTestBean;
@@ -38,7 +39,7 @@ import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
  * to @GwtValidation annotation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  */
 public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
 
@@ -47,7 +48,8 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
    * {@link GwtValidation} annotation can be reflected.
    */
   @GwtValidation(value = {BankCountryTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
-      EmptyIfOtherIsNotEmptyTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
+      EmptyIfOtherIsNotEmptyTestBean.class, MustBeEqualTestBean.class,
+      NotEmptyAlternateIfOtherHasValueTestBean.class,
       NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,

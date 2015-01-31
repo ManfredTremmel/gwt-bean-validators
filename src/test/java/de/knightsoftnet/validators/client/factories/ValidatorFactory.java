@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -46,6 +46,7 @@ import de.knightsoftnet.validators.shared.beans.IsbnFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IsbnTestBean;
 import de.knightsoftnet.validators.shared.beans.IsbnWithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmptyTestBean;
@@ -66,7 +67,7 @@ import javax.validation.Validator;
  * beans which should be checked by bean validators have to be added to @GwtValidation annotation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  */
 public class ValidatorFactory extends AbstractGwtValidatorFactory {
 
@@ -82,7 +83,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class, Isbn10TestBean.class,
       Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class, Isbn13TestBean.class,
       Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class, IsbnTestBean.class,
-      IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
+      IsbnWithSeparatorsTestBean.class, IsinTestBean.class, MustBeEqualTestBean.class,
       NotEmptyAlternateIfOtherHasValueTestBean.class,
       NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,

@@ -38,7 +38,7 @@ import javax.validation.Payload;
  * Supported types are beans, <code>null</code> elements are considered valid.<br />
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

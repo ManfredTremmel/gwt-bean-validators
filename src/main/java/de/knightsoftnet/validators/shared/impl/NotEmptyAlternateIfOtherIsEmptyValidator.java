@@ -27,7 +27,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a field is filled if another field is empty.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class NotEmptyAlternateIfOtherIsEmptyValidator implements
@@ -64,7 +64,7 @@ public class NotEmptyAlternateIfOtherIsEmptyValidator implements
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(Object,
    *      javax.validation.ConstraintValidatorContext)

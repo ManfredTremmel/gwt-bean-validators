@@ -27,7 +27,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid credit card number.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class CreditCardNumberValidator implements ConstraintValidator<CreditCardNumber, String> {

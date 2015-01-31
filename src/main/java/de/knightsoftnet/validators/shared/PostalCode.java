@@ -37,7 +37,7 @@ import javax.validation.Payload;
  * If <code>allowLowerCaseCountryCode</code> is set to true, lower case country codes are accepted.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

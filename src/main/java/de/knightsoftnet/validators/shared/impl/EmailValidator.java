@@ -26,7 +26,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid eMail.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class EmailValidator implements ConstraintValidator<Email, String> {

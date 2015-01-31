@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.shared.EmptyIfOtherIsEmpty;
+import de.knightsoftnet.validators.shared.MustBeEqual;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,27 +24,26 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Check if a field is empty if another field is empty.
+ * Check if two field entries are equal.
  *
  * @author Manfred Tremmel
  *
  *
  */
-public class EmptyIfOtherIsEmptyValidator implements
-    ConstraintValidator<EmptyIfOtherIsEmpty, Object> {
+public class MustBeEqualValidator implements ConstraintValidator<MustBeEqual, Object> {
 
   /**
    * error message key.
    */
   private String message;
   /**
-   * field name to check.
+   * field1 name to compare.
    */
-  private String fieldCheckName;
+  private String field1Name;
   /**
-   * field name to compare.
+   * field2 name to compare.
    */
-  private String fieldCompareName;
+  private String field2Name;
 
   /**
    * {@inheritDoc} initialize the validator.
@@ -52,10 +51,10 @@ public class EmptyIfOtherIsEmptyValidator implements
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
    */
   @Override
-  public final void initialize(final EmptyIfOtherIsEmpty pconstraintAnnotation) {
+  public final void initialize(final MustBeEqual pconstraintAnnotation) {
     this.message = pconstraintAnnotation.message();
-    this.fieldCheckName = pconstraintAnnotation.field();
-    this.fieldCompareName = pconstraintAnnotation.fieldCompare();
+    this.field1Name = pconstraintAnnotation.field1();
+    this.field2Name = pconstraintAnnotation.field2();
   }
 
   /**
@@ -70,11 +69,13 @@ public class EmptyIfOtherIsEmptyValidator implements
       return true;
     }
     try {
-      final String fieldCheckValue = BeanUtils.getProperty(pvalue, this.fieldCheckName);
-      final String fieldCompareValue = BeanUtils.getProperty(pvalue, this.fieldCompareName);
-      if (StringUtils.isNotEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldCompareValue)) {
+      final String field1Value = BeanUtils.getProperty(pvalue, this.field1Name);
+      final String field2Value = BeanUtils.getProperty(pvalue, this.field2Name);
+      if (!StringUtils.equals(field1Value, field2Value)) {
         pcontext.disableDefaultConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldCheckName)
+        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field1Name)
+            .addConstraintViolation();
+        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field2Name)
             .addConstraintViolation();
         return false;
       }

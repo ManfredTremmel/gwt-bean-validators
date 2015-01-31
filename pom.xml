@@ -6,32 +6,31 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.2</version>
+	<version>0.7.3</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
 		<!-- Convenience property to set the GWT version -->
 		<gwt.version>2.7.0</gwt.version>
-		<validationApi.version>1.0.0.GA</validationApi.version>
 		<hibernateValidator.version>4.1.0.Final</hibernateValidator.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.7</slf4j.version>
+		<slf4j.version>1.7.10</slf4j.version>
 		<gwtCommonsLang.version>3.3.2-SNAPSHOT</gwtCommonsLang.version>
 		<gwtCommonsValidator.version>1.4.1-SNAPSHOT</gwtCommonsValidator.version>
-		<commonsBeanutils.version>1.8.3</commonsBeanutils.version>
-		<wagonSSH.version>2.4</wagonSSH.version>
+		<commonsBeanutils.version>1.9.2</commonsBeanutils.version>
+		<wagonSSH.version>2.8</wagonSSH.version>
 		<mavenResource.version>2.7</mavenResource.version>
 		<mavenCompilerPlugin.version>3.2</mavenCompilerPlugin.version>
 		<mavenSourcePlugin.version>2.4</mavenSourcePlugin.version>
 		<mavenJavaDocPlugin.version>2.10.1</mavenJavaDocPlugin.version>
-		<surefirePlugin.version>2.18</surefirePlugin.version>
+		<surefirePlugin.version>2.18.1</surefirePlugin.version>
 		<checkstyle.version>2.13</checkstyle.version>
-		<checkstyleTool.version>6.1.1</checkstyleTool.version>
+		<checkstyleTool.version>6.2</checkstyleTool.version>
 		<pmd.version>3.2</pmd.version>
 		<findbugs.version>3.0.0</findbugs.version>
 		<cobertura.version>2.7.0-SNAPSHOT</cobertura.version>
-		<jxr.version>2.4</jxr.version>
+		<jxr.version>2.5</jxr.version>
 
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -149,7 +148,7 @@
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils-core</artifactId>
+			<artifactId>commons-beanutils</artifactId>
 			<version>${commonsBeanutils.version}</version>
 		</dependency>
 	</dependencies>
@@ -236,7 +235,6 @@
 							</includes>
 							<excludes>
 								<exclude>**/Abstract*Test.java</exclude>
-								<exclude>**/GwtTest*Test.java</exclude>
 							</excludes>
 						</configuration>
 					</execution>

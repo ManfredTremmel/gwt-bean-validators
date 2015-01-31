@@ -26,7 +26,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid Regular Expression.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class RegularExpressionValidator implements ConstraintValidator<RegularExpression, String> {

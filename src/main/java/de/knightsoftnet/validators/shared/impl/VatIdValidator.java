@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check if a vat id field is valid for the selected country.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class VatIdValidator implements ConstraintValidator<VatId, Object> {

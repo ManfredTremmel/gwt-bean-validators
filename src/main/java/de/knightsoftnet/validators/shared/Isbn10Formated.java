@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
  * There are format, size and checksum tests by apache commons validation routines.<br />
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

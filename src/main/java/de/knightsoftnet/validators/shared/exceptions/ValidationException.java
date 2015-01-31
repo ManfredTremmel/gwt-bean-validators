@@ -25,7 +25,7 @@ import javax.validation.ConstraintViolation;
  * The ValidationException is thrown, when a argument is not valid by bean validation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class ValidationException extends Exception implements Serializable {

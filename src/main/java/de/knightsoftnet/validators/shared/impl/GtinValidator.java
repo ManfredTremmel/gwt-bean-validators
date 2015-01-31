@@ -29,7 +29,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid GTIN/EAN.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class GtinValidator implements ConstraintValidator<Gtin, Object> {

@@ -22,7 +22,7 @@ import java.util.Map;
  * Some vat id regular expression definitions.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public final class VatIdDefinitions {

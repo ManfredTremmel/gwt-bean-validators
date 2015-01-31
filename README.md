@@ -41,6 +41,7 @@ Included Validators - multi fields
 |EmptyIfOtherHasValue | `field`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` contains `valueCompare`
 |EmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is empty
 |EmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is not empty
+|MustBeEqual | `field1` and `field2` (no defaults) | can be used for dependency checks e.G. for two password input fields, `field2` must have the same value as `field2`
 |NotEmptyAlternateIfOtherHasValue | `field`, `fieldAlternate`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` has the value `fieldCompare`
 |NotEmptyAlternateIfOtherIsEmpty | `field`, `fieldAlternate` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` is empty
 |NotEmptyAlternateIfOtherIsNotEmpty | `field`, `fieldAlternate` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` is not empty
@@ -53,7 +54,7 @@ Included Validators - multi fields
 
 Dependencies
 ------------
-If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.3.2](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.8.3] (https://commons.apache.org/proper/commons-beanutils/).
+If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.3.2](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.9.2] (https://commons.apache.org/proper/commons-beanutils/).
 On the gwt frontend side, you have to include my [gwt-commons-lang3 3.3.2-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.4.1-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
@@ -82,7 +83,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.2</version>
+      <version>0.7.3</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -105,7 +106,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.2</version>
+      <version>0.7.3</version>
       <exclusions>
         <exclusion>
           <groupId>gwt-commons-lang3</groupId>

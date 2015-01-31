@@ -68,7 +68,7 @@ public class NotEmptyAlternateIfOtherHasValueValidator implements
   }
 
   /**
-   * {@inheritDoc} check if given object.
+   * {@inheritDoc} check if given object is valid.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

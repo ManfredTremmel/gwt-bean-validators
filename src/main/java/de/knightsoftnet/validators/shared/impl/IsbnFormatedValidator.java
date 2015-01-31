@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid ISBN (10 or 13 digits long).
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class IsbnFormatedValidator implements ConstraintValidator<IsbnFormated, Object> {

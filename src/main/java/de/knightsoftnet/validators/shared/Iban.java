@@ -35,7 +35,7 @@ import javax.validation.Payload;
  * There are format, size, SEPA country and checksum tests by apache commons validation routines.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
  * There are no tests for credit card validity!
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

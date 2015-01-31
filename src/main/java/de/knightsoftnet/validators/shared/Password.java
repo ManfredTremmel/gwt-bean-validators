@@ -40,7 +40,7 @@ import javax.validation.Payload;
  * size limits should be checked by separate size annotation.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

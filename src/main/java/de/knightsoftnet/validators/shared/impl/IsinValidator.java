@@ -29,7 +29,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid ISIN.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class IsinValidator implements ConstraintValidator<Isin, Object> {

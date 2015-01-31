@@ -31,7 +31,7 @@ import javax.validation.Payload;
  * Supported types are Dates, <code>null</code> elements are considered valid.<br />
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

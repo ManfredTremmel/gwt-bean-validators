@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid ISBN10.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class Isbn10FormatedValidator implements ConstraintValidator<Isbn10Formated, Object> {

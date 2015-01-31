@@ -29,7 +29,7 @@ import javax.validation.ConstraintValidatorContext;
  * Check a string if it's a valid BIC.
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 public class BicValidator implements ConstraintValidator<Bic, Object> {

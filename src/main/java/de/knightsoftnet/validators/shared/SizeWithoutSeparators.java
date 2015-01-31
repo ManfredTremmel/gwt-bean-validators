@@ -38,7 +38,7 @@ import javax.validation.Payload;
  * </ul>
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented

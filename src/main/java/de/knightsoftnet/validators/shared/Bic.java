@@ -38,7 +38,7 @@ import javax.validation.Payload;
  * There is no test of validity of the BIC!
  *
  * @author Manfred Tremmel
- * @version $Rev$, $Date$
+ *
  *
  */
 @Documented
