@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -187,7 +187,6 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    * Constructs a Decorator using a {@link Widget} widget with error location.
    *
    * @param pwidget the widget
-   * @param errorLocation location of the error text
    */
   public AbstractDecorator(final Widget pwidget) {
     this(pwidget, ErrorPanelLocationEnum.RIGHT, getDefaultResources());
@@ -374,7 +373,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    * Returns the associated {@link ValueBoxEditor}.
    *
    * @return a {@link ValueBoxEditor} instance
-   * @see #setEditor(ValueBoxEditor)
+   * @see #setEditor(ExtendedValueBoxEditor)
    */
   @Override
   public ValueBoxEditor<T> asEditor() {
