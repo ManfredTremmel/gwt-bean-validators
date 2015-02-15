@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.4</version>
+	<version>0.7.5</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -26,8 +26,8 @@
 		<mavenSourcePlugin.version>2.4</mavenSourcePlugin.version>
 		<mavenJavaDocPlugin.version>2.10.1</mavenJavaDocPlugin.version>
 		<surefirePlugin.version>2.18.1</surefirePlugin.version>
-		<checkstyle.version>2.13</checkstyle.version>
-		<checkstyleTool.version>6.2</checkstyleTool.version>
+		<checkstyle.version>2.14</checkstyle.version>
+    <checkstyleTool.version>6.3</checkstyleTool.version>
 		<pmd.version>3.2</pmd.version>
 		<findbugs.version>3.0.0</findbugs.version>
 		<cobertura.version>2.7.0-SNAPSHOT</cobertura.version>
@@ -299,13 +299,13 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${checkstyle.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>${checkstyleTool.version}</version>
-					</dependency>
-				</dependencies>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyleTool.version}</version>
+          </dependency>
+        </dependencies>
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 					<encoding>UTF-8</encoding>

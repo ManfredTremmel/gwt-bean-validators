@@ -39,6 +39,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 /**
@@ -269,8 +271,10 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
   @Override
   public void showErrors(final List<EditorError> errors) {
     final StringBuilder sb = new StringBuilder();
+    String lastMessage = null;
     for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
+      if (this.editorErrorMatches(error) && !StringUtils.equals(lastMessage, error.getMessage())) {
+        lastMessage = error.getMessage();
         sb.append('\n').append(error.getMessage());
       }
     }
