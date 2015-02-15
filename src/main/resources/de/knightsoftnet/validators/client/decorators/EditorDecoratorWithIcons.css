@@ -1,0 +1,40 @@
+.contentContainerStyleLeft {
+  float: right;
+}
+.contentContainerStyleRight {
+  float: left;
+}
+.contentContainerStyleTop {
+  float: left;
+}
+.contentContainerStyleBottom {
+}
+.errorLabelStyleLeft {
+  color: red;
+  padding-right: 1em;
+}
+.errorLabelStyleRight {
+  color: red;
+  padding-left: 1em;
+}
+.errorLabelStyleTop {
+  color: red;
+}
+.errorLabelStyleBottom {
+  color: red;
+}
+.validInputStyle {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PGcgZmlsbD0iIzBmMCI+PHBhdGggZD0ibTMuMjYgNy4xMjhjLjMwNSAwIC41MzUuMjUuNjkxLjc1LjMxMi45MzguNTM1IDEuNDA2LjY2OCAxLjQwNi4xMDIgMCAuMjA3LS4wNzguMzE2LS4yMzQgMi4xOTUtMy4yMjcgNC4yMjctNS41MjMgNi4wOTQtNi44OTEuNzg5LS41NzggMS41NTktLjg2NyAyLjMwOS0uODY3Ljk5MiAwIDEuNTkuMDMxIDEuNzkzLjA5NC4wODYuMDIzLjEyOS4xMjEuMTI5LjI5MyAwIC4xNDEtLjA5LjMxNi0uMjcuNTI3LTUuMDIgNS43NjYtOC4wMiA5LjUxNi04Ljk3NyAxMS4yNS0uMzI4LjU5NC0xLjA4Ni44OTEtMi4yNzMuODkxLS4zOTEgMC0uODAxLS4xMDItMS4yMy0uMzA1LS4xOC0uMDk0LS40OTItLjY5MS0uOTM4LTEuNzkzLS41NjMtMS4zOTEtLjg0NC0yLjYwOS0uODQ0LTMuNjU2IDAtLjM4My4yNzMtLjY5OS44Mi0uOTQ5Ljc1LS4zNDQgMS4zMTItLjUxNiAxLjY4OC0uNTE2aC4wMjMiLz48L2c+PC9zdmc+);
+  background-size: Auto 50%;
+  background-position: right top;
+  background-repeat: no-repeat;
+  padding-right: 1em;
+}
+.errorInputStyle {
+  background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0ibTE1LjcyMjI3NyA4LjA3MTI5YTcuODE2MDg5IDcuOTI4NzEzIDAgMSAxIC0xNS42MzIxNzggMCA3LjgxNjA4OSA3LjkyODcxMyAwIDEgMSAxNS42MzIxNzggMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLjA5KSIgZmlsbD0iI2YwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsLW9wYWNpdHk9Ii43NSIvPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im03LjM1MiAxMC4zMjJjLjM5NiAwIC43OTMgMCAxLjE4OSAwIDAgLjQ5NiAwIC45OTIgMCAxLjQ4OC0uMzk2IDAtLjc5MyAwLTEuMTg5IDAgMC0uNDk2IDAtLjk5MiAwLTEuNDg4bTAtNy4yNmMuMzk2IDAgLjc5MyAwIDEuMTg5IDAtLjAwOSAxLjM2Ny4wMTkgMi43MzUtLjAxNSA0LjEwMi0uMDM0LjYwOS0uMDY4IDEuMjE4LS4xMDIgMS44MjctLjMxNiAwLS42MzMgMC0uOTQ5IDAtLjA1Ni0xLjAxNC0uMTQzLTIuMDI4LS4xMjMtMy4wNDUgMC0uOTYxIDAtMS45MjMgMC0yLjg4NCIgdHJhbnNmb3JtPSJtYXRyaXgoMi44IDAgMCAxLjU0LTE0LjMwMy0zLjQzKSIvPjwvZz48L3N2Zz4=);
+  background-size: Auto 50%;
+  background-position: right top;
+  background-repeat: no-repeat;
+  border: 1px solid red;
+  padding-right: 1em;
+}

@@ -1,0 +1,31 @@
+.contentContainerStyleLeft {
+  float: right;
+}
+.contentContainerStyleRight {
+  float: left;
+}
+.contentContainerStyleTop {
+  float: left;
+}
+.contentContainerStyleBottom {
+}
+.errorLabelStyleLeft {
+  color: red;
+  padding-right: 1em;
+}
+.errorLabelStyleRight {
+  color: red;
+  padding-left: 1em;
+}
+.errorLabelStyleTop {
+  color: red;
+}
+.errorLabelStyleBottom {
+  color: red;
+  float: right;
+}
+.validInputStyle {
+}
+.errorInputStyle {
+  border: 1px solid red;
+}
