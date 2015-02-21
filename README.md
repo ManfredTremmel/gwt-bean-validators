@@ -27,6 +27,7 @@ Included Validators - single field
 |Isbn13Formated | - | checks length, format and checksum of a International Standard Book Number, only long version (13 digits) is allowed, isbn must be grouped with - as separator
 |Isin | - | checks length, format and checksum of a International Securities Identification Number
 |Password | `minRules` | checks password for a number of rules, uper/lower case character, digits and special characters, with `minRules` you can define, how many rules must be fullfilled
+|PhoneNumber | `allowDin5008`, `allowE123`, `allowUri`, `allowMs`, and `allowCommon` (default for all true) | checks phone number, with the parameters you can disable formats
 |RegularExpression | - | checks if value itself is a regular expression
 |SizeWithoutSeparators | `min` (default 0) and `max` (default max integer), `ignoreWhiteSpaces`, `ignoreMinus` and `ignoreSlashes` (default false) | works like default `Size` validator for Strings, with the `ignore*` parameters some characters can be filtered out, before the check is done.
 |Url | - | uses url-check routines of apache commons validator
@@ -42,6 +43,7 @@ Included Validators - multi fields
 |EmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is empty
 |EmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is not empty
 |MustBeEqual | `field1` and `field2` (no defaults) | can be used for dependency checks e.G. for two password input fields, `field2` must have the same value as `field2`
+|MustNotBeEqual | `field1` and `field2` (no defaults) | can be used for dependency checks e.G. for password new and old input fields, `field2` must not have the same value as `field2`
 |NotEmptyAlternateIfOtherHasValue | `field`, `fieldAlternate`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` has the value `fieldCompare`
 |NotEmptyAlternateIfOtherIsEmpty | `field`, `fieldAlternate` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` is empty
 |NotEmptyAlternateIfOtherIsNotEmpty | `field`, `fieldAlternate` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` is not empty
@@ -83,7 +85,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.5</version>
+      <version>0.7.6</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -106,7 +108,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.5</version>
+      <version>0.7.6</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>

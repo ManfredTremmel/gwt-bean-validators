@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * get test cases for must be equal test.
+ * get test cases for must not be equal test.
  *
  * @author Manfred Tremmel
  *
  */
-public class MustBeEqualTestCases {
+public class MustNotBeEqualTestCases {
   /**
    * get empty test beans.
    *
@@ -57,11 +57,7 @@ public class MustBeEqualTestCases {
    */
   public static final List<MustBeEqualTestBean> getWrongTestBeans() {
     final List<MustBeEqualTestBean> wrongCases = new ArrayList<MustBeEqualTestBean>();
-    wrongCases.add(new MustBeEqualTestBean("old", null, "filled"));
-    wrongCases.add(new MustBeEqualTestBean("old", "", "filled"));
-    wrongCases.add(new MustBeEqualTestBean("old", "filled", null));
-    wrongCases.add(new MustBeEqualTestBean("old", "filled", ""));
-    wrongCases.add(new MustBeEqualTestBean("old", "filled", "filledother"));
+    wrongCases.add(new MustBeEqualTestBean("old", "old", "old"));
     return wrongCases;
   }
 }

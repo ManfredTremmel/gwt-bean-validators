@@ -188,6 +188,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String deKnightsoftnetValidatorsSharedValidationMustBeEqualMessage();
 
   /**
+   * message used for must not be equal validation.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationMustNotBeEqualMessage
+   */
+  @DefaultStringValue("the value must not be equal")
+  @Key("deKnightsoftnetValidatorsSharedValidationMustNotBeEqualMessage")
+  String deKnightsoftnetValidatorsSharedValidationMustNotBeEqualMessage();
+
+  /**
    * message used for must be alternate filled if other has a specified value validation.
    *
    * @return deKnightsoftnetValidatorsSharedValidationNotEmptyAlternateIfOtherHasValueMessage
@@ -278,6 +287,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
       + "upper-/lowercase, digits and special characters")
   @Key("deKnightsoftnetValidatorsSharedValidationPasswordMessage")
   String deKnightsoftnetValidatorsSharedValidationPasswordMessage();
+
+  /**
+   * message used for phone number check validation.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationPhoneNumberMessage
+   */
+  @DefaultStringValue("format of phone number is wrong")
+  @Key("deKnightsoftnetValidatorsSharedValidationPhoneNumberMessage")
+  String deKnightsoftnetValidatorsSharedValidationPhoneNumberMessage();
 
   /**
    * message used for postal code check validation.

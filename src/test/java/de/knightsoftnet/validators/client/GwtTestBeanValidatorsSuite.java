@@ -61,6 +61,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     suite.addTestSuite(GwtTstIsbnWithSeparators.class);
     suite.addTestSuite(GwtTstIsin.class);
     suite.addTestSuite(GwtTstMustBeEqual.class);
+    suite.addTestSuite(GwtTstMustNotBeEqual.class);
     suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherHasValue.class);
     suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsEmpty.class);
     suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsNotEmpty.class);
@@ -68,6 +69,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     suite.addTestSuite(GwtTstNotEmptyIfOtherIsEmpty.class);
     suite.addTestSuite(GwtTstNotEmptyIfOtherIsNotEmpty.class);
     suite.addTestSuite(GwtTstPassword.class);
+    suite.addTestSuite(GwtTstPhoneNumber.class);
     suite.addTestSuite(GwtTstPostalCode.class);
     suite.addTestSuite(GwtTstRegularExpression.class);
     suite.addTestSuite(GwtTstSizeWithoutSeparators.class);
