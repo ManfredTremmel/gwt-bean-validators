@@ -85,7 +85,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.6</version>
+      <version>0.8.0</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -108,7 +108,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.7.6</version>
+      <version>0.8.0</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
@@ -152,3 +152,23 @@ Because we don't have Reflections in GWT, you have to add a Validator Factory Im
 Multi value annotations, which are not annotated on the property field itself, but on the top of the bean, need still access to the properties to check. To make this work without reflections, I've included a code generator which generates a helper class out of the beans and a BeanUtil replacement which uses it, so the Validators can work with the server side common `BeanUtils.getProperty(bean, name)` even on the client. To tell the generator which beans need such access, you also have to generate a Factory class. It looks nearly the same way as the ValidatoryFactory and has also to be annotated with @GwtValidation which includes the beans. The version in the test cases should show you, how to use it: [ReflectGetterFactory.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/java/de/knightsoftnet/validators/client/factories/ReflectGetterFactory.java), it has to replace de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface in the project gwt.xml file, you can see this also in the [Project .gwt.xml file of the test cases](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/test/resources/de/knightsoftnet/validators/GwtBeanValidatorsJUnit.gwt.xml)
 
 Because we never can trust client side checks, this checks always should be repeated on server side. To bring back validation results to the frontend, to display them with the editor framework, I've also included the [ValidationException.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/shared/exceptions/ValidationException.java). If you use RPC, you can just add the set of validation errors to the constructor of the bean and throw it, on client side catch it and add the results to the editor.
+
+For client side validation I've added the [BeanValidationEditorDriver.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/client/editor/BeanValidationEditorDriver.java), if you use it as driver for the editor framework, validation is made automaticaly on every change or keyup (if widget suports it). With setSubmitButton(widget) you can add a submit button which is enabled or disabled, depending on the validation results, only if the results are valid, it's enabled.
+Two Decorators, the decent [UniversalDecorator.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/client/decorators/UniversalDecorator.java) and the more decorativ [UniversalDecorator.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/client/decorators/UniversalDecoratorWithIcons.java) can be used to display the validation results on every input field. For own Designs, take [UniversalDecorator.java](https://github.com/ManfredTremmel/gwt-bean-validators/blob/master/src/main/java/de/knightsoftnet/validators/client/decorators/UniversalDecoratorWithIcons.java) as base and replace the Stylesheet. In the UiBinder you simply surround your widget with the Decorator tags like this:
+
+```
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:e="urn:import:de.knightsoftnet.validators.client.decorators">
+...
+        <e:UniversalDecoratorWithIcons errorLocation="RIGHT" ui:field="checkbox" >
+          <e:widget>
+            <g:CheckBox />
+          </e:widget>
+        </e:UniversalDecoratorWithIcons>
+...
+</ui:UiBinder>
+```
+ 
+I'll add a little example on github the next days, but for now you can see the validation in action in the [Base16kTest](http://www.knightsoft-net.de/base16k/) test-application (I've written it for a chorem bug report and use it for testing gwt-technologies, it doesn't do any usefull ;-)), the source can be found here [Base16kTest-Source](http://www.knightsoft-net.de/Base16KTest.tar.bz2).

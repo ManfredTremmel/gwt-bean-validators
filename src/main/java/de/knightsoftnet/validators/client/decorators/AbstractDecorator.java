@@ -22,7 +22,9 @@ import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -51,7 +53,7 @@ import java.util.List;
 
 public abstract class AbstractDecorator<T> extends Composite implements HasEditorErrors<T>,
     IsEditor<ValueBoxEditor<T>>, TakesValue<T>, HasValue<T>, HasValueChangeHandlers<T>,
-    HasKeyPressHandlers, Focusable {
+    HasKeyUpHandlers, HasKeyPressHandlers, Focusable {
 
   /**
    * A ClientBundle that provides images and decoratorStyle sheets for the decorator.
@@ -101,7 +103,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
   /**
    * validation state of the entry.
    */
-  private ValidationStateEnum validationState;
+  private boolean focusOnError;
 
   /**
    * Constructs a Decorator.
@@ -148,7 +150,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
         break;
     }
     this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
-    this.validationState = ValidationStateEnum.NOT_VALIDATED;
+    this.focusOnError = true;
     this.initWidget(layout);
   }
 
@@ -212,15 +214,14 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    *
    * @param pwidget a {@link IsEditor} widget
    */
-  @SuppressWarnings("unchecked")
   @UiChild(limit = 1, tagname = "widget")
   public void setChildWidget(final TakesValue<T> pwidget) {
     this.widget = (Widget) pwidget;
     this.contents.add(this.widget);
     this.setEditor(new ExtendedValueBoxEditor<T>(pwidget, this));
-    if (pwidget instanceof HasValueChangeHandlers<?>) {
-      this.addValueChangeHandler((HasValueChangeHandlers<T>) pwidget);
-    }
+    // if (pwidget instanceof HasValueChangeHandlers<?>) {
+    // this.addValueChangeHandler((HasValueChangeHandlers<T>) pwidget);
+    // }
   }
 
   @SuppressWarnings("unchecked")
@@ -252,7 +253,6 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    * clear errors.
    */
   public final void clearErrors() {
-    this.validationState = ValidationStateEnum.NOT_VALIDATED;
     this.errorLabel.setText("");
     this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
     if (this.contents.getWidget() != null) {
@@ -286,16 +286,16 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
         this.contents.getWidget().removeStyleName(this.decoratorStyle.errorInputStyle());
         this.contents.getWidget().addStyleName(this.decoratorStyle.validInputStyle());
       }
-      this.validationState = ValidationStateEnum.VALIDATION_OK;
     } else {
       if (this.contents.getWidget() != null) {
         this.contents.getWidget().removeStyleName(this.decoratorStyle.validInputStyle());
         this.contents.getWidget().addStyleName(this.decoratorStyle.errorInputStyle());
-        this.setFocus(true);
+        if (this.focusOnError) {
+          this.setFocus(true);
+        }
       }
       this.errorLabel.setText(sb.substring(1));
       this.errorLabel.getElement().getStyle().setDisplay(Display.TABLE);
-      this.validationState = ValidationStateEnum.VALIDATION_FAILED;
     }
   }
 
@@ -394,6 +394,24 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
     this.editor = peditor;
   }
 
+  /**
+   * check if focus on error is active.
+   * 
+   * @return true if widget should get focus on error
+   */
+  public final boolean isFocusOnError() {
+    return this.focusOnError;
+  }
+
+  /**
+   * set focus on error flag, if it's true, the widget get's the focus if validation finds an error.
+   * 
+   * @param pfocusOnError the focusOnError to set
+   */
+  public final void setFocusOnError(final boolean pfocusOnError) {
+    this.focusOnError = pfocusOnError;
+  }
+
   @Override
   public final HandlerRegistration addKeyPressHandler(final KeyPressHandler phandler) {
     if (this.contents.getWidget() instanceof HasKeyPressHandlers) {
@@ -403,22 +421,13 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
     }
   }
 
-  /**
-   * get validation state of the widget.
-   *
-   * @return the validationState
-   */
-  public final ValidationStateEnum getValidationState() {
-    return this.validationState;
+  @Override
+  public HandlerRegistration addKeyUpHandler(final KeyUpHandler pkeyUpHandler) {
+    if (this.contents.getWidget() instanceof HasKeyUpHandlers) {
+      return ((HasKeyUpHandlers) this.contents.getWidget()).addKeyUpHandler(pkeyUpHandler);
+    } else {
+      return null;
+    }
   }
 
-
-  /**
-   * check if entry has changed since it was set by the editor.
-   *
-   * @return true if entry has changed.
-   */
-  public boolean entryHasChanged() {
-    return this.editor != null && this.editor.entryHasChanged();
-  }
 }

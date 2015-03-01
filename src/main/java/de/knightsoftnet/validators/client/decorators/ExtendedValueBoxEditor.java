@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -21,8 +21,6 @@ import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.text.ParseException;
 
 public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
@@ -32,8 +30,6 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
   private final TakesValue<T> takesValues;
   private EditorDelegate<T> delegate;
   private final AbstractDecorator<T> decorator;
-
-  private T originalData;
 
   /**
    * constructor uses widget as base.
@@ -83,17 +79,25 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
 
   @Override
   public void setValue(final T pvalue) {
-    this.originalData = pvalue;
     this.takesValues.setValue(pvalue);
     this.decorator.clearErrors();
   }
 
   /**
-   * check if entry has changed since it was set with setValue().
-   * 
-   * @return true if entry has changed.
+   * getter for the decorator.
+   *
+   * @return the decorator
    */
-  public boolean entryHasChanged() {
-    return ObjectUtils.equals(this.originalData, this.getValue());
+  public final AbstractDecorator<T> getDecorator() {
+    return this.decorator;
+  }
+
+  /**
+   * getter for the widget which takes the values.
+   *
+   * @return the takesValues
+   */
+  public final TakesValue<T> getTakesValues() {
+    return this.takesValues;
   }
 }

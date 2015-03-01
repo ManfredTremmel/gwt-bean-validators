@@ -30,6 +30,11 @@
     <when-type-assignable class="de.knightsoftnet.validators.client.GwtReflectGetterInterface" />
   </generate-with>
 
+  <!-- validation editor driver. -->
+  <generate-with class="de.knightsoftnet.validators.rebind.BeanValidationEditorDriverGenerator">
+    <when-type-assignable class="de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver" />
+  </generate-with>
+
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />
   <source path='shared' />
