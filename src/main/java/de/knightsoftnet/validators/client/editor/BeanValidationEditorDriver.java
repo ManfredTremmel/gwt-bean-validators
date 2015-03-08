@@ -15,13 +15,13 @@
 
 package de.knightsoftnet.validators.client.editor;
 
+import de.knightsoftnet.validators.client.event.HasFormSubmitHandlers;
+
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDelegate;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.Widget;
-
-import de.knightsoftnet.validators.client.event.HasFormSubmitHandlers;
 
 /**
  * Automates editing of simple bean-like objects. The {@link EditorDelegate} provided from this
@@ -105,6 +105,38 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
    * @param psubmitUnchanged the submitUnchanged to set
    */
   void setSubmitUnchanged(boolean psubmitUnchanged);
+
+  /**
+   * get state of validation on key up (check on every key up event).
+   * 
+   * @return true if it's active
+   */
+  boolean isCheckOnKeyUp();
+
+  /**
+   * set state of validation on key up (check on every key up event). to change this state is only
+   * possible, before the first edit call was done.
+   * 
+   * @param pcheckOnKeyUp true/false
+   * @throws IllegalAccessException if this method is called after a edit call
+   */
+  void setCheckOnKeyUp(boolean pcheckOnKeyUp) throws IllegalAccessException;
+
+  /**
+   * get state of submit on return (form is submitted if it's valid and return/enter is pressed).
+   * 
+   * @return true if it's active
+   */
+  boolean isSubmitOnReturn();
+
+  /**
+   * set state of submit on return (form is submitted if it's valid and return/enter is pressed). to
+   * change this state is only possible, before the first edit call was done.
+   * 
+   * @param pcheckOnKeyUp true/false
+   * @throws IllegalAccessException if this method is called after a edit call
+   */
+  void setSubmitOnReturn(boolean psubmitOnReturn) throws IllegalAccessException;
 
   /**
    * setter to add as submit button which is automatically .

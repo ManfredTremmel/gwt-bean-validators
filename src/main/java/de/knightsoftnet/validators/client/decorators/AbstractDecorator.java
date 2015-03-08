@@ -31,19 +31,20 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import org.apache.commons.lang3.StringUtils;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This abstract class combines some methods which are used by decorators.
@@ -93,7 +94,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    * label to display error message.
    */
   @Ignore
-  private final Label errorLabel = new Label();
+  private final HTML errorLabel = new HTML();
 
   /**
    * editor to handle input and errors.
@@ -219,9 +220,6 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
     this.widget = (Widget) pwidget;
     this.contents.add(this.widget);
     this.setEditor(new ExtendedValueBoxEditor<T>(pwidget, this));
-    // if (pwidget instanceof HasValueChangeHandlers<?>) {
-    // this.addValueChangeHandler((HasValueChangeHandlers<T>) pwidget);
-    // }
   }
 
   @SuppressWarnings("unchecked")
@@ -270,16 +268,13 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    */
   @Override
   public void showErrors(final List<EditorError> errors) {
-    final StringBuilder sb = new StringBuilder();
-    String lastMessage = null;
+    final Set<String> messages = new HashSet<String>();
     for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error) && !StringUtils.equals(lastMessage, error.getMessage())) {
-        lastMessage = error.getMessage();
-        sb.append('\n').append(error.getMessage());
+      if (this.editorErrorMatches(error)) {
+        messages.add(error.getMessage());
       }
     }
-
-    if (sb.length() == 0) {
+    if (messages.isEmpty()) {
       this.errorLabel.setText("");
       this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
       if (this.contents.getWidget() != null) {
@@ -294,7 +289,12 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
           this.setFocus(true);
         }
       }
-      this.errorLabel.setText(sb.substring(1));
+      final SafeHtmlBuilder sb = new SafeHtmlBuilder();
+      for (final String message : messages) {
+        sb.appendEscaped(message);
+        sb.appendHtmlConstant("<br />");
+      }
+      this.errorLabel.setHTML(sb.toSafeHtml());
       this.errorLabel.getElement().getStyle().setDisplay(Display.TABLE);
     }
   }
@@ -396,7 +396,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
 
   /**
    * check if focus on error is active.
-   * 
+   *
    * @return true if widget should get focus on error
    */
   public final boolean isFocusOnError() {
@@ -405,7 +405,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
 
   /**
    * set focus on error flag, if it's true, the widget get's the focus if validation finds an error.
-   * 
+   *
    * @param pfocusOnError the focusOnError to set
    */
   public final void setFocusOnError(final boolean pfocusOnError) {

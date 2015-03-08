@@ -85,7 +85,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.0</version>
+      <version>0.8.1</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -108,7 +108,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.0</version>
+      <version>0.8.1</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
@@ -170,5 +170,5 @@ Two Decorators, the decent [UniversalDecorator.java](https://github.com/ManfredT
 ...
 </ui:UiBinder>
 ```
- 
-I'll add a little example on github the next days, but for now you can see the validation in action in the [Base16kTest](http://www.knightsoft-net.de/base16k/) test-application (I've written it for a chorem bug report and use it for testing gwt-technologies, it doesn't do any usefull ;-)), the source can be found here [Base16kTest-Source](http://www.knightsoft-net.de/Base16KTest.tar.bz2).
+
+I've added a little [example application on GitHub](https://github.com/ManfredTremmel/gwt-bean-validators-example), where you can see, how to use bean validation on client and server side.

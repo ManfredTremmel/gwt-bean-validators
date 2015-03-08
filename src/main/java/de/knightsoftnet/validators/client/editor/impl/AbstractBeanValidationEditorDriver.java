@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -15,9 +15,15 @@
 
 package de.knightsoftnet.validators.client.editor.impl;
 
+import de.knightsoftnet.validators.client.decorators.AbstractDecorator;
+import de.knightsoftnet.validators.client.decorators.ExtendedValueBoxEditor;
+import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
+import de.knightsoftnet.validators.client.event.FormSubmitEvent;
+import de.knightsoftnet.validators.client.event.FormSubmitHandler;
+
 import com.google.gwt.editor.client.Editor;
-import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.client.impl.AbstractExtendedBaseEditorDriver;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -34,12 +40,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.validation.client.impl.Validation;
-
-import de.knightsoftnet.validators.client.decorators.AbstractDecorator;
-import de.knightsoftnet.validators.client.decorators.ExtendedValueBoxEditor;
-import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
-import de.knightsoftnet.validators.client.event.FormSubmitEvent;
-import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -72,6 +72,16 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   private boolean submitUnchanged;
 
   /**
+   * check input on key up (when ever you type in a text box).
+   */
+  private boolean checkOnKeyUp = true;
+
+  /**
+   * submit form when enter/return is hit.
+   */
+  private boolean submitOnReturn = true;
+
+  /**
    * submit button.
    */
   private Widget submitButton;
@@ -98,22 +108,26 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
             }
           });
           // if widget has a key up handler, validate on key up
-          decorator.addKeyUpHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(final KeyUpEvent pevent) {
-              AbstractBeanValidationEditorDriver.this.validate();
-            }
-          });
-          // try to submit form on return
-          decorator.addKeyPressHandler(new KeyPressHandler() {
-            @Override
-            public void onKeyPress(final KeyPressEvent pevent) {
-              if (pevent.getCharCode() == KeyCodes.KEY_ENTER
-                  || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-                AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+          if (this.checkOnKeyUp) {
+            decorator.addKeyUpHandler(new KeyUpHandler() {
+              @Override
+              public void onKeyUp(final KeyUpEvent pevent) {
+                AbstractBeanValidationEditorDriver.this.validate();
               }
-            }
-          });
+            });
+          }
+          // try to submit form on return
+          if (this.submitOnReturn) {
+            decorator.addKeyPressHandler(new KeyPressHandler() {
+              @Override
+              public void onKeyPress(final KeyPressEvent pevent) {
+                if (pevent.getCharCode() == KeyCodes.KEY_ENTER
+                    || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+                  AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+                }
+              }
+            });
+          }
         }
       }
     }
@@ -185,7 +199,33 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   }
 
   @Override
-  public void setSubmitButton(final Widget psubmitButton) {
+  public final boolean isCheckOnKeyUp() {
+    return this.checkOnKeyUp;
+  }
+
+  @Override
+  public final void setCheckOnKeyUp(final boolean pcheckOnKeyUp) throws IllegalAccessException {
+    if (this.handlersSet) {
+      throw new IllegalAccessException("Can only be called before the first edit call!");
+    }
+    this.checkOnKeyUp = pcheckOnKeyUp;
+  }
+
+  @Override
+  public final boolean isSubmitOnReturn() {
+    return this.submitOnReturn;
+  }
+
+  @Override
+  public final void setSubmitOnReturn(final boolean psubmitOnReturn) throws IllegalAccessException {
+    if (this.handlersSet) {
+      throw new IllegalAccessException("Can only be called before the first edit call!");
+    }
+    this.submitOnReturn = psubmitOnReturn;
+  }
+
+  @Override
+  public final void setSubmitButton(final Widget psubmitButton) {
     this.submitButton = psubmitButton;
     if (this.submitButton instanceof HasClickHandlers) {
       ((HasClickHandlers) this.submitButton).addClickHandler(new ClickHandler() {

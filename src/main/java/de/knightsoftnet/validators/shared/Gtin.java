@@ -26,8 +26,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.Payload;
 import javax.validation.constraints.Digits;
+import javax.validation.Payload;
 
 /**
  * The annotated element must be a valid Global Trade Item Number (until 2009 known as European

@@ -3,10 +3,10 @@ package de.knightsoftnet.validators.rebind;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
 import com.google.gwt.core.ext.TreeLogger;
-import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
+import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
 import com.google.gwt.validation.client.GwtValidation;
@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
  * this class generates a simple class to get properties of all validated classes by name.
  *
  * @author Manfred Tremmel
- *
  *
  */
 public class GwtReflectGetterGenerator extends Generator {
