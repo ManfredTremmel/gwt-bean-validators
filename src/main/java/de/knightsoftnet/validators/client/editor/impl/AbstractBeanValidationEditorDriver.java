@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -18,6 +18,7 @@ package de.knightsoftnet.validators.client.editor.impl;
 import de.knightsoftnet.validators.client.decorators.AbstractDecorator;
 import de.knightsoftnet.validators.client.decorators.ExtendedValueBoxEditor;
 import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
+import de.knightsoftnet.validators.client.editor.CheckTimeEnum;
 import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 
@@ -72,9 +73,9 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   private boolean submitUnchanged;
 
   /**
-   * check input on key up (when ever you type in a text box).
+   * check input time.
    */
-  private boolean checkOnKeyUp = true;
+  private CheckTimeEnum checkTime = CheckTimeEnum.ON_KEY_UP;
 
   /**
    * submit form when enter/return is hit.
@@ -86,47 +87,93 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
    */
   private Widget submitButton;
 
+  /**
+   * validation groups to limit validation.
+   */
+  private Class<?>[] validationGroups;
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
+  /**
+   * handler which commits when return is pressed.
+   */
+  private final KeyPressHandler commitOnReturnHandler;
+
+  /**
+   * handler which starts validates on key up.
+   */
+  private final KeyUpHandler validateOnKeyUpHandler;
+
+  /**
+   * handler which starts validation on value changes.
+   */
+  private final ValueChangeHandler<?> validateOnVueChangeHandler;
+
+  /**
+   * handler which handles value changes.
+   */
+  private final ValueChangeHandler<?> valueChangeHandler;
+
+  /**
+   * default constructor.
+   */
+  public AbstractBeanValidationEditorDriver() {
+    super();
+    this.commitOnReturnHandler = new KeyPressHandler() {
+      @Override
+      public void onKeyPress(final KeyPressEvent pevent) {
+        if (pevent.getCharCode() == KeyCodes.KEY_ENTER
+            || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+          AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+        }
+      }
+    };
+    this.validateOnKeyUpHandler = new KeyUpHandler() {
+      @Override
+      public void onKeyUp(final KeyUpEvent pevent) {
+        AbstractBeanValidationEditorDriver.this.validate();
+      }
+    };
+    this.validateOnVueChangeHandler = new ValueChangeHandler<Object>() {
+      @Override
+      public void onValueChange(final ValueChangeEvent<Object> pevent) {
+        AbstractBeanValidationEditorDriver.this.validate();
+      }
+    };
+    this.valueChangeHandler = new ValueChangeHandler<Object>() {
+      @Override
+      public void onValueChange(final ValueChangeEvent<Object> pevent) {
+        ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
+            AbstractBeanValidationEditorDriver.this.getObject());
+      }
+    };
+  }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public void edit(final T object) {
     this.doEdit(object);
-    this.validate();
+    if (this.checkTime != CheckTimeEnum.ON_SUBMIT) {
+      this.validate();
+    }
     if (!this.handlersSet) {
       this.handlersSet = true;
       for (final LeafValueEditor<?> entry : super.getLeafValueMap().keySet()) {
         if (entry instanceof ExtendedValueBoxEditor<?>) {
           final AbstractDecorator<?> decorator = ((ExtendedValueBoxEditor<?>) entry).getDecorator();
-          decorator.setFocusOnError(false);
+          decorator.setFocusOnError(this.checkTime == CheckTimeEnum.ON_SUBMIT);
+          // add value change handler which delegates changes
+          decorator.addValueChangeHandler((ValueChangeHandler) this.valueChangeHandler);
           // if widget has a value change handler, validate on change
-          decorator.addValueChangeHandler(new ValueChangeHandler() {
-            @Override
-            public void onValueChange(final ValueChangeEvent pevent) {
-              AbstractBeanValidationEditorDriver.this.validate();
-              ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
-                  AbstractBeanValidationEditorDriver.this.getObject());
-            }
-          });
+          if (AbstractBeanValidationEditorDriver.this.checkTime == CheckTimeEnum.ON_CHANGE
+              || AbstractBeanValidationEditorDriver.this.checkTime == CheckTimeEnum.ON_KEY_UP) {
+            decorator.addValueChangeHandler((ValueChangeHandler) this.validateOnVueChangeHandler);
+          }
           // if widget has a key up handler, validate on key up
-          if (this.checkOnKeyUp) {
-            decorator.addKeyUpHandler(new KeyUpHandler() {
-              @Override
-              public void onKeyUp(final KeyUpEvent pevent) {
-                AbstractBeanValidationEditorDriver.this.validate();
-              }
-            });
+          if (this.checkTime == CheckTimeEnum.ON_KEY_UP) {
+            decorator.addKeyUpHandler(this.validateOnKeyUpHandler);
           }
           // try to submit form on return
           if (this.submitOnReturn) {
-            decorator.addKeyPressHandler(new KeyPressHandler() {
-              @Override
-              public void onKeyPress(final KeyPressEvent pevent) {
-                if (pevent.getCharCode() == KeyCodes.KEY_ENTER
-                    || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-                  AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
-                }
-              }
-            });
+            decorator.addKeyPressHandler(this.commitOnReturnHandler);
           }
         }
       }
@@ -150,11 +197,16 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
     final T object = this.flush();
     if (!this.hasErrors()) {
       final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-      final Set<ConstraintViolation<T>> violations = validator.validate(object);
+      final Set<ConstraintViolation<T>> violations;
+      if (this.validationGroups == null) {
+        violations = validator.validate(object);
+      } else {
+        violations = validator.validate(object, this.validationGroups);
+      }
       this.setConstraintViolations(new ArrayList<ConstraintViolation<?>>(violations));
       valid = !this.hasErrors();
     }
-    if (this.submitButton instanceof HasEnabled) {
+    if (this.submitButton instanceof HasEnabled && this.checkTime != CheckTimeEnum.ON_SUBMIT) {
       ((HasEnabled) this.submitButton)
           .setEnabled(valid && (this.submitUnchanged || this.isDirty()));
     }
@@ -200,15 +252,28 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   @Override
   public final boolean isCheckOnKeyUp() {
-    return this.checkOnKeyUp;
+    return this.checkTime == CheckTimeEnum.ON_KEY_UP;
   }
 
   @Override
-  public final void setCheckOnKeyUp(final boolean pcheckOnKeyUp) throws IllegalAccessException {
-    if (this.handlersSet) {
-      throw new IllegalAccessException("Can only be called before the first edit call!");
+  public final void setCheckOnKeyUp(final boolean pcheckOnKeyUp) throws RuntimeException {
+    this.checkHandlerSet();
+    if (pcheckOnKeyUp) {
+      this.checkTime = CheckTimeEnum.ON_KEY_UP;
+    } else {
+      this.checkTime = CheckTimeEnum.ON_CHANGE;
     }
-    this.checkOnKeyUp = pcheckOnKeyUp;
+  }
+
+  @Override
+  public final CheckTimeEnum getCheckTime() {
+    return this.checkTime;
+  }
+
+  @Override
+  public final void setCheckTime(final CheckTimeEnum pcheckTime) throws RuntimeException {
+    this.checkHandlerSet();
+    this.checkTime = pcheckTime;
   }
 
   @Override
@@ -217,11 +282,20 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   }
 
   @Override
-  public final void setSubmitOnReturn(final boolean psubmitOnReturn) throws IllegalAccessException {
-    if (this.handlersSet) {
-      throw new IllegalAccessException("Can only be called before the first edit call!");
-    }
+  public final void setSubmitOnReturn(final boolean psubmitOnReturn) throws RuntimeException {
+    this.checkHandlerSet();
     this.submitOnReturn = psubmitOnReturn;
+  }
+
+  /**
+   * check if handlers are set, if it is, it throws a IllegalAccessException.
+   *
+   * @throws IllegalAccessException when handlers are already set
+   */
+  private void checkHandlerSet() throws RuntimeException {
+    if (this.handlersSet) {
+      throw new RuntimeException("Can only be called before the first edit call!");
+    }
   }
 
   @Override
@@ -247,5 +321,10 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
       this.handlerManager = new HandlerManager(this);
     }
     return this.handlerManager;
+  }
+
+  @Override
+  public final void setValidationGroups(final Class<?>... pgroups) {
+    this.validationGroups = pgroups;
   }
 }

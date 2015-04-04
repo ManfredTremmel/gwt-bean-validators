@@ -108,23 +108,43 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
 
   /**
    * get state of validation on key up (check on every key up event).
-   * 
+   *
    * @return true if it's active
+   * @deprecated As of release 0.8.2, replaced by getCheckTime()
    */
+  @Deprecated
   boolean isCheckOnKeyUp();
 
   /**
-   * set state of validation on key up (check on every key up event). to change this state is only
+   * set state of validation on key up (check on every key up event), to change this state is only
    * possible, before the first edit call was done.
-   * 
+   *
    * @param pcheckOnKeyUp true/false
-   * @throws IllegalAccessException if this method is called after a edit call
+   * @throws RuntimeException if this method is called after a edit call
+   * @deprecated As of release 0.8.2, replaced by setCheckTime()
    */
-  void setCheckOnKeyUp(boolean pcheckOnKeyUp) throws IllegalAccessException;
+  @Deprecated
+  void setCheckOnKeyUp(boolean pcheckOnKeyUp) throws RuntimeException;
+
+  /**
+   * get the time of validation.
+   *
+   * @return check time enumeration
+   */
+  CheckTimeEnum getCheckTime();
+
+  /**
+   * set time of validation, to change this state is only possible, before the first edit call was
+   * done.
+   *
+   * @param pcheckTime check time enumeration
+   * @throws RuntimeException if this method is called after a edit call
+   */
+  void setCheckTime(CheckTimeEnum pcheckTime) throws RuntimeException;
 
   /**
    * get state of submit on return (form is submitted if it's valid and return/enter is pressed).
-   * 
+   *
    * @return true if it's active
    */
   boolean isSubmitOnReturn();
@@ -132,11 +152,11 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
   /**
    * set state of submit on return (form is submitted if it's valid and return/enter is pressed). to
    * change this state is only possible, before the first edit call was done.
-   * 
+   *
    * @param pcheckOnKeyUp true/false
-   * @throws IllegalAccessException if this method is called after a edit call
+   * @throws RuntimeException if this method is called after a edit call
    */
-  void setSubmitOnReturn(boolean psubmitOnReturn) throws IllegalAccessException;
+  void setSubmitOnReturn(boolean psubmitOnReturn) throws RuntimeException;
 
   /**
    * setter to add as submit button which is automatically .
@@ -144,4 +164,12 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
    * @param psubmitButton the submitUnchanged to set
    */
   void setSubmitButton(Widget psubmitButton);
+
+  /**
+   * set validation groups.
+   *
+   * @param pgroups group or list of groups targeted for validation (default to
+   *        {@link javax.validation.groups.Default})
+   */
+  void setValidationGroups(Class<?>... pgroups);
 }
