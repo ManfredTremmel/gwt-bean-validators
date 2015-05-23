@@ -15,8 +15,8 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
 import de.knightsoftnet.validators.shared.Iban;
+import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;

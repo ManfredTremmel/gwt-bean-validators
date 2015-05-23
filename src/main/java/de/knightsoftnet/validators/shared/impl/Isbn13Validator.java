@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class Isbn13Validator implements ConstraintValidator<Isbn13, Object> {
   /**
@@ -59,7 +58,7 @@ public class Isbn13Validator implements ConstraintValidator<Isbn13, Object> {
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid isbn13.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

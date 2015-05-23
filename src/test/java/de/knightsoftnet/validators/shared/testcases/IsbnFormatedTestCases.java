@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * get test cases for isbn test.
+ * get test cases for isbn formated test.
  *
  * @author Manfred Tremmel
  *

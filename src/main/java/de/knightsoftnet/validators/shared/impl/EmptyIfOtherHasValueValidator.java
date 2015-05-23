@@ -28,7 +28,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class EmptyIfOtherHasValueValidator implements
     ConstraintValidator<EmptyIfOtherHasValue, Object> {
@@ -80,14 +79,19 @@ public class EmptyIfOtherHasValueValidator implements
       final String fieldCompareValue = BeanUtils.getProperty(pvalue, this.fieldCompareName);
       if (StringUtils.isNotEmpty(fieldCheckValue)
           && StringUtils.equals(this.valueCompare, fieldCompareValue)) {
-        pcontext.disableDefaultConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldCheckName)
-            .addConstraintViolation();
+        this.switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
+      this.switchContext(pcontext);
       return false;
     }
+  }
+
+  private void switchContext(final ConstraintValidatorContext pcontext) {
+    pcontext.disableDefaultConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldCheckName)
+        .addConstraintViolation();
   }
 }

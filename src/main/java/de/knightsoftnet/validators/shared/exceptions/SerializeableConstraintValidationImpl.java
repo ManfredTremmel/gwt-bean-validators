@@ -22,8 +22,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.Path;
+import javax.validation.metadata.ConstraintDescriptor;
 
 /**
  * This is a limited implementation of ConstraintViolation interface which can be serialized and
@@ -129,10 +129,7 @@ public class SerializeableConstraintValidationImpl<T> implements ConstraintViola
     if (!StringUtils.equals(this.interpolatedMessage, that.interpolatedMessage)) {
       return false;
     }
-    if (!Objects.equals(this.propertyPath, that.propertyPath)) {
-      return false;
-    }
-    return true;
+    return Objects.equals(this.propertyPath, that.propertyPath);
   }
 
   @Override

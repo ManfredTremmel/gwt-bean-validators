@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.client.decorators;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.resources.client.DataResource;
 import com.google.gwt.uibinder.client.UiConstructor;
 
 /**
@@ -54,6 +55,14 @@ public class UniversalDecoratorWithIcons<T> extends AbstractDecorator<T> {
    * A ClientBundle that provides images and style sheets for the decorator.
    */
   public interface ExtendedResources extends Resources {
+
+    @DataResource.MimeType("image/svg+xml")
+    @Source("valid.svg")
+    DataResource resValidImage();
+
+    @DataResource.MimeType("image/svg+xml")
+    @Source("error.svg")
+    DataResource resErrorImage();
 
     /**
      * The styles used in this widget.

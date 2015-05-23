@@ -28,7 +28,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class MustNotBeEqualValidator implements ConstraintValidator<MustNotBeEqual, Object> {
 
@@ -75,16 +74,21 @@ public class MustNotBeEqualValidator implements ConstraintValidator<MustNotBeEqu
         return true;
       }
       if (StringUtils.equals(field1Value, field2Value)) {
-        pcontext.disableDefaultConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field1Name)
-            .addConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field2Name)
-            .addConstraintViolation();
+        this.switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
+      this.switchContext(pcontext);
       return false;
     }
+  }
+
+  private void switchContext(final ConstraintValidatorContext pcontext) {
+    pcontext.disableDefaultConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field1Name)
+        .addConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.field2Name)
+        .addConstraintViolation();
   }
 }

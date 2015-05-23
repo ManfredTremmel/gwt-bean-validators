@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.CreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.testcases.CreditCardTestCases;
 
+/**
+ * test for credit card number validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstCreditCardNumber extends AbstractValidationTst<CreditCardNumberTestBean> {
-
 
   /**
    * empty credit card is allowed.

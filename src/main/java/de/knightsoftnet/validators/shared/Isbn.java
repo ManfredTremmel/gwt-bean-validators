@@ -39,7 +39,6 @@ import javax.validation.Payload;
  *
  * @author Manfred Tremmel
  *
- *
  */
 @Documented
 @Constraint(validatedBy = IsbnValidator.class)

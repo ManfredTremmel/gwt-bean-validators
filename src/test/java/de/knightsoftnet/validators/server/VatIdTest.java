@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.VatIdTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for vat id validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class VatIdTest extends AbstractValidationTest<VatIdTestBean> {
-
 
   /**
    * empty vat id is allowed.

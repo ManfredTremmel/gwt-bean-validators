@@ -18,9 +18,14 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.SizeWithoutSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.testcases.SizeWithoutSeparatorsTestCases;
 
+/**
+ * test for size without separators validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstSizeWithoutSeparators extends
     AbstractValidationTst<SizeWithoutSeparatorsTestBean> {
-
 
   /**
    * empty entry is allowed.

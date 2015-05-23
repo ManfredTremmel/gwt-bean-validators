@@ -34,7 +34,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class Gtin8Validator implements ConstraintValidator<Gtin8, Object> {
   /**
-   * definition of gln length.
+   * definition of gtin8 length.
    */
   public static final int GTIN8_LENGTH = 8;
 
@@ -54,7 +54,7 @@ public class Gtin8Validator implements ConstraintValidator<Gtin8, Object> {
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid gtin.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

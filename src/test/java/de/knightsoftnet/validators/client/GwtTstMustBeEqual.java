@@ -18,6 +18,12 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
 import de.knightsoftnet.validators.shared.testcases.MustBeEqualTestCases;
 
+/**
+ * test for must be equal validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstMustBeEqual extends AbstractValidationTst<MustBeEqualTestBean> {
 
   /**

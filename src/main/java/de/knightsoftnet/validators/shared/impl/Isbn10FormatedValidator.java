@@ -25,10 +25,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Check a string if it's a valid ISBN10.
+ * Check a string if it's a valid formated ISBN10.
  *
  * @author Manfred Tremmel
- *
  *
  */
 public class Isbn10FormatedValidator implements ConstraintValidator<Isbn10Formated, Object> {
@@ -54,7 +53,7 @@ public class Isbn10FormatedValidator implements ConstraintValidator<Isbn10Format
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid isbn.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

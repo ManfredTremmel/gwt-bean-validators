@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.Isbn10TestBean;
 import de.knightsoftnet.validators.shared.testcases.Isbn10TestCases;
 
+/**
+ * test for isbn 10 validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstIsbn10 extends AbstractValidationTst<Isbn10TestBean> {
-
 
   /**
    * empty isbn10 is allowed.

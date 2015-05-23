@@ -23,7 +23,6 @@ import java.util.Map;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public final class PostalCodeDefinitions {
 

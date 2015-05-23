@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.Gtin13TestCases;
 
 import org.junit.Test;
 
+/**
+ * test for gtin 13 validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class Gtin13Test extends AbstractValidationTest<Gtin13TestBean> {
-
 
   /**
    * empty gtin13 is allowed.

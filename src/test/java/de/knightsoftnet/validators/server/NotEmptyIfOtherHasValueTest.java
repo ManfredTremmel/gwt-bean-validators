@@ -20,9 +20,14 @@ import de.knightsoftnet.validators.shared.testcases.NotEmptyIfOtherHasValueTestC
 
 import org.junit.Test;
 
+/**
+ * test for not empty if other has value validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class NotEmptyIfOtherHasValueTest extends
     AbstractValidationTest<NotEmptyIfOtherHasValueTestBean> {
-
 
   /**
    * the value we request is not set, so everything is allowed.

@@ -20,9 +20,14 @@ import de.knightsoftnet.validators.shared.testcases.NotEmptyIfOtherIsNotEmptyTes
 
 import org.junit.Test;
 
+/**
+ * test for not empty if other is net empty validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class NotEmptyIfOtherIsNotEmptyTest extends
     AbstractValidationTest<NotEmptyIfOtherIsNotEmptyTestBean> {
-
 
   /**
    * both fields are not set, so it's ok.

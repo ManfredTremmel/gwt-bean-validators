@@ -19,8 +19,8 @@ import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.EditorVisitor;
-import com.google.gwt.editor.client.impl.DelegateMap.KeyMethod;
 import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.editor.client.impl.DelegateMap.KeyMethod;
 import com.google.gwt.editor.client.testing.EditorHierarchyPrinter;
 
 import java.util.ArrayList;

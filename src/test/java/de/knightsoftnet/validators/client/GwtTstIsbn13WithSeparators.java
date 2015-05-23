@@ -19,14 +19,13 @@ import de.knightsoftnet.validators.shared.beans.Isbn13WithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.testcases.Isbn13WithSeparatorsTestCases;
 
 /**
- * test for isbn 13 validator.
+ * test for isbn 13 with separators validator.
  *
  * @author Manfred Tremmel
  *
  */
-public class GwtTstIsbn13WithSeparators extends
-    AbstractValidationTst<Isbn13WithSeparatorsTestBean> {
-
+public class GwtTstIsbn13WithSeparators //
+    extends AbstractValidationTst<Isbn13WithSeparatorsTestBean> {
 
   /**
    * empty isbn13 is allowed.

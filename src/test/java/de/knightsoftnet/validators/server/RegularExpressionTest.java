@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.RegExTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for regular expression validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class RegularExpressionTest extends AbstractValidationTest<RegExTestBean> {
-
 
   /**
    * empty regular expression is allowed.
@@ -36,8 +41,7 @@ public class RegularExpressionTest extends AbstractValidationTest<RegExTestBean>
    */
   @Test
   public final void testCorrectRegExAreAllowed() {
-    for (final RegExTestBean testBean : RegExTestCases
-        .getCorrectTestBeans()) {
+    for (final RegExTestBean testBean : RegExTestCases.getCorrectTestBeans()) {
       super.validationTest(testBean, true, null);
     }
   }

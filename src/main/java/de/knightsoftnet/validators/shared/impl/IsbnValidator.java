@@ -31,7 +31,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class IsbnValidator implements ConstraintValidator<Isbn, Object> {
 

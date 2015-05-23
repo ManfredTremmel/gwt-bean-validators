@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.IbanWithSpacesTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for iban with spaces validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class IbanWithSpacesTest extends AbstractValidationTest<IbanWithSpacesTestBean> {
-
 
   /**
    * empty iban is allowed.

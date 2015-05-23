@@ -29,7 +29,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, Object> {
 
@@ -113,10 +112,10 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, Ob
       // empty field is ok
       return true;
     }
-    return this.allowDin5008 && valueAsString.matches(PHONE_NUMBER_DIN5008) || this.allowE123
-        && valueAsString.matches(PHONE_NUMBER_E123) || this.allowUri
-        && valueAsString.matches(PHONE_NUMBER_URI) || this.allowMs
-        && valueAsString.matches(PHONE_NUMBER_MS) || this.allowCommon
-        && valueAsString.matches(PHONE_NUMBER_COMMON);
+    return this.allowDin5008 && valueAsString.matches(PHONE_NUMBER_DIN5008) //
+        || this.allowE123 && valueAsString.matches(PHONE_NUMBER_E123) //
+        || this.allowUri && valueAsString.matches(PHONE_NUMBER_URI) //
+        || this.allowMs && valueAsString.matches(PHONE_NUMBER_MS) //
+        || this.allowCommon && valueAsString.matches(PHONE_NUMBER_COMMON);
   }
 }

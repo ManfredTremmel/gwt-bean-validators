@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.IbanFormatedTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for iban formated validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class IbanFormatedTest extends AbstractValidationTest<IbanFormatedTestBean> {
-
 
   /**
    * empty iban is allowed.

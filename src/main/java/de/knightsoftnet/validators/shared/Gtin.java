@@ -26,8 +26,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.constraints.Digits;
 import javax.validation.Payload;
+import javax.validation.constraints.Digits;
 
 /**
  * The annotated element must be a valid Global Trade Item Number (until 2009 known as European
@@ -37,7 +37,6 @@ import javax.validation.Payload;
  * There are numeric, size and checksum tests by apache commons validation routines.<br />
  *
  * @author Manfred Tremmel
- *
  *
  */
 @Documented

@@ -15,8 +15,6 @@
 
 package de.knightsoftnet.validators.client;
 
-
-
 /**
  * reflection replacement to get property entry from a bean by name.
  *

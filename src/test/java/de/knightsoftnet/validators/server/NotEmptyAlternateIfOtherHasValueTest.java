@@ -20,9 +20,14 @@ import de.knightsoftnet.validators.shared.testcases.NotEmptyAlternateIfOhvTestCa
 
 import org.junit.Test;
 
+/**
+ * test for not empty alternate if other has value validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class NotEmptyAlternateIfOtherHasValueTest extends
     AbstractValidationTest<NotEmptyAlternateIfOtherHasValueTestBean> {
-
 
   /**
    * the value we request is not set, so everything is allowed.

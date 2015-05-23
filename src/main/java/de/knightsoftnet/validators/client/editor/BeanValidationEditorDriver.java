@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * interface MyDriver extends AbstractBeanValidationEditorDriver&lt;MyObject, MyObjectEditor&gt; {
  * }
- * 
+ *
  * MyDriver instance = GWT.create(MyDriver.class);
  * {
  *   MyObjectEditor editor = new MyObjectEditor();
@@ -153,7 +153,7 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
    * set state of submit on return (form is submitted if it's valid and return/enter is pressed). to
    * change this state is only possible, before the first edit call was done.
    *
-   * @param pcheckOnKeyUp true/false
+   * @param psubmitOnReturn true/false
    * @throws RuntimeException if this method is called after a edit call
    */
   void setSubmitOnReturn(boolean psubmitOnReturn) throws RuntimeException;

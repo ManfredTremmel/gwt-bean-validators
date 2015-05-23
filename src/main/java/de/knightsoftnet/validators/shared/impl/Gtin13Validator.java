@@ -30,11 +30,10 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class Gtin13Validator implements ConstraintValidator<Gtin13, Object> {
   /**
-   * definition of gln length.
+   * definition of gtin13 length.
    */
   public static final int GTIN13_LENGTH = 13;
 
@@ -54,7 +53,7 @@ public class Gtin13Validator implements ConstraintValidator<Gtin13, Object> {
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid gtin.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

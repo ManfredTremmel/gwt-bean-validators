@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class IsinValidator implements ConstraintValidator<Isin, Object> {
   /**
@@ -54,7 +53,7 @@ public class IsinValidator implements ConstraintValidator<Isin, Object> {
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid isin.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)

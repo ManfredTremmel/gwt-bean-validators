@@ -39,7 +39,6 @@ import javax.validation.Payload;
  *
  * @author Manfred Tremmel
  *
- *
  */
 @Documented
 @Constraint(validatedBy = NotEmptyAlternateIfOtherIsEmptyValidator.class)
@@ -85,7 +84,7 @@ public @interface NotEmptyAlternateIfOtherIsEmpty {
   @Documented
   public @interface List {
     /**
-     * must be alternate filled if other is empty value.
+     * not empty alternate if other is empty value.
      */
     NotEmptyAlternateIfOtherIsEmpty[] value();
   }

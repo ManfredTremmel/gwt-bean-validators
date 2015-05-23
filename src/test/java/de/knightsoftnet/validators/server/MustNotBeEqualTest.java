@@ -20,6 +20,12 @@ import de.knightsoftnet.validators.shared.testcases.MustNotBeEqualTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for must not be equal validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class MustNotBeEqualTest extends AbstractValidationTest<MustBeEqualTestBean> {
 
   /**

@@ -27,7 +27,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class RegularExpressionValidator implements ConstraintValidator<RegularExpression, String> {
 

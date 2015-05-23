@@ -21,13 +21,12 @@ import de.knightsoftnet.validators.shared.testcases.Isbn13WithSeparatorsTestCase
 import org.junit.Test;
 
 /**
- * test for isbn 13 validator.
+ * test for isbn 13 with separators validator.
  *
  * @author Manfred Tremmel
  *
  */
 public class Isbn13WithSeparatorsTest extends AbstractValidationTest<Isbn13WithSeparatorsTestBean> {
-
 
   /**
    * empty isbn13 is allowed.

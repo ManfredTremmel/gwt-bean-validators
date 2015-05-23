@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * get test cases for iban test.
+ * get test cases for iban formated test.
  *
  * @author Manfred Tremmel
  *

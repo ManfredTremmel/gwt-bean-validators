@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class GlnValidator implements ConstraintValidator<Gln, Object> {
   /**

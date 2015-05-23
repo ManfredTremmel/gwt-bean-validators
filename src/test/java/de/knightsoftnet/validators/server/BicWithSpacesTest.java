@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.BicWithSpacesTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for bic with spaces validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class BicWithSpacesTest extends AbstractValidationTest<BicWithSpacesTestBean> {
-
 
   /**
    * empty bic is allowed.

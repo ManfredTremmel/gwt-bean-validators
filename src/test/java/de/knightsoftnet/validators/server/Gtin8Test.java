@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.Gtin8TestCases;
 
 import org.junit.Test;
 
+/**
+ * test for gtin 8 validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class Gtin8Test extends AbstractValidationTest<Gtin8TestBean> {
-
 
   /**
    * empty gtin8 is allowed.

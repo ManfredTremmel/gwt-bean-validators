@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 import de.knightsoftnet.validators.shared.testcases.UrlTestCases;
 
+/**
+ * test for url validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstUrl extends AbstractValidationTst<UrlTestBean> {
-
 
   /**
    * empty url is allowed.

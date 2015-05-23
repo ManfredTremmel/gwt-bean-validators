@@ -33,7 +33,6 @@ import javax.validation.Payload;
  *
  * @author Manfred Tremmel
  *
- *
  */
 @Documented
 @Constraint(validatedBy = RegularExpressionValidator.class)

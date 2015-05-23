@@ -23,8 +23,8 @@ import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 
 import com.google.gwt.editor.client.Editor;
-import com.google.gwt.editor.client.impl.AbstractExtendedBaseEditorDriver;
 import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.editor.client.impl.AbstractExtendedBaseEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;

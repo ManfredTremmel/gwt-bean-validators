@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * get test cases for isbn13 test.
+ * get test cases for isbn13 with separators test.
  *
  * @author Manfred Tremmel
  *

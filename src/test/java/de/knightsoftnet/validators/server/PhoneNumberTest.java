@@ -20,6 +20,12 @@ import de.knightsoftnet.validators.shared.testcases.PhoneNumberTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for phone number validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class PhoneNumberTest extends AbstractValidationTest<PhoneNumberTestBean> {
 
   /**

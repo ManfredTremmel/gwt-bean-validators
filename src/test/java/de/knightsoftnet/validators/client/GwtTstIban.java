@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
 import de.knightsoftnet.validators.shared.testcases.IbanTestCases;
 
+/**
+ * test for iban validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstIban extends AbstractValidationTst<IbanTestBean> {
-
 
   /**
    * empty iban is allowed.

@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.PasswordTestBean;
 import de.knightsoftnet.validators.shared.testcases.PasswordTestCases;
 
+/**
+ * test for password validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstPassword extends AbstractValidationTst<PasswordTestBean> {
-
 
   /**
    * empty gln is allowed.

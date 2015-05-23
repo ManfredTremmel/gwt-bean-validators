@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.IsbnFormatedTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for isbn formated validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class IsbnFormatedTest extends AbstractValidationTest<IsbnFormatedTestBean> {
-
 
   /**
    * empty isbn is allowed.

@@ -28,7 +28,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class BankCountryValidator implements ConstraintValidator<BankCountry, Object> {
 

@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.constraints.Size;
 import javax.validation.Payload;
+import javax.validation.constraints.Size;
 
 /**
  * The annotated element must be a valid credit card number.<br />
@@ -35,7 +35,6 @@ import javax.validation.Payload;
  * There are no tests for credit card validity!
  *
  * @author Manfred Tremmel
- *
  *
  */
 @Documented

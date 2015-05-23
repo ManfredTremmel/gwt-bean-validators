@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 import de.knightsoftnet.validators.shared.testcases.IsinTestCases;
 
+/**
+ * test for isin validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstIsin extends AbstractValidationTst<IsinTestBean> {
-
 
   /**
    * empty isin is allowed.

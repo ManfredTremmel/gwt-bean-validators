@@ -32,7 +32,6 @@ import javax.validation.Payload;
  *
  * @author Manfred Tremmel
  *
- *
  */
 @Documented
 @Constraint(validatedBy = AgeLimitCheckValidator.class)
@@ -69,7 +68,7 @@ public @interface AgeLimitCheck {
   @Documented
   public @interface List {
     /**
-     * must be filled if other is empty value.
+     * age limit check value.
      */
     AgeLimitCheck[] value();
   }

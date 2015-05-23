@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class BicValidator implements ConstraintValidator<Bic, Object> {
   /**
@@ -87,13 +86,7 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
     }
     final String countryCode = valueAsString.substring(4, 6);
     final Integer validBicLength = SwiftDefinitions.COUNTRY_IBAN_LENGTH.get(countryCode);
-    if (validBicLength == null) {
-      // unknown country!
-      return false;
-    }
 
-    // sorry, no more tests available
-    return true;
+    return validBicLength != null;
   }
-
 }

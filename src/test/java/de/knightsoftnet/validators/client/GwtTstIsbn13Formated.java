@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.Isbn13FormatedTestBean;
 import de.knightsoftnet.validators.shared.testcases.Isbn13FormatedTestCases;
 
+/**
+ * test for isbn 13 formated validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstIsbn13Formated extends AbstractValidationTst<Isbn13FormatedTestBean> {
-
 
   /**
    * empty isbn13 is allowed.

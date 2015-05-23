@@ -35,7 +35,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class PasswordValidator implements ConstraintValidator<Password, Object> {
 

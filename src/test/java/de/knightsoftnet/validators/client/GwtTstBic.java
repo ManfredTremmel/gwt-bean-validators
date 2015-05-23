@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.BicTestBean;
 import de.knightsoftnet.validators.shared.testcases.BicTestCases;
 
+/**
+ * test for bic validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstBic extends AbstractValidationTst<BicTestBean> {
-
 
   /**
    * empty bic is allowed.

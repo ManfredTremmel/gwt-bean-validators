@@ -90,7 +90,7 @@ public @interface NotEmptyAlternateIfOtherHasValue {
   @Documented
   public @interface List {
     /**
-     * must be alternate filled if other is empty value.
+     * not empty alternate if other has value.
      */
     NotEmptyAlternateIfOtherHasValue[] value();
   }

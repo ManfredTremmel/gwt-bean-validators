@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.Isbn10WithSeparatorsTestCase
 
 import org.junit.Test;
 
+/**
+ * test for isbn 10 with separators validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class Isbn10WithSeparatorsTest extends AbstractValidationTest<Isbn10WithSeparatorsTestBean> {
-
 
   /**
    * empty isbn10 is allowed.

@@ -56,8 +56,8 @@ Included Validators - multi fields
 
 Dependencies
 ------------
-If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.3.2](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.9.2] (https://commons.apache.org/proper/commons-beanutils/).
-On the gwt frontend side, you have to include my [gwt-commons-lang3 3.3.2-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.4.1-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
+If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.4](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.9.2] (https://commons.apache.org/proper/commons-beanutils/).
+On the gwt frontend side, you have to include my [gwt-commons-lang3 3.4-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.4.1-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
 ----------------
@@ -85,12 +85,12 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.2</version>
+      <version>0.8.3</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
       <artifactId>gwt-commons-lang3</artifactId>
-      <version>3.3.2-SNAPSHOT</version>
+      <version>3.4-SNAPSHOT</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
@@ -108,7 +108,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.2</version>
+      <version>0.8.3</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
@@ -127,7 +127,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.3.2</version>
+      <version>3.4</version>
     </dependency>
     <dependency>
       <groupId>commons-validator</groupId>

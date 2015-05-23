@@ -29,7 +29,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class AlternateSizeValidator implements ConstraintValidator<AlternateSize, Object> {
   /**

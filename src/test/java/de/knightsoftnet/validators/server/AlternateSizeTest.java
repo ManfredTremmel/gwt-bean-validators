@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.AlternateSizeTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for alternate size validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class AlternateSizeTest extends AbstractValidationTest<AlternateSizeTestBean> {
-
 
   /**
    * empty value is allowed.

@@ -20,8 +20,13 @@ import de.knightsoftnet.validators.shared.testcases.GlnTestCases;
 
 import org.junit.Test;
 
+/**
+ * test for gln validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GlnTest extends AbstractValidationTest<GlnTestBean> {
-
 
   /**
    * empty gln is allowed.

@@ -28,7 +28,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class NotEmptyAlternateIfOtherIsEmptyValidator implements
     ConstraintValidator<NotEmptyAlternateIfOtherIsEmpty, Object> {
@@ -81,16 +80,21 @@ public class NotEmptyAlternateIfOtherIsEmptyValidator implements
       final String fieldCompareValue = BeanUtils.getProperty(pvalue, this.fieldCompareName);
       if (StringUtils.isEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldAlternateCheckValue)
           && StringUtils.isEmpty(fieldCompareValue)) {
-        pcontext.disableDefaultConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldCheckName)
-            .addConstraintViolation();
-        pcontext.buildConstraintViolationWithTemplate(this.message)
-            .addNode(this.fieldAlternateCheckName).addConstraintViolation();
+        this.switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
+      this.switchContext(pcontext);
       return false;
     }
+  }
+
+  private void switchContext(final ConstraintValidatorContext pcontext) {
+    pcontext.disableDefaultConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldCheckName)
+        .addConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(this.message)
+        .addNode(this.fieldAlternateCheckName).addConstraintViolation();
   }
 }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * get test cases for isbn10 test.
+ * get test cases for isbn10 with spaces test.
  *
  * @author Manfred Tremmel
  *

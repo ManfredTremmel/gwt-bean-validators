@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class GtinValidator implements ConstraintValidator<Gtin, Object> {
 
@@ -50,7 +49,7 @@ public class GtinValidator implements ConstraintValidator<Gtin, Object> {
   }
 
   /**
-   * {@inheritDoc} check if given string is a valid gln.
+   * {@inheritDoc} check if given string is a valid gtin.
    *
    * @see javax.validation.ConstraintValidator#isValid(java.lang.Object,
    *      javax.validation.ConstraintValidatorContext)
@@ -67,8 +66,7 @@ public class GtinValidator implements ConstraintValidator<Gtin, Object> {
     }
     if (valueAsString.length() != Gtin8Validator.GTIN8_LENGTH
         && valueAsString.length() != Gtin13Validator.GTIN13_LENGTH) {
-      // EAN size is wrong, but that's handled by alternate size
-      // annotation
+      // EAN size is wrong, but that's handled by alternate size annotation
       return true;
     }
     // calculate and check checksum (GTIN/EAN)

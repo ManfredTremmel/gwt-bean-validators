@@ -20,9 +20,14 @@ import de.knightsoftnet.validators.shared.testcases.NotEmptyAlternateIfOieTestCa
 
 import org.junit.Test;
 
+/**
+ * test for not empty alternate if other is empty validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class NotEmptyAlternateIfOtherIsEmptyTest extends
     AbstractValidationTest<NotEmptyAlternateIfOtherIsEmptyTestBean> {
-
 
   /**
    * the compare field is set, alternate fields can be filled in every way.

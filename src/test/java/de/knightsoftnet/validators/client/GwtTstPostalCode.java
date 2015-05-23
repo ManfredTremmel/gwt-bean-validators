@@ -18,8 +18,13 @@ package de.knightsoftnet.validators.client;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.testcases.PostalCodeTestCases;
 
+/**
+ * test for postal code validator.
+ *
+ * @author Manfred Tremmel
+ *
+ */
 public class GwtTstPostalCode extends AbstractValidationTst<PostalCodeTestBean> {
-
 
   /**
    * empty postal codes are allowed.
