@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.AgeLimitCheck;
+import de.knightsoftnet.validators.shared.interfaces.HasGetTime;
 
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -31,7 +32,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author Manfred Tremmel
  *
  */
-public class AgeLimitCheckValidator implements ConstraintValidator<AgeLimitCheck, Date> {
+public class AgeLimitCheckValidator implements ConstraintValidator<AgeLimitCheck, Object> {
 
   /**
    * minimum years.
@@ -55,14 +56,25 @@ public class AgeLimitCheckValidator implements ConstraintValidator<AgeLimitCheck
    *      javax.validation.ConstraintValidatorContext)
    */
   @Override
-  public final boolean isValid(final Date pvalue, final ConstraintValidatorContext pcontext) {
+  public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     if (pvalue == null) {
       return true;
     }
-    final Date dateLimit =
-        DateUtils
-            .truncate(DateUtils.addYears(new Date(), 0 - this.minYears), Calendar.DAY_OF_MONTH);
-    final Date birthday = DateUtils.truncate(pvalue, Calendar.DAY_OF_MONTH);
+    final Date value;
+    if (pvalue instanceof Date) {
+      value = (Date) pvalue;
+    } else if (pvalue instanceof Calendar) {
+      value = ((Calendar) pvalue).getTime();
+    } else if (pvalue instanceof HasGetTime) {
+      value = ((HasGetTime) pvalue).getTime();
+    } else {
+      throw new IllegalArgumentException(
+          "Object for validation with AgeLimitCheckValidator must be of type "
+              + "Date, Calendar or HasGetTime.");
+    }
+    final Date dateLimit = DateUtils.truncate(DateUtils.addYears(new Date(), 0 - this.minYears),
+        Calendar.DAY_OF_MONTH);
+    final Date birthday = DateUtils.truncate(value, Calendar.DAY_OF_MONTH);
     return !dateLimit.before(birthday);
   }
 }

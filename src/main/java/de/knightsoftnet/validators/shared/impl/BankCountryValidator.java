@@ -92,15 +92,15 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
         pcontext.disableDefaultConstraintViolation();
         pcontext
             .buildConstraintViolationWithTemplate(
-                "org.hibernate.validator.constraints.NotEmpty.message").addNode(this.fieldIban)
-            .addConstraintViolation();
+                "{org.hibernate.validator.constraints.NotEmpty.message}")
+            .addNode(this.fieldIban).addConstraintViolation();
         return false;
       } else if (StringUtils.isEmpty(valueBic)) {
         pcontext.disableDefaultConstraintViolation();
         pcontext
             .buildConstraintViolationWithTemplate(
-                "org.hibernate.validator.constraints.NotEmpty.message").addNode(this.fieldBic)
-            .addConstraintViolation();
+                "{org.hibernate.validator.constraints.NotEmpty.message}")
+            .addNode(this.fieldBic).addConstraintViolation();
         return false;
       } else if (StringUtils.length(valueIban) >= IbanValidator.IBAN_LENGTH_MIN
           && StringUtils.length(valueBic) >= BicValidator.BIC_LENGTH_MIN) {
@@ -139,9 +139,8 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
           case "JE": // Jersey
           case "GG": // Guernsey
             // they can use GB or FR registry, but iban and bic code must match
-            ibanCodeMatches =
-                ("GB".equals(countryIban) || "FR".equals(countryIban))
-                    && countryBic.equals(countryIban);
+            ibanCodeMatches = ("GB".equals(countryIban) || "FR".equals(countryIban))
+                && countryBic.equals(countryIban);
             bicCodeMatches = "GB".equals(countryBic) || "FR".equals(countryBic);
             break;
           default:

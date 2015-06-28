@@ -20,6 +20,7 @@ import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
@@ -49,11 +50,10 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
    */
   @GwtValidation(value = {BankCountryTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
       EmptyIfOtherIsNotEmptyTestBean.class, MustBeEqualTestBean.class,
-      NotEmptyAlternateIfOtherHasValueTestBean.class,
-      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
-      PostalCodeTestBean.class, VatIdTestBean.class})
+      PostalCodeTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
   public interface GwtGetReflector extends GwtReflectGetterInterface {
   }
 

@@ -17,6 +17,7 @@ package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.Iban;
 import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
+import de.knightsoftnet.validators.shared.util.IbanUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
@@ -72,8 +73,7 @@ public class IbanValidator implements ConstraintValidator<Iban, Object> {
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
     if (this.ignoreWhitspaces) {
-      valueAsString =
-          Objects.toString(pvalue, StringUtils.EMPTY).replaceAll("\\s+", StringUtils.EMPTY);
+      valueAsString = IbanUtil.ibanCompress(Objects.toString(pvalue, StringUtils.EMPTY));
     } else {
       valueAsString = Objects.toString(pvalue, null);
     }

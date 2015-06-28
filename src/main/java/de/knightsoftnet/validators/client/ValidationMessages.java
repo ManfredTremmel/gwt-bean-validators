@@ -179,6 +179,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String deKnightsoftnetValidatorsSharedValidationIsinMessage();
 
   /**
+   * message used for Levenshtein Distance validation.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationLevenshteinDistanceMessage
+   */
+  @DefaultStringValue("the values of {field1} and {field2} are to similar")
+  @Key("deKnightsoftnetValidatorsSharedValidationLevenshteinDistanceMessage")
+  String deKnightsoftnetValidatorsSharedValidationLevenshteinDistanceMessage();
+
+  /**
    * message used for must be equal validation.
    *
    * @return deKnightsoftnetValidatorsSharedValidationMustBeEqualMessage

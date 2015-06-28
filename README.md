@@ -42,6 +42,7 @@ Included Validators - multi fields
 |EmptyIfOtherHasValue | `field`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` contains `valueCompare`
 |EmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is empty
 |EmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be empty if `fieldCompare` is not empty
+|LevenshteinDistance | `field1`, `field2` and `minDistance` (no defaults) | calculates the levenshtein distance between the values of `field1` and `field2`, it must be equal or greater then the value of `minDistance`
 |MustBeEqual | `field1` and `field2` (no defaults) | can be used for dependency checks e.G. for two password input fields, `field2` must have the same value as `field2`
 |MustNotBeEqual | `field1` and `field2` (no defaults) | can be used for dependency checks e.G. for password new and old input fields, `field2` must not have the same value as `field2`
 |NotEmptyAlternateIfOtherHasValue | `field`, `fieldAlternate`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` or alternate `fieldAlternate` must be filled if `fieldCompare` has the value `fieldCompare`
@@ -85,7 +86,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.3</version>
+      <version>0.8.4</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -108,7 +109,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.3</version>
+      <version>0.8.4</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
