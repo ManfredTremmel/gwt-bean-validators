@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.4</version>
+	<version>0.8.5</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -20,6 +20,7 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<gwtCommonsLang.version>3.4-SNAPSHOT</gwtCommonsLang.version>
 		<gwtCommonsValidator.version>1.4.1-SNAPSHOT</gwtCommonsValidator.version>
+		<hermes.version>1.2.0</hermes.version>
 		<commonsBeanutils.version>1.9.2</commonsBeanutils.version>
 		<wagonSSH.version>2.9</wagonSSH.version>
 		<mavenResource.version>2.7</mavenResource.version>
@@ -146,6 +147,11 @@
 			<version>${gwtCommonsValidator.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mattbertolini</groupId>
+			<artifactId>hermes</artifactId>
+			<version>${hermes.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>

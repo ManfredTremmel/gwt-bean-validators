@@ -11,6 +11,7 @@ Included Validators - single field
 |AgeLimitCheck | `minYears` (no default) | checks a date field, it must be `minYears` ago
 |AlternateSize | `size1` and `size2` (no defaults), `ignoreWhiteSpaces`, `ignoreMinus` and `ignoreSlashes` (default false) | instead of the default `Size` validator, which only can set a min and max size, this validator can check two alternate allowd sizes e.G. a GTIN number can be 8 or 13 digits long. With the `ignore*` parameters some characters can be filtered out, before the check is done.
 |Bic | `ignoreWhitspaces` (default false) | Size and format check of a Business Identifier Code (BIC-Code or SWIFT-Code), only SWIFT-Countries are allowed
+|BicValue | `ignoreWhitspaces` (default false) | Makes not only a formal check, it also compares against a list of registered BIC numbers
 |CreditCardNumber | - | uses check routines of apache commons validator to check credit card numbers
 |Email | - | uses email-check routines of apache commons validator
 |Gln | - | checks length, format and checksum of a Global Location Number (also known as International Location Number)
@@ -86,7 +87,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.4</version>
+      <version>0.8.5</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -109,7 +110,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.4</version>
+      <version>0.8.5</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>

@@ -20,6 +20,7 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 
 import org.apache.commons.lang3.CharUtils;
@@ -63,20 +64,25 @@ public class NumericAndUpperAsciiKeyPressHandler implements KeyPressHandler {
         }
         // convert lower case characters
         if (CharUtils.isAsciiAlphaLower(charCode)) {
-          final ValueBoxBase<?> textBox = (ValueBoxBase<?>) pevent.getSource();
+          final ValueBoxBase<?> textBox;
+          if (pevent.getSource() instanceof SuggestBox) {
+            textBox = ((SuggestBox) pevent.getSource()).getValueBox();
+          } else if (pevent.getSource() instanceof ValueBoxBase<?>) {
+            textBox = (ValueBoxBase<?>) pevent.getSource();
+          } else {
+            throw new RuntimeException("Widget type not supported!");
+          }
           final int cursorPos = textBox.getCursorPos();
           final String oldValue = textBox.getText();
           final String newValue = oldValue.substring(0, cursorPos) + Character.toUpperCase(charCode)
               + oldValue.substring(cursorPos);
 
-          textBox.cancelKey();
           textBox.setText(newValue);
           textBox.setCursorPos(cursorPos + 1);
           DomEvent.fireNativeEvent(Document.get().createChangeEvent(), textBox);
-          return;
         }
         // nothing matched, cancel event
-        ((ValueBoxBase<?>) pevent.getSource()).cancelKey();
+        pevent.getNativeEvent().preventDefault();
         break;
     }
   }

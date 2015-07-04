@@ -25,6 +25,11 @@
     <when-type-is class="com.google.gwt.validation.client.UserValidationMessagesResolver" />
   </replace-with>
 
+  <!-- bic map generator. -->
+  <replace-with class="de.knightsoftnet.validators.client.data.BicMapGenerator">
+    <when-type-is class="de.knightsoftnet.validators.server.data.BicMapGenerator" />
+  </replace-with>
+
   <!-- reflection replacement to get properties from validated beans by name. -->
   <generate-with class="de.knightsoftnet.validators.rebind.GwtReflectGetterGenerator">
     <when-type-assignable class="de.knightsoftnet.validators.client.GwtReflectGetterInterface" />

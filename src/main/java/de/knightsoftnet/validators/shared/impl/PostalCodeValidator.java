@@ -15,8 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
+import de.knightsoftnet.validators.client.data.PostalCodesMapConstants;
+import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.PostalCode;
-import de.knightsoftnet.validators.shared.data.PostalCodeDefinitions;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,12 @@ import javax.validation.ConstraintValidatorContext;
  *
  */
 public class PostalCodeValidator implements ConstraintValidator<PostalCode, Object> {
+
+  /**
+   * map of the postal code values.
+   */
+  private static final PostalCodesMapConstants POSTAL_CODE_MAP =
+      CreateClass.create(PostalCodesMapConstants.class);
 
   /**
    * error message key.
@@ -87,7 +94,7 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
         countryCode = StringUtils.upperCase(countryCode);
       }
 
-      final String regExCheck = PostalCodeDefinitions.COUNTRY_POSTAL_CODE_REGEX.get(countryCode);
+      final String regExCheck = POSTAL_CODE_MAP.postalCodes().get(countryCode);
       if (regExCheck == null) {
         return true;
       }

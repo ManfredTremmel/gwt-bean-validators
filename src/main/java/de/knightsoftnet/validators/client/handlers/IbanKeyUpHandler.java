@@ -22,6 +22,7 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +40,14 @@ public class IbanKeyUpHandler implements KeyUpHandler {
     if (pevent.getNativeEvent() != null) {
       keyCode = pevent.getNativeEvent().getKeyCode();
     }
-    final ValueBoxBase<?> textBox = (ValueBoxBase<?>) pevent.getSource();
+    final ValueBoxBase<?> textBox;
+    if (pevent.getSource() instanceof SuggestBox) {
+      textBox = ((SuggestBox) pevent.getSource()).getValueBox();
+    } else if (pevent.getSource() instanceof ValueBoxBase<?>) {
+      textBox = (ValueBoxBase<?>) pevent.getSource();
+    } else {
+      throw new RuntimeException("Widget type not supported!");
+    }
     final int cursorPos = textBox.getCursorPos();
     int newCursorPos = cursorPos;
     final String oldValue = textBox.getText();

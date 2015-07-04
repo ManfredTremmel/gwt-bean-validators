@@ -15,8 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
+import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
+import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.IbanFormated;
-import de.knightsoftnet.validators.shared.data.SwiftDefinitions;
 import de.knightsoftnet.validators.shared.util.IbanUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +43,12 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
    * definition of IBAN length maximum.
    */
   public static final int IBAN_LENGTH_MAX = 42;
+
+  /**
+   * map of swift countries and the length of the ibans.
+   */
+  private static final IbanLengthMapConstants IBAN_LENGTH_MAP =
+      CreateClass.create(IbanLengthMapConstants.class);
 
   /**
    * apache commons class to check/calculate IBAN check sums.
@@ -76,9 +83,9 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
       return true;
     }
     final String countryCode = valueAsString.substring(0, 2);
-    final Integer validIbanLength = SwiftDefinitions.COUNTRY_IBAN_LENGTH.get(countryCode);
+    final String validIbanLength = IBAN_LENGTH_MAP.ibanLengths().get(countryCode);
     if (validIbanLength == null || valueAsString.replaceAll("\\s", StringUtils.EMPTY)
-        .length() != validIbanLength.intValue()) {
+        .length() != Integer.parseInt(validIbanLength)) {
       // unknown country or wrong length for the country!
       return false;
     }

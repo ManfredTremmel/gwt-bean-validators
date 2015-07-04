@@ -19,6 +19,7 @@ import de.knightsoftnet.validators.shared.beans.AgeLimitTestBean;
 import de.knightsoftnet.validators.shared.beans.AlternateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.BicTestBean;
+import de.knightsoftnet.validators.shared.beans.BicValueTestBean;
 import de.knightsoftnet.validators.shared.beans.BicWithSpacesTestBean;
 import de.knightsoftnet.validators.shared.beans.CreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.EmailTestBean;
@@ -78,15 +79,16 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
    * {@link GwtValidation} annotation can be validated.
    */
   @GwtValidation(value = {AgeLimitTestBean.class, AlternateSizeTestBean.class,
-      BankCountryTestBean.class, BicTestBean.class, BicWithSpacesTestBean.class,
-      CreditCardNumberTestBean.class, EmailTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
-      EmptyIfOtherIsNotEmptyTestBean.class, GlnTestBean.class, Gtin13TestBean.class,
-      Gtin8TestBean.class, GtinTestBean.class, IbanFormatedTestBean.class, IbanTestBean.class,
-      IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class, Isbn10TestBean.class,
-      Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class, Isbn13TestBean.class,
-      Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class, IsbnTestBean.class,
-      IsbnWithSeparatorsTestBean.class, IsinTestBean.class, MustBeEqualTestBean.class,
-      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      BankCountryTestBean.class, BicTestBean.class, BicValueTestBean.class,
+      BicWithSpacesTestBean.class, CreditCardNumberTestBean.class, EmailTestBean.class,
+      EmptyIfOtherIsEmptyTestBean.class, EmptyIfOtherIsNotEmptyTestBean.class, GlnTestBean.class,
+      Gtin13TestBean.class, Gtin8TestBean.class, GtinTestBean.class, IbanFormatedTestBean.class,
+      IbanTestBean.class, IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class,
+      Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class,
+      Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class,
+      IsbnTestBean.class, IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
+      MustBeEqualTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
+      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PostalCodeTestBean.class,

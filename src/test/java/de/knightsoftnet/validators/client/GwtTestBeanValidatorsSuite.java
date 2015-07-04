@@ -37,6 +37,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     suite.addTestSuite(GwtTstAlternateSize.class);
     suite.addTestSuite(GwtTstBankCountry.class);
     suite.addTestSuite(GwtTstBic.class);
+    suite.addTestSuite(GwtTstBicValue.class);
     suite.addTestSuite(GwtTstBicWithSpaces.class);
     suite.addTestSuite(GwtTstCreditCardNumber.class);
     suite.addTestSuite(GwtTstEmail.class);

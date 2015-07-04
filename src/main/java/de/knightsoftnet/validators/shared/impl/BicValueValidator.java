@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
+import de.knightsoftnet.validators.client.data.BicMapConstants;
 import de.knightsoftnet.validators.server.data.CreateClass;
-import de.knightsoftnet.validators.shared.Bic;
+import de.knightsoftnet.validators.shared.BicValue;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,21 +32,21 @@ import javax.validation.ConstraintValidatorContext;
  * @author Manfred Tremmel
  *
  */
-public class BicValidator implements ConstraintValidator<Bic, Object> {
+public class BicValueValidator implements ConstraintValidator<BicValue, Object> {
   /**
    * definition of BIC length minimum.
    */
   public static final int BIC_LENGTH_MIN = 8;
+
   /**
    * definition of BIC length maximum.
    */
   public static final int BIC_LENGTH_MAX = 11;
 
   /**
-   * map of swift countries and the length of the ibans.
+   * map of the bic values.
    */
-  private static final IbanLengthMapConstants IBAN_LENGTH_MAP =
-      CreateClass.create(IbanLengthMapConstants.class);
+  private static final BicMapConstants BIC_MAP = CreateClass.create(BicMapConstants.class);
 
   /**
    * should whitespaces be ignored (true/false).
@@ -59,7 +59,7 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
    */
   @Override
-  public final void initialize(final Bic pconstraintAnnotation) {
+  public final void initialize(final BicValue pconstraintAnnotation) {
     this.ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
   }
 
@@ -91,9 +91,7 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
       // format is wrong!
       return false;
     }
-    final String countryCode = valueAsString.substring(4, 6);
-    final String validBicLength = IBAN_LENGTH_MAP.ibanLengths().get(countryCode);
-
-    return validBicLength != null;
+    return BIC_MAP.bics().containsKey(valueAsString)
+        || BIC_MAP.bics().containsKey(StringUtils.substring(valueAsString, 0, BIC_LENGTH_MIN));
   }
 }
