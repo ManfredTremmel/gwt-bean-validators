@@ -20,7 +20,7 @@ package de.knightsoftnet.validators.client.handlers;
  *
  * @author Manfred Tremmel
  */
-public class NumericKeyPressHandler extends AbstractKeyPressHandler {
+public class NumericKeyPressHandler extends AbstractFilterKeyPressHandler {
 
   public NumericKeyPressHandler() {
     super("0123456789", true);

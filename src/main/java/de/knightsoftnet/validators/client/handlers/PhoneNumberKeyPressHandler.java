@@ -15,17 +15,14 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
-import com.google.gwt.i18n.client.NumberFormat;
-
 /**
- * KeyPress Handler which allows the characters used for decimal values.
+ * KeyPress Handler which only allows characters which are allowed in phone numbers.
  *
  * @author Manfred Tremmel
  */
-public class DecimalKeyPressHandler extends AbstractFilterKeyPressHandler {
+public class PhoneNumberKeyPressHandler extends AbstractFilterKeyPressHandler {
 
-  public DecimalKeyPressHandler() {
-    super(NumberFormat.getDecimalFormat().format(1234567890.0123456789)
-        + NumberFormat.getDecimalFormat().format(-1234567890.0123456789), true);
+  public PhoneNumberKeyPressHandler() {
+    super("0123456789 -+/()", true);
   }
 }

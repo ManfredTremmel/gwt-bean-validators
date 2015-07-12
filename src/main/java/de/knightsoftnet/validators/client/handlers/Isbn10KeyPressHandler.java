@@ -15,46 +15,46 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
-import de.knightsoftnet.validators.shared.util.IbanUtil;
+import de.knightsoftnet.validators.shared.util.IsbnUtil;
 
 import org.apache.commons.lang3.CharUtils;
 
 /**
- * Key press handler which limits and formats input to iban characters.
+ * Key press handler which limits and formats input to isbn 10 characters.
  *
  * @author Manfred Tremmel
  */
-public class IbanKeyPressHandler extends AbstractFilterReplaceAndFormatKeyPressHandler {
+public class Isbn10KeyPressHandler extends AbstractFilterReplaceAndFormatKeyPressHandler {
 
   /**
    * default constructor.
    */
-  public IbanKeyPressHandler() {
+  public Isbn10KeyPressHandler() {
     super(true);
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    return CharUtils.isAscii(pcharacter) || CharUtils.isAsciiNumeric(pcharacter);
+    return CharUtils.isAsciiNumeric(pcharacter);
   }
 
   @Override
   public boolean isCharacterToReplace(final char pcharacter) {
-    return CharUtils.isAsciiAlphaLower(pcharacter);
+    return false;
   }
 
   @Override
   public boolean isFormatingCharacter(final char pcharacter) {
-    return pcharacter == ' ';
+    return pcharacter == '-';
   }
 
   @Override
   public char replaceCharacter(final char pcharacter) {
-    return Character.toUpperCase(pcharacter);
+    return pcharacter;
   }
 
   @Override
   public String formatValue(final String pvalue) {
-    return IbanUtil.ibanFormat(pvalue);
+    return IsbnUtil.isbn10Format(pvalue);
   }
 }

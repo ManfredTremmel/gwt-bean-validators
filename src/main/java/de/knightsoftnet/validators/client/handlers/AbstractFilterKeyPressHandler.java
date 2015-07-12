@@ -27,7 +27,7 @@ import java.util.TreeSet;
  *
  * @author Manfred Tremmel
  */
-public abstract class AbstractKeyPressHandler implements KeyPressHandler {
+public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
 
   /**
    * allowed characters.
@@ -45,7 +45,7 @@ public abstract class AbstractKeyPressHandler implements KeyPressHandler {
    * @param pallowedCharacters characters which are allowed to add
    * @param pallowCopyAndPast is copy & paste allowed?
    */
-  public AbstractKeyPressHandler(final Set<Character> pallowedCharacters,
+  public AbstractFilterKeyPressHandler(final Set<Character> pallowedCharacters,
       final boolean pallowCopyAndPast) {
     super();
     this.allowedCharacters = pallowedCharacters;
@@ -58,7 +58,8 @@ public abstract class AbstractKeyPressHandler implements KeyPressHandler {
    * @param pallowedCharacters characters which are allowed to add
    * @param pallowCopyAndPast is copy & paste allowed?
    */
-  public AbstractKeyPressHandler(final String pallowedCharacters, final boolean pallowCopyAndPast) {
+  public AbstractFilterKeyPressHandler(final String pallowedCharacters,
+      final boolean pallowCopyAndPast) {
     super();
     this.allowedCharacters = new TreeSet<Character>();
     for (final char character : pallowedCharacters.toCharArray()) {

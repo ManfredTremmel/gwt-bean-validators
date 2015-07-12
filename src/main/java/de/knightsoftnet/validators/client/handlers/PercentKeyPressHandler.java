@@ -22,7 +22,7 @@ import com.google.gwt.i18n.client.NumberFormat;
  *
  * @author Manfred Tremmel
  */
-public class PercentKeyPressHandler extends AbstractKeyPressHandler {
+public class PercentKeyPressHandler extends AbstractFilterKeyPressHandler {
 
   public PercentKeyPressHandler() {
     super(NumberFormat.getPercentFormat().format(1234567890.0123456789)

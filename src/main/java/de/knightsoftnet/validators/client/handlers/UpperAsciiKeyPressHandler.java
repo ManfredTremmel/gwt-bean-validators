@@ -15,14 +15,6 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.user.client.ui.SuggestBox;
-import com.google.gwt.user.client.ui.ValueBoxBase;
-
 import org.apache.commons.lang3.CharUtils;
 
 /**
@@ -30,60 +22,27 @@ import org.apache.commons.lang3.CharUtils;
  *
  * @author Manfred Tremmel
  */
-public class UpperAsciiKeyPressHandler implements KeyPressHandler {
+public class UpperAsciiKeyPressHandler extends AbstractFilterAndReplaceKeyPressHandler {
+
+  /**
+   * default constructor.
+   */
+  public UpperAsciiKeyPressHandler() {
+    super(true);
+  }
 
   @Override
-  public void onKeyPress(final KeyPressEvent pevent) {
-    int keyCode = 0;
-    if (pevent.getNativeEvent() != null) {
-      keyCode = pevent.getNativeEvent().getKeyCode();
-    }
-    final char charCode = pevent.getCharCode();
+  public boolean isAllowedCharacter(final char pcharacter) {
+    return CharUtils.isAsciiAlphaUpper(pcharacter);
+  }
 
-    switch (keyCode) {
-      case KeyCodes.KEY_BACKSPACE:
-      case KeyCodes.KEY_DELETE:
-      case KeyCodes.KEY_LEFT:
-      case KeyCodes.KEY_RIGHT:
-      case KeyCodes.KEY_SHIFT:
-      case KeyCodes.KEY_TAB:
-      case KeyCodes.KEY_ENTER:
-      case KeyCodes.KEY_HOME:
-      case KeyCodes.KEY_END:
-      case KeyCodes.KEY_UP:
-      case KeyCodes.KEY_DOWN:
-        break;
-      default:
-        // Copy, Cut or Paste allowed?
-        if (pevent.isControlKeyDown() && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
-          return;
-        }
-        // check for allowed characters
-        if (CharUtils.isAsciiAlphaUpper(charCode)) {
-          return;
-        }
-        // convert lower case characters
-        if (CharUtils.isAsciiAlphaLower(charCode)) {
-          final ValueBoxBase<?> textBox;
-          if (pevent.getSource() instanceof SuggestBox) {
-            textBox = ((SuggestBox) pevent.getSource()).getValueBox();
-          } else if (pevent.getSource() instanceof ValueBoxBase<?>) {
-            textBox = (ValueBoxBase<?>) pevent.getSource();
-          } else {
-            throw new RuntimeException("Widget type not supported!");
-          }
-          final int cursorPos = textBox.getCursorPos();
-          final String oldValue = textBox.getText();
-          final String newValue = oldValue.substring(0, cursorPos) + Character.toUpperCase(charCode)
-              + oldValue.substring(cursorPos);
+  @Override
+  public boolean isCharacterToReplace(final char pcharacter) {
+    return CharUtils.isAsciiAlphaLower(pcharacter);
+  }
 
-          textBox.setText(newValue);
-          textBox.setCursorPos(cursorPos + 1);
-          DomEvent.fireNativeEvent(Document.get().createChangeEvent(), textBox);
-        }
-        // nothing matched, cancel event
-        pevent.getNativeEvent().preventDefault();
-        break;
-    }
+  @Override
+  public char replaceCharacter(final char pcharacter) {
+    return Character.toUpperCase(pcharacter);
   }
 }

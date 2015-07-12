@@ -32,7 +32,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class Isbn13FormatedValidator implements ConstraintValidator<Isbn13Formated, Object> {
   /**
-   * definition of gln length.
+   * definition of isbn13 length (formated.
    */
   public static final int ISBN13_LENGTH = 17;
 
@@ -68,7 +68,7 @@ public class Isbn13FormatedValidator implements ConstraintValidator<Isbn13Format
       // ISBN13 size is wrong, but that's handled by size annotation
       return true;
     }
-    // calculate and check checksum (GTIN-13/GLN)
+    // calculate and check checksum (ISBN13 )
     return CHECK_ISBN.isValidISBN13(valueAsString);
   }
 }

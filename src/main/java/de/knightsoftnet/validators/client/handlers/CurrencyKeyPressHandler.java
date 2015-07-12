@@ -22,7 +22,7 @@ import com.google.gwt.i18n.client.NumberFormat;
  *
  * @author Manfred Tremmel
  */
-public class CurrencyKeyPressHandler extends AbstractKeyPressHandler {
+public class CurrencyKeyPressHandler extends AbstractFilterKeyPressHandler {
 
   public CurrencyKeyPressHandler() {
     super(NumberFormat.getCurrencyFormat().format(1234567890.0123456789)

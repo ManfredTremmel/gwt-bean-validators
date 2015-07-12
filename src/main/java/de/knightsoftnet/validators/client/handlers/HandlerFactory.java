@@ -26,9 +26,16 @@ public class HandlerFactory {
   private static NumericAndUpperAsciiKeyPressHandler numericAndUpperAsciiKeyPressHandler = null;
   private static IbanKeyPressHandler ibanKeyPressHandler = null;
   private static IbanKeyUpHandler ibanKeyUpHandler = null;
+  private static Isbn10KeyPressHandler isbn10KeyPressHandler = null;
+  private static Isbn10KeyUpHandler isbn10KeyUpHandler = null;
+  private static Isbn13KeyPressHandler isbn13KeyPressHandler = null;
+  private static Isbn13KeyUpHandler isbn13KeyUpHandler = null;
+  private static IsbnKeyPressHandler isbnKeyPressHandler = null;
+  private static IsbnKeyUpHandler isbnKeyUpHandler = null;
   private static NumericKeyPressHandler numericKeyPressHandler = null;
   private static CurrencyKeyPressHandler currencyKeyPressHandler = null;
   private static PercentKeyPressHandler percentKeyPressHandler = null;
+  private static PhoneNumberKeyPressHandler phoneNumberKeyPressHandler = null;
   private static DecimalKeyPressHandler decimalKeyPressHandler = null;
 
   /**
@@ -80,6 +87,78 @@ public class HandlerFactory {
   }
 
   /**
+   * get a isbn 10 key press handler.
+   *
+   * @return Isbn10KeyPressHandler
+   */
+  public static final Isbn10KeyPressHandler getIsbn10KeyPressHandler() {
+    if (isbn10KeyPressHandler == null) { // NOPMD, needn't be thread save on client
+      isbn10KeyPressHandler = new Isbn10KeyPressHandler();
+    }
+    return isbn10KeyPressHandler;
+  }
+
+  /**
+   * get a isbn 10 key up handler.
+   *
+   * @return Isbn10KeyUpHandler
+   */
+  public static final Isbn10KeyUpHandler getIsbn10KeyUpHandler() {
+    if (isbn10KeyUpHandler == null) { // NOPMD, needn't be thread save on client
+      isbn10KeyUpHandler = new Isbn10KeyUpHandler();
+    }
+    return isbn10KeyUpHandler;
+  }
+
+  /**
+   * get a isbn 13 key press handler.
+   *
+   * @return Isbn13KeyPressHandler
+   */
+  public static final Isbn13KeyPressHandler getIsbn13KeyPressHandler() {
+    if (isbn13KeyPressHandler == null) { // NOPMD, needn't be thread save on client
+      isbn13KeyPressHandler = new Isbn13KeyPressHandler();
+    }
+    return isbn13KeyPressHandler;
+  }
+
+  /**
+   * get a isbn 13 key up handler.
+   *
+   * @return Isbn13KeyUpHandler
+   */
+  public static final Isbn13KeyUpHandler getIsbn13KeyUpHandler() {
+    if (isbn13KeyUpHandler == null) { // NOPMD, needn't be thread save on client
+      isbn13KeyUpHandler = new Isbn13KeyUpHandler();
+    }
+    return isbn13KeyUpHandler;
+  }
+
+  /**
+   * get a isbn key press handler.
+   *
+   * @return IsbnKeyPressHandler
+   */
+  public static final IsbnKeyPressHandler getIsbnKeyPressHandler() {
+    if (isbnKeyPressHandler == null) { // NOPMD, needn't be thread save on client
+      isbnKeyPressHandler = new IsbnKeyPressHandler();
+    }
+    return isbnKeyPressHandler;
+  }
+
+  /**
+   * get a isbn key up handler.
+   *
+   * @return IsbnKeyUpHandler
+   */
+  public static final IsbnKeyUpHandler getIsbnKeyUpHandler() {
+    if (isbnKeyUpHandler == null) { // NOPMD, needn't be thread save on client
+      isbnKeyUpHandler = new IsbnKeyUpHandler();
+    }
+    return isbnKeyUpHandler;
+  }
+
+  /**
    * get a numeric key press handler.
    *
    * @return NumericKeyPressHandler
@@ -113,6 +192,18 @@ public class HandlerFactory {
       percentKeyPressHandler = new PercentKeyPressHandler();
     }
     return percentKeyPressHandler;
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @return PhoneNumberKeyPressHandler
+   */
+  public static final PhoneNumberKeyPressHandler getPhoneNumberKeyPressHandler() {
+    if (phoneNumberKeyPressHandler == null) { // NOPMD, needn't be thread save on client
+      phoneNumberKeyPressHandler = new PhoneNumberKeyPressHandler();
+    }
+    return phoneNumberKeyPressHandler;
   }
 
   /**

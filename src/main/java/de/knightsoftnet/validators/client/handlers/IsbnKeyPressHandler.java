@@ -15,17 +15,46 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
-import com.google.gwt.i18n.client.NumberFormat;
+import de.knightsoftnet.validators.shared.util.IsbnUtil;
+
+import org.apache.commons.lang3.CharUtils;
 
 /**
- * KeyPress Handler which allows the characters used for decimal values.
+ * Key press handler which limits and formats input to isbn characters.
  *
  * @author Manfred Tremmel
  */
-public class DecimalKeyPressHandler extends AbstractFilterKeyPressHandler {
+public class IsbnKeyPressHandler extends AbstractFilterReplaceAndFormatKeyPressHandler {
 
-  public DecimalKeyPressHandler() {
-    super(NumberFormat.getDecimalFormat().format(1234567890.0123456789)
-        + NumberFormat.getDecimalFormat().format(-1234567890.0123456789), true);
+  /**
+   * default constructor.
+   */
+  public IsbnKeyPressHandler() {
+    super(true);
+  }
+
+  @Override
+  public boolean isAllowedCharacter(final char pcharacter) {
+    return CharUtils.isAsciiNumeric(pcharacter);
+  }
+
+  @Override
+  public boolean isCharacterToReplace(final char pcharacter) {
+    return false;
+  }
+
+  @Override
+  public boolean isFormatingCharacter(final char pcharacter) {
+    return pcharacter == '-';
+  }
+
+  @Override
+  public char replaceCharacter(final char pcharacter) {
+    return pcharacter;
+  }
+
+  @Override
+  public String formatValue(final String pvalue) {
+    return IsbnUtil.isbnFormat(pvalue);
   }
 }
