@@ -33,6 +33,8 @@ import javax.validation.Payload;
  * <li>a field which entry is compared (option <code>field2</code>)</li>
  * <li>the minimum levenshtein distance both field entries must have (option
  * <code>minDistance</code>)</li>
+ * <li>add the error to field1 (option <code>addErrorToField1</code>, default true)</li>
+ * <li>add the error to field2 (option <code>addErrorToField2</code>, default true)</li>
  * </ul>
  * The Levenshtein distance between the entry of <code>fieldCompare</code> and <code>field</code> is
  * calculated, it must be equal or greater then the value of minDistance. not be empty (null or "").
@@ -55,7 +57,7 @@ public @interface LevenshteinDistance {
   /**
    * groups to use.
    */
-  Class<?>[]groups() default {};
+  Class<?>[] groups() default {};
 
   /**
    * field name to check.
@@ -73,9 +75,19 @@ public @interface LevenshteinDistance {
   int minDistance();
 
   /**
+   * add error to field1 (default true).
+   */
+  boolean addErrorToField1() default true;
+
+  /**
+   * add error to field2 (default true).
+   */
+  boolean addErrorToField2() default true;
+
+  /**
    * payload whatever.
    */
-  Class<? extends Payload>[]payload() default {};
+  Class<? extends Payload>[] payload() default {};
 
   /**
    * Defines several {@code @LevenshteinDistance} annotations on the same element.
@@ -87,6 +99,6 @@ public @interface LevenshteinDistance {
     /**
      * levenshtein distance value.
      */
-    LevenshteinDistance[]value();
+    LevenshteinDistance[] value();
   }
 }
