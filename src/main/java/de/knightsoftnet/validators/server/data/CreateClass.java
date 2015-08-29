@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -15,17 +15,22 @@
 
 package de.knightsoftnet.validators.server.data;
 
-import com.mattbertolini.hermes.Hermes;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Read gwt constants from properties file on server side.
- * 
+ *
  * @author Manfred Tremmel
  *
  */
 public class CreateClass {
+
+  private static final String PROPERTY_PACKAGE = "de.knightsoftnet.validators.client.data.";
 
   /**
    * Instantiates a class via deferred binding.
@@ -37,15 +42,37 @@ public class CreateClass {
    * correctly in Development Mode.
    * </p>
    *
-   * @param classLiteral a class literal specifying the base class to be instantiated
+   * @param pclassLiteral a class literal specifying the base class to be instantiated
    * @return the new instance, which must be cast to the requested class
    */
   @SuppressWarnings("unchecked")
-  public static <T> T create(final Class<?> classLiteral) {
-    try {
-      return (T) Hermes.get(classLiteral, "en");
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
+  public static <T> T create(final Class<?> pclassLiteral) {
+    if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapConstants.class)) {
+      return (T) new BicMapConstantsImpl(readMapFromProperties("BicMapConstants", "bics"));
+    } else if (pclassLiteral
+        .equals(de.knightsoftnet.validators.shared.data.IbanLengthMapConstants.class)) {
+      return (T) new IbanLengthMapConstantsImpl(readMapFromProperties("IbanLengthMapConstants",
+          "ibanLengths"));
+    } else if (pclassLiteral
+        .equals(de.knightsoftnet.validators.shared.data.PostalCodesMapConstants.class)) {
+      return (T) new PostalCodesMapConstantsImpl(readMapFromProperties("PostalCodesMapConstants",
+          "postalCodes"));
+    } else if (pclassLiteral
+        .equals(de.knightsoftnet.validators.shared.data.VatIdMapConstants.class)) {
+      return (T) new VatIdMapConstantsImpl(readMapFromProperties("VatIdMapConstants", "vatIds"));
     }
+    return null;
+  }
+
+  private static Map<String, String> readMapFromProperties(final String pmapName,
+      final String pmapRoot) {
+    final ResourceBundle bundle =
+        ResourceBundle.getBundle(PROPERTY_PACKAGE + pmapName, Locale.ROOT, new Utf8Control());
+    final Map<String, String> map = new HashMap<>();
+    final String mapNames = StringUtils.defaultString(bundle.getString(pmapRoot));
+    for (final String key : mapNames.split(",")) {
+      map.put(key, bundle.getString(key));
+    }
+    return map;
   }
 }

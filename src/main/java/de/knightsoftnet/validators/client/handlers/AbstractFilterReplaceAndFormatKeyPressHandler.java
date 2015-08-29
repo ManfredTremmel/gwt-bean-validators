@@ -96,7 +96,7 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
 
           if (!StringUtils.equals(oldValue, newValue)) {
             newCursorPos = cursorPos + newValue.length() - oldValue.length();
-            while (newCursorPos > 0
+            while (newCursorPos > 0 //
                 && this.isFormatingCharacter(newValue.charAt(newCursorPos - 1))) {
               newCursorPos++;
             }
@@ -111,7 +111,8 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
     if (changeHandled) {
       textBox.cancelKey();
       textBox.setText(newValue);
-      if (newCursorPos > newValue.length()) {
+      if (StringUtils.length(oldValue) == cursorPos //
+          || newCursorPos > StringUtils.length(newValue)) {
         textBox.setCursorPos(newValue.length());
       } else {
         textBox.setCursorPos(newCursorPos);

@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.IbanFormated;
+import de.knightsoftnet.validators.shared.data.IbanLengthMapConstants;
 import de.knightsoftnet.validators.shared.util.IbanUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -47,8 +47,8 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
   /**
    * map of swift countries and the length of the ibans.
    */
-  private static final IbanLengthMapConstants IBAN_LENGTH_MAP =
-      CreateClass.create(IbanLengthMapConstants.class);
+  private static final IbanLengthMapConstants IBAN_LENGTH_MAP = CreateClass
+      .create(IbanLengthMapConstants.class);
 
   /**
    * apache commons class to check/calculate IBAN check sums.
@@ -84,8 +84,9 @@ public class IbanFormatedValidator implements ConstraintValidator<IbanFormated, 
     }
     final String countryCode = valueAsString.substring(0, 2);
     final String validIbanLength = IBAN_LENGTH_MAP.ibanLengths().get(countryCode);
-    if (validIbanLength == null || valueAsString.replaceAll("\\s", StringUtils.EMPTY)
-        .length() != Integer.parseInt(validIbanLength)) {
+    if (validIbanLength == null
+        || valueAsString.replaceAll("\\s", StringUtils.EMPTY).length() != Integer
+            .parseInt(validIbanLength)) {
       // unknown country or wrong length for the country!
       return false;
     }

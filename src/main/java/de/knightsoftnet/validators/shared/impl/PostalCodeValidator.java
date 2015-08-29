@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.client.data.PostalCodesMapConstants;
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.PostalCode;
+import de.knightsoftnet.validators.shared.data.PostalCodesMapConstants;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +36,8 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   /**
    * map of the postal code values.
    */
-  private static final PostalCodesMapConstants POSTAL_CODE_MAP =
-      CreateClass.create(PostalCodesMapConstants.class);
+  private static final PostalCodesMapConstants POSTAL_CODE_MAP = CreateClass
+      .create(PostalCodesMapConstants.class);
 
   /**
    * error message key.

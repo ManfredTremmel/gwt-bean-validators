@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -49,33 +49,26 @@ public abstract class AbstractFormatKeyUpHandler implements KeyUpHandler {
     final int cursorPos = textBox.getCursorPos();
     int newCursorPos = cursorPos;
     final String oldValue = textBox.getText();
-    String newValue = null;
+    String newValue = this.formatValue(oldValue);
     boolean changeHandled = false;
 
     switch (keyCode) {
       case KeyCodes.KEY_BACKSPACE:
-        if (cursorPos > 0) {
-          if (this.isFormatingCharacter(oldValue.charAt(cursorPos - 1))) {
-            newValue = this.formatValue(StringUtils.substring(oldValue, 0, cursorPos - 1)
-                + StringUtils.substring(oldValue, cursorPos));
-            newCursorPos = cursorPos - 1;
-            changeHandled = true;
-          } else {
-            newValue = this.formatValue(oldValue);
-            changeHandled = !StringUtils.equals(oldValue, newValue);
-          }
+        if (cursorPos > 0 && this.isFormatingCharacter(oldValue.charAt(cursorPos - 1))) {
+          newValue =
+              this.formatValue(StringUtils.substring(oldValue, 0, cursorPos - 1)
+                  + StringUtils.substring(oldValue, cursorPos));
+          newCursorPos = cursorPos - 1;
+          changeHandled = true;
         }
         break;
       case KeyCodes.KEY_DELETE:
-        if (cursorPos < StringUtils.length(oldValue)) {
-          if (this.isFormatingCharacter(oldValue.charAt(cursorPos + 1))) {
-            newValue = this.formatValue(StringUtils.substring(oldValue, 0, cursorPos)
-                + StringUtils.substring(oldValue, cursorPos + 2));
-            changeHandled = true;
-          } else {
-            newValue = this.formatValue(oldValue);
-            changeHandled = !StringUtils.equals(oldValue, newValue);
-          }
+        if (cursorPos < StringUtils.length(oldValue)
+            && this.isFormatingCharacter(oldValue.charAt(cursorPos + 1))) {
+          newValue =
+              this.formatValue(StringUtils.substring(oldValue, 0, cursorPos)
+                  + StringUtils.substring(oldValue, cursorPos + 2));
+          changeHandled = true;
         }
         break;
       case KeyCodes.KEY_LEFT:
@@ -104,12 +97,19 @@ public abstract class AbstractFormatKeyUpHandler implements KeyUpHandler {
       case KeyCodes.KEY_DOWN:
         break;
       default:
+        final int charCode = pevent.getNativeKeyCode();
+        final boolean ctlr = pevent.isControlKeyDown();
+        if (ctlr && charCode == 86) {
+          changeHandled = true;
+          newCursorPos = StringUtils.length(newValue);
+        }
         break;
     }
     if (changeHandled) {
       pevent.getNativeEvent().stopPropagation();
       textBox.setText(newValue);
-      if (newCursorPos > newValue.length()) {
+      if (StringUtils.length(oldValue) == cursorPos //
+          || newCursorPos > StringUtils.length(newValue)) {
         textBox.setCursorPos(newValue.length());
       } else {
         textBox.setCursorPos(newCursorPos);

@@ -31,6 +31,8 @@ import javax.validation.Payload;
  * <ul>
  * <li>a field to compare (option <code>field1</code>)</li>
  * <li>another field to compared (option <code>field2</code>)</li>
+ * <li>add the error to field1 (option <code>addErrorToField1</code>, default true)</li>
+ * <li>add the error to field2 (option <code>addErrorToField2</code>, default true)</li>
  * </ul>
  * the entry of <code>field1</code> must not be equal to the entry of <code>field2</code>, can be
  * used e.g. for password old and password new fields.<br />
@@ -63,6 +65,16 @@ public @interface MustNotBeEqual {
    * field2 name to compare.
    */
   String field2();
+
+  /**
+   * add error to field1 (default true).
+   */
+  boolean addErrorToField1() default true;
+
+  /**
+   * add error to field2 (default true).
+   */
+  boolean addErrorToField2() default true;
 
   /**
    * payload whatever.

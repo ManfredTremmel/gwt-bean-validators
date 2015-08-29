@@ -13,9 +13,9 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.client.data;
+package de.knightsoftnet.validators.shared.data;
 
-import com.google.gwt.i18n.client.Constants;
+import java.util.Map;
 
 /**
  * map of bic numbers and names.
@@ -23,6 +23,6 @@ import com.google.gwt.i18n.client.Constants;
  * @author Manfred Tremmel
  *
  */
-public interface BicMapConstants extends de.knightsoftnet.validators.shared.data.BicMapConstants,
-    Constants {
+public interface BicMapConstants {
+  Map<String, String> bics();
 }

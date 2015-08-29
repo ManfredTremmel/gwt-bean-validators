@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.client.data.BicMapConstants;
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.BicValue;
+import de.knightsoftnet.validators.shared.data.BicMapConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -91,6 +91,7 @@ public class BicValueValidator implements ConstraintValidator<BicValue, Object> 
       // format is wrong!
       return false;
     }
+    // final BicMapConstants BIC_MAP = CreateClass.create(BicMapConstants.class);
     return BIC_MAP.bics().containsKey(valueAsString)
         || BIC_MAP.bics().containsKey(StringUtils.substring(valueAsString, 0, BIC_LENGTH_MIN));
   }

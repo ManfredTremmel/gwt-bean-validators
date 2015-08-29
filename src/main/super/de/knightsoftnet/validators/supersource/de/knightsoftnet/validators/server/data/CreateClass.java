@@ -40,17 +40,20 @@ public class CreateClass {
    * correctly in Development Mode.
    * </p>
    *
-   * @param classLiteral a class literal specifying the base class to be instantiated
+   * @param pclassLiteral a class literal specifying the base class to be instantiated
    * @return the new instance, which must be cast to the requested class
    */
-  public static <T> T create(final Class<?> classLiteral) {
-    if (classLiteral.equals(BicMapConstants.class)) {
+  public static <T> T create(final Class<?> pclassLiteral) {
+    if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapConstants.class)) {
       return GWT.create(BicMapConstants.class);
-    } else if (classLiteral.equals(IbanLengthMapConstants.class)) {
+    } else if (pclassLiteral.equals(
+        de.knightsoftnet.validators.shared.data.IbanLengthMapConstants.class)) {
       return GWT.create(IbanLengthMapConstants.class);
-    } else if (classLiteral.equals(PostalCodesMapConstants.class)) {
+    } else if (pclassLiteral.equals(
+        de.knightsoftnet.validators.shared.data.PostalCodesMapConstants.class)) {
       return GWT.create(PostalCodesMapConstants.class);
-    } else if (classLiteral.equals(VatIdMapConstants.class)) {
+    } else if (pclassLiteral.equals(
+        de.knightsoftnet.validators.shared.data.VatIdMapConstants.class)) {
       return GWT.create(VatIdMapConstants.class);
     }
     return null;

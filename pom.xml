@@ -6,36 +6,33 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.7</version>
+	<version>0.8.8</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
 		<!-- Convenience property to set the GWT version -->
 		<gwt.version>2.7.0</gwt.version>
-		<mgwt.version>2.0.0</mgwt.version>
-		<hibernateValidator.version>4.1.0.Final</hibernateValidator.version>
+		<hibernate-validator.version>4.1.0.Final</hibernate-validator.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.12</slf4j.version>
-		<gwtCommonsLang.version>3.4-SNAPSHOT</gwtCommonsLang.version>
-		<gwtCommonsValidator.version>1.4.1-SNAPSHOT</gwtCommonsValidator.version>
-		<hermes.version>1.2.0</hermes.version>
-		<commonsBeanutils.version>1.9.2</commonsBeanutils.version>
-		<wagonSSH.version>2.9</wagonSSH.version>
-		<mavenResource.version>2.7</mavenResource.version>
-		<mavenCompiler.version>3.3</mavenCompiler.version>
-		<mavenSourcePlugin.version>2.4</mavenSourcePlugin.version>
-		<mavenJavaDocPlugin.version>2.10.3</mavenJavaDocPlugin.version>
-		<mavenReport.version>2.8</mavenReport.version>
-		<surefirePlugin.version>2.18.1</surefirePlugin.version>
-		<checkstyle.version>2.15</checkstyle.version>
-		<checkstyleTool.version>6.7</checkstyleTool.version>
-		<pmd.version>3.4</pmd.version>
-		<findbugs.version>3.0.1</findbugs.version>
-		<cobertura.version>2.7</cobertura.version>
-		<jxr.version>2.5</jxr.version>
-		<surefirePlugin.version>2.18.1</surefirePlugin.version>
+		<gwt-commons-lang3.version>3.4-SNAPSHOT</gwt-commons-lang3.version>
+		<gwt-commons-validator.version>1.4.1-SNAPSHOT</gwt-commons-validator.version>
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
+		<wagon-ssh.version>2.9</wagon-ssh.version>
+		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+		<maven-source-plugin.version>2.4</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+		<maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
+		<maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+		<maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
+		<checkstyle.version>6.9</checkstyle.version>
+		<maven-pmd-plugin.version>3.5</maven-pmd-plugin.version>
+		<findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
+		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
+		<maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -115,48 +112,43 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernateValidator.version}</version>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernateValidator.version}</version>
+			<version>${hibernate-validator.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>gwt-commons-lang3</groupId>
 			<artifactId>gwt-commons-lang3</artifactId>
-			<version>${gwtCommonsLang.version}</version>
+			<version>${gwt-commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>gwt-commons-lang3</groupId>
 			<artifactId>gwt-commons-lang3</artifactId>
-			<version>${gwtCommonsLang.version}</version>
+			<version>${gwt-commons-lang3.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>gwt-commons-validator</groupId>
 			<artifactId>gwt-commons-validator</artifactId>
-			<version>${gwtCommonsValidator.version}</version>
+			<version>${gwt-commons-validator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>gwt-commons-validator</groupId>
 			<artifactId>gwt-commons-validator</artifactId>
-			<version>${gwtCommonsValidator.version}</version>
+			<version>${gwt-commons-validator.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.mattbertolini</groupId>
-			<artifactId>hermes</artifactId>
-			<version>${hermes.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>${commonsBeanutils.version}</version>
+			<version>${commons-beanutils.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -213,7 +205,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${mavenCompiler.version}</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -225,7 +217,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${surefirePlugin.version}</version>
+				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
 					<skip>true</skip>
 					<trimStackTrace>false</trimStackTrace>
@@ -251,7 +243,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>${mavenResource.version}</version>
+				<version>${maven-resources-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>copy-localization-resources</id>
@@ -277,7 +269,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${mavenSourcePlugin.version}</version>
+				<version>${maven-source-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -293,7 +285,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${mavenJavaDocPlugin.version}</version>
+				<version>${maven-javadoc-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
@@ -306,12 +298,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle.version}</version>
+				<version>${maven-checkstyle-plugin.version}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.puppycrawl.tools</groupId>
 						<artifactId>checkstyle</artifactId>
-						<version>${checkstyleTool.version}</version>
+						<version>${checkstyle.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -322,7 +314,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
+				<version>${maven-pmd-plugin.version}</version>
 				<configuration>
 					<rulesets>
 						<ruleset>.ruleset</ruleset>
@@ -332,21 +324,21 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
+				<version>${findbugs-maven-plugin.version}</version>
 				<configuration>
 					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
 				</configuration>
 			</plugin>
 			<!-- must be disabled, dosn't work with try-with-resource at the moment 
 				<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
-				<version>${cobertura.version}</version> <configuration> <formats> <format>xml</format> 
+				<version>${cobertura-maven-plugin.version}</version> <configuration> <formats> <format>xml</format> 
 				</formats> </configuration> </plugin> -->
 		</plugins>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ssh</artifactId>
-				<version>${wagonSSH.version}</version>
+				<version>${wagon-ssh.version}</version>
 			</extension>
 		</extensions>
 	</build>
@@ -356,12 +348,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>${mavenReport.version}</version>
+				<version>${maven-project-info-reports-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle.version}</version>
+				<version>${maven-checkstyle-plugin.version}</version>
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 					<encoding>UTF-8</encoding>
@@ -370,7 +362,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
+				<version>${maven-pmd-plugin.version}</version>
 				<configuration>
 					<rulesets>
 						<ruleset>.ruleset</ruleset>
@@ -380,19 +372,19 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
+				<version>${findbugs-maven-plugin.version}</version>
 				<configuration>
 					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
 				</configuration>
 			</plugin>
 			<!-- must be disabled, dosn't work with try-with-resource at the moment 
 				<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
-				<version>${cobertura.version}</version> <configuration> <formats> <format>xml</format> 
+				<version>${cobertura-maven-plugin.version}</version> <configuration> <formats> <format>xml</format> 
 				</formats> </configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
-				<version>${jxr.version}</version>
+				<version>${maven-jxr-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</reporting>
