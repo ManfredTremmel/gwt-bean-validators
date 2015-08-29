@@ -17,7 +17,7 @@ package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.PostalCode;
-import de.knightsoftnet.validators.shared.data.PostalCodesMapConstants;
+import de.knightsoftnet.validators.shared.data.PostalCodesMapSharedConstants;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +36,8 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
   /**
    * map of the postal code values.
    */
-  private static final PostalCodesMapConstants POSTAL_CODE_MAP = CreateClass
-      .create(PostalCodesMapConstants.class);
+  private static final PostalCodesMapSharedConstants POSTAL_CODE_MAP = CreateClass
+      .create(PostalCodesMapSharedConstants.class);
 
   /**
    * error message key.

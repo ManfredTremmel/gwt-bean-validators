@@ -1,10 +1,10 @@
 package de.knightsoftnet.validators.server.data;
 
-import de.knightsoftnet.validators.shared.data.BicMapConstants;
+import de.knightsoftnet.validators.shared.data.BicMapSharedConstants;
 
 import java.util.Map;
 
-public class BicMapConstantsImpl implements BicMapConstants {
+public class BicMapConstantsImpl implements BicMapSharedConstants {
   private final Map<String, String> bicMap;
 
   public BicMapConstantsImpl(final Map<String, String> pmap) {

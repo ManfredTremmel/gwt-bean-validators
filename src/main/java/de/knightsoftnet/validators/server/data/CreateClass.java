@@ -47,18 +47,18 @@ public class CreateClass {
    */
   @SuppressWarnings("unchecked")
   public static <T> T create(final Class<?> pclassLiteral) {
-    if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapConstants.class)) {
+    if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapSharedConstants.class)) {
       return (T) new BicMapConstantsImpl(readMapFromProperties("BicMapConstants", "bics"));
     } else if (pclassLiteral
-        .equals(de.knightsoftnet.validators.shared.data.IbanLengthMapConstants.class)) {
+        .equals(de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants.class)) {
       return (T) new IbanLengthMapConstantsImpl(readMapFromProperties("IbanLengthMapConstants",
           "ibanLengths"));
     } else if (pclassLiteral
-        .equals(de.knightsoftnet.validators.shared.data.PostalCodesMapConstants.class)) {
+        .equals(de.knightsoftnet.validators.shared.data.PostalCodesMapSharedConstants.class)) {
       return (T) new PostalCodesMapConstantsImpl(readMapFromProperties("PostalCodesMapConstants",
           "postalCodes"));
     } else if (pclassLiteral
-        .equals(de.knightsoftnet.validators.shared.data.VatIdMapConstants.class)) {
+        .equals(de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants.class)) {
       return (T) new VatIdMapConstantsImpl(readMapFromProperties("VatIdMapConstants", "vatIds"));
     }
     return null;

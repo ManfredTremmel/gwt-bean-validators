@@ -18,11 +18,11 @@ package de.knightsoftnet.validators.shared.data;
 import java.util.Map;
 
 /**
- * map of vat id regex values for the different countries.
+ * map to detect length of IBAN numbers.
  *
  * @author Manfred Tremmel
  *
  */
-public interface VatIdMapConstants {
-  Map<String, String> vatIds();
+public interface IbanLengthMapSharedConstants {
+  Map<String, String> ibanLengths();
 }

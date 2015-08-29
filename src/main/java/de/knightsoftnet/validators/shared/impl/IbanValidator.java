@@ -17,7 +17,7 @@ package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.Iban;
-import de.knightsoftnet.validators.shared.data.IbanLengthMapConstants;
+import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 import de.knightsoftnet.validators.shared.util.IbanUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -47,8 +47,8 @@ public class IbanValidator implements ConstraintValidator<Iban, Object> {
   /**
    * map of swift countries and the length of the ibans.
    */
-  private static final IbanLengthMapConstants IBAN_LENGTH_MAP = CreateClass
-      .create(IbanLengthMapConstants.class);
+  private static final IbanLengthMapSharedConstants IBAN_LENGTH_MAP = CreateClass
+      .create(IbanLengthMapSharedConstants.class);
 
   /**
    * apache commons class to check/calculate IBAN check sums.

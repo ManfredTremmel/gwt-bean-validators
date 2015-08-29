@@ -19,7 +19,6 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<gwt-commons-lang3.version>3.4-SNAPSHOT</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.4.1-SNAPSHOT</gwt-commons-validator.version>
-		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 		<wagon-ssh.version>2.9</wagon-ssh.version>
 		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
@@ -113,6 +112,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -144,11 +149,6 @@
 			<version>${gwt-commons-validator.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>${commons-beanutils.version}</version>
 		</dependency>
 	</dependencies>
 

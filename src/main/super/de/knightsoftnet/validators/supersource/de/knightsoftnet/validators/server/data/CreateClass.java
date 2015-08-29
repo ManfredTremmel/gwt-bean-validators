@@ -19,6 +19,10 @@ import de.knightsoftnet.validators.client.data.BicMapConstants;
 import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
 import de.knightsoftnet.validators.client.data.PostalCodesMapConstants;
 import de.knightsoftnet.validators.client.data.VatIdMapConstants;
+import de.knightsoftnet.validators.shared.data.BicMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.PostalCodesMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants;
 
 import com.google.gwt.core.client.GWT;
 
@@ -44,16 +48,13 @@ public class CreateClass {
    * @return the new instance, which must be cast to the requested class
    */
   public static <T> T create(final Class<?> pclassLiteral) {
-    if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapConstants.class)) {
+    if (pclassLiteral.equals(BicMapSharedConstants.class)) {
       return GWT.create(BicMapConstants.class);
-    } else if (pclassLiteral.equals(
-        de.knightsoftnet.validators.shared.data.IbanLengthMapConstants.class)) {
+    } else if (pclassLiteral.equals(IbanLengthMapSharedConstants.class)) {
       return GWT.create(IbanLengthMapConstants.class);
-    } else if (pclassLiteral.equals(
-        de.knightsoftnet.validators.shared.data.PostalCodesMapConstants.class)) {
+    } else if (pclassLiteral.equals(PostalCodesMapSharedConstants.class)) {
       return GWT.create(PostalCodesMapConstants.class);
-    } else if (pclassLiteral.equals(
-        de.knightsoftnet.validators.shared.data.VatIdMapConstants.class)) {
+    } else if (pclassLiteral.equals(VatIdMapSharedConstants.class)) {
       return GWT.create(VatIdMapConstants.class);
     }
     return null;

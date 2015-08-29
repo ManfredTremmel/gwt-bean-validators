@@ -17,7 +17,7 @@ package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.Bic;
-import de.knightsoftnet.validators.shared.data.IbanLengthMapConstants;
+import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,8 +45,8 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
   /**
    * map of swift countries and the length of the ibans.
    */
-  private static final IbanLengthMapConstants IBAN_LENGTH_MAP = CreateClass
-      .create(IbanLengthMapConstants.class);
+  private static final IbanLengthMapSharedConstants IBAN_LENGTH_MAP = CreateClass
+      .create(IbanLengthMapSharedConstants.class);
 
   /**
    * should whitespaces be ignored (true/false).

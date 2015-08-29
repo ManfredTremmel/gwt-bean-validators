@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * interface MyDriver extends AbstractBeanValidationEditorDriver&lt;MyObject, MyObjectEditor&gt; {
  * }
- *
+ * 
  * MyDriver instance = GWT.create(MyDriver.class);
  * {
  *   MyObjectEditor editor = new MyObjectEditor();
@@ -45,6 +45,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <p>
  * Note that this interface is intended to be implemented by generated code and is subject to API
  * expansion in the future.
+ * </p>
  *
  * @param <T> the type being edited
  * @param <E> the Editor for the type

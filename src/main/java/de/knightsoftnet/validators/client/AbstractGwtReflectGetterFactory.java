@@ -21,17 +21,22 @@ package de.knightsoftnet.validators.client;
  *
  * <p>
  * Extend this class create and implement createGwtReflectGetter
+ * </p>
  *
  * <pre>
  * public class MyReflectGetterFactory extends AbstractGwtReflectGetterFactory {
  *   &#064;GwtValidation(value = {Pojo.class, Other.class})
  *   public static interface GwtReflectGetters extends GwtReflectGetterInterface {
  *   }
- *
+ * 
  *   public GwtReflectGetterInterface createGwtReflectGetter() {
  *     return GWT.create(GwtReflectGetters.class));
  *   }
  * }
+ * 
+ *
+ *
+ *
  *
  *
  *
@@ -42,6 +47,7 @@ package de.knightsoftnet.validators.client;
  *
  * <p>
  * Then add a line like this to your Gwt Module config (gwt.xml) file.
+ * </p>
  *
  * <pre>
  * &lt;replace-with class="com.example.MyReflectGetterFactory">
