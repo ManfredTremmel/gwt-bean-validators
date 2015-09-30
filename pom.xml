@@ -6,7 +6,7 @@
 	<groupId>gwt-bean-validators</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.8</version>
+	<version>0.8.9-SNAPSHOT</version>
 	<name>GWT Bean Validators</name>
 
 	<properties>
@@ -19,16 +19,16 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<gwt-commons-lang3.version>3.4-SNAPSHOT</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.4.1-SNAPSHOT</gwt-commons-validator.version>
-		<wagon-ssh.version>2.9</wagon-ssh.version>
+		<wagon-ssh.version>2.10</wagon-ssh.version>
 		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<maven-source-plugin.version>2.4</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
-		<maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
+		<maven-project-info-reports-plugin.version>2.8.1</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
-		<checkstyle.version>6.9</checkstyle.version>
-		<maven-pmd-plugin.version>3.5</maven-pmd-plugin.version>
+		<checkstyle.version>6.11</checkstyle.version>
+		<maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 		<maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
