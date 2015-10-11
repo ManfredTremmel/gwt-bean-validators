@@ -87,7 +87,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.8</version>
+      <version>0.8.9</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
@@ -110,7 +110,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.8</version>
+      <version>0.8.9</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
