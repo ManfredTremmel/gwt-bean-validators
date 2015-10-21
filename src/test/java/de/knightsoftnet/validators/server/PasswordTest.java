@@ -56,4 +56,37 @@ public class PasswordTest extends AbstractValidationTest<PasswordTestBean> {
           "de.knightsoftnet.validators.shared.impl.PasswordValidator");
     }
   }
+
+  /**
+   * blacklisted passwords are not allowed.
+   */
+  @Test
+  public final void testBlacklistedPasswordsAreWrong() {
+    for (final PasswordTestBean testBean : PasswordTestCases.getBlackListedTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.PasswordValidator");
+    }
+  }
+
+  /**
+   * wrong start character passwords are not allowed.
+   */
+  @Test
+  public final void testWrongStartCharAreWrong() {
+    for (final PasswordTestBean testBean : PasswordTestCases.getWrongStartCharTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.PasswordValidator");
+    }
+  }
+
+  /**
+   * exceeded character repeat passwords are not allowed.
+   */
+  @Test
+  public final void testExceededRepeatAreWrong() {
+    for (final PasswordTestBean testBean : PasswordTestCases.getExceededRepeatTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.PasswordValidator");
+    }
+  }
 }

@@ -19,6 +19,9 @@ import de.knightsoftnet.validators.shared.Password;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.ConstraintValidator;
@@ -27,10 +30,17 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Check passwords if they fulfill some complexity rules.
  * <ul>
- * <li>upper-/lowercase</li>
+ * <li>lowercase</li>
+ * <li>upercase</li>
  * <li>digits</li>
  * <li>special character</li>
  * </ul>
+ * Using <code>blacklist</code> you can give a comma separated list of words which are not allowed
+ * to be part of the password. Default is no entry.<br>
+ * Using <code>disalowedStartChars</code> you can define characters which are not allowed as first
+ * character in the password. Default is no entry.<br>
+ * With <code>maxRepeatChar</code> you can limit the repeat of a single character, default is 0
+ * which means no limitation.<br>
  * size limits should be added by separate size annotation.
  *
  * @author Manfred Tremmel
@@ -44,9 +54,39 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
   private static final String[] PATTERNS = new String[] {"[a-z]", "[A-Z]", "[0-9]", "[^\\s]"};
 
   /**
+   * localized message if blacklisted.
+   */
+  private String messageBlacklist;
+
+  /**
+   * localized message if start character is not allowed.
+   */
+  private String messageStartCharacters;
+
+  /**
+   * localized message if maximum repeat of a char is reached.
+   */
+  private String messageMaxRepeat;
+
+  /**
    * minimum number rules that have to be fulfilled.
    */
   private int minRules;
+
+  /**
+   * Comma separated list of words which are not allowed as part of the password.
+   */
+  private List<String> blacklist;
+
+  /**
+   * Characters which are not allowed at the beginning of a password.
+   */
+  private char[] disalowedStartChars;
+
+  /**
+   * maximum repeats of a single character in a row.
+   */
+  private int maxRepeatChar;
 
   /**
    * {@inheritDoc} initialize the validator.
@@ -55,7 +95,27 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
    */
   @Override
   public final void initialize(final Password pconstraintAnnotation) {
+    this.messageBlacklist = pconstraintAnnotation.messageBlacklist();
+    this.messageStartCharacters = pconstraintAnnotation.messageStartCharacters();
+    this.messageMaxRepeat = pconstraintAnnotation.messageMaxRepeat();
     this.minRules = pconstraintAnnotation.minRules();
+    if (pconstraintAnnotation.blacklist() == null) {
+      this.blacklist = Collections.emptyList();
+    } else {
+      final String[] entries = pconstraintAnnotation.blacklist().split(",");
+      this.blacklist = new ArrayList<>(entries.length);
+      for (final String entry : entries) {
+        if (StringUtils.isNotEmpty(entry)) {
+          this.blacklist.add(entry.trim().toLowerCase());
+        }
+      }
+    }
+    if (StringUtils.isEmpty(pconstraintAnnotation.disalowedStartChars())) {
+      this.disalowedStartChars = null;
+    } else {
+      this.disalowedStartChars = pconstraintAnnotation.disalowedStartChars().toCharArray();
+    }
+    this.maxRepeatChar = pconstraintAnnotation.maxRepeatChar();
   }
 
   /**
@@ -67,18 +127,13 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString = Objects.toString(pvalue, null);
-    if (StringUtils.isEmpty(valueAsString)) {
-      return true;
-    }
-    return this.minRules < this.countCriteriaMatches(valueAsString);
+    return StringUtils.isEmpty(valueAsString)
+        || this.countCriteriaMatches(valueAsString) >= this.minRules
+            && !this.isBlacklist(pcontext, valueAsString)
+            && !this.startsWithDisalowedCharacter(pcontext, valueAsString)
+            && !this.maxRepeatCharacterExceded(pcontext, valueAsString);
   }
 
-  /**
-   * count criteria matches.
-   *
-   * @param ppassword the password to check
-   * @return number of fulfilled criteria matches with the given pw
-   */
   private int countCriteriaMatches(final String ppassword) {
     String password = ppassword;
     int fulFilledCriterias = 0;
@@ -89,5 +144,61 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
       }
     }
     return fulFilledCriterias;
+  }
+
+  private boolean isBlacklist(final ConstraintValidatorContext pcontext,
+      final String pvalueAsString) {
+    if (!this.blacklist.isEmpty()) {
+      final String valueLowerCase = pvalueAsString.toLowerCase();
+      for (final String blacklistEntry : this.blacklist) {
+        if (valueLowerCase.contains(blacklistEntry)) {
+          pcontext.disableDefaultConstraintViolation();
+          pcontext.buildConstraintViolationWithTemplate(this.messageBlacklist)
+              .addConstraintViolation();
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private boolean startsWithDisalowedCharacter(final ConstraintValidatorContext pcontext,
+      final String pvalueAsString) {
+    if (this.disalowedStartChars != null) {
+      final char firstChar = pvalueAsString.charAt(0);
+      for (final char startChar : this.disalowedStartChars) {
+        if (firstChar == startChar) {
+          pcontext.disableDefaultConstraintViolation();
+          pcontext.buildConstraintViolationWithTemplate(this.messageStartCharacters)
+              .addConstraintViolation();
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private boolean maxRepeatCharacterExceded(final ConstraintValidatorContext pcontext,
+      final String pvalueAsString) {
+    if (this.maxRepeatChar <= 1) {
+      return false;
+    }
+    int currentCount = 0;
+    char oldChar = Character.MIN_VALUE;
+    for (final char singleChar : pvalueAsString.toLowerCase().toCharArray()) {
+      if (singleChar == oldChar) {
+        currentCount++;
+        if (currentCount >= this.maxRepeatChar) {
+          pcontext.disableDefaultConstraintViolation();
+          pcontext.buildConstraintViolationWithTemplate(this.messageMaxRepeat)
+              .addConstraintViolation();
+          return true;
+        }
+      } else {
+        currentCount = 0;
+        oldChar = singleChar;
+      }
+    }
+    return false;
   }
 }

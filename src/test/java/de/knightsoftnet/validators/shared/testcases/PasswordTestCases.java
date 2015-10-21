@@ -61,4 +61,43 @@ public class PasswordTestCases {
     wrongCases.add(new PasswordTestBean("müller"));
     return wrongCases;
   }
+
+  /**
+   * get blacklisted test beans.
+   *
+   * @return blacklisted test beans
+   */
+  public static final List<PasswordTestBean> getBlackListedTestBeans() {
+    final List<PasswordTestBean> wrongCases = new ArrayList<PasswordTestBean>();
+    wrongCases.add(new PasswordTestBean("Secret!"));
+    wrongCases.add(new PasswordTestBean("seCrEt123"));
+    wrongCases.add(new PasswordTestBean("123Geheim"));
+    return wrongCases;
+  }
+
+  /**
+   * get test beans with wrong start character.
+   *
+   * @return wrong start character test beans
+   */
+  public static final List<PasswordTestBean> getWrongStartCharTestBeans() {
+    final List<PasswordTestBean> wrongCases = new ArrayList<PasswordTestBean>();
+    wrongCases.add(new PasswordTestBean("!Test123"));
+    wrongCases.add(new PasswordTestBean("?Test123"));
+    wrongCases.add(new PasswordTestBean("!Password!"));
+    return wrongCases;
+  }
+
+  /**
+   * get test beans with exceeded repeats of a character.
+   *
+   * @return exceeded repeat character test beans
+   */
+  public static final List<PasswordTestBean> getExceededRepeatTestBeans() {
+    final List<PasswordTestBean> wrongCases = new ArrayList<PasswordTestBean>();
+    wrongCases.add(new PasswordTestBean("Aaaa123!"));
+    wrongCases.add(new PasswordTestBean("Huiboooooh!"));
+    wrongCases.add(new PasswordTestBean("Bäääääähhhh1234"));
+    return wrongCases;
+  }
 }

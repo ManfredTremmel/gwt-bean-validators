@@ -19,7 +19,8 @@ import de.knightsoftnet.validators.shared.Password;
 
 public class PasswordTestBean {
 
-  @Password(minRules = 2)
+  @Password(minRules = 3, blacklist = "secret, geheim", disalowedStartChars = "!?",
+      maxRepeatChar = 3)
   private final String password;
 
   public PasswordTestBean(final String ppassword) {

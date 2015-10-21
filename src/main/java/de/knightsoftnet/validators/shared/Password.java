@@ -17,6 +17,8 @@ package de.knightsoftnet.validators.shared;
 
 import de.knightsoftnet.validators.shared.impl.PasswordValidator;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -31,12 +33,19 @@ import javax.validation.Payload;
  * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
  * are considered valid.<br />
  * There are the following rules checked (with <code>minRules</code> parameter the number rules can
- * be defined that have to be fullfilled):
+ * be defined that have to be fulfilled):
  * <ul>
- * <li>upper-/lowercase</li>
+ * <li>lowercase</li>
+ * <li>upercase</li>
  * <li>digits</li>
  * <li>special character</li>
  * </ul>
+ * Using <code>blacklist</code> you can give a comma separated list of words which are not allowed
+ * to be part of the password. Default is no entry.<br>
+ * Using <code>disalowedStartChars</code> you can define characters which are not allowed as first
+ * character in the password. Default is no entry.<br>
+ * With <code>maxRepeatChar</code> you can limit the repeat of a single character, default is 0
+ * which means no limitation.<br>
  * size limits should be checked by separate size annotation.
  *
  * @author Manfred Tremmel
@@ -54,6 +63,24 @@ public @interface Password {
   String message() default "{deKnightsoftnetValidatorsSharedValidationPasswordMessage}";
 
   /**
+   * localized message if blacklisted.
+   */
+  String messageBlacklist() //
+  default "{deKnightsoftnetValidatorsSharedValidationPasswordBlacklistMessage}";
+
+  /**
+   * localized message if start character is not allowed.
+   */
+  String messageStartCharacters() //
+  default "{deKnightsoftnetValidatorsSharedValidationPasswordStartCharMessage}";
+
+  /**
+   * localized message if maximum repeat of a char is reached in a row.
+   */
+  String messageMaxRepeat() //
+  default "{deKnightsoftnetValidatorsSharedValidationPasswordMaxRepeatMessage}";
+
+  /**
    * groups to use.
    */
   Class<?>[] groups() default {};
@@ -62,6 +89,21 @@ public @interface Password {
    * minimum number rules that have to be fulfilled.
    */
   int minRules();
+
+  /**
+   * Comma separated list of words which are not allowed as part of the password.
+   */
+  String blacklist() default StringUtils.EMPTY;
+
+  /**
+   * Characters which are not allowed at the beginning of a password.
+   */
+  String disalowedStartChars() default StringUtils.EMPTY;
+
+  /**
+   * maximum repeats of a single character.
+   */
+  int maxRepeatChar() default 0;
 
   /**
    * payload whatever.
