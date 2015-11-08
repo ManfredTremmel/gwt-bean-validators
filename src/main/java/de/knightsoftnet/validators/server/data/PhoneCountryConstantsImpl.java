@@ -15,19 +15,35 @@
 
 package de.knightsoftnet.validators.server.data;
 
-import de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
+import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 
-import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class VatIdMapConstantsImpl implements VatIdMapSharedConstants {
-  private final Map<String, String> vatIdMap;
+public class PhoneCountryConstantsImpl implements PhoneCountrySharedConstants {
+  private final Set<PhoneCountryCodeData> countryCode;
 
-  public VatIdMapConstantsImpl(final Map<String, String> pmap) {
-    this.vatIdMap = pmap;
+  /**
+   * default constructor.
+   */
+  public PhoneCountryConstantsImpl() {
+    super();
+    this.countryCode = new TreeSet<>();
+  }
+
+  /**
+   * constructor initializing set.
+   *
+   * @param pcountryCode set of country codes
+   */
+  public PhoneCountryConstantsImpl(final Set<PhoneCountryCodeData> pcountryCode) {
+    super();
+    this.countryCode = pcountryCode;
   }
 
   @Override
-  public Map<String, String> vatIds() {
-    return this.vatIdMap;
+  public Set<PhoneCountryCodeData> countryCodeData() {
+    return this.countryCode;
   }
 }

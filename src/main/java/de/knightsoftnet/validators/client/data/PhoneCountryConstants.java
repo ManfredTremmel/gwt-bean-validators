@@ -13,21 +13,18 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.server.data;
+package de.knightsoftnet.validators.client.data;
 
-import de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 
-import java.util.Map;
+import com.google.gwt.i18n.client.Constants;
 
-public class VatIdMapConstantsImpl implements VatIdMapSharedConstants {
-  private final Map<String, String> vatIdMap;
+/**
+ * set of phone country and area numbers.
+ *
+ * @author Manfred Tremmel
+ *
+ */
+public interface PhoneCountryConstants extends PhoneCountrySharedConstants, Constants {
 
-  public VatIdMapConstantsImpl(final Map<String, String> pmap) {
-    this.vatIdMap = pmap;
-  }
-
-  @Override
-  public Map<String, String> vatIds() {
-    return this.vatIdMap;
-  }
 }
