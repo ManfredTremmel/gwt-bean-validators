@@ -17,6 +17,7 @@ package de.knightsoftnet.validators.server.data;
 
 import de.knightsoftnet.validators.shared.data.PhoneAreaCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
+import de.knightsoftnet.validators.shared.data.PhoneCountryData;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -68,7 +69,14 @@ public class CreateClass {
       return (T) new VatIdMapConstantsImpl(readMapFromProperties("VatIdMapConstants", "vatIds"));
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants.class)) {
-      return (T) new PhoneCountryConstantsImpl(readPhoneCountryProperties());
+      final Map<String, String> phoneCountryNames =
+          readMapFromProperties("PhoneCountryNameConstants", "phoneCountryNames");
+      final Map<String, String> phoneCountryCodes =
+          readMapFromProperties("PhoneCountryCodeConstants", "phoneCountryCodes");
+      final Set<PhoneCountryCodeData> countryCodeData =
+          readPhoneCountryProperties(phoneCountryNames, phoneCountryCodes);
+      return (T) new PhoneCountryConstantsImpl(countryCodeData,
+          createMapFromPhoneCountry(countryCodeData, phoneCountryNames, phoneCountryCodes));
     }
     return null;
   }
@@ -87,15 +95,12 @@ public class CreateClass {
     return map;
   }
 
-  private static Set<PhoneCountryCodeData> readPhoneCountryProperties() {
-    final Map<String, String> phoneCountryCodes =
-        readMapFromProperties("PhoneCountryCodeConstants", "phoneCountryCodes");
-    final Map<String, String> phoneCountryNames =
-        readMapFromProperties("PhoneCountryNameConstants", "phoneCountryNames");
+  private static Set<PhoneCountryCodeData> readPhoneCountryProperties(
+      final Map<String, String> pphoneCountryNames, final Map<String, String> pphoneCountryCodes) {
     final Set<PhoneCountryCodeData> result = new TreeSet<>();
-    for (final Entry<String, String> country : phoneCountryCodes.entrySet()) {
+    for (final Entry<String, String> country : pphoneCountryCodes.entrySet()) {
       final PhoneCountryCodeData countryEntry =
-          new PhoneCountryCodeData(country.getKey(), phoneCountryNames.get(country.getValue()));
+          new PhoneCountryCodeData(country.getKey(), pphoneCountryNames.get(country.getValue()));
       final Map<String, String> phoneRegionCodes =
           readMapFromProperties("PhoneRegionCode" + country.getKey() + "Constants",
               "phoneRegionCodes" + country.getKey());
@@ -107,5 +112,42 @@ public class CreateClass {
       result.add(countryEntry);
     }
     return result;
+  }
+
+  private static Map<String, PhoneCountryData> createMapFromPhoneCountry(
+      final Set<PhoneCountryCodeData> pcountries, final Map<String, String> pphoneCountryNames,
+      final Map<String, String> pphoneCountryCodes) {
+    final Map<String, PhoneCountryData> countryPhoneMap = new HashMap<>();
+    final Map<String, String> phoneTrunkAndExitCodes =
+        readMapFromProperties("PhoneCountryTrunkAndExitCodesConstants", "phoneTrunkAndExitCodes");
+    for (final PhoneCountryCodeData entry : pcountries) {
+      final String countryCode = pphoneCountryCodes.get(entry.getCountryCode());
+      if (countryCode.contains("-")) {
+        final String[] splittedCountryCodes = StringUtils.split(countryCode, '-');
+        for (final String singleCountryCode : splittedCountryCodes) {
+          final String trunkAndExitCodes = phoneTrunkAndExitCodes.get(singleCountryCode);
+          final String countryCodeName = pphoneCountryNames.get(singleCountryCode);
+          final String[] splittedTrunkAndExitCodes = StringUtils.split(trunkAndExitCodes, ',');
+          final String trunkCode = splittedTrunkAndExitCodes.length >= 1
+              ? splittedTrunkAndExitCodes[0] : StringUtils.EMPTY;
+          final String exitCode = splittedTrunkAndExitCodes.length == 2
+              ? splittedTrunkAndExitCodes[1] : StringUtils.EMPTY;
+          final PhoneCountryData countryData =
+              new PhoneCountryData(singleCountryCode, countryCodeName, trunkCode, exitCode, entry);
+          countryPhoneMap.put(singleCountryCode, countryData);
+        }
+      } else {
+        final String trunkAndExitCodes = phoneTrunkAndExitCodes.get(countryCode);
+        final String[] splittedTrunkAndExitCodes = StringUtils.split(trunkAndExitCodes, ',');
+        final String trunkCode = splittedTrunkAndExitCodes.length >= 1
+            ? splittedTrunkAndExitCodes[0] : StringUtils.EMPTY;
+        final String exitCode = splittedTrunkAndExitCodes.length == 2 ? splittedTrunkAndExitCodes[1]
+            : StringUtils.EMPTY;
+        final PhoneCountryData countryData = new PhoneCountryData(countryCode,
+            entry.getCountryCodeName(), trunkCode, exitCode, entry);
+        countryPhoneMap.put(countryCode, countryData);
+      }
+    }
+    return countryPhoneMap;
   }
 }

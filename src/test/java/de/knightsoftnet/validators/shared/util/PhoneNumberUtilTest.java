@@ -35,13 +35,17 @@ public class PhoneNumberUtilTest {
    */
   @Before
   public void setUp() {
-    this.phoneNumberUtil = new PhoneNumberUtil();
+    this.phoneNumberUtil = new PhoneNumberUtil("DE");
     this.testData = new HashMap<>();
     this.testData.put("+49891234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
     this.testData.put("+49-89-1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
     this.testData.put("+49 89 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
     this.testData.put("+49 89 12 34 - 56 78", new PhoneNumberData("49", "89", "1234", "5678"));
     this.testData.put("+49 (89) 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
+    this.testData.put("+49 (0)89 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
+    this.testData.put("089 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
+    this.testData.put("(089) 1234 5678", new PhoneNumberData("49", "89", "12345678", null));
+    this.testData.put("0 89 / 12 34 56 78", new PhoneNumberData("49", "89", "12345678", null));
     this.testData.put("+49 (89) 12345678", new PhoneNumberData("49", "89", "12345678", null));
   }
 

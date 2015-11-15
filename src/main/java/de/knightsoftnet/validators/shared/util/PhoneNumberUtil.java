@@ -18,6 +18,7 @@ package de.knightsoftnet.validators.shared.util;
 import de.knightsoftnet.validators.server.data.CreateClass;
 import de.knightsoftnet.validators.shared.data.PhoneAreaCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
+import de.knightsoftnet.validators.shared.data.PhoneCountryData;
 import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 
@@ -31,10 +32,25 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class PhoneNumberUtil {
   private final PhoneCountrySharedConstants countryConstants;
+  private final PhoneCountryData defaultCountryData;
 
   public PhoneNumberUtil() {
+    this(null);
+  }
+
+  /**
+   * constructor with default country.
+   *
+   * @param countryCode iso code of country
+   */
+  public PhoneNumberUtil(final String countryCode) {
     super();
     this.countryConstants = CreateClass.create(PhoneCountrySharedConstants.class);
+    if (StringUtils.isEmpty(countryCode)) {
+      this.defaultCountryData = null;
+    } else {
+      this.defaultCountryData = this.countryConstants.countryMap().get(countryCode);
+    }
   }
 
 
@@ -74,10 +90,27 @@ public class PhoneNumberUtil {
         }
       }
       String phoneNumberWork = StringUtils.reverse(cleanupString.toString());
+      if (this.defaultCountryData != null) {
+        if (StringUtils.isNotEmpty(this.defaultCountryData.getExitCode())
+            && phoneNumberWork.startsWith(this.defaultCountryData.getExitCode())) {
+          phoneNumberWork =
+              phoneNumberWork.substring(this.defaultCountryData.getExitCode().length());
+        } else if (StringUtils.isNotEmpty(this.defaultCountryData.getTrunkCode())
+            && phoneNumberWork.startsWith(this.defaultCountryData.getTrunkCode())) {
+          phoneNumberWork = this.defaultCountryData.getCountryCodeData().getCountryCode()
+              + phoneNumberWork.substring(this.defaultCountryData.getTrunkCode().length());
+        }
+      }
       for (final PhoneCountryCodeData countryCode : this.countryConstants.countryCodeData()) {
         if (phoneNumberWork.startsWith(countryCode.getCountryCode())) {
           phoneNumberData.setCountryCode(countryCode.getCountryCode());
           phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
+          if (this.defaultCountryData != null
+              && StringUtils.isNotEmpty(this.defaultCountryData.getTrunkCode())
+              && phoneNumberWork.startsWith(this.defaultCountryData.getTrunkCode())) {
+            phoneNumberWork =
+                phoneNumberWork.substring(this.defaultCountryData.getTrunkCode().length());
+          }
           for (final PhoneAreaCodeData areaCode : countryCode.getAreaCodeData()) {
             if (areaCode.isRegEx() && phoneNumberWork.matches("^" + areaCode.getAreaCode())) {
               final String areaCodeRemember = phoneNumberWork;

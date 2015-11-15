@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.shared.data;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,4 +26,6 @@ import java.util.Set;
  */
 public interface PhoneCountrySharedConstants {
   Set<PhoneCountryCodeData> countryCodeData();
+
+  Map<String, PhoneCountryData> countryMap();
 }

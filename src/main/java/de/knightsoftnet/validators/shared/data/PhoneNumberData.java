@@ -38,7 +38,7 @@ public class PhoneNumberData {
 
   /**
    * constructor initializing fields.
-   * 
+   *
    * @param pcountryCode country code
    * @param pareaCode area code
    * @param pphoneNumber phone number
@@ -115,4 +115,9 @@ public class PhoneNumberData {
         && StringUtils.equals(this.extension, other.extension);
   }
 
+  @Override
+  public String toString() {
+    return "PhoneNumberData [countryCode=" + this.countryCode + ", areaCode=" + this.areaCode
+        + ", phoneNumber=" + this.phoneNumber + ", extension=" + this.extension + "]";
+  }
 }
