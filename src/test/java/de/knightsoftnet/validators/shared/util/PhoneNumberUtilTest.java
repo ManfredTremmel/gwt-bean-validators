@@ -16,19 +16,17 @@
 package de.knightsoftnet.validators.shared.util;
 
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
+import de.knightsoftnet.validators.shared.testcases.PhoneNumberUtilTestCases;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 public class PhoneNumberUtilTest {
 
   private PhoneNumberUtil phoneNumberUtil;
-  private Map<String, PhoneNumberData> testData;
 
   /**
    * set up for testing.
@@ -36,17 +34,6 @@ public class PhoneNumberUtilTest {
   @Before
   public void setUp() {
     this.phoneNumberUtil = new PhoneNumberUtil("DE");
-    this.testData = new HashMap<>();
-    this.testData.put("+49891234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("+49-89-1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("+49 89 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("+49 89 12 34 - 56 78", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("+49 (89) 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("+49 (0)89 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("089 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
-    this.testData.put("(089) 1234 5678", new PhoneNumberData("49", "89", "12345678", null));
-    this.testData.put("0 89 / 12 34 56 78", new PhoneNumberData("49", "89", "12345678", null));
-    this.testData.put("+49 (89) 12345678", new PhoneNumberData("49", "89", "12345678", null));
   }
 
   /**
@@ -54,7 +41,8 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void parseTest() {
-    for (final Entry<String, PhoneNumberData> testCase : this.testData.entrySet()) {
+    for (final Entry<String, PhoneNumberData> testCase : PhoneNumberUtilTestCases.getParseCases()
+        .entrySet()) {
       final PhoneNumberData parsedNumber = this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
       Assert.assertEquals(testCase.getValue(), parsedNumber);
     }

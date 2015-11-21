@@ -13,11 +13,7 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.server.data;
-
-import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
-import de.knightsoftnet.validators.shared.data.PhoneCountryData;
-import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
+package de.knightsoftnet.validators.shared.data;
 
 import java.util.HashMap;
 import java.util.Map;

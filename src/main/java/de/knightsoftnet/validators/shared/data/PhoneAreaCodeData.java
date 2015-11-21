@@ -38,7 +38,7 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
    */
   public PhoneAreaCodeData(final String pareaCode, final String pareaName) {
     super();
-    this.areaCode = pareaCode;
+    this.areaCode = StringUtils.replace(pareaCode, "u5b", "[");
     this.regEx = !StringUtils.isNumeric(pareaCode);
     this.areaName = pareaName;
   }

@@ -53,8 +53,7 @@ public class ReflectiveOperationException extends Exception {
   /**
    * Constructs a new exception with the specified detail message and cause.
    *
-   * <p>
-   * Note that the detail message associated with {@code cause} is <em>not</em> automatically
+   * <p>Note that the detail message associated with {@code cause} is <em>not</em> automatically
    * incorporated in this exception's detail message.
    *
    * @param message the detail message (which is saved for later retrieval by the
