@@ -64,6 +64,7 @@ public class PhoneNumberUtil {
     final PhoneNumberData phoneNumberData = new PhoneNumberData();
     if (pphoneNumber != null) {
       final StringBuilder cleanupString = new StringBuilder(pphoneNumber.length());
+      final boolean containsMinus = StringUtils.contains(pphoneNumber, '-');
       boolean hasSeperator = false;
       for (final char character : StringUtils.reverse(pphoneNumber).toCharArray()) {
         switch (character) {
@@ -82,6 +83,12 @@ public class PhoneNumberUtil {
           case '-':
             if (!hasSeperator) {
               cleanupString.append(character);
+              hasSeperator = true;
+            }
+            break;
+          case ' ':
+            if (!hasSeperator && !containsMinus && cleanupString.length() <= 5) {
+              cleanupString.append('-');
               hasSeperator = true;
             }
             break;
@@ -106,6 +113,9 @@ public class PhoneNumberUtil {
           phoneNumberData.setCountryCode(countryCode.getCountryCode());
           phoneNumberData.setCountryName(countryCode.getCountryCodeName());
           phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
+          if (phoneNumberWork.charAt(0) == '-') {
+            phoneNumberWork = phoneNumberWork.substring(1);
+          }
           if (countryCode.getPhoneCountryData() != null
               && StringUtils.isNotEmpty(countryCode.getPhoneCountryData().getTrunkCode())
               && phoneNumberWork.startsWith(countryCode.getPhoneCountryData().getTrunkCode())) {
@@ -144,5 +154,318 @@ public class PhoneNumberUtil {
       }
     }
     return phoneNumberData;
+  }
+
+  /**
+   * format phone number in E123 format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatE123(final String pphoneNumber) {
+    return this.formatE123(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in E123 format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatE123(final PhoneNumberData pphoneNumberData) {
+    if (pphoneNumberData != null
+        && StringUtils.equals(this.defaultCountryData.getCountryCodeData().getCountryCode(),
+            pphoneNumberData.getCountryCode())) {
+      return this.formatE123National(pphoneNumberData);
+    } else {
+      return this.formatE123International(pphoneNumberData);
+    }
+  }
+
+  /**
+   * format phone number in E123 international format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatE123International(final String pphoneNumber) {
+    return this.formatE123International(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in E123 international format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatE123International(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
+          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+        resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
+        if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+          resultNumber.append(pphoneNumberData.getAreaCode()).append(' ');
+        }
+        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+          resultNumber.append(pphoneNumberData.getExtension());
+        }
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in E123 national format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatE123National(final String pphoneNumber) {
+    return this.formatE123National(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in E123 national format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatE123National(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : this.countryConstants.countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return this.formatE123International(pphoneNumberData);
+      }
+      resultNumber.append('(').append(phoneCountryData.getTrunkCode());
+      if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getAreaCode());
+      }
+      resultNumber.append(") ");
+      resultNumber.append(pphoneNumberData.getPhoneNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+        resultNumber.append(' ');
+        resultNumber.append(pphoneNumberData.getExtension());
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in DIN 5008 format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008(final String pphoneNumber) {
+    return this.formatDin5008(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in DIN 5008 format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008(final PhoneNumberData pphoneNumberData) {
+    if (pphoneNumberData != null
+        && StringUtils.equals(this.defaultCountryData.getCountryCodeData().getCountryCode(),
+            pphoneNumberData.getCountryCode())) {
+      return this.formatDin5008National(pphoneNumberData);
+    } else {
+      return this.formatDin5008International(pphoneNumberData);
+    }
+  }
+
+  /**
+   * format phone number in DIN 5008 international format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008International(final String pphoneNumber) {
+    return this.formatDin5008International(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in DIN 5008 international format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008International(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
+          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+        resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
+        if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+          resultNumber.append(pphoneNumberData.getAreaCode()).append(' ');
+        }
+        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+          resultNumber.append('-');
+          resultNumber.append(pphoneNumberData.getExtension());
+        }
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in DIN 5008 national format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008National(final String pphoneNumber) {
+    return this.formatDin5008National(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in DIN 5008 national format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatDin5008National(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : this.countryConstants.countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return this.formatDin5008International(pphoneNumberData);
+      }
+      resultNumber.append(phoneCountryData.getTrunkCode());
+      if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getAreaCode());
+      }
+      resultNumber.append(' ');
+      resultNumber.append(pphoneNumberData.getPhoneNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getExtension());
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in RFC 3966 format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatRfc3966(final String pphoneNumber) {
+    return this.formatRfc3966(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in RFC 3966 format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatRfc3966(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
+          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+        resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append('-');
+        if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+          resultNumber.append(pphoneNumberData.getAreaCode()).append('-');
+        }
+        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+          resultNumber.append(pphoneNumberData.getExtension());
+        }
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in Microsoft canonical address format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatMs(final String pphoneNumber) {
+    return this.formatMs(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in Microsoft canonical address format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatMs(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
+          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+        resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
+        if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+          resultNumber.append('(').append(pphoneNumberData.getAreaCode()).append(") ");
+        }
+        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+          resultNumber.append(" - ");
+          resultNumber.append(pphoneNumberData.getExtension());
+        }
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in URL format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatUrl(final String pphoneNumber) {
+    return this.formatUrl(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in URL format.
+   *
+   * @param pphoneNumberData phone number to format
+   * @return formated phone number as String
+   */
+  public final String formatUrl(final PhoneNumberData pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData != null) {
+      if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
+          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+        resultNumber.append('+').append(pphoneNumberData.getCountryCode());
+        if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
+          resultNumber.append('-');
+          resultNumber.append(pphoneNumberData.getAreaCode());
+        }
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
+          resultNumber.append('-');
+          resultNumber.append(pphoneNumberData.getExtension());
+        }
+      }
+    }
+    return StringUtils.trimToNull(resultNumber.toString());
   }
 }

@@ -47,7 +47,116 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
     for (final Entry<String, PhoneNumberData> testCase : PhoneNumberUtilTestCases.getParseCases()
         .entrySet()) {
       final PhoneNumberData parsedNumber = this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
-      assertEquals("Should be equal", testCase.getValue(), parsedNumber);
+      assertEquals("Parsing " + testCase.getKey(), testCase.getValue(), parsedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in E123 format.
+   */
+  public void testFormatE123() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatE123Cases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatE123(testCase.getKey());
+      assertEquals("Formating E123 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in E123 international format.
+   */
+  public void testFormatE123International() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatE123InternationalCases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatE123International(testCase.getKey());
+      assertEquals("Formating E123 international " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in E123 national format.
+   */
+  public void testFormatE123National() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatE123NationalCases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatE123National(testCase.getKey());
+      assertEquals("Formating E123 national " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in DIN 5008 format.
+   */
+  public void testFormatDin5008() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008Cases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatDin5008(testCase.getKey());
+      assertEquals("Formating DIN 5008 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in DIN 5008 international format.
+   */
+  public void testFormatDin5008International() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008InternationalCases().entrySet()) {
+      final String formatedNumber =
+          this.phoneNumberUtil.formatDin5008International(testCase.getKey());
+      assertEquals("Formating DIN 5008 international " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in DIN 5008 national format.
+   */
+  public void testFormatDin5008National() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008NationalCases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatDin5008National(testCase.getKey());
+      assertEquals("Formating DIN 5008 national " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in RFC 3966 format.
+   */
+  public void testFormatRfc3966() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatRfc3966Cases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatRfc3966(testCase.getKey());
+      assertEquals("Formating RFC 3966 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in Microsoft canonical address format.
+   */
+  public void testFormatMs() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases.getFormatMsCases()
+        .entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatMs(testCase.getKey());
+      assertEquals("Formating MS " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in Url format.
+   */
+  public void testFormatUrl() {
+    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+        .getFormatUrlCases().entrySet()) {
+      final String formatedNumber = this.phoneNumberUtil.formatUrl(testCase.getKey());
+      assertEquals("Formating URL " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
     }
   }
 }
