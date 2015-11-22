@@ -136,18 +136,18 @@ public class CreateClass {
       if (countryCode.contains("-")) {
         final String[] splittedCountryCodes = StringUtils.split(countryCode, '-');
         for (final String singleCountryCode : splittedCountryCodes) {
-          addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap, phoneTrunkAndExitCodes, entry,
-              singleCountryCode);
+          entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
+              phoneTrunkAndExitCodes, entry, singleCountryCode));
         }
       } else {
-        addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap, phoneTrunkAndExitCodes, entry,
-            countryCode);
+        entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
+            phoneTrunkAndExitCodes, entry, countryCode));
       }
     }
     return countryPhoneMap;
   }
 
-  private static void addCountryToPhoneMap(final Map<String, String> pphoneCountryNames,
+  private static PhoneCountryData addCountryToPhoneMap(final Map<String, String> pphoneCountryNames,
       final Map<String, PhoneCountryData> pcountryPhoneMap,
       final Map<String, String> pphoneTrunkAndExitCodes, final PhoneCountryCodeData pentry,
       final String pcountryCode) {
@@ -161,5 +161,6 @@ public class CreateClass {
     final PhoneCountryData countryData =
         new PhoneCountryData(pcountryCode, countryCodeName, trunkCode, exitCode, pentry);
     pcountryPhoneMap.put(pcountryCode, countryData);
+    return countryData;
   }
 }

@@ -30,7 +30,7 @@ public class PhoneNumberUtilTestCases {
 
   /**
    * get parse test cases with expected results.
-   * 
+   *
    * @return map of strings with expected parse result
    */
   public static final Map<String, PhoneNumberData> getParseCases() {
@@ -45,6 +45,14 @@ public class PhoneNumberUtilTestCases {
     testData.put("(089) 1234 5678", new PhoneNumberData("49", "89", "12345678", null));
     testData.put("0 89 / 12 34 56 78", new PhoneNumberData("49", "89", "12345678", null));
     testData.put("+49 (89) 12345678", new PhoneNumberData("49", "89", "12345678", null));
+    testData.put("+491512312345678", new PhoneNumberData("49", "1512", "312345678", null));
+    testData.put("+491582312345678", new PhoneNumberData("49", "15823", "12345678", null));
+    testData.put("+390612345678", new PhoneNumberData("39", "06", "12345678", null));
+    testData.put("00390612345678", new PhoneNumberData("39", "06", "12345678", null));
+    testData.put("+41 26 324 11 13", new PhoneNumberData("41", "26", "3241113", null));
+    testData.put("+1216123456", new PhoneNumberData("1", "216", "123456", null));
+    testData.put("+222123456", new PhoneNumberData("222", null, "123456", null));
+    testData.put("+2226123456", new PhoneNumberData("222", "6", "123456", null));
     return testData;
   }
 }

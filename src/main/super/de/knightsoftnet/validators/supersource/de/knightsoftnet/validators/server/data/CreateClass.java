@@ -116,7 +116,6 @@ import de.knightsoftnet.validators.client.data.PhoneRegionCode385Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode386Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode387Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode388Constants;
-import de.knightsoftnet.validators.client.data.PhoneRegionCode3906Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode39Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode40Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode41Constants;
@@ -800,11 +799,6 @@ public class CreateClass {
               GWT.create(PhoneRegionCode388Constants.class);
           phoneRegionCodes = regionCodes388.phoneRegionCodes388();
           break;
-        case "3906":
-          final PhoneRegionCode3906Constants regionCodes3906 =
-              GWT.create(PhoneRegionCode3906Constants.class);
-          phoneRegionCodes = regionCodes3906.phoneRegionCodes3906();
-          break;
         case "39":
           final PhoneRegionCode39Constants regionCodes39 =
               GWT.create(PhoneRegionCode39Constants.class);
@@ -1455,18 +1449,18 @@ public class CreateClass {
       if (countryCode.contains("-")) {
         final String[] splittedCountryCodes = StringUtils.split(countryCode, '-');
         for (final String singleCountryCode : splittedCountryCodes) {
-          addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
-              phoneTrunkAndExitCodes.phoneTrunkAndExitCodes(), entry, singleCountryCode);
+          entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
+              phoneTrunkAndExitCodes.phoneTrunkAndExitCodes(), entry, singleCountryCode));
         }
       } else {
-        addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
-            phoneTrunkAndExitCodes.phoneTrunkAndExitCodes(), entry, countryCode);
+        entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
+            phoneTrunkAndExitCodes.phoneTrunkAndExitCodes(), entry, countryCode));
       }
     }
     return countryPhoneMap;
   }
 
-  private static void addCountryToPhoneMap(final Map<String, String> pphoneCountryNames,
+  private static PhoneCountryData addCountryToPhoneMap(final Map<String, String> pphoneCountryNames,
       final Map<String, PhoneCountryData> pcountryPhoneMap,
       final Map<String, String> pphoneTrunkAndExitCodes, final PhoneCountryCodeData pentry,
       final String pcountryCode) {
@@ -1480,5 +1474,6 @@ public class CreateClass {
     final PhoneCountryData countryData =
         new PhoneCountryData(pcountryCode, countryCodeName, trunkCode, exitCode, pentry);
     pcountryPhoneMap.put(pcountryCode, countryData);
+    return countryData;
   }
 }

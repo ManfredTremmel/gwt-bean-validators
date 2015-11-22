@@ -17,15 +17,21 @@ package de.knightsoftnet.validators.shared.data;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
+
 /**
  * phone number data.
  *
  * @author Manfred Tremmel
  *
  */
-public class PhoneNumberData {
+public class PhoneNumberData implements Serializable {
+  private static final long serialVersionUID = -5715038613377873088L;
+
   private String countryCode;
+  private String countryName;
   private String areaCode;
+  private String areaName;
   private String phoneNumber;
   private String extension;
 
@@ -62,12 +68,28 @@ public class PhoneNumberData {
     this.countryCode = pcountryCode;
   }
 
+  public String getCountryName() {
+    return this.countryName;
+  }
+
+  public void setCountryName(final String pcountryName) {
+    this.countryName = pcountryName;
+  }
+
   public String getAreaCode() {
     return this.areaCode;
   }
 
   public void setAreaCode(final String pareaCode) {
     this.areaCode = pareaCode;
+  }
+
+  public String getAreaName() {
+    return this.areaName;
+  }
+
+  public void setAreaName(final String pareaName) {
+    this.areaName = pareaName;
   }
 
   public String getPhoneNumber() {

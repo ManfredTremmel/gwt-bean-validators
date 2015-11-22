@@ -31,6 +31,7 @@ import java.util.TreeSet;
 public class PhoneCountryCodeData implements Comparable<PhoneCountryCodeData> {
   private final String countryCode;
   private final String countryCodeName;
+  private PhoneCountryData phoneCountryData;
   private final Set<PhoneAreaCodeData> areaCodeData;
 
   /**
@@ -52,6 +53,14 @@ public class PhoneCountryCodeData implements Comparable<PhoneCountryCodeData> {
 
   public String getCountryCodeName() {
     return this.countryCodeName;
+  }
+
+  public PhoneCountryData getPhoneCountryData() {
+    return this.phoneCountryData;
+  }
+
+  public void setPhoneCountryData(final PhoneCountryData pphoneCountryData) {
+    this.phoneCountryData = pphoneCountryData;
   }
 
   public Set<PhoneAreaCodeData> getAreaCodeData() {

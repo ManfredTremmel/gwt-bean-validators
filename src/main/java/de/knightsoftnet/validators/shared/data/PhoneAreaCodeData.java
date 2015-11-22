@@ -101,6 +101,6 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
       }
       return this.areaCode.compareTo(pcompare.areaCode);
     }
-    return this.regEx ? -1 : 1;
+    return this.regEx ? 1 : -1;
   }
 }

@@ -104,23 +104,27 @@ public class PhoneNumberUtil {
       for (final PhoneCountryCodeData countryCode : this.countryConstants.countryCodeData()) {
         if (phoneNumberWork.startsWith(countryCode.getCountryCode())) {
           phoneNumberData.setCountryCode(countryCode.getCountryCode());
+          phoneNumberData.setCountryName(countryCode.getCountryCodeName());
           phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
-          if (this.defaultCountryData != null
-              && StringUtils.isNotEmpty(this.defaultCountryData.getTrunkCode())
-              && phoneNumberWork.startsWith(this.defaultCountryData.getTrunkCode())) {
-            phoneNumberWork =
-                phoneNumberWork.substring(this.defaultCountryData.getTrunkCode().length());
+          if (countryCode.getPhoneCountryData() != null
+              && StringUtils.isNotEmpty(countryCode.getPhoneCountryData().getTrunkCode())
+              && phoneNumberWork.startsWith(countryCode.getPhoneCountryData().getTrunkCode())) {
+            phoneNumberWork = phoneNumberWork
+                .substring(countryCode.getPhoneCountryData().getTrunkCode().length());
           }
           for (final PhoneAreaCodeData areaCode : countryCode.getAreaCodeData()) {
-            if (areaCode.isRegEx() && phoneNumberWork.matches("^" + areaCode.getAreaCode())) {
+            if (areaCode.isRegEx()
+                && phoneNumberWork.matches("^" + areaCode.getAreaCode() + ".*")) {
               final String areaCodeRemember = phoneNumberWork;
               phoneNumberWork =
                   phoneNumberWork.replaceFirst(areaCode.getAreaCode(), StringUtils.EMPTY);
               phoneNumberData.setAreaCode(areaCodeRemember.substring(0,
                   areaCodeRemember.length() - phoneNumberWork.length()));
+              phoneNumberData.setAreaName(areaCode.getAreaName());
               break;
             } else if (!areaCode.isRegEx() && phoneNumberWork.startsWith(areaCode.getAreaCode())) {
               phoneNumberData.setAreaCode(areaCode.getAreaCode());
+              phoneNumberData.setAreaName(areaCode.getAreaName());
               phoneNumberWork = phoneNumberWork.substring(areaCode.getAreaCode().length());
               break;
             }
