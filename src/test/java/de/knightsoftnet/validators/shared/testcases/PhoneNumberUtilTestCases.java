@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.shared.testcases;
 
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
+import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +34,8 @@ public class PhoneNumberUtilTestCases {
    *
    * @return map of strings with expected parse result
    */
-  public static final Map<String, PhoneNumberData> getParseCases() {
-    final Map<String, PhoneNumberData> testData = new HashMap<>();
+  public static final Map<String, PhoneNumberInterface> getParseCases() {
+    final Map<String, PhoneNumberInterface> testData = new HashMap<>();
     testData.put("+49891234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
     testData.put("+49-89-1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
     testData.put("+49 89 1234-5678", new PhoneNumberData("49", "89", "1234", "5678"));
@@ -59,10 +60,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format E123 test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatE123Cases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatE123Cases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "(089) 1234 5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "(089) 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 662 12345678");
@@ -73,10 +74,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format E123 international test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatE123InternationalCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatE123InternationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49 89 12345678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49 89 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 662 12345678");
@@ -87,10 +88,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format E123 national test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatE123NationalCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatE123NationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "(089) 1234 5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "(089) 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "(0662) 1234 5678");
@@ -101,10 +102,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format DIN 5008 test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatDin5008Cases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatDin5008Cases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "089 1234-5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "089 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 662 1234-5678");
@@ -115,10 +116,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format DIN 5008 international test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatDin5008InternationalCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatDin5008InternationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49 89 1234-5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49 89 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 662 1234-5678");
@@ -129,10 +130,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format DIN 5008 national test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatDin5008NationalCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatDin5008NationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "089 1234-5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "089 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "0662 1234-5678");
@@ -143,10 +144,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format RFC 3966 test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatRfc3966Cases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatRfc3966Cases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49-89-12345678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49-89-12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43-662-12345678");
@@ -157,10 +158,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format Microsoft canonical address format test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatMsCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatMsCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49 (89) 1234 - 5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49 (89) 12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 (662) 1234 - 5678");
@@ -171,10 +172,10 @@ public class PhoneNumberUtilTestCases {
   /**
    * get format Url test cases with expected results.
    *
-   * @return map of PhoneNumberData with expected format result strings
+   * @return map of PhoneNumberInterface with expected format result strings
    */
-  public static final Map<PhoneNumberData, String> getFormatUrlCases() {
-    final Map<PhoneNumberData, String> testData = new HashMap<>();
+  public static final Map<PhoneNumberInterface, String> getFormatUrlCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
     testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49-89-1234-5678");
     testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49-89-12345678");
     testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43-662-1234-5678");

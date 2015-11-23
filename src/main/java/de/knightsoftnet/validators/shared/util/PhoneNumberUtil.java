@@ -21,6 +21,8 @@ import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryData;
 import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
+import de.knightsoftnet.validators.shared.data.PhoneNumberExtendedInterface;
+import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -60,8 +62,19 @@ public class PhoneNumberUtil {
    * @param pphoneNumber phone number as string
    * @return PhoneNumberData
    */
-  public PhoneNumberData parsePhoneNumber(final String pphoneNumber) {
-    final PhoneNumberData phoneNumberData = new PhoneNumberData();
+  public PhoneNumberInterface parsePhoneNumber(final String pphoneNumber) {
+    return this.parsePhoneNumber(pphoneNumber, new PhoneNumberData());
+  }
+
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @return PhoneNumberData
+   */
+  public PhoneNumberInterface parsePhoneNumber(final String pphoneNumber,
+      final PhoneNumberInterface phoneNumberData) {
     if (pphoneNumber != null) {
       final StringBuilder cleanupString = new StringBuilder(pphoneNumber.length());
       final boolean containsMinus = StringUtils.contains(pphoneNumber, '-');
@@ -111,7 +124,10 @@ public class PhoneNumberUtil {
       for (final PhoneCountryCodeData countryCode : this.countryConstants.countryCodeData()) {
         if (phoneNumberWork.startsWith(countryCode.getCountryCode())) {
           phoneNumberData.setCountryCode(countryCode.getCountryCode());
-          phoneNumberData.setCountryName(countryCode.getCountryCodeName());
+          if (phoneNumberData instanceof PhoneNumberExtendedInterface) {
+            ((PhoneNumberExtendedInterface) phoneNumberData)
+                .setCountryName(countryCode.getCountryCodeName());
+          }
           phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
           if (phoneNumberWork.charAt(0) == '-') {
             phoneNumberWork = phoneNumberWork.substring(1);
@@ -130,11 +146,17 @@ public class PhoneNumberUtil {
                   phoneNumberWork.replaceFirst(areaCode.getAreaCode(), StringUtils.EMPTY);
               phoneNumberData.setAreaCode(areaCodeRemember.substring(0,
                   areaCodeRemember.length() - phoneNumberWork.length()));
-              phoneNumberData.setAreaName(areaCode.getAreaName());
+              if (phoneNumberData instanceof PhoneNumberExtendedInterface) {
+                ((PhoneNumberExtendedInterface) phoneNumberData)
+                    .setAreaName(areaCode.getAreaName());
+              }
               break;
             } else if (!areaCode.isRegEx() && phoneNumberWork.startsWith(areaCode.getAreaCode())) {
               phoneNumberData.setAreaCode(areaCode.getAreaCode());
-              phoneNumberData.setAreaName(areaCode.getAreaName());
+              if (phoneNumberData instanceof PhoneNumberExtendedInterface) {
+                ((PhoneNumberExtendedInterface) phoneNumberData)
+                    .setAreaName(areaCode.getAreaName());
+              }
               phoneNumberWork = phoneNumberWork.substring(areaCode.getAreaCode().length());
               break;
             }
@@ -144,10 +166,10 @@ public class PhoneNumberUtil {
           }
           if (phoneNumberWork.contains("-")) {
             final String[] splitedPhoneNumber = phoneNumberWork.split("-");
-            phoneNumberData.setPhoneNumber(splitedPhoneNumber[0]);
+            phoneNumberData.setLineNumber(splitedPhoneNumber[0]);
             phoneNumberData.setExtension(splitedPhoneNumber[1]);
           } else {
-            phoneNumberData.setPhoneNumber(phoneNumberWork);
+            phoneNumberData.setLineNumber(phoneNumberWork);
           }
           break;
         }
@@ -172,7 +194,7 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatE123(final PhoneNumberData pphoneNumberData) {
+  public final String formatE123(final PhoneNumberInterface pphoneNumberData) {
     if (pphoneNumberData != null
         && StringUtils.equals(this.defaultCountryData.getCountryCodeData().getCountryCode(),
             pphoneNumberData.getCountryCode())) {
@@ -198,16 +220,16 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatE123International(final PhoneNumberData pphoneNumberData) {
+  public final String formatE123International(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
-          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+          && StringUtils.isNotBlank(pphoneNumberData.getLineNumber())) {
         resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
         if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
           resultNumber.append(pphoneNumberData.getAreaCode()).append(' ');
         }
-        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        resultNumber.append(pphoneNumberData.getLineNumber());
         if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
           resultNumber.append(pphoneNumberData.getExtension());
         }
@@ -232,7 +254,7 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatE123National(final PhoneNumberData pphoneNumberData) {
+  public final String formatE123National(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       PhoneCountryData phoneCountryData = null;
@@ -250,7 +272,7 @@ public class PhoneNumberUtil {
         resultNumber.append(pphoneNumberData.getAreaCode());
       }
       resultNumber.append(") ");
-      resultNumber.append(pphoneNumberData.getPhoneNumber());
+      resultNumber.append(pphoneNumberData.getLineNumber());
       if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
         resultNumber.append(' ');
         resultNumber.append(pphoneNumberData.getExtension());
@@ -275,7 +297,7 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatDin5008(final PhoneNumberData pphoneNumberData) {
+  public final String formatDin5008(final PhoneNumberInterface pphoneNumberData) {
     if (pphoneNumberData != null
         && StringUtils.equals(this.defaultCountryData.getCountryCodeData().getCountryCode(),
             pphoneNumberData.getCountryCode())) {
@@ -301,16 +323,16 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatDin5008International(final PhoneNumberData pphoneNumberData) {
+  public final String formatDin5008International(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
-          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+          && StringUtils.isNotBlank(pphoneNumberData.getLineNumber())) {
         resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
         if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
           resultNumber.append(pphoneNumberData.getAreaCode()).append(' ');
         }
-        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        resultNumber.append(pphoneNumberData.getLineNumber());
         if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
           resultNumber.append('-');
           resultNumber.append(pphoneNumberData.getExtension());
@@ -336,7 +358,7 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatDin5008National(final PhoneNumberData pphoneNumberData) {
+  public final String formatDin5008National(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       PhoneCountryData phoneCountryData = null;
@@ -354,7 +376,7 @@ public class PhoneNumberUtil {
         resultNumber.append(pphoneNumberData.getAreaCode());
       }
       resultNumber.append(' ');
-      resultNumber.append(pphoneNumberData.getPhoneNumber());
+      resultNumber.append(pphoneNumberData.getLineNumber());
       if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
         resultNumber.append('-');
         resultNumber.append(pphoneNumberData.getExtension());
@@ -379,16 +401,16 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatRfc3966(final PhoneNumberData pphoneNumberData) {
+  public final String formatRfc3966(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
-          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+          && StringUtils.isNotBlank(pphoneNumberData.getLineNumber())) {
         resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append('-');
         if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
           resultNumber.append(pphoneNumberData.getAreaCode()).append('-');
         }
-        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        resultNumber.append(pphoneNumberData.getLineNumber());
         if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
           resultNumber.append(pphoneNumberData.getExtension());
         }
@@ -413,16 +435,16 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatMs(final PhoneNumberData pphoneNumberData) {
+  public final String formatMs(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
-          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+          && StringUtils.isNotBlank(pphoneNumberData.getLineNumber())) {
         resultNumber.append('+').append(pphoneNumberData.getCountryCode()).append(' ');
         if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
           resultNumber.append('(').append(pphoneNumberData.getAreaCode()).append(") ");
         }
-        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        resultNumber.append(pphoneNumberData.getLineNumber());
         if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
           resultNumber.append(" - ");
           resultNumber.append(pphoneNumberData.getExtension());
@@ -448,18 +470,18 @@ public class PhoneNumberUtil {
    * @param pphoneNumberData phone number to format
    * @return formated phone number as String
    */
-  public final String formatUrl(final PhoneNumberData pphoneNumberData) {
+  public final String formatUrl(final PhoneNumberInterface pphoneNumberData) {
     final StringBuilder resultNumber = new StringBuilder();
     if (pphoneNumberData != null) {
       if (StringUtils.isNotBlank(pphoneNumberData.getCountryCode())
-          && StringUtils.isNotBlank(pphoneNumberData.getPhoneNumber())) {
+          && StringUtils.isNotBlank(pphoneNumberData.getLineNumber())) {
         resultNumber.append('+').append(pphoneNumberData.getCountryCode());
         if (StringUtils.isNotBlank(pphoneNumberData.getAreaCode())) {
           resultNumber.append('-');
           resultNumber.append(pphoneNumberData.getAreaCode());
         }
         resultNumber.append('-');
-        resultNumber.append(pphoneNumberData.getPhoneNumber());
+        resultNumber.append(pphoneNumberData.getLineNumber());
         if (StringUtils.isNotBlank(pphoneNumberData.getExtension())) {
           resultNumber.append('-');
           resultNumber.append(pphoneNumberData.getExtension());

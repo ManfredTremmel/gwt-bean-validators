@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client.util;
 
-import de.knightsoftnet.validators.shared.data.PhoneNumberData;
+import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
 import de.knightsoftnet.validators.shared.testcases.PhoneNumberUtilTestCases;
 import de.knightsoftnet.validators.shared.util.PhoneNumberUtil;
 
@@ -44,9 +44,10 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test parsing of phone number.
    */
   public void testParsing() {
-    for (final Entry<String, PhoneNumberData> testCase : PhoneNumberUtilTestCases.getParseCases()
-        .entrySet()) {
-      final PhoneNumberData parsedNumber = this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
+    for (final Entry<String, PhoneNumberInterface> testCase : PhoneNumberUtilTestCases
+        .getParseCases().entrySet()) {
+      final PhoneNumberInterface parsedNumber =
+          this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
       assertEquals("Parsing " + testCase.getKey(), testCase.getValue(), parsedNumber);
     }
   }
@@ -55,7 +56,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in E123 format.
    */
   public void testFormatE123() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123(testCase.getKey());
       assertEquals("Formating E123 " + testCase.getKey().toString(), testCase.getValue(),
@@ -67,7 +68,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in E123 international format.
    */
   public void testFormatE123International() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123InternationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123International(testCase.getKey());
       assertEquals("Formating E123 international " + testCase.getKey().toString(),
@@ -79,7 +80,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in E123 national format.
    */
   public void testFormatE123National() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123NationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123National(testCase.getKey());
       assertEquals("Formating E123 national " + testCase.getKey().toString(), testCase.getValue(),
@@ -91,7 +92,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in DIN 5008 format.
    */
   public void testFormatDin5008() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008(testCase.getKey());
       assertEquals("Formating DIN 5008 " + testCase.getKey().toString(), testCase.getValue(),
@@ -103,7 +104,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in DIN 5008 international format.
    */
   public void testFormatDin5008International() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008InternationalCases().entrySet()) {
       final String formatedNumber =
           this.phoneNumberUtil.formatDin5008International(testCase.getKey());
@@ -116,7 +117,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in DIN 5008 national format.
    */
   public void testFormatDin5008National() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008NationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008National(testCase.getKey());
       assertEquals("Formating DIN 5008 national " + testCase.getKey().toString(),
@@ -128,7 +129,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in RFC 3966 format.
    */
   public void testFormatRfc3966() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatRfc3966Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatRfc3966(testCase.getKey());
       assertEquals("Formating RFC 3966 " + testCase.getKey().toString(), testCase.getValue(),
@@ -140,8 +141,8 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in Microsoft canonical address format.
    */
   public void testFormatMs() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases.getFormatMsCases()
-        .entrySet()) {
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
+        .getFormatMsCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatMs(testCase.getKey());
       assertEquals("Formating MS " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
@@ -152,7 +153,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test formating phone number in Url format.
    */
   public void testFormatUrl() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatUrlCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatUrl(testCase.getKey());
       assertEquals("Formating URL " + testCase.getKey().toString(), testCase.getValue(),

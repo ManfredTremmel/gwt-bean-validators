@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.util;
 
-import de.knightsoftnet.validators.shared.data.PhoneNumberData;
+import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
 import de.knightsoftnet.validators.shared.testcases.PhoneNumberUtilTestCases;
 
 import org.junit.Assert;
@@ -41,9 +41,10 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testParsing() {
-    for (final Entry<String, PhoneNumberData> testCase : PhoneNumberUtilTestCases.getParseCases()
-        .entrySet()) {
-      final PhoneNumberData parsedNumber = this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
+    for (final Entry<String, PhoneNumberInterface> testCase : PhoneNumberUtilTestCases
+        .getParseCases().entrySet()) {
+      final PhoneNumberInterface parsedNumber =
+          this.phoneNumberUtil.parsePhoneNumber(testCase.getKey());
       Assert.assertEquals("Parsing " + testCase.getKey(), testCase.getValue(), parsedNumber);
     }
   }
@@ -53,7 +54,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatE123() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123(testCase.getKey());
       Assert.assertEquals("Formating E123 " + testCase.getKey().toString(), testCase.getValue(),
@@ -66,7 +67,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatE123International() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123InternationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123International(testCase.getKey());
       Assert.assertEquals("Formating E123 international " + testCase.getKey().toString(),
@@ -79,7 +80,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatE123National() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123NationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123National(testCase.getKey());
       Assert.assertEquals("Formating E123 national " + testCase.getKey().toString(),
@@ -92,7 +93,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatDin5008() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008(testCase.getKey());
       Assert.assertEquals("Formating DIN 5008 " + testCase.getKey().toString(), testCase.getValue(),
@@ -105,7 +106,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatDin5008International() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008InternationalCases().entrySet()) {
       final String formatedNumber =
           this.phoneNumberUtil.formatDin5008International(testCase.getKey());
@@ -119,7 +120,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatDin5008National() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008NationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008National(testCase.getKey());
       Assert.assertEquals("Formating DIN 5008 national " + testCase.getKey().toString(),
@@ -132,7 +133,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatRfc3966() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatRfc3966Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatRfc3966(testCase.getKey());
       Assert.assertEquals("Formating RFC 3966 " + testCase.getKey().toString(), testCase.getValue(),
@@ -145,8 +146,8 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatMs() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases.getFormatMsCases()
-        .entrySet()) {
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
+        .getFormatMsCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatMs(testCase.getKey());
       Assert.assertEquals("Formating MS " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
@@ -158,7 +159,7 @@ public class PhoneNumberUtilTest {
    */
   @Test
   public void testFormatUrl() {
-    for (final Entry<PhoneNumberData, String> testCase : PhoneNumberUtilTestCases
+    for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatUrlCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatUrl(testCase.getKey());
       Assert.assertEquals("Formating URL " + testCase.getKey().toString(), testCase.getValue(),

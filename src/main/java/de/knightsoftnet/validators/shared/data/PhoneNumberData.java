@@ -25,14 +25,14 @@ import java.io.Serializable;
  * @author Manfred Tremmel
  *
  */
-public class PhoneNumberData implements Serializable {
+public class PhoneNumberData implements Serializable, PhoneNumberExtendedInterface {
   private static final long serialVersionUID = -5715038613377873088L;
 
   private String countryCode;
   private String countryName;
   private String areaCode;
   private String areaName;
-  private String phoneNumber;
+  private String lineNumber;
   private String extension;
 
   /**
@@ -47,63 +47,75 @@ public class PhoneNumberData implements Serializable {
    *
    * @param pcountryCode country code
    * @param pareaCode area code
-   * @param pphoneNumber phone number
+   * @param plineNumber phone number
    * @param pextension extension
    */
   public PhoneNumberData(final String pcountryCode, final String pareaCode,
-      final String pphoneNumber, final String pextension) {
+      final String plineNumber, final String pextension) {
     super();
     this.countryCode = pcountryCode;
     this.areaCode = pareaCode;
-    this.phoneNumber = pphoneNumber;
+    this.lineNumber = plineNumber;
     this.extension = pextension;
   }
 
 
+  @Override
   public String getCountryCode() {
     return this.countryCode;
   }
 
+  @Override
   public void setCountryCode(final String pcountryCode) {
     this.countryCode = pcountryCode;
   }
 
+  @Override
   public String getCountryName() {
     return this.countryName;
   }
 
+  @Override
   public void setCountryName(final String pcountryName) {
     this.countryName = pcountryName;
   }
 
+  @Override
   public String getAreaCode() {
     return this.areaCode;
   }
 
+  @Override
   public void setAreaCode(final String pareaCode) {
     this.areaCode = pareaCode;
   }
 
+  @Override
   public String getAreaName() {
     return this.areaName;
   }
 
+  @Override
   public void setAreaName(final String pareaName) {
     this.areaName = pareaName;
   }
 
-  public String getPhoneNumber() {
-    return this.phoneNumber;
+  @Override
+  public String getLineNumber() {
+    return this.lineNumber;
   }
 
-  public void setPhoneNumber(final String pphoneNumber) {
-    this.phoneNumber = pphoneNumber;
+  @Override
+  public void setLineNumber(final String plineNumber) {
+    this.lineNumber = plineNumber;
   }
 
+  @Override
   public String getExtension() {
     return this.extension;
   }
 
+  @Override
   public void setExtension(final String pextension) {
     this.extension = pextension;
   }
@@ -112,10 +124,10 @@ public class PhoneNumberData implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (this.areaCode == null ? 0 : this.areaCode.hashCode());
     result = prime * result + (this.countryCode == null ? 0 : this.countryCode.hashCode());
+    result = prime * result + (this.areaCode == null ? 0 : this.areaCode.hashCode());
+    result = prime * result + (this.lineNumber == null ? 0 : this.lineNumber.hashCode());
     result = prime * result + (this.extension == null ? 0 : this.extension.hashCode());
-    result = prime * result + (this.phoneNumber == null ? 0 : this.phoneNumber.hashCode());
     return result;
   }
 
@@ -133,13 +145,13 @@ public class PhoneNumberData implements Serializable {
     final PhoneNumberData other = (PhoneNumberData) pobj;
     return StringUtils.equals(this.countryCode, other.countryCode)
         && StringUtils.equals(this.areaCode, other.areaCode)
-        && StringUtils.equals(this.phoneNumber, other.phoneNumber)
+        && StringUtils.equals(this.lineNumber, other.lineNumber)
         && StringUtils.equals(this.extension, other.extension);
   }
 
   @Override
   public String toString() {
     return "PhoneNumberData [countryCode=" + this.countryCode + ", areaCode=" + this.areaCode
-        + ", phoneNumber=" + this.phoneNumber + ", extension=" + this.extension + "]";
+        + ", phoneNumber=" + this.lineNumber + ", extension=" + this.extension + "]";
   }
 }
