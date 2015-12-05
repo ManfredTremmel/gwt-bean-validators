@@ -182,4 +182,46 @@ public class PhoneNumberUtilTestCases {
     testData.put(new PhoneNumberData("43", "662", "12345678", null), "+43-662-12345678");
     return testData;
   }
+
+  /**
+   * get format common test cases with expected results.
+   *
+   * @return map of PhoneNumberInterface with expected format result strings
+   */
+  public static final Map<PhoneNumberInterface, String> getFormatCommonCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
+    testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "0 89 / 12 34 - 56 78");
+    testData.put(new PhoneNumberData("49", "89", "12345678", null), "0 89 / 12 34 56 78");
+    testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 (0)662 1234-5678");
+    testData.put(new PhoneNumberData("43", "662", "12345678", null), "+43 (0)662 12345678");
+    return testData;
+  }
+
+  /**
+   * get format common international test cases with expected results.
+   *
+   * @return map of PhoneNumberInterface with expected format result strings
+   */
+  public static final Map<PhoneNumberInterface, String> getFormatCommonInternationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
+    testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "+49 (0)89 1234-5678");
+    testData.put(new PhoneNumberData("49", "89", "12345678", null), "+49 (0)89 12345678");
+    testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "+43 (0)662 1234-5678");
+    testData.put(new PhoneNumberData("43", "662", "12345678", null), "+43 (0)662 12345678");
+    return testData;
+  }
+
+  /**
+   * get format common national test cases with expected results.
+   *
+   * @return map of PhoneNumberInterface with expected format result strings
+   */
+  public static final Map<PhoneNumberInterface, String> getFormatCommonNationalCases() {
+    final Map<PhoneNumberInterface, String> testData = new HashMap<>();
+    testData.put(new PhoneNumberData("49", "89", "1234", "5678"), "0 89 / 12 34 - 56 78");
+    testData.put(new PhoneNumberData("49", "89", "12345678", null), "0 89 / 12 34 56 78");
+    testData.put(new PhoneNumberData("43", "662", "1234", "5678"), "0 66 2 / 12 34 - 56 78");
+    testData.put(new PhoneNumberData("43", "662", "12345678", null), "0 66 2 / 12 34 56 78");
+    return testData;
+  }
 }

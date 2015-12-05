@@ -52,6 +52,7 @@ Included Validators - multi fields
 |NotEmptyIfOtherHasValue | `field`, `fieldCompare` and `valueCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` contains `valueCompare`
 |NotEmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is empty
 |NotEmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is not empty
+|PhoneNumberValue | `fieldCountryCode` (default: countryCode), `fieldPhoneNumber` (default phoneNumber), `allowLowerCaseCountryCode` (default: false), `allowDin5008`, `allowE123`, `allowUri`, `allowMs`, and `allowCommon` (default for all true) | checks phone number based on country- and area code data, with the parameters you can disable formats
 |PostalCode | `fieldCountryCode` (default: countryCode), `fieldPostalCode` (default postalCode) and `allowLowerCaseCountryCode` (default: false) | postal code, post code or zip is validated using country specific rules, the country code is read from `fieldCountryCode`, there are rules for 161 countries included
 |VatId | `fieldCountryCode` (default: countryCode), `fieldVatId` (default vatId) and `allowLowerCaseCountryCode` (default: false) | vat registration number is validated using country specific rules, the country code is read from `fieldCountryCode`, there are format rules for 49 and checksum checks for 16 countries included
 
@@ -59,7 +60,7 @@ Included Validators - multi fields
 Dependencies
 ------------
 If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.4](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.9.2] (https://commons.apache.org/proper/commons-beanutils/).
-On the gwt frontend side, you have to include my [gwt-commons-lang3 3.4-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.4.1-SNAPSHOT](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
+On the gwt frontend side, you have to include my [gwt-commons-lang3 3.4-gwt27-0](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.5.0-gwt27-0](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
 ----------------
@@ -87,19 +88,19 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.10</version>
+      <version>0.8.11</version>
     </dependency>
     <dependency>
       <groupId>gwt-commons-lang3</groupId>
       <artifactId>gwt-commons-lang3</artifactId>
-      <version>3.4-SNAPSHOT</version>
+      <version>3.4-gwt27-0</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>gwt-commons-validator</groupId>
       <artifactId>gwt-commons-validator</artifactId>
-      <version>1.4.1-SNAPSHOT</version>
+      <version>1.5.0-gwt27-0</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
@@ -110,7 +111,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>gwt-bean-validators</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.10</version>
+      <version>0.8.11</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
@@ -134,7 +135,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>commons-validator</groupId>
       <artifactId>commons-validator</artifactId>
-      <version>1.4.1</version>
+      <version>1.5.0</version>
     </dependency>
 ```
 

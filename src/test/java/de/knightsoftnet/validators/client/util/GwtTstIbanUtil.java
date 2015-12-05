@@ -13,38 +13,39 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.shared.util;
+package de.knightsoftnet.validators.client.util;
 
 import de.knightsoftnet.validators.shared.testcases.IbanUtilTestCases;
+import de.knightsoftnet.validators.shared.util.IbanUtil;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.google.gwt.junit.client.GWTTestCase;
 
 import java.util.Map.Entry;
 
-public class IbanUtilTest {
+public class GwtTstIbanUtil extends GWTTestCase {
+
+  @Override
+  public String getModuleName() {
+    return "de.knightsoftnet.validators.GwtBeanValidatorsJUnit";
+  }
 
   /**
    * test formating iban.
    */
-  @Test
   public void testIbanFormat() {
-    Assert.assertNull("iban format should be null", IbanUtil.ibanFormat(null));
+    assertNull("iban format should be null", IbanUtil.ibanFormat(null));
     for (final Entry<String, String> entry : IbanUtilTestCases.getFormatCases().entrySet()) {
-      Assert.assertEquals("iban format failed", entry.getKey(),
-          IbanUtil.ibanFormat(entry.getValue()));
+      assertEquals("iban format failed", entry.getKey(), IbanUtil.ibanFormat(entry.getValue()));
     }
   }
 
   /**
    * test compressing iban.
    */
-  @Test
   public void testIbanCompress() {
-    Assert.assertNull("iban compression should be null", IbanUtil.ibanCompress(null));
+    assertNull("iban compression should be null", IbanUtil.ibanCompress(null));
     for (final Entry<String, String> entry : IbanUtilTestCases.getCompressCases().entrySet()) {
-      Assert.assertEquals("iban compress failed", entry.getKey(),
-          IbanUtil.ibanCompress(entry.getValue()));
+      assertEquals("iban compress failed", entry.getKey(), IbanUtil.ibanCompress(entry.getValue()));
     }
   }
 }

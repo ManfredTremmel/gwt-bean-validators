@@ -13,62 +13,59 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.shared.util;
+package de.knightsoftnet.validators.client.util;
 
 import de.knightsoftnet.validators.shared.testcases.IsbnUtilTestCases;
+import de.knightsoftnet.validators.shared.util.IsbnUtil;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.google.gwt.junit.client.GWTTestCase;
 
 import java.util.Map.Entry;
 
-public class IsbnUtilTest {
+public class GwtTstIsbnUtil extends GWTTestCase {
+
+  @Override
+  public String getModuleName() {
+    return "de.knightsoftnet.validators.GwtBeanValidatorsJUnit";
+  }
 
   /**
    * test formating isbn10.
    */
-  @Test
   public void testIsbn10Format() {
-    Assert.assertNull("isbn format should be null", IsbnUtil.isbn10Format(null));
+    assertNull("isbn format should be null", IsbnUtil.isbn10Format(null));
     for (final Entry<String, String> entry : IsbnUtilTestCases.getIsbn10FormatCases().entrySet()) {
-      Assert.assertEquals("isbn format failed", entry.getKey(),
-          IsbnUtil.isbn10Format(entry.getValue()));
+      assertEquals("isbn format failed", entry.getKey(), IsbnUtil.isbn10Format(entry.getValue()));
     }
   }
 
   /**
    * test formating isbn13.
    */
-  @Test
   public void testIsbn13Format() {
-    Assert.assertNull("isbn format should be null", IsbnUtil.isbn13Format(null));
+    assertNull("isbn format should be null", IsbnUtil.isbn13Format(null));
     for (final Entry<String, String> entry : IsbnUtilTestCases.getIsbn13FormatCases().entrySet()) {
-      Assert.assertEquals("isbn format failed", entry.getKey(),
-          IsbnUtil.isbn13Format(entry.getValue()));
+      assertEquals("isbn format failed", entry.getKey(), IsbnUtil.isbn13Format(entry.getValue()));
     }
   }
 
   /**
    * test formating isbn.
    */
-  @Test
   public void testIsbnFormat() {
-    Assert.assertNull("isbn format should be null", IsbnUtil.isbnFormat(null));
+    assertNull("isbn format should be null", IsbnUtil.isbnFormat(null));
     for (final Entry<String, String> entry : IsbnUtilTestCases.getIsbnFormatCases().entrySet()) {
-      Assert.assertEquals("isbn format failed", entry.getKey(),
-          IsbnUtil.isbnFormat(entry.getValue()));
+      assertEquals("isbn format failed", entry.getKey(), IsbnUtil.isbnFormat(entry.getValue()));
     }
   }
 
   /**
    * test compressing isbn.
    */
-  @Test
   public void testIbanCompress() {
-    Assert.assertNull("isbn compress should be null", IsbnUtil.isbnCompress(null));
+    assertNull("isbn compress should be null", IsbnUtil.isbnCompress(null));
     for (final Entry<String, String> entry : IsbnUtilTestCases.getCompressCases().entrySet()) {
-      Assert.assertEquals("isbn compress failed", entry.getKey(),
-          IsbnUtil.isbnCompress(entry.getValue()));
+      assertEquals("isbn compress failed", entry.getKey(), IsbnUtil.isbnCompress(entry.getValue()));
     }
   }
 }

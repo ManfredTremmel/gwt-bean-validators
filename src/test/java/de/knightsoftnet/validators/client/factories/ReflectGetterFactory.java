@@ -28,6 +28,7 @@ import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmp
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBean;
+import de.knightsoftnet.validators.shared.beans.PhoneNumberValueTestBean;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
@@ -35,8 +36,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.validation.client.GwtValidation;
 
 /**
- * The <code>GetPropertyByNameFactory</code> class is used for client side reflector replacement of
- * the getters. All beans which should need reflection like access to the getters, have to be added
+ * The <code>ReflectGetterFactory</code> class is used for client side reflector replacement of the
+ * getters. All beans which should need reflection like access to the getters, have to be added
  * to @GwtValidation annotation.
  *
  * @author Manfred Tremmel
@@ -53,7 +54,8 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
       NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
-      PostalCodeTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
+      PhoneNumberValueTestBean.class, PostalCodeTestBean.class, VatIdTestBean.class,
+      LevenshteinDistanceTestBean.class})
   public interface GwtGetReflector extends GwtReflectGetterInterface {
   }
 

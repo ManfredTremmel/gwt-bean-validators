@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared;
 
-import de.knightsoftnet.validators.shared.impl.PhoneNumberValidator;
+import de.knightsoftnet.validators.shared.impl.PhoneNumberValueValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -38,11 +38,10 @@ import javax.validation.Payload;
  *
  */
 @Documented
-@Constraint(validatedBy = PhoneNumberValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
-    ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+@Constraint(validatedBy = PhoneNumberValueValidator.class)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PhoneNumber {
+public @interface PhoneNumberValue {
   /**
    * localized message.
    */
@@ -57,6 +56,21 @@ public @interface PhoneNumber {
    * payload whatever.
    */
   Class<? extends Payload>[] payload() default {};
+
+  /**
+   * field name of the country code field.
+   */
+  String fieldCountryCode() default "countryCode";
+
+  /**
+   * field name of the phone number field.
+   */
+  String fieldPhoneNumber() default "phoneNumber";
+
+  /**
+   * are lower case country codes allowed (true/false).
+   */
+  boolean allowLowerCaseCountryCode() default false;
 
   /**
    * allow din 5008 format (true/false).
@@ -84,7 +98,7 @@ public @interface PhoneNumber {
   boolean allowCommon() default true;
 
   /**
-   * Defines several {@code @PhoneNumber} annotations on the same element.
+   * Defines several {@code @PhoneNumberValue} annotations on the same element.
    */
   @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
       ElementType.CONSTRUCTOR, ElementType.PARAMETER})
@@ -94,6 +108,6 @@ public @interface PhoneNumber {
     /**
      * phone number value.
      */
-    PhoneNumber[] value();
+    PhoneNumberValue[] value();
   }
 }

@@ -15,6 +15,8 @@
 
 package de.knightsoftnet.validators.client;
 
+import de.knightsoftnet.validators.client.util.GwtTstIbanUtil;
+import de.knightsoftnet.validators.client.util.GwtTstIsbnUtil;
 import de.knightsoftnet.validators.client.util.GwtTstPhoneNumberUtil;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
@@ -74,11 +76,14 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     suite.addTestSuite(GwtTstNotEmptyIfOtherIsNotEmpty.class);
     suite.addTestSuite(GwtTstPassword.class);
     suite.addTestSuite(GwtTstPhoneNumber.class);
+    suite.addTestSuite(GwtTstPhoneNumberValue.class);
     suite.addTestSuite(GwtTstPostalCode.class);
     suite.addTestSuite(GwtTstRegularExpression.class);
     suite.addTestSuite(GwtTstSizeWithoutSeparators.class);
     suite.addTestSuite(GwtTstUrl.class);
     suite.addTestSuite(GwtTstVatId.class);
+    suite.addTestSuite(GwtTstIbanUtil.class);
+    suite.addTestSuite(GwtTstIsbnUtil.class);
     suite.addTestSuite(GwtTstPhoneNumberUtil.class);
     return suite;
   }

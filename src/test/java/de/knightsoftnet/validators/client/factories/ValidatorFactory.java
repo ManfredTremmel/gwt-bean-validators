@@ -52,6 +52,7 @@ import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.PasswordTestBean;
 import de.knightsoftnet.validators.shared.beans.PhoneNumberTestBean;
+import de.knightsoftnet.validators.shared.beans.PhoneNumberValueTestBean;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.beans.RegExTestBean;
 import de.knightsoftnet.validators.shared.beans.SizeWithoutSeparatorsTestBean;
@@ -91,9 +92,9 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
-      PasswordTestBean.class, PhoneNumberTestBean.class, PostalCodeTestBean.class,
-      RegExTestBean.class, SizeWithoutSeparatorsTestBean.class, UrlTestBean.class,
-      VatIdTestBean.class, LevenshteinDistanceTestBean.class})
+      PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
+      PostalCodeTestBean.class, RegExTestBean.class, SizeWithoutSeparatorsTestBean.class,
+      UrlTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
   public interface GwtValidator extends Validator {
   }
 
