@@ -26,18 +26,38 @@
 .errorLabelStyleBottom {
   color: red;
 }
-.validInputStyle {
-  background-image: urlValidImage;
-  background-size: Auto 50%;
-  background-position: right top;
-  background-repeat: no-repeat !important;
-  padding-right: 1em !important;
-}
-.errorInputStyle {
-  background-image: urlErrorImage;
-  background-size: Auto 50%;
-  background-position: right top;
-  background-repeat: no-repeat;
-  border: 1px solid red !important;
-  padding-right: 1em !important;
+@if user.agent ie6 ie8 ie9 ie10 ie11 {
+	.validInputStyle {
+	  background-image: urlValidImage;
+	  background-size: Auto 50%;
+	  background-position-x: 140%;
+	  background-psoition-y: top;
+	  background-repeat: no-repeat !important;
+	  padding-right: 1em !important;
+	}
+	.errorInputStyle {
+	  background-image: urlErrorImage;
+	  background-size: Auto 50%;
+	  background-position-x: 140%;
+	  background-psoition-y: top;
+	  background-repeat: no-repeat;
+	  border: 1px solid red !important;
+	  padding-right: 1em !important;
+	}
+} @else {
+	.validInputStyle {
+	  background-image: urlValidImage;
+	  background-size: Auto 50%;
+	  background-position: right top;
+	  background-repeat: no-repeat !important;
+	  padding-right: 1em !important;
+	}
+	.errorInputStyle {
+	  background-image: urlErrorImage;
+	  background-size: Auto 50%;
+	  background-position: right top;
+	  background-repeat: no-repeat;
+	  border: 1px solid red !important;
+	  padding-right: 1em !important;
+	}
 }

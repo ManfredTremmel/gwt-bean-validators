@@ -60,47 +60,30 @@ Included Validators - multi fields
 Dependencies
 ------------
 If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions. You simply can add [apache-commons-lang3 3.4](https://commons.apache.org/proper/commons-lang/), [apache-commons-validator 1.4.1](https://commons.apache.org/proper/commons-validator/) and [apache-commons-beanutils-core 1.9.2] (https://commons.apache.org/proper/commons-beanutils/).
-On the gwt frontend side, you have to include my [gwt-commons-lang3 3.4-gwt27-0](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.5.0-gwt27-0](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
+On the gwt frontend side, you have to include my [gwt-commons-lang3 3.4-1](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators 1.5.0-1](https://github.com/ManfredTremmel/gwt-commons-validator) src.jars additional and the corresponding binary jars as replacement of apache-commons-lang3 and apache-commons-validator (optional), this are gwt-ports of the same libraries. If you use Maven, it will include everything automaticly for you.
 
 Maven integraten
 ----------------
-
-The build packages are currently not on a indexed maven repository, but you can add my private repository with the following settings:
-
-```
-  <repositories>
-    <repository>
-      <id>de.knightsoft-net</id>
-      <url>http://www.knightsoft-net.de/maven/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>
-```
 
 The dependency itself for GWT-Projects:
 
 ```
     <dependency>
-      <groupId>gwt-bean-validators</groupId>
+      <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.11</version>
+      <version>0.8.12</version>
     </dependency>
     <dependency>
-      <groupId>gwt-commons-lang3</groupId>
+      <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-commons-lang3</artifactId>
-      <version>3.4-gwt27-0</version>
+      <version>3.4-1</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>gwt-commons-validator</groupId>
+      <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-commons-validator</artifactId>
-      <version>1.5.0-gwt27-0</version>
+      <version>1.5.0-1</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
@@ -109,20 +92,20 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
 
 ```
     <dependency>
-      <groupId>gwt-bean-validators</groupId>
+      <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.8.11</version>
+      <version>0.8.12</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
           <artifactId>gwt-servlet</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>gwt-commons-lang3</groupId>
+          <groupId>de.knightsoft-net</groupId>
           <artifactId>gwt-commons-lang3</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>gwt-commons-validator</groupId>
+          <groupId>de.knightsoft-net</groupId>
           <artifactId>gwt-commons-validator</artifactId>
         </exclusion>
       </exclusions>
