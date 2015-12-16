@@ -38,6 +38,7 @@ public class RegExUtil {
     }
     final StringBuilder regExCheck = new StringBuilder();
     boolean inSequence = false;
+    boolean isNegativeSequence = false;
     boolean inSize = false;
     boolean isMasked = false;
 
@@ -52,6 +53,15 @@ public class RegExUtil {
           }
           break;
         case '^':
+          if (inSequence) {
+            if (isMasked) {
+              regExCheck.append(character);
+            } else {
+              isNegativeSequence = true;
+            }
+          }
+          isMasked = false;
+          break;
         case '$':
         case '*':
         case '+':
@@ -67,6 +77,7 @@ public class RegExUtil {
             regExCheck.append(character);
           } else {
             inSequence = true;
+            isNegativeSequence = false;
           }
           isMasked = false;
           break;
@@ -75,6 +86,7 @@ public class RegExUtil {
             regExCheck.append(character);
           } else {
             inSequence = false;
+            isNegativeSequence = false;
           }
           isMasked = false;
           break;
@@ -111,7 +123,7 @@ public class RegExUtil {
             if (character != ',' && (character < '0' || character > '9')) {
               regExCheck.append(character);
             }
-          } else {
+          } else if (!isNegativeSequence) {
             if (isMasked) {
               regExCheck.append('\\');
             }

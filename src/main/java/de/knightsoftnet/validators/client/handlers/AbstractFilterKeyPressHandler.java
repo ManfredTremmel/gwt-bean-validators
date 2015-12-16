@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
-import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 
@@ -32,12 +32,14 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
   /**
    * allowed characters.
    */
-  private final Set<Character> allowedCharacters;
+  private Set<Character> allowedCharacters;
 
   /**
    * allow copy and paste.
    */
   private final boolean allowCopyAndPast;
+
+  private final NavigationKeysInterface navigationKeys;
 
   /**
    * constructor initializing fields.
@@ -48,8 +50,9 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
   public AbstractFilterKeyPressHandler(final Set<Character> pallowedCharacters,
       final boolean pallowCopyAndPast) {
     super();
-    this.allowedCharacters = pallowedCharacters;
+    this.setAllowedCharacters(pallowedCharacters);
     this.allowCopyAndPast = pallowCopyAndPast;
+    this.navigationKeys = GWT.create(NavigationKeysInterface.class);
   }
 
   /**
@@ -61,13 +64,25 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
   public AbstractFilterKeyPressHandler(final String pallowedCharacters,
       final boolean pallowCopyAndPast) {
     super();
+    this.setAllowedCharacters(pallowedCharacters);
+    this.allowCopyAndPast = pallowCopyAndPast;
+    this.navigationKeys = GWT.create(NavigationKeysInterface.class);
+  }
+
+  protected final Set<Character> getAllowedCharacters() {
+    return this.allowedCharacters;
+  }
+
+  protected final void setAllowedCharacters(final Set<Character> pallowedCharacters) {
+    this.allowedCharacters = pallowedCharacters;
+  }
+
+  protected final void setAllowedCharacters(final String pallowedCharacters) {
     this.allowedCharacters = new TreeSet<Character>();
     for (final char character : pallowedCharacters.toCharArray()) {
       this.allowedCharacters.add(Character.valueOf(character));
     }
-    this.allowCopyAndPast = pallowCopyAndPast;
   }
-
 
   @Override
   public void onKeyPress(final KeyPressEvent pevent) {
@@ -77,32 +92,20 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
     }
     final char charCode = pevent.getCharCode();
 
-    switch (keyCode) {
-      case KeyCodes.KEY_BACKSPACE:
-      case KeyCodes.KEY_DELETE:
-      case KeyCodes.KEY_LEFT:
-      case KeyCodes.KEY_RIGHT:
-      case KeyCodes.KEY_SHIFT:
-      case KeyCodes.KEY_TAB:
-      case KeyCodes.KEY_ENTER:
-      case KeyCodes.KEY_HOME:
-      case KeyCodes.KEY_END:
-      case KeyCodes.KEY_UP:
-      case KeyCodes.KEY_DOWN:
-        break;
-      default:
-        // Copy, Cut or Paste allowed?
-        if (this.allowCopyAndPast && pevent.isControlKeyDown()
-            && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
-          return;
-        }
-        // check for allowed characters
-        if (this.allowedCharacters.contains(Character.valueOf(charCode))) {
-          return;
-        }
-        // nothing matched, cancel event
-        pevent.getNativeEvent().preventDefault();
-        break;
+    // accept navigation keys like cursor right, left, ...
+    if (this.navigationKeys.isNavigationKey(keyCode)) {
+      return;
     }
+    // Copy, Cut or Paste allowed?
+    if (this.allowCopyAndPast && pevent.isControlKeyDown()
+        && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
+      return;
+    }
+    // check for allowed characters
+    if (this.allowedCharacters.contains(Character.valueOf(charCode))) {
+      return;
+    }
+    // nothing matched, cancel event
+    pevent.getNativeEvent().preventDefault();
   }
 }

@@ -15,12 +15,22 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
+import com.google.gwt.user.client.ui.HasValue;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Factory Class to get Handlers.
  *
  * @author Manfred Tremmel
  */
 public class HandlerFactory {
+
+  private static final Map<String, RegExKeyPressHandler> REG_EX_KEY_PRESS_HANDLER_MAP =
+      new HashMap<String, RegExKeyPressHandler>();
 
   private static UpperAsciiKeyPressHandler upperAsciiKeyPressHandler = null;
   private static NumericAndUpperAsciiKeyPressHandler numericAndUpperAsciiKeyPressHandler = null;
@@ -216,5 +226,33 @@ public class HandlerFactory {
       decimalKeyPressHandler = new DecimalKeyPressHandler();
     }
     return decimalKeyPressHandler;
+  }
+
+  /**
+   * get a key press handler which allows all characters which could match a reg ex.
+   *
+   * @param pregEx to check
+   * @return key press handler
+   */
+  public static final RegExKeyPressHandler getRegExKeyPressHandler(final String pregEx) {
+    if (StringUtils.isEmpty(pregEx)) {
+      return null;
+    }
+    RegExKeyPressHandler result = REG_EX_KEY_PRESS_HANDLER_MAP.get(pregEx);
+    if (result == null) {
+      result = new RegExKeyPressHandler(pregEx);
+    }
+    return result;
+  }
+
+  /**
+   * get a key press handler which allows characters for postal codes of a referenced country.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return key press handler
+   */
+  public static final PostalCodeKeyPressHandler getPostalCodeKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PostalCodeKeyPressHandler(pcountryCodeField);
   }
 }

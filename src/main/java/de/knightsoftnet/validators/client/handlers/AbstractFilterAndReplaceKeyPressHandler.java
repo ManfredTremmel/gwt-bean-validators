@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -38,6 +38,8 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
    */
   private final boolean allowCopyAndPast;
 
+  private final NavigationKeysInterface navigationKeys;
+
   /**
    * constructor.
    *
@@ -46,6 +48,7 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
   public AbstractFilterAndReplaceKeyPressHandler(final boolean pallowCopyAndPast) {
     super();
     this.allowCopyAndPast = pallowCopyAndPast;
+    this.navigationKeys = GWT.create(NavigationKeysInterface.class);
   }
 
 
@@ -55,66 +58,54 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
     if (pevent.getNativeEvent() != null) {
       keyCode = pevent.getNativeEvent().getKeyCode();
     }
-    final char charCode = pevent.getCharCode();
+    final int charCode = pevent.getCharCode();
 
-    switch (keyCode) {
-      case KeyCodes.KEY_BACKSPACE:
-      case KeyCodes.KEY_DELETE:
-      case KeyCodes.KEY_LEFT:
-      case KeyCodes.KEY_RIGHT:
-      case KeyCodes.KEY_SHIFT:
-      case KeyCodes.KEY_TAB:
-      case KeyCodes.KEY_ENTER:
-      case KeyCodes.KEY_HOME:
-      case KeyCodes.KEY_END:
-      case KeyCodes.KEY_UP:
-      case KeyCodes.KEY_DOWN:
-        break;
-      default:
-        // Copy, Cut or Paste allowed?
-        if (this.allowCopyAndPast && pevent.isControlKeyDown()
-            && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
-          return;
-        }
-        // check for allowed characters
-        if (this.isAllowedCharacter(charCode)) {
-          return;
-        }
-        // convert the character
-        if (this.isCharacterToReplace(charCode)) {
-          final ValueBoxBase<?> textBox;
-          if (pevent.getSource() instanceof SuggestBox) {
-            textBox = ((SuggestBox) pevent.getSource()).getValueBox();
-          } else if (pevent.getSource() instanceof ValueBoxBase<?>) {
-            textBox = (ValueBoxBase<?>) pevent.getSource();
-          } else {
-            throw new RuntimeException("Widget type not supported!");
-          }
-          final int cursorPos = textBox.getCursorPos();
-          final int selectionLength = textBox.getSelectionLength();
-          final int startDiff;
-          final int endDiff;
-          if (selectionLength >= 0) {
-            startDiff = 0;
-            endDiff = selectionLength;
-          } else {
-            startDiff = selectionLength;
-            endDiff = 0;
-          }
-
-          final String oldValue = textBox.getText();
-          final String newValue = StringUtils.substring(oldValue, 0, cursorPos + startDiff)
-              + this.replaceCharacter(charCode)
-              + StringUtils.substring(oldValue, cursorPos + endDiff);
-
-          textBox.setText(newValue);
-          textBox.setCursorPos(cursorPos + 1);
-          DomEvent.fireNativeEvent(Document.get().createChangeEvent(), textBox);
-        }
-        // nothing matched, cancel event
-        pevent.getNativeEvent().preventDefault();
-        break;
+    // accept navigation keys like cursor right, left, ...
+    if (this.navigationKeys.isNavigationKey(keyCode)) {
+      return;
     }
+    // Copy, Cut or Paste allowed?
+    if (this.allowCopyAndPast && pevent.isControlKeyDown()
+        && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
+      return;
+    }
+    // check for allowed characters
+    if (this.isAllowedCharacter((char) charCode)) {
+      return;
+    }
+    // convert the character
+    if (this.isCharacterToReplace((char) charCode)) {
+      final ValueBoxBase<?> textBox;
+      if (pevent.getSource() instanceof SuggestBox) {
+        textBox = ((SuggestBox) pevent.getSource()).getValueBox();
+      } else if (pevent.getSource() instanceof ValueBoxBase<?>) {
+        textBox = (ValueBoxBase<?>) pevent.getSource();
+      } else {
+        throw new RuntimeException("Widget type not supported!");
+      }
+      final int cursorPos = textBox.getCursorPos();
+      final int selectionLength = textBox.getSelectionLength();
+      final int startDiff;
+      final int endDiff;
+      if (selectionLength >= 0) {
+        startDiff = 0;
+        endDiff = selectionLength;
+      } else {
+        startDiff = selectionLength;
+        endDiff = 0;
+      }
+
+      final String oldValue = textBox.getText();
+      final String newValue = StringUtils.substring(oldValue, 0, cursorPos + startDiff)
+          + this.replaceCharacter((char) charCode)
+          + StringUtils.substring(oldValue, cursorPos + endDiff);
+
+      textBox.setText(newValue);
+      textBox.setCursorPos(cursorPos + 1);
+      DomEvent.fireNativeEvent(Document.get().createChangeEvent(), textBox);
+    }
+    // nothing matched, cancel event
+    pevent.getNativeEvent().preventDefault();
   }
 
   /**

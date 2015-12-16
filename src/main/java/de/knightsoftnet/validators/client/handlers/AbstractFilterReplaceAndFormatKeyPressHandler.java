@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -37,6 +37,8 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
    */
   private final boolean allowCopyAndPast;
 
+  private final NavigationKeysInterface navigationKeys;
+
   /**
    * constructor.
    *
@@ -45,6 +47,7 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
   public AbstractFilterReplaceAndFormatKeyPressHandler(final boolean pallowCopyAndPast) {
     super();
     this.allowCopyAndPast = pallowCopyAndPast;
+    this.navigationKeys = GWT.create(NavigationKeysInterface.class);
   }
 
   @Override
@@ -68,45 +71,33 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
     String newValue = null;
     boolean changeHandled = false;
 
-    switch (keyCode) {
-      case KeyCodes.KEY_BACKSPACE:
-      case KeyCodes.KEY_DELETE:
-      case KeyCodes.KEY_LEFT:
-      case KeyCodes.KEY_RIGHT:
-      case KeyCodes.KEY_SHIFT:
-      case KeyCodes.KEY_TAB:
-      case KeyCodes.KEY_ENTER:
-      case KeyCodes.KEY_HOME:
-      case KeyCodes.KEY_END:
-      case KeyCodes.KEY_UP:
-      case KeyCodes.KEY_DOWN:
-        break;
-      default:
-        // Copy, Cut or Paste allowed?
-        if (this.allowCopyAndPast && pevent.isControlKeyDown()
-            && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
-          return;
-        }
-        // check for allowed characters
-        if (this.isAllowedCharacter(charCode) || this.isCharacterToReplace(charCode)) {
-          final String newTmpValue =
-              StringUtils.substring(oldValue, 0, cursorPos) + this.replaceCharacter(charCode)
-                  + StringUtils.substring(oldValue, cursorPos + textBox.getSelectionLength());
-          newValue = this.formatValue(newTmpValue);
+    // accept navigation keys like cursor right, left, ...
+    if (this.navigationKeys.isNavigationKey(keyCode)) {
+      return;
+    }
+    // Copy, Cut or Paste allowed?
+    if (this.allowCopyAndPast && pevent.isControlKeyDown()
+        && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
+      return;
+    }
+    // check for allowed characters
+    if (this.isAllowedCharacter(charCode) || this.isCharacterToReplace(charCode)) {
+      final String newTmpValue =
+          StringUtils.substring(oldValue, 0, cursorPos) + this.replaceCharacter(charCode)
+              + StringUtils.substring(oldValue, cursorPos + textBox.getSelectionLength());
+      newValue = this.formatValue(newTmpValue);
 
-          if (!StringUtils.equals(oldValue, newValue)) {
-            newCursorPos = cursorPos + newValue.length() - oldValue.length();
-            while (newCursorPos > 0 //
-                && this.isFormatingCharacter(newValue.charAt(newCursorPos - 1))) {
-              newCursorPos++;
-            }
-          }
-          changeHandled = true;
-        } else {
-          // nothing matched, cancel event
-          pevent.getNativeEvent().preventDefault();
+      if (!StringUtils.equals(oldValue, newValue)) {
+        newCursorPos = cursorPos + newValue.length() - oldValue.length();
+        while (newCursorPos > 0 //
+            && this.isFormatingCharacter(newValue.charAt(newCursorPos - 1))) {
+          newCursorPos++;
         }
-        break;
+      }
+      changeHandled = true;
+    } else {
+      // nothing matched, cancel event
+      pevent.getNativeEvent().preventDefault();
     }
     if (changeHandled) {
       textBox.cancelKey();
