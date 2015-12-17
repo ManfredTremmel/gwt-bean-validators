@@ -21,21 +21,20 @@ import de.knightsoftnet.validators.shared.util.RegExUtil;
 
 import com.google.gwt.user.client.ui.HasValue;
 
-import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * KeyPress Handler which allows the input of characters which are part of matching string.
  *
  * @author Manfred Tremmel
  */
-public class PostalCodeKeyPressHandler extends AbstractFilterAndReplaceKeyPressHandler {
+public class PostalCodeKeyPressHandler extends SimpleFilterAndReplaceKeyPressHandler {
 
   /**
    * map of allowed characters per country.
@@ -53,17 +52,13 @@ public class PostalCodeKeyPressHandler extends AbstractFilterAndReplaceKeyPressH
    */
   private final HasValue<?> countryCodeField;
 
-  private boolean containsUpper = false;
-  private boolean containsLower = false;
-  private Set<Character> currentCharacterSet;
-
   /**
    * constructor initializing reverence to country code field.
    *
    * @param pcountryCodeField country code field
    */
   public PostalCodeKeyPressHandler(final HasValue<?> pcountryCodeField) {
-    super(true);
+    super(Collections.<Character>emptySet(), true);
     this.countryCodeField = pcountryCodeField;
   }
 
@@ -71,39 +66,14 @@ public class PostalCodeKeyPressHandler extends AbstractFilterAndReplaceKeyPressH
   public boolean isAllowedCharacter(final char pcharacter) {
     final String countryCode =
         StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()));
-    this.currentCharacterSet = ALLOWED_CHRACTERS.get(countryCode);
-    this.containsUpper = false;
-    this.containsLower = false;
-    if (this.currentCharacterSet == null) {
-      final String characters =
-          RegExUtil.getAllowedCharactersForRegEx(POSTAL_CODE_MAP.postalCodes().get(countryCode));
-      this.currentCharacterSet = new TreeSet<>();
-      for (final char character : characters.toCharArray()) {
-        this.currentCharacterSet.add(Character.valueOf(character));
-        this.containsUpper |= CharUtils.isAsciiAlphaUpper(character);
-        this.containsLower |= CharUtils.isAsciiAlphaLower(character);
-      }
-      ALLOWED_CHRACTERS.put(countryCode, this.currentCharacterSet);
+    final Set<Character> currentCharacterSet = ALLOWED_CHRACTERS.get(countryCode);
+    if (currentCharacterSet == null) {
+      this.setAllowedCharacters(
+          RegExUtil.getAllowedCharactersForRegEx(POSTAL_CODE_MAP.postalCodes().get(countryCode)));
+      ALLOWED_CHRACTERS.put(countryCode, this.getAllowedCharacters());
     } else {
-      for (final Character character : this.currentCharacterSet) {
-        this.containsUpper |= CharUtils.isAsciiAlphaUpper(character.charValue());
-        this.containsLower |= CharUtils.isAsciiAlphaLower(character.charValue());
-      }
+      this.setAllowedCharacters(currentCharacterSet);
     }
-    return this.currentCharacterSet.contains(Character.valueOf(pcharacter));
-  }
-
-  @Override
-  public boolean isCharacterToReplace(final char pcharacter) {
-    return CharUtils.isAsciiAlphaUpper(pcharacter) && !this.containsUpper && this.containsLower
-        && this.currentCharacterSet.contains(Character.toLowerCase(pcharacter))
-        || CharUtils.isAsciiAlphaLower(pcharacter) && this.containsUpper && !this.containsLower
-            && this.currentCharacterSet.contains(Character.toUpperCase(pcharacter));
-  }
-
-  @Override
-  public char replaceCharacter(final char pcharacter) {
-    return CharUtils.isAsciiAlphaUpper(pcharacter) ? Character.toLowerCase(pcharacter)
-        : Character.toUpperCase(pcharacter);
+    return super.isAllowedCharacter(pcharacter);
   }
 }

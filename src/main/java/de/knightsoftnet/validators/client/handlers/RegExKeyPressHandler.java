@@ -22,7 +22,7 @@ import de.knightsoftnet.validators.shared.util.RegExUtil;
  *
  * @author Manfred Tremmel
  */
-public class RegExKeyPressHandler extends AbstractFilterKeyPressHandler {
+public class RegExKeyPressHandler extends SimpleFilterAndReplaceKeyPressHandler {
 
   public RegExKeyPressHandler(final String pregEx) {
     super(RegExUtil.getAllowedCharactersForRegEx(pregEx), true);

@@ -15,6 +15,8 @@
 
 package de.knightsoftnet.validators.shared.util;
 
+import com.google.gwt.regexp.shared.RegExp;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -133,10 +135,10 @@ public class RegExUtil {
           break;
       }
     }
-    final String regEx = "[" + regExCheck.toString() + "]";
+    final RegExp regEx = RegExp.compile("[" + regExCheck.toString() + "]");
     final StringBuilder result = new StringBuilder();
     for (int count = Character.MIN_VALUE; count < Character.MAX_VALUE; count++) {
-      if (String.valueOf((char) count).matches(regEx)) {
+      if (regEx.exec(String.valueOf((char) count)) != null) {
         result.append((char) count);
       }
     }
