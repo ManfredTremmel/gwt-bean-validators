@@ -103,7 +103,8 @@ public abstract class AbstractFilterReplaceAndFormatKeyPressHandler implements K
       textBox.cancelKey();
       textBox.setText(newValue);
       if (StringUtils.length(oldValue) == cursorPos //
-          || newCursorPos > StringUtils.length(newValue)) {
+          || newCursorPos > StringUtils.length(newValue) //
+          || newCursorPos < 0) {
         textBox.setCursorPos(newValue.length());
       } else {
         textBox.setCursorPos(newCursorPos);

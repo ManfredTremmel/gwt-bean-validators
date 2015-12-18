@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.client.handlers;
 
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.HasValue;
 
 import org.apache.commons.lang3.StringUtils;
@@ -214,6 +215,50 @@ public class HandlerFactory {
       phoneNumberKeyPressHandler = new PhoneNumberKeyPressHandler();
     }
     return phoneNumberKeyPressHandler;
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberDin5008KeyPressHandler
+   */
+  public static KeyPressHandler getPhoneNumberDin5008KeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberDin5008KeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberDin5008KeyUpHandler
+   */
+  public static PhoneNumberDin5008KeyUpHandler getPhoneNumberDin5008KeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberDin5008KeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberMsKeyPressHandler
+   */
+  public static KeyPressHandler getPhoneNumberMsKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberMsKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberMsKeyUpHandler
+   */
+  public static PhoneNumberMsKeyUpHandler getPhoneNumberMsKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberMsKeyUpHandler(pcountryCodeField);
   }
 
   /**
