@@ -39,11 +39,13 @@ public class RegExUtil {
       return null;
     }
     final StringBuilder regExCheck = new StringBuilder();
+    final StringBuilder regExCheckOut = new StringBuilder();
     boolean inSequence = false;
     boolean isNegativeSequence = false;
     boolean inSize = false;
     boolean isMasked = false;
 
+    regExCheck.append("([");
     for (final char character : pregEx.toCharArray()) {
       switch (character) {
         case '\\':
@@ -127,15 +129,30 @@ public class RegExUtil {
             }
           } else if (!isNegativeSequence) {
             if (isMasked) {
-              regExCheck.append('\\');
+              if (regExCheckOut.length() > 1) {
+                regExCheckOut.append('|');
+              }
+              regExCheckOut.append('\\');
+              regExCheckOut.append(character);
+            } else {
+              regExCheck.append(character);
             }
-            regExCheck.append(character);
           }
           isMasked = false;
           break;
       }
     }
-    final RegExp regEx = RegExp.compile("[" + regExCheck.toString() + "]");
+    if (regExCheck.length() < 3) {
+      regExCheck.delete(1, regExCheck.length());
+    } else {
+      regExCheck.append(']');
+      if (regExCheckOut.length() > 0) {
+        regExCheck.append('|');
+      }
+    }
+    regExCheck.append(regExCheckOut);
+    regExCheck.append(')');
+    final RegExp regEx = RegExp.compile(regExCheck.toString());
     final StringBuilder result = new StringBuilder();
     for (int count = Character.MIN_VALUE; count < Character.MAX_VALUE; count++) {
       if (regEx.exec(String.valueOf((char) count)) != null) {
