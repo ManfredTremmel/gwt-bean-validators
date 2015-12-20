@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.client.handlers;
 
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.HasValue;
 
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +55,7 @@ public class HandlerFactory {
    *
    * @return UpperAsciiKeyPressHandler
    */
-  public static final UpperAsciiKeyPressHandler getUpperAsciiKeyPressHandler() {
+  public static final KeyPressHandler getUpperAsciiKeyPressHandler() {
     if (upperAsciiKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       upperAsciiKeyPressHandler = new UpperAsciiKeyPressHandler();
     }
@@ -66,7 +67,7 @@ public class HandlerFactory {
    *
    * @return NumericAndUpperAsciiKeyPressHandler
    */
-  public static final NumericAndUpperAsciiKeyPressHandler getNumericAndUpperAsciiKeyPressHandler() {
+  public static final KeyPressHandler getNumericAndUpperAsciiKeyPressHandler() {
     if (numericAndUpperAsciiKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       numericAndUpperAsciiKeyPressHandler = new NumericAndUpperAsciiKeyPressHandler();
     }
@@ -78,7 +79,7 @@ public class HandlerFactory {
    *
    * @return IbanKeyPressHandler
    */
-  public static final IbanKeyPressHandler getIbanKeyPressHandler() {
+  public static final KeyPressHandler getIbanKeyPressHandler() {
     if (ibanKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       ibanKeyPressHandler = new IbanKeyPressHandler();
     }
@@ -90,7 +91,7 @@ public class HandlerFactory {
    *
    * @return IbanKeyUpHandler
    */
-  public static final IbanKeyUpHandler getIbanKeyUpHandler() {
+  public static final KeyUpHandler getIbanKeyUpHandler() {
     if (ibanKeyUpHandler == null) { // NOPMD, needn't be thread save on client
       ibanKeyUpHandler = new IbanKeyUpHandler();
     }
@@ -102,7 +103,7 @@ public class HandlerFactory {
    *
    * @return Isbn10KeyPressHandler
    */
-  public static final Isbn10KeyPressHandler getIsbn10KeyPressHandler() {
+  public static final KeyPressHandler getIsbn10KeyPressHandler() {
     if (isbn10KeyPressHandler == null) { // NOPMD, needn't be thread save on client
       isbn10KeyPressHandler = new Isbn10KeyPressHandler();
     }
@@ -114,7 +115,7 @@ public class HandlerFactory {
    *
    * @return Isbn10KeyUpHandler
    */
-  public static final Isbn10KeyUpHandler getIsbn10KeyUpHandler() {
+  public static final KeyUpHandler getIsbn10KeyUpHandler() {
     if (isbn10KeyUpHandler == null) { // NOPMD, needn't be thread save on client
       isbn10KeyUpHandler = new Isbn10KeyUpHandler();
     }
@@ -126,7 +127,7 @@ public class HandlerFactory {
    *
    * @return Isbn13KeyPressHandler
    */
-  public static final Isbn13KeyPressHandler getIsbn13KeyPressHandler() {
+  public static final KeyPressHandler getIsbn13KeyPressHandler() {
     if (isbn13KeyPressHandler == null) { // NOPMD, needn't be thread save on client
       isbn13KeyPressHandler = new Isbn13KeyPressHandler();
     }
@@ -138,7 +139,7 @@ public class HandlerFactory {
    *
    * @return Isbn13KeyUpHandler
    */
-  public static final Isbn13KeyUpHandler getIsbn13KeyUpHandler() {
+  public static final KeyUpHandler getIsbn13KeyUpHandler() {
     if (isbn13KeyUpHandler == null) { // NOPMD, needn't be thread save on client
       isbn13KeyUpHandler = new Isbn13KeyUpHandler();
     }
@@ -150,7 +151,7 @@ public class HandlerFactory {
    *
    * @return IsbnKeyPressHandler
    */
-  public static final IsbnKeyPressHandler getIsbnKeyPressHandler() {
+  public static final KeyPressHandler getIsbnKeyPressHandler() {
     if (isbnKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       isbnKeyPressHandler = new IsbnKeyPressHandler();
     }
@@ -162,7 +163,7 @@ public class HandlerFactory {
    *
    * @return IsbnKeyUpHandler
    */
-  public static final IsbnKeyUpHandler getIsbnKeyUpHandler() {
+  public static final KeyUpHandler getIsbnKeyUpHandler() {
     if (isbnKeyUpHandler == null) { // NOPMD, needn't be thread save on client
       isbnKeyUpHandler = new IsbnKeyUpHandler();
     }
@@ -174,7 +175,7 @@ public class HandlerFactory {
    *
    * @return NumericKeyPressHandler
    */
-  public static final NumericKeyPressHandler getNumericKeyPressHandler() {
+  public static final KeyPressHandler getNumericKeyPressHandler() {
     if (numericKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       numericKeyPressHandler = new NumericKeyPressHandler();
     }
@@ -186,7 +187,7 @@ public class HandlerFactory {
    *
    * @return CurrencyKeyPressHandler
    */
-  public static final CurrencyKeyPressHandler getCurrencyKeyPressHandler() {
+  public static final KeyPressHandler getCurrencyKeyPressHandler() {
     if (currencyKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       currencyKeyPressHandler = new CurrencyKeyPressHandler();
     }
@@ -198,7 +199,7 @@ public class HandlerFactory {
    *
    * @return PercentKeyPressHandler
    */
-  public static final PercentKeyPressHandler getPercentKeyPressHandler() {
+  public static final KeyPressHandler getPercentKeyPressHandler() {
     if (percentKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       percentKeyPressHandler = new PercentKeyPressHandler();
     }
@@ -210,7 +211,7 @@ public class HandlerFactory {
    *
    * @return PhoneNumberKeyPressHandler
    */
-  public static final PhoneNumberKeyPressHandler getPhoneNumberKeyPressHandler() {
+  public static final KeyPressHandler getPhoneNumberKeyPressHandler() {
     if (phoneNumberKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       phoneNumberKeyPressHandler = new PhoneNumberKeyPressHandler();
     }
@@ -221,9 +222,75 @@ public class HandlerFactory {
    * get a phone number key press handler.
    *
    * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberCommonInternationalKeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberCommonInternationalKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberCommonInternationalKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberCommonInternationalKeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberCommonInternationalKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberCommonInternationalKeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberCommonKeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberCommonKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberCommonKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberCommonKeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberCommonKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberCommonKeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberDin5008InternationalKeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberDin5008InternationalKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberDin5008InternationalKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberDin5008InternationalKeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberDin5008InternationalKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberDin5008InternationalKeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
    * @return PhoneNumberDin5008KeyPressHandler
    */
-  public static KeyPressHandler getPhoneNumberDin5008KeyPressHandler(
+  public static final KeyPressHandler getPhoneNumberDin5008KeyPressHandler(
       final HasValue<?> pcountryCodeField) {
     return new PhoneNumberDin5008KeyPressHandler(pcountryCodeField);
   }
@@ -234,7 +301,7 @@ public class HandlerFactory {
    * @param pcountryCodeField reference to country code field
    * @return PhoneNumberDin5008KeyUpHandler
    */
-  public static PhoneNumberDin5008KeyUpHandler getPhoneNumberDin5008KeyUpHandler(
+  public static final KeyUpHandler getPhoneNumberDin5008KeyUpHandler(
       final HasValue<?> pcountryCodeField) {
     return new PhoneNumberDin5008KeyUpHandler(pcountryCodeField);
   }
@@ -243,9 +310,53 @@ public class HandlerFactory {
    * get a phone number key press handler.
    *
    * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberE123InternationalKeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberE123InternationalKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberE123InternationalKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberE123InternationalKeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberE123InternationalKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberE123InternationalKeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberE123KeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberE123KeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberE123KeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberE123KeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberE123KeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberE123KeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
    * @return PhoneNumberMsKeyPressHandler
    */
-  public static KeyPressHandler getPhoneNumberMsKeyPressHandler(
+  public static final KeyPressHandler getPhoneNumberMsKeyPressHandler(
       final HasValue<?> pcountryCodeField) {
     return new PhoneNumberMsKeyPressHandler(pcountryCodeField);
   }
@@ -256,9 +367,31 @@ public class HandlerFactory {
    * @param pcountryCodeField reference to country code field
    * @return PhoneNumberMsKeyUpHandler
    */
-  public static PhoneNumberMsKeyUpHandler getPhoneNumberMsKeyUpHandler(
+  public static final KeyUpHandler getPhoneNumberMsKeyUpHandler(
       final HasValue<?> pcountryCodeField) {
     return new PhoneNumberMsKeyUpHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key press handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberUriKeyPressHandler
+   */
+  public static final KeyPressHandler getPhoneNumberUriKeyPressHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberUriKeyPressHandler(pcountryCodeField);
+  }
+
+  /**
+   * get a phone number key up handler.
+   *
+   * @param pcountryCodeField reference to country code field
+   * @return PhoneNumberUriKeyUpHandler
+   */
+  public static final KeyUpHandler getPhoneNumberUriKeyUpHandler(
+      final HasValue<?> pcountryCodeField) {
+    return new PhoneNumberUriKeyUpHandler(pcountryCodeField);
   }
 
   /**
@@ -266,7 +399,7 @@ public class HandlerFactory {
    *
    * @return DecimalKeyPressHandler
    */
-  public static final DecimalKeyPressHandler getDecimalKeyPressHandler() {
+  public static final KeyPressHandler getDecimalKeyPressHandler() {
     if (decimalKeyPressHandler == null) { // NOPMD, needn't be thread save on client
       decimalKeyPressHandler = new DecimalKeyPressHandler();
     }
@@ -279,7 +412,7 @@ public class HandlerFactory {
    * @param pregEx to check
    * @return key press handler
    */
-  public static final RegExKeyPressHandler getRegExKeyPressHandler(final String pregEx) {
+  public static final KeyPressHandler getRegExKeyPressHandler(final String pregEx) {
     if (StringUtils.isEmpty(pregEx)) {
       return null;
     }
@@ -296,7 +429,7 @@ public class HandlerFactory {
    * @param pcountryCodeField reference to country code field
    * @return key press handler
    */
-  public static final PostalCodeKeyPressHandler getPostalCodeKeyPressHandler(
+  public static final KeyPressHandler getPostalCodeKeyPressHandler(
       final HasValue<?> pcountryCodeField) {
     return new PostalCodeKeyPressHandler(pcountryCodeField);
   }

@@ -24,11 +24,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 
 /**
- * Key up handler for phone number DIN 5008 input fields.
+ * Key up handler for phone number Common international input fields.
  *
  * @author Manfred Tremmel
  */
-public class PhoneNumberDin5008KeyUpHandler extends AbstractFormatKeyUpHandler {
+public class PhoneNumberCommonInternationalKeyUpHandler extends AbstractFormatKeyUpHandler {
 
   private final PhoneNumberUtil phoneNumberUtil;
   private final HasValue<?> countryCodeField;
@@ -38,7 +38,7 @@ public class PhoneNumberDin5008KeyUpHandler extends AbstractFormatKeyUpHandler {
    *
    * @param pcountryCodeField reference to country code field
    */
-  public PhoneNumberDin5008KeyUpHandler(final HasValue<?> pcountryCodeField) {
+  public PhoneNumberCommonInternationalKeyUpHandler(final HasValue<?> pcountryCodeField) {
     super();
     this.countryCodeField = pcountryCodeField;
     this.phoneNumberUtil = new PhoneNumberUtil(Objects.toString(pcountryCodeField.getValue()));
@@ -52,7 +52,7 @@ public class PhoneNumberDin5008KeyUpHandler extends AbstractFormatKeyUpHandler {
   @Override
   public String formatValue(final String pvalue) {
     this.phoneNumberUtil.setCountryCode(Objects.toString(this.countryCodeField.getValue()));
-    final String formatedValue = this.phoneNumberUtil.formatDin5008(pvalue);
+    final String formatedValue = this.phoneNumberUtil.formatCommonInternational(pvalue);
     return StringUtils.isEmpty(formatedValue)
         || StringUtils.startsWith(pvalue, formatedValue) && StringUtils.endsWith(pvalue, "-")
             ? pvalue : formatedValue;

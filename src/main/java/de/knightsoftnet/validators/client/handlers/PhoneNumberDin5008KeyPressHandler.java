@@ -69,7 +69,7 @@ public class PhoneNumberDin5008KeyPressHandler
   @Override
   public String formatValue(final String pvalue) {
     this.phoneNumberUtil.setCountryCode(Objects.toString(this.countryCodeField.getValue()));
-    final String formatedValue = this.phoneNumberUtil.formatDin5008International(pvalue);
+    final String formatedValue = this.phoneNumberUtil.formatDin5008(pvalue);
     return StringUtils.isEmpty(formatedValue)
         || StringUtils.startsWith(pvalue, formatedValue) && StringUtils.endsWith(pvalue, "-")
             ? pvalue : formatedValue;

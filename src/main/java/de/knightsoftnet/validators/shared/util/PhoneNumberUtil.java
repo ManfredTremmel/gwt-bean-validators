@@ -607,6 +607,16 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in Common format.
+   *
+   * @param pphoneNumber phone number as String to format
+   * @return formated phone number as String
+   */
+  public final String formatCommon(final String pphoneNumber) {
+    return this.formatCommon(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
    * format phone number in common format.
    *
    * @param pphoneNumberData phone number to format

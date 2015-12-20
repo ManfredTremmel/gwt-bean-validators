@@ -24,11 +24,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 
 /**
- * Key up handler for phone number DIN 5008 input fields.
+ * Key press handler which limits and formats input to phone number uri characters.
  *
  * @author Manfred Tremmel
  */
-public class PhoneNumberDin5008KeyUpHandler extends AbstractFormatKeyUpHandler {
+public class PhoneNumberUriKeyPressHandler extends AbstractFilterReplaceAndFormatKeyPressHandler {
 
   private final PhoneNumberUtil phoneNumberUtil;
   private final HasValue<?> countryCodeField;
@@ -38,21 +38,36 @@ public class PhoneNumberDin5008KeyUpHandler extends AbstractFormatKeyUpHandler {
    *
    * @param pcountryCodeField reference to country code field
    */
-  public PhoneNumberDin5008KeyUpHandler(final HasValue<?> pcountryCodeField) {
-    super();
+  public PhoneNumberUriKeyPressHandler(final HasValue<?> pcountryCodeField) {
+    super(true);
     this.countryCodeField = pcountryCodeField;
     this.phoneNumberUtil = new PhoneNumberUtil(Objects.toString(pcountryCodeField.getValue()));
   }
 
   @Override
+  public boolean isAllowedCharacter(final char pcharacter) {
+    return pcharacter == '+' || pcharacter == '-' || pcharacter >= '0' && pcharacter <= '9';
+  }
+
+  @Override
+  public boolean isCharacterToReplace(final char pcharacter) {
+    return false;
+  }
+
+  @Override
   public boolean isFormatingCharacter(final char pcharacter) {
-    return pcharacter == ' ';
+    return pcharacter == '-';
+  }
+
+  @Override
+  public char replaceCharacter(final char pcharacter) {
+    return pcharacter;
   }
 
   @Override
   public String formatValue(final String pvalue) {
     this.phoneNumberUtil.setCountryCode(Objects.toString(this.countryCodeField.getValue()));
-    final String formatedValue = this.phoneNumberUtil.formatDin5008(pvalue);
+    final String formatedValue = this.phoneNumberUtil.formatUrl(pvalue);
     return StringUtils.isEmpty(formatedValue)
         || StringUtils.startsWith(pvalue, formatedValue) && StringUtils.endsWith(pvalue, "-")
             ? pvalue : formatedValue;
