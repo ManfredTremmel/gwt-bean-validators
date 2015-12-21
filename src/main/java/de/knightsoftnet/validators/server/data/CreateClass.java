@@ -40,6 +40,12 @@ public class CreateClass {
 
   private static final String PROPERTY_PACKAGE = "de.knightsoftnet.validators.client.data.";
 
+  private static volatile BicMapConstantsImpl bicMapConstants = null;
+  private static volatile IbanLengthMapConstantsImpl ibanLengthMapConstants = null;
+  private static volatile PostalCodesMapConstantsImpl postalCodesMapConstants = null;
+  private static volatile VatIdMapConstantsImpl vatIdMapConstants = null;
+  private static volatile PhoneCountryConstantsImpl phoneCountryConstants = null;
+
   /**
    * Instantiates a class via deferred binding.
    *
@@ -56,21 +62,59 @@ public class CreateClass {
   @SuppressWarnings("unchecked")
   public static <T> T create(final Class<?> pclassLiteral) {
     if (pclassLiteral.equals(de.knightsoftnet.validators.shared.data.BicMapSharedConstants.class)) {
-      return (T) new BicMapConstantsImpl(readMapFromProperties("BicMapConstants", "bics"));
+      if (bicMapConstants == null) { // NOPMD it's thread save!
+        synchronized (BicMapConstantsImpl.class) {
+          if (bicMapConstants == null) {
+            bicMapConstants =
+                new BicMapConstantsImpl(readMapFromProperties("BicMapConstants", "bics"));
+          }
+        }
+      }
+      return (T) bicMapConstants;
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants.class)) {
-      return (T) new IbanLengthMapConstantsImpl(
-          readMapFromProperties("IbanLengthMapConstants", "ibanLengths"));
+      if (ibanLengthMapConstants == null) { // NOPMD it's thread save!
+        synchronized (IbanLengthMapConstantsImpl.class) {
+          if (ibanLengthMapConstants == null) {
+            ibanLengthMapConstants = new IbanLengthMapConstantsImpl(
+                readMapFromProperties("IbanLengthMapConstants", "ibanLengths"));
+          }
+
+        }
+      }
+      return (T) ibanLengthMapConstants;
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.PostalCodesMapSharedConstants.class)) {
-      return (T) new PostalCodesMapConstantsImpl(
-          readMapFromProperties("PostalCodesMapConstants", "postalCodes"));
+      if (postalCodesMapConstants == null) { // NOPMD it's thread save!
+        synchronized (PostalCodesMapConstantsImpl.class) {
+          if (postalCodesMapConstants == null) {
+            postalCodesMapConstants = new PostalCodesMapConstantsImpl(
+                readMapFromProperties("PostalCodesMapConstants", "postalCodes"));
+          }
+        }
+      }
+      return (T) postalCodesMapConstants;
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants.class)) {
-      return (T) new VatIdMapConstantsImpl(readMapFromProperties("VatIdMapConstants", "vatIds"));
+      if (vatIdMapConstants == null) { // NOPMD it's thread save!
+        synchronized (VatIdMapConstantsImpl.class) {
+          if (vatIdMapConstants == null) {
+            vatIdMapConstants =
+                new VatIdMapConstantsImpl(readMapFromProperties("VatIdMapConstants", "vatIds"));
+          }
+        }
+      }
+      return (T) vatIdMapConstants;
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants.class)) {
-      return (T) createPhoneCountryConstants();
+      if (phoneCountryConstants == null) { // NOPMD it's thread save!
+        synchronized (PhoneCountryConstantsImpl.class) {
+          if (phoneCountryConstants == null) {
+            phoneCountryConstants = createPhoneCountryConstants();
+          }
+        }
+      }
+      return (T) phoneCountryConstants;
     }
     return null;
   }

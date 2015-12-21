@@ -27,7 +27,7 @@ public class FormSubmitEvent<T> extends GwtEvent<FormSubmitHandler<T>> {
   /**
    * Handler type.
    */
-  private static Type<FormSubmitHandler<?>> type;
+  private static volatile Type<FormSubmitHandler<?>> type;
 
   /**
    * value of the form.
@@ -65,8 +65,12 @@ public class FormSubmitEvent<T> extends GwtEvent<FormSubmitHandler<T>> {
    * @return returns the handler type
    */
   public static Type<FormSubmitHandler<?>> getType() {
-    if (type == null) { // NOPMD client side needn't be thread save
-      type = new Type<FormSubmitHandler<?>>();
+    if (type == null) { // NOPMD it's thread save!
+      synchronized (FormSubmitHandler.class) {
+        if (type == null) {
+          type = new Type<FormSubmitHandler<?>>();
+        }
+      }
     }
     return type;
   }

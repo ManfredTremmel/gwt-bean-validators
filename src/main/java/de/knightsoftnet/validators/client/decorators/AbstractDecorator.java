@@ -51,9 +51,9 @@ import java.util.Set;
  *
  * @param <T> the type of data being edited
  */
-public abstract class AbstractDecorator<T> extends Composite implements HasEditorErrors<T>,
-    IsEditor<ValueBoxEditor<T>>, TakesValue<T>, HasValue<T>, HasValueChangeHandlers<T>,
-    HasKeyUpHandlers, HasKeyPressHandlers, Focusable {
+public abstract class AbstractDecorator<T> extends Composite
+    implements HasEditorErrors<T>, IsEditor<ValueBoxEditor<T>>, TakesValue<T>, HasValue<T>,
+    HasValueChangeHandlers<T>, HasKeyUpHandlers, HasKeyPressHandlers, Focusable {
 
   /**
    * A ClientBundle that provides images and decoratorStyle sheets for the decorator.
@@ -72,7 +72,7 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
   /**
    * the default resources.
    */
-  private static Resources defaultResource;
+  private static volatile Resources defaultResource;
 
   /**
    * content panel.
@@ -120,8 +120,8 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
     final boolean contentFirst =
         errorLocation == ErrorPanelLocationEnum.LEFT && LocaleInfo.getCurrentLocale().isRTL()
             || errorLocation == ErrorPanelLocationEnum.RIGHT
-            && !LocaleInfo.getCurrentLocale().isRTL()
-            || errorLocation == ErrorPanelLocationEnum.BOTTOM;
+                && !LocaleInfo.getCurrentLocale().isRTL()
+        || errorLocation == ErrorPanelLocationEnum.BOTTOM;
     final FlowPanel layout = new FlowPanel();
     if (errorLocation == ErrorPanelLocationEnum.TOP) {
       layout.add(this.errorLabel);
@@ -202,8 +202,12 @@ public abstract class AbstractDecorator<T> extends Composite implements HasEdito
    * @return default resource.
    */
   protected static Resources getDefaultResources() {
-    if (defaultResource == null) { // NOPMD needn't be thread save on client side
-      defaultResource = GWT.create(Resources.class);
+    if (defaultResource == null) { // NOPMD it's thread save!
+      synchronized (Resources.class) {
+        if (defaultResource == null) {
+          defaultResource = GWT.create(Resources.class);
+        }
+      }
     }
     return defaultResource;
   }

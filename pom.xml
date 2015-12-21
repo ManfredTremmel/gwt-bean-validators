@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.13-SNAPSHOT</version>
+	<version>0.9.0</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -104,8 +104,8 @@
 		<maven-project-info-reports-plugin.version>2.8.1</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<checkstyle.version>6.12.1</checkstyle.version>
-		<maven-pmd-plugin.version>3.5</maven-pmd-plugin.version>
+		<checkstyle.version>6.13</checkstyle.version>
+		<maven-pmd-plugin.version>3.6</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 		<maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>

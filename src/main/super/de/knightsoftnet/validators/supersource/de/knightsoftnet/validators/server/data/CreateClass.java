@@ -271,6 +271,12 @@ import java.util.TreeSet;
  */
 public class CreateClass {
 
+  private static volatile BicMapConstants bicMapConstants = null;
+  private static volatile IbanLengthMapConstants ibanLengthMapConstants = null;
+  private static volatile PostalCodesMapConstants postalCodesMapConstants = null;
+  private static volatile VatIdMapConstants vatIdMapConstants = null;
+  private static volatile PhoneCountryConstantsImpl phoneCountryConstants = null;
+
   /**
    * Instantiates a class via deferred binding.
    *
@@ -287,16 +293,51 @@ public class CreateClass {
   @SuppressWarnings("unchecked")
   public static <T> T create(final Class<?> pclassLiteral) {
     if (pclassLiteral.equals(BicMapSharedConstants.class)) {
-      return GWT.create(BicMapConstants.class);
+      if (bicMapConstants == null) { // NOPMD it's thread save!
+        synchronized (BicMapConstants.class) {
+          if (bicMapConstants == null) {
+            bicMapConstants = GWT.create(BicMapConstants.class);
+          }
+        }
+      }
+      return (T) bicMapConstants;
     } else if (pclassLiteral.equals(IbanLengthMapSharedConstants.class)) {
-      return GWT.create(IbanLengthMapConstants.class);
+      if (ibanLengthMapConstants == null) { // NOPMD it's thread save!
+        synchronized (IbanLengthMapConstants.class) {
+          if (ibanLengthMapConstants == null) {
+            ibanLengthMapConstants = GWT.create(IbanLengthMapConstants.class);
+          }
+        }
+      }
+      return (T) ibanLengthMapConstants;
     } else if (pclassLiteral.equals(PostalCodesMapSharedConstants.class)) {
-      return GWT.create(PostalCodesMapConstants.class);
+      if (postalCodesMapConstants == null) { // NOPMD it's thread save!
+        synchronized (PostalCodesMapConstants.class) {
+          if (postalCodesMapConstants == null) {
+            postalCodesMapConstants = GWT.create(PostalCodesMapConstants.class);
+          }
+        }
+      }
+      return (T) postalCodesMapConstants;
     } else if (pclassLiteral.equals(VatIdMapSharedConstants.class)) {
-      return GWT.create(VatIdMapConstants.class);
+      if (vatIdMapConstants == null) { // NOPMD it's thread save!
+        synchronized (VatIdMapConstants.class) {
+          if (vatIdMapConstants == null) {
+            vatIdMapConstants = GWT.create(VatIdMapConstants.class);
+          }
+        }
+      }
+      return (T) vatIdMapConstants;
     } else if (pclassLiteral
         .equals(de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants.class)) {
-      return (T) createPhoneCountryConstants();
+      if (phoneCountryConstants == null) { // NOPMD it's thread save!
+        synchronized (PhoneCountryConstantsImpl.class) {
+          if (phoneCountryConstants == null) {
+            phoneCountryConstants = createPhoneCountryConstants();
+          }
+        }
+      }
+      return (T) phoneCountryConstants;
     }
     return null;
   }

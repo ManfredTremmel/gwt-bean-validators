@@ -34,21 +34,22 @@ public class HandlerFactory {
   private static final Map<String, RegExKeyPressHandler> REG_EX_KEY_PRESS_HANDLER_MAP =
       new HashMap<String, RegExKeyPressHandler>();
 
-  private static UpperAsciiKeyPressHandler upperAsciiKeyPressHandler = null;
-  private static NumericAndUpperAsciiKeyPressHandler numericAndUpperAsciiKeyPressHandler = null;
-  private static IbanKeyPressHandler ibanKeyPressHandler = null;
-  private static IbanKeyUpHandler ibanKeyUpHandler = null;
-  private static Isbn10KeyPressHandler isbn10KeyPressHandler = null;
-  private static Isbn10KeyUpHandler isbn10KeyUpHandler = null;
-  private static Isbn13KeyPressHandler isbn13KeyPressHandler = null;
-  private static Isbn13KeyUpHandler isbn13KeyUpHandler = null;
-  private static IsbnKeyPressHandler isbnKeyPressHandler = null;
-  private static IsbnKeyUpHandler isbnKeyUpHandler = null;
-  private static NumericKeyPressHandler numericKeyPressHandler = null;
-  private static CurrencyKeyPressHandler currencyKeyPressHandler = null;
-  private static PercentKeyPressHandler percentKeyPressHandler = null;
-  private static PhoneNumberKeyPressHandler phoneNumberKeyPressHandler = null;
-  private static DecimalKeyPressHandler decimalKeyPressHandler = null;
+  private static volatile UpperAsciiKeyPressHandler upperAsciiKeyPressHandler = null;
+  private static volatile NumericAndUpperAsciiKeyPressHandler numericAndUpperAsciiKeyPressHandler =
+      null;
+  private static volatile IbanKeyPressHandler ibanKeyPressHandler = null;
+  private static volatile IbanKeyUpHandler ibanKeyUpHandler = null;
+  private static volatile Isbn10KeyPressHandler isbn10KeyPressHandler = null;
+  private static volatile Isbn10KeyUpHandler isbn10KeyUpHandler = null;
+  private static volatile Isbn13KeyPressHandler isbn13KeyPressHandler = null;
+  private static volatile Isbn13KeyUpHandler isbn13KeyUpHandler = null;
+  private static volatile IsbnKeyPressHandler isbnKeyPressHandler = null;
+  private static volatile IsbnKeyUpHandler isbnKeyUpHandler = null;
+  private static volatile NumericKeyPressHandler numericKeyPressHandler = null;
+  private static volatile CurrencyKeyPressHandler currencyKeyPressHandler = null;
+  private static volatile PercentKeyPressHandler percentKeyPressHandler = null;
+  private static volatile PhoneNumberKeyPressHandler phoneNumberKeyPressHandler = null;
+  private static volatile DecimalKeyPressHandler decimalKeyPressHandler = null;
 
   /**
    * get a upper case key press handler.
@@ -56,8 +57,12 @@ public class HandlerFactory {
    * @return UpperAsciiKeyPressHandler
    */
   public static final KeyPressHandler getUpperAsciiKeyPressHandler() {
-    if (upperAsciiKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      upperAsciiKeyPressHandler = new UpperAsciiKeyPressHandler();
+    if (upperAsciiKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (UpperAsciiKeyPressHandler.class) {
+        if (upperAsciiKeyPressHandler == null) {
+          upperAsciiKeyPressHandler = new UpperAsciiKeyPressHandler();
+        }
+      }
     }
     return upperAsciiKeyPressHandler;
   }
@@ -68,8 +73,12 @@ public class HandlerFactory {
    * @return NumericAndUpperAsciiKeyPressHandler
    */
   public static final KeyPressHandler getNumericAndUpperAsciiKeyPressHandler() {
-    if (numericAndUpperAsciiKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      numericAndUpperAsciiKeyPressHandler = new NumericAndUpperAsciiKeyPressHandler();
+    if (numericAndUpperAsciiKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (NumericAndUpperAsciiKeyPressHandler.class) {
+        if (numericAndUpperAsciiKeyPressHandler == null) {
+          numericAndUpperAsciiKeyPressHandler = new NumericAndUpperAsciiKeyPressHandler();
+        }
+      }
     }
     return numericAndUpperAsciiKeyPressHandler;
   }
@@ -80,8 +89,12 @@ public class HandlerFactory {
    * @return IbanKeyPressHandler
    */
   public static final KeyPressHandler getIbanKeyPressHandler() {
-    if (ibanKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      ibanKeyPressHandler = new IbanKeyPressHandler();
+    if (ibanKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (IbanKeyPressHandler.class) {
+        if (ibanKeyPressHandler == null) {
+          ibanKeyPressHandler = new IbanKeyPressHandler();
+        }
+      }
     }
     return ibanKeyPressHandler;
   }
@@ -92,8 +105,12 @@ public class HandlerFactory {
    * @return IbanKeyUpHandler
    */
   public static final KeyUpHandler getIbanKeyUpHandler() {
-    if (ibanKeyUpHandler == null) { // NOPMD, needn't be thread save on client
-      ibanKeyUpHandler = new IbanKeyUpHandler();
+    if (ibanKeyUpHandler == null) { // NOPMD it's thread save!
+      synchronized (IbanKeyUpHandler.class) {
+        if (ibanKeyUpHandler == null) {
+          ibanKeyUpHandler = new IbanKeyUpHandler();
+        }
+      }
     }
     return ibanKeyUpHandler;
   }
@@ -104,8 +121,12 @@ public class HandlerFactory {
    * @return Isbn10KeyPressHandler
    */
   public static final KeyPressHandler getIsbn10KeyPressHandler() {
-    if (isbn10KeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      isbn10KeyPressHandler = new Isbn10KeyPressHandler();
+    if (isbn10KeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (Isbn10KeyPressHandler.class) {
+        if (isbn10KeyPressHandler == null) {
+          isbn10KeyPressHandler = new Isbn10KeyPressHandler();
+        }
+      }
     }
     return isbn10KeyPressHandler;
   }
@@ -116,8 +137,12 @@ public class HandlerFactory {
    * @return Isbn10KeyUpHandler
    */
   public static final KeyUpHandler getIsbn10KeyUpHandler() {
-    if (isbn10KeyUpHandler == null) { // NOPMD, needn't be thread save on client
-      isbn10KeyUpHandler = new Isbn10KeyUpHandler();
+    if (isbn10KeyUpHandler == null) { // NOPMD it's thread save!
+      synchronized (Isbn10KeyUpHandler.class) {
+        if (isbn10KeyUpHandler == null) {
+          isbn10KeyUpHandler = new Isbn10KeyUpHandler();
+        }
+      }
     }
     return isbn10KeyUpHandler;
   }
@@ -128,8 +153,12 @@ public class HandlerFactory {
    * @return Isbn13KeyPressHandler
    */
   public static final KeyPressHandler getIsbn13KeyPressHandler() {
-    if (isbn13KeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      isbn13KeyPressHandler = new Isbn13KeyPressHandler();
+    if (isbn13KeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (Isbn13KeyPressHandler.class) {
+        if (isbn13KeyPressHandler == null) {
+          isbn13KeyPressHandler = new Isbn13KeyPressHandler();
+        }
+      }
     }
     return isbn13KeyPressHandler;
   }
@@ -140,8 +169,12 @@ public class HandlerFactory {
    * @return Isbn13KeyUpHandler
    */
   public static final KeyUpHandler getIsbn13KeyUpHandler() {
-    if (isbn13KeyUpHandler == null) { // NOPMD, needn't be thread save on client
-      isbn13KeyUpHandler = new Isbn13KeyUpHandler();
+    if (isbn13KeyUpHandler == null) { // NOPMD it's thread save!
+      synchronized (Isbn13KeyUpHandler.class) {
+        if (isbn13KeyUpHandler == null) {
+          isbn13KeyUpHandler = new Isbn13KeyUpHandler();
+        }
+      }
     }
     return isbn13KeyUpHandler;
   }
@@ -152,8 +185,12 @@ public class HandlerFactory {
    * @return IsbnKeyPressHandler
    */
   public static final KeyPressHandler getIsbnKeyPressHandler() {
-    if (isbnKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      isbnKeyPressHandler = new IsbnKeyPressHandler();
+    if (isbnKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (IsbnKeyPressHandler.class) {
+        if (isbnKeyPressHandler == null) {
+          isbnKeyPressHandler = new IsbnKeyPressHandler();
+        }
+      }
     }
     return isbnKeyPressHandler;
   }
@@ -164,8 +201,12 @@ public class HandlerFactory {
    * @return IsbnKeyUpHandler
    */
   public static final KeyUpHandler getIsbnKeyUpHandler() {
-    if (isbnKeyUpHandler == null) { // NOPMD, needn't be thread save on client
-      isbnKeyUpHandler = new IsbnKeyUpHandler();
+    if (isbnKeyUpHandler == null) { // NOPMD it's thread save!
+      synchronized (IsbnKeyUpHandler.class) {
+        if (isbnKeyUpHandler == null) {
+          isbnKeyUpHandler = new IsbnKeyUpHandler();
+        }
+      }
     }
     return isbnKeyUpHandler;
   }
@@ -176,8 +217,12 @@ public class HandlerFactory {
    * @return NumericKeyPressHandler
    */
   public static final KeyPressHandler getNumericKeyPressHandler() {
-    if (numericKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      numericKeyPressHandler = new NumericKeyPressHandler();
+    if (numericKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (NumericKeyPressHandler.class) {
+        if (numericKeyPressHandler == null) {
+          numericKeyPressHandler = new NumericKeyPressHandler();
+        }
+      }
     }
     return numericKeyPressHandler;
   }
@@ -188,8 +233,13 @@ public class HandlerFactory {
    * @return CurrencyKeyPressHandler
    */
   public static final KeyPressHandler getCurrencyKeyPressHandler() {
-    if (currencyKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      currencyKeyPressHandler = new CurrencyKeyPressHandler();
+    if (currencyKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (CurrencyKeyPressHandler.class) {
+        if (currencyKeyPressHandler == null) {
+          currencyKeyPressHandler = new CurrencyKeyPressHandler();
+
+        }
+      }
     }
     return currencyKeyPressHandler;
   }
@@ -200,8 +250,12 @@ public class HandlerFactory {
    * @return PercentKeyPressHandler
    */
   public static final KeyPressHandler getPercentKeyPressHandler() {
-    if (percentKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      percentKeyPressHandler = new PercentKeyPressHandler();
+    if (percentKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (PercentKeyPressHandler.class) {
+        if (percentKeyPressHandler == null) {
+          percentKeyPressHandler = new PercentKeyPressHandler();
+        }
+      }
     }
     return percentKeyPressHandler;
   }
@@ -212,8 +266,12 @@ public class HandlerFactory {
    * @return PhoneNumberKeyPressHandler
    */
   public static final KeyPressHandler getPhoneNumberKeyPressHandler() {
-    if (phoneNumberKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      phoneNumberKeyPressHandler = new PhoneNumberKeyPressHandler();
+    if (phoneNumberKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (PhoneNumberKeyPressHandler.class) {
+        if (phoneNumberKeyPressHandler == null) {
+          phoneNumberKeyPressHandler = new PhoneNumberKeyPressHandler();
+        }
+      }
     }
     return phoneNumberKeyPressHandler;
   }
@@ -400,8 +458,12 @@ public class HandlerFactory {
    * @return DecimalKeyPressHandler
    */
   public static final KeyPressHandler getDecimalKeyPressHandler() {
-    if (decimalKeyPressHandler == null) { // NOPMD, needn't be thread save on client
-      decimalKeyPressHandler = new DecimalKeyPressHandler();
+    if (decimalKeyPressHandler == null) { // NOPMD it's thread save!
+      synchronized (DecimalKeyPressHandler.class) {
+        if (decimalKeyPressHandler == null) {
+          decimalKeyPressHandler = new DecimalKeyPressHandler();
+        }
+      }
     }
     return decimalKeyPressHandler;
   }
