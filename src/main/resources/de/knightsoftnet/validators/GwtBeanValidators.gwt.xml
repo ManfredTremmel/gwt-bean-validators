@@ -40,19 +40,6 @@
     <when-type-assignable class="de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver" />
   </generate-with>
 
-  <!-- phone book search ui view - default -->
-  <replace-with class="de.knightsoftnet.validators.client.handlers.NavigationKeysImpl">
-    <when-type-is class="de.knightsoftnet.validators.client.handlers.NavigationKeysInterface" />
-  </replace-with>
-
-  <!-- phone book search ui view - webkit based browsers -->
-  <replace-with class="de.knightsoftnet.validators.client.handlers.NavigationKeysGeckoImpl">
-    <when-type-is class="de.knightsoftnet.validators.client.handlers.NavigationKeysInterface" />
-    <any>
-      <when-property-is name="user.agent" value="gecko1_8" />
-    </any>
-  </replace-with>
-
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />
   <source path='shared' />
