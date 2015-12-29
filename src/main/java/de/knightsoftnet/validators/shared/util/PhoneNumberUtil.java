@@ -224,7 +224,9 @@ public class PhoneNumberUtil {
         if (phoneNumberWork.contains("-")) {
           final String[] splitedPhoneNumber = phoneNumberWork.split("-");
           pphoneNumberData.setLineNumber(splitedPhoneNumber[0]);
-          pphoneNumberData.setExtension(splitedPhoneNumber[1]);
+          if (splitedPhoneNumber.length > 1) {
+            pphoneNumberData.setExtension(splitedPhoneNumber[1]);
+          }
         } else {
           pphoneNumberData.setLineNumber(phoneNumberWork);
         }
