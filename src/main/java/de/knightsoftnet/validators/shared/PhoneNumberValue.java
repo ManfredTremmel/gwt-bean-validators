@@ -100,8 +100,7 @@ public @interface PhoneNumberValue {
   /**
    * Defines several {@code @PhoneNumberValue} annotations on the same element.
    */
-  @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
-      ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+  @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
   @Retention(RetentionPolicy.RUNTIME)
   @Documented
   public @interface List {
