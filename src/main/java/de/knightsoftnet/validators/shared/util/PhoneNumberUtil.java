@@ -189,7 +189,7 @@ public class PhoneNumberUtil {
               .setCountryName(countryCode.getCountryCodeName());
         }
         phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
-        if (phoneNumberWork.charAt(0) == '-') {
+        if (phoneNumberWork.startsWith("-")) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
         if (countryCode.getPhoneCountryData() != null
@@ -218,7 +218,7 @@ public class PhoneNumberUtil {
             break;
           }
         }
-        if (StringUtils.isNotEmpty(phoneNumberWork) && phoneNumberWork.charAt(0) == '-') {
+        if (phoneNumberWork.startsWith("-")) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
         if (phoneNumberWork.contains("-")) {
