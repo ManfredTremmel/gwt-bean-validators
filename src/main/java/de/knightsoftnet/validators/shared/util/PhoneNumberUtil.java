@@ -218,7 +218,7 @@ public class PhoneNumberUtil {
             break;
           }
         }
-        if (phoneNumberWork.charAt(0) == '-') {
+        if (StringUtils.isNotEmpty(phoneNumberWork) && phoneNumberWork.charAt(0) == '-') {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
         if (phoneNumberWork.contains("-")) {
