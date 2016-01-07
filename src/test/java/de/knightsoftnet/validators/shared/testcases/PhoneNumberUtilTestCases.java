@@ -54,6 +54,7 @@ public class PhoneNumberUtilTestCases {
     testData.put("+1216123456", new PhoneNumberData("1", "216", "123456", null));
     testData.put("+222123456", new PhoneNumberData("222", null, "123456", null));
     testData.put("+2226123456", new PhoneNumberData("222", "6", "123456", null));
+    testData.put("+3162912345", new PhoneNumberData("31", "629", "12345", null));
     return testData;
   }
 

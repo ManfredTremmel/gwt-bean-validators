@@ -94,10 +94,10 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
         return 1;
       }
       if (this.areaCode.startsWith(pcompare.areaCode)) {
-        return 1;
+        return -1;
       }
       if (pcompare.areaCode.startsWith(this.areaCode)) {
-        return -1;
+        return 1;
       }
       return this.areaCode.compareTo(pcompare.areaCode);
     }
