@@ -74,6 +74,8 @@ public class PhoneNumberValueTestCases {
     wrongCases.add(new PhoneNumberValueTestBean("CH", "+41 26 32 / 41 1 - 13"));
     wrongCases.add(new PhoneNumberValueTestBean("CH", "0 26 32 / 41 1 - 13"));
     wrongCases.add(new PhoneNumberValueTestBean("DE", "0 26 / 32 41 1 - 13"));
+    wrongCases.add(new PhoneNumberValueTestBean("DE", "+49 (2658) 1234567"));
+    wrongCases.add(new PhoneNumberValueTestBean("DE", "+49 26581234567"));
     return wrongCases;
   }
 }

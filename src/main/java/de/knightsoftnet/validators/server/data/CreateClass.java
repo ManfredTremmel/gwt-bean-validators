@@ -197,13 +197,16 @@ public class CreateClass {
       final String pcountryCode) {
     final String trunkAndExitCodes = pphoneTrunkAndExitCodes.get(pcountryCode);
     final String countryCodeName = pphoneCountryNames.get(pcountryCode);
-    final String[] splittedTrunkAndExitCodes = StringUtils.split(trunkAndExitCodes, ',');
+    final String[] splittedTrunkAndExitCodes =
+        StringUtils.defaultString(trunkAndExitCodes).split(",");
     final String trunkCode =
         splittedTrunkAndExitCodes.length >= 1 ? splittedTrunkAndExitCodes[0] : StringUtils.EMPTY;
     final String exitCode =
-        splittedTrunkAndExitCodes.length == 2 ? splittedTrunkAndExitCodes[1] : StringUtils.EMPTY;
-    final PhoneCountryData countryData =
-        new PhoneCountryData(pcountryCode, countryCodeName, trunkCode, exitCode, pentry);
+        splittedTrunkAndExitCodes.length >= 2 ? splittedTrunkAndExitCodes[1] : StringUtils.EMPTY;
+    final boolean areaCodeMustBeFilled =
+        splittedTrunkAndExitCodes.length >= 3 ? "1".equals(splittedTrunkAndExitCodes[2]) : false;
+    final PhoneCountryData countryData = new PhoneCountryData(pcountryCode, countryCodeName,
+        trunkCode, exitCode, areaCodeMustBeFilled, pentry);
     pcountryPhoneMap.put(pcountryCode, countryData);
     return countryData;
   }

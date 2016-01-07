@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.shared.PhoneNumberValue;
+import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.util.PhoneNumberUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -127,32 +128,36 @@ public class PhoneNumberValueValidator implements ConstraintValidator<PhoneNumbe
         countryCode = StringUtils.upperCase(countryCode);
       }
       this.phoneNumberUtil.setCountryCode(countryCode);
+      final PhoneNumberData parsedNumber =
+          (PhoneNumberData) this.phoneNumberUtil.parsePhoneNumber(phoneNumber);
 
-      if (this.allowDin5008 && (StringUtils.equals(phoneNumber,
-          this.phoneNumberUtil.formatDin5008National(phoneNumber))
-          || StringUtils.equals(phoneNumber,
-              this.phoneNumberUtil.formatDin5008International(phoneNumber)))) {
-        return true;
-      }
-      if (this.allowE123
-          && (StringUtils.equals(phoneNumber, this.phoneNumberUtil.formatE123National(phoneNumber))
-              || StringUtils.equals(phoneNumber,
-                  this.phoneNumberUtil.formatE123International(phoneNumber)))) {
-        return true;
-      }
-      if (this.allowUri
-          && StringUtils.equals(phoneNumber, this.phoneNumberUtil.formatUrl(phoneNumber))) {
-        return true;
-      }
-      if (this.allowMs
-          && StringUtils.equals(phoneNumber, this.phoneNumberUtil.formatMs(phoneNumber))) {
-        return true;
-      }
-      if (this.allowCommon && (StringUtils.equals(phoneNumber,
-          this.phoneNumberUtil.formatCommonNational(phoneNumber))
-          || StringUtils.equals(phoneNumber,
-              this.phoneNumberUtil.formatCommonInternational(phoneNumber)))) {
-        return true;
+      if (parsedNumber.isValid()) {
+        if (this.allowDin5008 && (StringUtils.equals(phoneNumber,
+            this.phoneNumberUtil.formatDin5008National(parsedNumber))
+            || StringUtils.equals(phoneNumber,
+                this.phoneNumberUtil.formatDin5008International(parsedNumber)))) {
+          return true;
+        }
+        if (this.allowE123 && (StringUtils.equals(phoneNumber,
+            this.phoneNumberUtil.formatE123National(parsedNumber))
+            || StringUtils.equals(phoneNumber,
+                this.phoneNumberUtil.formatE123International(parsedNumber)))) {
+          return true;
+        }
+        if (this.allowUri
+            && StringUtils.equals(phoneNumber, this.phoneNumberUtil.formatUrl(parsedNumber))) {
+          return true;
+        }
+        if (this.allowMs
+            && StringUtils.equals(phoneNumber, this.phoneNumberUtil.formatMs(parsedNumber))) {
+          return true;
+        }
+        if (this.allowCommon && (StringUtils.equals(phoneNumber,
+            this.phoneNumberUtil.formatCommonNational(parsedNumber))
+            || StringUtils.equals(phoneNumber,
+                this.phoneNumberUtil.formatCommonInternational(parsedNumber)))) {
+          return true;
+        }
       }
       this.switchContext(pcontext);
       return false;

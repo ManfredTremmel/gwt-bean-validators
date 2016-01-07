@@ -25,7 +25,8 @@ import java.io.Serializable;
  * @author Manfred Tremmel
  *
  */
-public class PhoneNumberData implements Serializable, PhoneNumberExtendedInterface {
+public class PhoneNumberData
+    implements Serializable, PhoneNumberExtendedInterface, ValidationInterface {
   private static final long serialVersionUID = -5715038613377873088L;
 
   private String countryCode;
@@ -34,6 +35,7 @@ public class PhoneNumberData implements Serializable, PhoneNumberExtendedInterfa
   private String areaName;
   private String lineNumber;
   private String extension;
+  private boolean valid;
 
   /**
    * default constructor.
@@ -118,6 +120,16 @@ public class PhoneNumberData implements Serializable, PhoneNumberExtendedInterfa
   @Override
   public void setExtension(final String pextension) {
     this.extension = pextension;
+  }
+
+  @Override
+  public boolean isValid() {
+    return this.valid;
+  }
+
+  @Override
+  public void setValid(final boolean pvalid) {
+    this.valid = pvalid;
   }
 
   @Override

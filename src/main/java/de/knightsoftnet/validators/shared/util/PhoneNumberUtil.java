@@ -23,6 +23,7 @@ import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.data.PhoneNumberExtendedInterface;
 import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
+import de.knightsoftnet.validators.shared.data.ValidationInterface;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -131,6 +132,7 @@ public class PhoneNumberUtil {
     if (pphoneNumber == null || pphoneNumberData == null) {
       return null;
     }
+    boolean needsAreaCode = false;
     pphoneNumberData.setCountryCode(null);
     pphoneNumberData.setAreaCode(null);
     pphoneNumberData.setLineNumber(null);
@@ -192,11 +194,13 @@ public class PhoneNumberUtil {
         if (phoneNumberWork.startsWith("-")) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
-        if (countryCode.getPhoneCountryData() != null
-            && StringUtils.isNotEmpty(countryCode.getPhoneCountryData().getTrunkCode())
-            && phoneNumberWork.startsWith(countryCode.getPhoneCountryData().getTrunkCode())) {
-          phoneNumberWork =
-              phoneNumberWork.substring(countryCode.getPhoneCountryData().getTrunkCode().length());
+        if (countryCode.getPhoneCountryData() != null) {
+          needsAreaCode = countryCode.getPhoneCountryData().isAreaCodeMustBeFilled();
+          if (StringUtils.isNotEmpty(countryCode.getPhoneCountryData().getTrunkCode())
+              && phoneNumberWork.startsWith(countryCode.getPhoneCountryData().getTrunkCode())) {
+            phoneNumberWork = phoneNumberWork
+                .substring(countryCode.getPhoneCountryData().getTrunkCode().length());
+          }
         }
         for (final PhoneAreaCodeData areaCode : countryCode.getAreaCodeData()) {
           if (areaCode.isRegEx() && phoneNumberWork.matches("^" + areaCode.getAreaCode() + ".*")) {
@@ -218,6 +222,7 @@ public class PhoneNumberUtil {
             break;
           }
         }
+
         if (phoneNumberWork.startsWith("-")) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
@@ -232,6 +237,12 @@ public class PhoneNumberUtil {
         }
         break;
       }
+    }
+    if (pphoneNumberData instanceof ValidationInterface) {
+      ((ValidationInterface) pphoneNumberData).setValid( //
+          StringUtils.isNotEmpty(pphoneNumberData.getCountryCode()) //
+              && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber()) //
+              && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode));
     }
     return pphoneNumberData;
   }

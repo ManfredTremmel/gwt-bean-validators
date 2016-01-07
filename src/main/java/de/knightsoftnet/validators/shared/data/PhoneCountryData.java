@@ -30,26 +30,29 @@ public class PhoneCountryData {
   private final String countryCodeName;
   private final String trunkCode;
   private final String exitCode;
+  private final boolean areaCodeMustBeFilled;
   private final PhoneCountryCodeData countryCodeData;
 
 
   /**
    * constructor initializing fields.
-   * 
+   *
    * @param pcountryCode country iso code
    * @param pcountryCodeName country name
    * @param ptrunkCode trunk code (used for country internal calls)
    * @param pexitCode exit code (used for international calls
+   * @param pareaCodeMustBeFilled true if area code must be filled in this country
    * @param pcountryCodeData country code data
    */
   public PhoneCountryData(final String pcountryCode, final String pcountryCodeName,
-      final String ptrunkCode, final String pexitCode,
+      final String ptrunkCode, final String pexitCode, final boolean pareaCodeMustBeFilled,
       final PhoneCountryCodeData pcountryCodeData) {
     super();
     this.countryCode = pcountryCode;
     this.countryCodeName = pcountryCodeName;
     this.trunkCode = ptrunkCode;
     this.exitCode = pexitCode;
+    this.areaCodeMustBeFilled = pareaCodeMustBeFilled;
     this.countryCodeData = pcountryCodeData;
   }
 
@@ -67,6 +70,10 @@ public class PhoneCountryData {
 
   public String getExitCode() {
     return this.exitCode;
+  }
+
+  public final boolean isAreaCodeMustBeFilled() {
+    return this.areaCodeMustBeFilled;
   }
 
   public PhoneCountryCodeData getCountryCodeData() {

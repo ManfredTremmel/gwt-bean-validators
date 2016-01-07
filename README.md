@@ -71,7 +71,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.9.3</version>
+      <version>0.9.4</version>
     </dependency>
     <dependency>
       <groupId>de.knightsoft-net</groupId>
@@ -94,7 +94,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.9.3</version>
+      <version>0.9.4</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
