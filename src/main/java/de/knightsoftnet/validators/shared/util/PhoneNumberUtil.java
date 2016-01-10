@@ -239,10 +239,12 @@ public class PhoneNumberUtil {
       }
     }
     if (pphoneNumberData instanceof ValidationInterface) {
-      ((ValidationInterface) pphoneNumberData).setValid( //
-          StringUtils.isNotEmpty(pphoneNumberData.getCountryCode()) //
-              && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber()) //
-              && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode));
+      ((ValidationInterface) pphoneNumberData)
+          .setValid(StringUtils.isNotEmpty(pphoneNumberData.getCountryCode())
+              && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber())
+              && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode)
+              && StringUtils.length(pphoneNumberData.getLineNumber()
+                  + StringUtils.defaultString(pphoneNumberData.getExtension())) >= 2);
     }
     return pphoneNumberData;
   }
