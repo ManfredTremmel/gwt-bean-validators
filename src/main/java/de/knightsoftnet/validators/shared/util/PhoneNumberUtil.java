@@ -37,6 +37,8 @@ import org.apache.commons.lang3.StringUtils;
 public class PhoneNumberUtil {
   private static final PhoneCountrySharedConstants COUNTRY_CONSTANTS =
       CreateClass.create(PhoneCountrySharedConstants.class);
+  private static final String EXTENSION_SEPARATOR = "-";
+
   private PhoneCountryData defaultCountryData;
 
   public PhoneNumberUtil() {
@@ -133,6 +135,8 @@ public class PhoneNumberUtil {
       return null;
     }
     boolean needsAreaCode = false;
+    int minLength = 2;
+    int maxLength = 15;
     pphoneNumberData.setCountryCode(null);
     pphoneNumberData.setAreaCode(null);
     pphoneNumberData.setLineNumber(null);
@@ -186,6 +190,7 @@ public class PhoneNumberUtil {
         .countryCodeData()) {
       if (phoneNumberWork.startsWith(countryCode.getCountryCode())) {
         pphoneNumberData.setCountryCode(countryCode.getCountryCode());
+        maxLength -= StringUtils.length(countryCode.getCountryCode());
         if (pphoneNumberData instanceof PhoneNumberExtendedInterface) {
           ((PhoneNumberExtendedInterface) pphoneNumberData)
               .setCountryName(countryCode.getCountryCodeName());
@@ -212,6 +217,8 @@ public class PhoneNumberUtil {
             if (pphoneNumberData instanceof PhoneNumberExtendedInterface) {
               ((PhoneNumberExtendedInterface) pphoneNumberData).setAreaName(areaCode.getAreaName());
             }
+            minLength = areaCode.getMinLength();
+            maxLength = areaCode.getMaxLength();
             break;
           } else if (!areaCode.isRegEx() && phoneNumberWork.startsWith(areaCode.getAreaCode())) {
             pphoneNumberData.setAreaCode(areaCode.getAreaCode());
@@ -219,15 +226,17 @@ public class PhoneNumberUtil {
               ((PhoneNumberExtendedInterface) pphoneNumberData).setAreaName(areaCode.getAreaName());
             }
             phoneNumberWork = phoneNumberWork.substring(areaCode.getAreaCode().length());
+            minLength = areaCode.getMinLength();
+            maxLength = areaCode.getMaxLength();
             break;
           }
         }
 
-        if (phoneNumberWork.startsWith("-")) {
+        if (phoneNumberWork.startsWith(EXTENSION_SEPARATOR)) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
-        if (phoneNumberWork.contains("-")) {
-          final String[] splitedPhoneNumber = phoneNumberWork.split("-");
+        if (phoneNumberWork.contains(EXTENSION_SEPARATOR)) {
+          final String[] splitedPhoneNumber = phoneNumberWork.split(EXTENSION_SEPARATOR);
           pphoneNumberData.setLineNumber(splitedPhoneNumber[0]);
           if (splitedPhoneNumber.length > 1) {
             pphoneNumberData.setExtension(splitedPhoneNumber[1]);
@@ -239,12 +248,13 @@ public class PhoneNumberUtil {
       }
     }
     if (pphoneNumberData instanceof ValidationInterface) {
+      final int callNummerLength = StringUtils.length(pphoneNumberData.getLineNumber()
+          + StringUtils.defaultString(pphoneNumberData.getExtension()));
       ((ValidationInterface) pphoneNumberData)
           .setValid(StringUtils.isNotEmpty(pphoneNumberData.getCountryCode())
               && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber())
               && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode)
-              && StringUtils.length(pphoneNumberData.getLineNumber()
-                  + StringUtils.defaultString(pphoneNumberData.getExtension())) >= 2);
+              && callNummerLength >= minLength && callNummerLength <= maxLength);
     }
     return pphoneNumberData;
   }

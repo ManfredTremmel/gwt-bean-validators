@@ -29,18 +29,39 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
   private final String areaCode;
   private final boolean regEx;
   private final String areaName;
+  private final int minLength;
+  private final int maxLength;
 
   /**
    * constructor initializing fields.
    *
    * @param pareaCode area code
    * @param pareaName area name
+   * @param pcountryCodeLength length of the country code
    */
-  public PhoneAreaCodeData(final String pareaCode, final String pareaName) {
+  public PhoneAreaCodeData(final String pareaCode, final String pareaName,
+      final int pcountryCodeLength) {
     super();
     this.areaCode = StringUtils.replace(pareaCode, "u5b", "[");
     this.regEx = !StringUtils.isNumeric(pareaCode);
-    this.areaName = pareaName;
+    if (StringUtils.contains(pareaName, '¡')) {
+      final String[] splittedName = StringUtils.defaultString(pareaName).split("¡");
+      this.areaName = splittedName[0];
+      if (splittedName.length > 1) {
+        this.minLength = Integer.parseInt(splittedName[1]);
+      } else {
+        this.minLength = 2;
+      }
+      if (splittedName.length > 2) {
+        this.maxLength = Integer.parseInt(splittedName[2]);
+      } else {
+        this.maxLength = 15 - pcountryCodeLength - (this.regEx ? 3 : StringUtils.length(pareaCode));
+      }
+    } else {
+      this.areaName = pareaName;
+      this.minLength = 2;
+      this.maxLength = 15 - pcountryCodeLength - (this.regEx ? 2 : StringUtils.length(pareaCode));
+    }
   }
 
   public String getAreaCode() {
@@ -53,6 +74,14 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
 
   public String getAreaName() {
     return this.areaName;
+  }
+
+  public final int getMinLength() {
+    return this.minLength;
+  }
+
+  public final int getMaxLength() {
+    return this.maxLength;
   }
 
   @Override

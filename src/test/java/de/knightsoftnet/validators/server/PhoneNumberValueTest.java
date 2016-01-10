@@ -51,7 +51,7 @@ public class PhoneNumberValueTest extends AbstractValidationTest<PhoneNumberValu
    * PhoneNumber with wrong checksum.
    */
   @Test
-  public final void testWrongChecksumPhoneNumberIsWrong() {
+  public final void testWrongPhoneNumberIsWrong() {
     for (final PhoneNumberValueTestBean testBean : PhoneNumberValueTestCases.getWrongTestBeans()) {
       super.validationTest(testBean, false,
           "de.knightsoftnet.validators.shared.impl.PhoneNumberValueValidator");

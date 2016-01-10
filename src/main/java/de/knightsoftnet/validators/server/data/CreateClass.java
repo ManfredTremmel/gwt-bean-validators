@@ -15,20 +15,15 @@
 
 package de.knightsoftnet.validators.server.data;
 
-import de.knightsoftnet.validators.shared.data.PhoneAreaCodeData;
-import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
+import de.knightsoftnet.validators.shared.data.AbstractCreateClass;
 import de.knightsoftnet.validators.shared.data.PhoneCountryConstantsImpl;
-import de.knightsoftnet.validators.shared.data.PhoneCountryData;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Read gwt constants from properties file on server side.
@@ -36,7 +31,7 @@ import java.util.TreeSet;
  * @author Manfred Tremmel
  *
  */
-public class CreateClass {
+public class CreateClass extends AbstractCreateClass {
 
   private static final String PROPERTY_PACKAGE = "de.knightsoftnet.validators.client.data.";
 
@@ -134,80 +129,41 @@ public class CreateClass {
   }
 
 
-  private static PhoneCountryConstantsImpl createPhoneCountryConstants() {
-    final Map<String, String> phoneCountryNames =
-        readMapFromProperties("PhoneCountryNameConstants", "phoneCountryNames");
-    final Map<String, String> phoneCountryCodes =
-        readMapFromProperties("PhoneCountryCodeConstants", "phoneCountryCodes");
-    final Set<PhoneCountryCodeData> countryCodeData =
-        readPhoneCountryProperties(phoneCountryNames, phoneCountryCodes);
-    return new PhoneCountryConstantsImpl(countryCodeData,
-        createMapFromPhoneCountry(countryCodeData, phoneCountryNames, phoneCountryCodes));
+  /**
+   * read phone country names.
+   *
+   * @return map of phone country code and name
+   */
+  public static Map<String, String> readPhoneCountryNames() {
+    return readMapFromProperties("PhoneCountryNameConstants", "phoneCountryNames");
   }
 
-  private static Set<PhoneCountryCodeData> readPhoneCountryProperties(
-      final Map<String, String> pphoneCountryNames, final Map<String, String> pphoneCountryCodes) {
-    final Set<PhoneCountryCodeData> result = new TreeSet<>();
-    for (final Entry<String, String> country : pphoneCountryCodes.entrySet()) {
-      final PhoneCountryCodeData countryEntry =
-          new PhoneCountryCodeData(country.getKey(), pphoneCountryNames.get(country.getValue()));
-      final Map<String, String> phoneRegionCodes =
-          readMapFromProperties("PhoneRegionCode" + country.getKey() + "Constants",
-              "phoneRegionCodes" + country.getKey());
-      if (StringUtils.equals(country.getKey(), "49")) {
-        phoneRegionCodes
-            .putAll(readMapFromProperties("PhoneRegionCode" + country.getKey() + "bConstants",
-                "phoneRegionCodes" + country.getKey() + "b"));
-      }
-      for (final Entry<String, String> region : phoneRegionCodes.entrySet()) {
-        final PhoneAreaCodeData areaData =
-            new PhoneAreaCodeData(region.getKey(), region.getValue());
-        countryEntry.addAreaCodeData(areaData);
-      }
-      result.add(countryEntry);
-    }
-    return result;
+  /**
+   * read phone country codes and country iso codes.
+   *
+   * @return map of phone country code and country iso code
+   */
+  public static Map<String, String> readPhoneCountryCodes() {
+    return readMapFromProperties("PhoneCountryCodeConstants", "phoneCountryCodes");
   }
 
-  private static Map<String, PhoneCountryData> createMapFromPhoneCountry(
-      final Set<PhoneCountryCodeData> pcountries, final Map<String, String> pphoneCountryNames,
-      final Map<String, String> pphoneCountryCodes) {
-    final Map<String, PhoneCountryData> countryPhoneMap = new HashMap<>();
-    final Map<String, String> phoneTrunkAndExitCodes =
-        readMapFromProperties("PhoneCountryTrunkAndExitCodesConstants", "phoneTrunkAndExitCodes");
-    for (final PhoneCountryCodeData entry : pcountries) {
-      final String countryCode = pphoneCountryCodes.get(entry.getCountryCode());
-      if (countryCode.contains("-")) {
-        final String[] splittedCountryCodes = StringUtils.split(countryCode, '-');
-        for (final String singleCountryCode : splittedCountryCodes) {
-          entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
-              phoneTrunkAndExitCodes, entry, singleCountryCode));
-        }
-      } else {
-        entry.setPhoneCountryData(addCountryToPhoneMap(pphoneCountryNames, countryPhoneMap,
-            phoneTrunkAndExitCodes, entry, countryCode));
-      }
-    }
-    return countryPhoneMap;
+  /**
+   * read phone region codes for one country.
+   *
+   * @return map of area code and area name
+   */
+  public static Map<String, String> readPhoneRegionCodes(final String pphoneCountryCode) {
+    return readMapFromProperties("PhoneRegionCode" + pphoneCountryCode + "Constants",
+        "phoneRegionCodes" + pphoneCountryCode);
   }
 
-  private static PhoneCountryData addCountryToPhoneMap(final Map<String, String> pphoneCountryNames,
-      final Map<String, PhoneCountryData> pcountryPhoneMap,
-      final Map<String, String> pphoneTrunkAndExitCodes, final PhoneCountryCodeData pentry,
-      final String pcountryCode) {
-    final String trunkAndExitCodes = pphoneTrunkAndExitCodes.get(pcountryCode);
-    final String countryCodeName = pphoneCountryNames.get(pcountryCode);
-    final String[] splittedTrunkAndExitCodes =
-        StringUtils.defaultString(trunkAndExitCodes).split(",");
-    final String trunkCode =
-        splittedTrunkAndExitCodes.length >= 1 ? splittedTrunkAndExitCodes[0] : StringUtils.EMPTY;
-    final String exitCode =
-        splittedTrunkAndExitCodes.length >= 2 ? splittedTrunkAndExitCodes[1] : StringUtils.EMPTY;
-    final boolean areaCodeMustBeFilled =
-        splittedTrunkAndExitCodes.length >= 3 ? "1".equals(splittedTrunkAndExitCodes[2]) : false;
-    final PhoneCountryData countryData = new PhoneCountryData(pcountryCode, countryCodeName,
-        trunkCode, exitCode, areaCodeMustBeFilled, pentry);
-    pcountryPhoneMap.put(pcountryCode, countryData);
-    return countryData;
+  /**
+   * read phone trunk an exit code map from property file.
+   *
+   * @return map of country code and combined string of trunk an exit code
+   */
+  public static Map<String, String> readPhoneTrunkAndExitCodes() {
+    return readMapFromProperties("PhoneCountryTrunkAndExitCodesConstants",
+        "phoneTrunkAndExitCodes");
   }
 }
