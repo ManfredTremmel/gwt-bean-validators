@@ -15,6 +15,8 @@
 
 package de.knightsoftnet.validators.shared.testcases;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,47 @@ public class IsbnUtilTestCases {
   }
 
   /**
+   * get format isbn 10 test cases with expected results.
+   *
+   * @return map of strings with expected parse result and position of the cursor
+   */
+  public static Map<ValueWithPos<String>, ValueWithPos<String>> getIsbn10FormatWithPosCases() {
+    final Map<ValueWithPos<String>, ValueWithPos<String>> testData = new HashMap<>();
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 0),
+        new ValueWithPos<String>("3807701710", -1));
+
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 0),
+        new ValueWithPos<String>("3807701710", 0));
+
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 2),
+        new ValueWithPos<String>("3807701710", 1));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 3),
+        new ValueWithPos<String>("3807701710", 2));
+
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 5),
+        new ValueWithPos<String>("3807701710", 3));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 6),
+        new ValueWithPos<String>("3807701710", 4));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 7),
+        new ValueWithPos<String>("3807701710", 5));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 8),
+        new ValueWithPos<String>("3807701710", 6));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 9),
+        new ValueWithPos<String>("3807701710", 7));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 10),
+        new ValueWithPos<String>("3807701710", 8));
+
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 12),
+        new ValueWithPos<String>("3807701710", 9));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 13),
+        new ValueWithPos<String>("3807701710", 10));
+    testData.put(new ValueWithPos<String>("3-80-770171-0", 13),
+        new ValueWithPos<String>("3807701710", 11));
+
+    return testData;
+  }
+
+  /**
    * get format isbn 13 test cases with expected results.
    *
    * @return map of strings with expected parse result
@@ -55,6 +98,54 @@ public class IsbnUtilTestCases {
   }
 
   /**
+   * get format isbn 13 test cases with expected results.
+   *
+   * @return map of strings with expected parse result and position of the cursor
+   */
+  public static Map<ValueWithPos<String>, ValueWithPos<String>> getIsbn13FormatWithPosCases() {
+    final Map<ValueWithPos<String>, ValueWithPos<String>> testData = new HashMap<>();
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 0),
+        new ValueWithPos<String>("9783836218023", -1));
+
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 0),
+        new ValueWithPos<String>("9783836218023", 0));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 1),
+        new ValueWithPos<String>("9783836218023", 1));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 2),
+        new ValueWithPos<String>("9783836218023", 2));
+
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 4),
+        new ValueWithPos<String>("9783836218023", 3));
+
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 6),
+        new ValueWithPos<String>("9783836218023", 4));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 7),
+        new ValueWithPos<String>("9783836218023", 5));
+
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 9),
+        new ValueWithPos<String>("9783836218023", 6));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 10),
+        new ValueWithPos<String>("9783836218023", 7));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 11),
+        new ValueWithPos<String>("9783836218023", 8));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 12),
+        new ValueWithPos<String>("9783836218023", 9));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 13),
+        new ValueWithPos<String>("9783836218023", 10));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 14),
+        new ValueWithPos<String>("9783836218023", 11));
+
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 16),
+        new ValueWithPos<String>("9783836218023", 12));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 17),
+        new ValueWithPos<String>("9783836218023", 13));
+    testData.put(new ValueWithPos<String>("978-3-83-621802-3", 17),
+        new ValueWithPos<String>("9783836218023", 14));
+
+    return testData;
+  }
+
+  /**
    * get format isbn test cases with expected results.
    *
    * @return map of strings with expected parse result
@@ -62,6 +153,17 @@ public class IsbnUtilTestCases {
   public static final Map<String, String> getIsbnFormatCases() {
     final Map<String, String> testData = getIsbn10FormatCases();
     testData.putAll(getIsbn13FormatCases());
+    return testData;
+  }
+
+  /**
+   * get format isbn test cases with expected results.
+   *
+   * @return map of strings with expected parse result and position of the cursor
+   */
+  public static Map<ValueWithPos<String>, ValueWithPos<String>> getIsbnFormatWithPosCases() {
+    final Map<ValueWithPos<String>, ValueWithPos<String>> testData = getIsbn10FormatWithPosCases();
+    testData.putAll(getIsbn13FormatWithPosCases());
     return testData;
   }
 

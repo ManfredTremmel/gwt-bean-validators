@@ -17,6 +17,7 @@ package de.knightsoftnet.validators.client.util;
 
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.testcases.PhoneNumberUtilTestCases;
 import de.knightsoftnet.validators.shared.util.PhoneNumberUtil;
 
@@ -45,7 +46,7 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
    * test parsing of phone number.
    */
   public void testParsing() {
-    assertNull("Should be null", this.phoneNumberUtil.parsePhoneNumber(null));
+    assertNull("Should be null", this.phoneNumberUtil.parsePhoneNumber((String) null));
     for (final Entry<String, PhoneNumberInterface> testCase : PhoneNumberUtilTestCases
         .getParseCases().entrySet()) {
       final PhoneNumberInterface parsedNumber =
@@ -68,6 +69,20 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in E123 format with cursor position.
+   */
+  public void testFormatE123WithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatE123((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatE123WithPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatE123(testCase.getKey());
+      assertEquals("Formating E123 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in E123 international format.
    */
   public void testFormatE123International() {
@@ -76,6 +91,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
     for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatE123InternationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatE123International(testCase.getKey());
+      assertEquals("Formating E123 international " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in E123 international format with cursor position.
+   */
+  public void testFormatE123InternationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatE123International((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatE123InternationalpCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatE123International(testCase.getKey());
       assertEquals("Formating E123 international " + testCase.getKey().toString(),
           testCase.getValue(), formatedNumber);
     }
@@ -95,6 +125,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in E123 national format with cursor position.
+   */
+  public void testFormatE123NationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatE123National((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatE123NationalPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatE123National(testCase.getKey());
+      assertEquals("Formating E123 national " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in DIN 5008 format.
    */
   public void testFormatDin5008() {
@@ -102,6 +147,20 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
     for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008Cases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008(testCase.getKey());
+      assertEquals("Formating DIN 5008 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in DIN 5008 format with cursor position.
+   */
+  public void testFormatDin5008WithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatDin5008((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008WithPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatDin5008(testCase.getKey());
       assertEquals("Formating DIN 5008 " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
     }
@@ -123,6 +182,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in DIN 5008 international format with cursor position.
+   */
+  public void testFormatDin5008InternationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatDin5008International((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008InternPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatDin5008International(testCase.getKey());
+      assertEquals("Formating DIN 5008 international " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in DIN 5008 national format.
    */
   public void testFormatDin5008National() {
@@ -131,6 +205,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
     for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatDin5008NationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatDin5008National(testCase.getKey());
+      assertEquals("Formating DIN 5008 national " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in DIN 5008 national format with cursor position.
+   */
+  public void testFormatDin5008NationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatDin5008National((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatDin5008NationalPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatDin5008National(testCase.getKey());
       assertEquals("Formating DIN 5008 national " + testCase.getKey().toString(),
           testCase.getValue(), formatedNumber);
     }
@@ -150,6 +239,20 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in RFC 3966 format with cursor position.
+   */
+  public void testFormatRfc3966WithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatRfc3966((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatRfc3966WithPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatRfc3966(testCase.getKey());
+      assertEquals("Formating Rfc3966 " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in Microsoft canonical address format.
    */
   public void testFormatMs() {
@@ -157,6 +260,19 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
     for (final Entry<PhoneNumberInterface, String> testCase : PhoneNumberUtilTestCases
         .getFormatMsCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatMs(testCase.getKey());
+      assertEquals("Formating MS " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in Microsoft canonical address format.
+   */
+  public void testFormatMsWithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatMs((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatMsWithLengthCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber = this.phoneNumberUtil.formatMs(testCase.getKey());
       assertEquals("Formating MS " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
     }
@@ -176,6 +292,19 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in URL format with cursor position.
+   */
+  public void testFormatUrlWithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatUrl((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatUrlWithPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber = this.phoneNumberUtil.formatUrl(testCase.getKey());
+      assertEquals("Formating Url " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in common format.
    */
   public void testFormatCommon() {
@@ -184,6 +313,20 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
         .getFormatCommonCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatCommon(testCase.getKey());
       assertEquals("Formating common " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in common format with cursor position.
+   */
+  public void testFormatCommonWithPos() {
+    assertNull("Should be null", this.phoneNumberUtil.formatCommon((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatCommonWithPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatCommon(testCase.getKey());
+      assertEquals("Formating Common " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
     }
   }
@@ -204,6 +347,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
   }
 
   /**
+   * test formating phone number in common international format with cursor position.
+   */
+  public void testFormatCommonInternationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatCommonInternational((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatCommonInterPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatCommonInternational(testCase.getKey());
+      assertEquals("Formating Common international " + testCase.getKey().toString(),
+          testCase.getValue(), formatedNumber);
+    }
+  }
+
+  /**
    * test formating phone number in common national format.
    */
   public void testFormatCommonNational() {
@@ -212,6 +370,21 @@ public class GwtTstPhoneNumberUtil extends GWTTestCase {
         .getFormatCommonNationalCases().entrySet()) {
       final String formatedNumber = this.phoneNumberUtil.formatCommonNational(testCase.getKey());
       assertEquals("Formating common national " + testCase.getKey().toString(), testCase.getValue(),
+          formatedNumber);
+    }
+  }
+
+  /**
+   * test formating phone number in common national format with cursor position.
+   */
+  public void testFormatCommonNationalWithPos() {
+    assertNull("Should be null",
+        this.phoneNumberUtil.formatCommonNational((ValueWithPos<String>) null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> testCase : PhoneNumberUtilTestCases
+        .getFormatCommonNationalPosCases().entrySet()) {
+      final ValueWithPos<String> formatedNumber =
+          this.phoneNumberUtil.formatCommonNational(testCase.getKey());
+      assertEquals("Formating Common national " + testCase.getKey().toString(), testCase.getValue(),
           formatedNumber);
     }
   }

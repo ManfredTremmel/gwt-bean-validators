@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.shared.util;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.testcases.IbanUtilTestCases;
 
 import org.junit.Assert;
@@ -29,10 +30,23 @@ public class IbanUtilTest {
    */
   @Test
   public void testIbanFormat() {
-    Assert.assertNull("iban format should be null", IbanUtil.ibanFormat(null));
+    Assert.assertNull("iban format should be null", IbanUtil.ibanFormatWithPos(null));
     for (final Entry<String, String> entry : IbanUtilTestCases.getFormatCases().entrySet()) {
       Assert.assertEquals("iban format failed", entry.getKey(),
           IbanUtil.ibanFormat(entry.getValue()));
+    }
+  }
+
+  /**
+   * test formating iban with position.
+   */
+  @Test
+  public void testIbanFormatWithPos() {
+    Assert.assertNull("iban format should be null", IbanUtil.ibanFormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IbanUtilTestCases
+        .getFormatWithPosCases().entrySet()) {
+      Assert.assertEquals("iban format failed", entry.getKey(),
+          IbanUtil.ibanFormatWithPos(entry.getValue()));
     }
   }
 

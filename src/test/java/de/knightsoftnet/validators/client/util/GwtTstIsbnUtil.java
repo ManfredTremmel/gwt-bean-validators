@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.client.util;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.testcases.IsbnUtilTestCases;
 import de.knightsoftnet.validators.shared.util.IsbnUtil;
 
@@ -30,6 +31,18 @@ public class GwtTstIsbnUtil extends GWTTestCase {
   }
 
   /**
+   * test formating isbn10 with position.
+   */
+  public void testIsbn10FormatWithPos() {
+    assertNull("isbn format should be null", IsbnUtil.isbn10FormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbn10FormatWithPosCases().entrySet()) {
+      assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbn10FormatWithPos(entry.getValue()));
+    }
+  }
+
+  /**
    * test formating isbn10.
    */
   public void testIsbn10Format() {
@@ -40,12 +53,36 @@ public class GwtTstIsbnUtil extends GWTTestCase {
   }
 
   /**
+   * test formating isbn13 with position.
+   */
+  public void testIsbn13FormatWithPos() {
+    assertNull("isbn format should be null", IsbnUtil.isbn13FormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbn13FormatWithPosCases().entrySet()) {
+      assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbn13FormatWithPos(entry.getValue()));
+    }
+  }
+
+  /**
    * test formating isbn13.
    */
   public void testIsbn13Format() {
     assertNull("isbn format should be null", IsbnUtil.isbn13Format(null));
     for (final Entry<String, String> entry : IsbnUtilTestCases.getIsbn13FormatCases().entrySet()) {
       assertEquals("isbn format failed", entry.getKey(), IsbnUtil.isbn13Format(entry.getValue()));
+    }
+  }
+
+  /**
+   * test formating isbn with position.
+   */
+  public void testIsbnFormatWithPos() {
+    assertNull("isbn format should be null", IsbnUtil.isbnFormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbnFormatWithPosCases().entrySet()) {
+      assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbnFormatWithPos(entry.getValue()));
     }
   }
 

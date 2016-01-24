@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.shared.util;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.testcases.IsbnUtilTestCases;
 
 import org.junit.Assert;
@@ -23,6 +24,19 @@ import org.junit.Test;
 import java.util.Map.Entry;
 
 public class IsbnUtilTest {
+
+  /**
+   * test formating isbn10 with position.
+   */
+  @Test
+  public void testIsbn10FormatWithPos() {
+    Assert.assertNull("isbn format should be null", IsbnUtil.isbn10FormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbn10FormatWithPosCases().entrySet()) {
+      Assert.assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbn10FormatWithPos(entry.getValue()));
+    }
+  }
 
   /**
    * test formating isbn10.
@@ -37,6 +51,19 @@ public class IsbnUtilTest {
   }
 
   /**
+   * test formating isbn13 with position.
+   */
+  @Test
+  public void testIsbn13FormatWithPos() {
+    Assert.assertNull("isbn format should be null", IsbnUtil.isbn13FormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbn13FormatWithPosCases().entrySet()) {
+      Assert.assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbn13FormatWithPos(entry.getValue()));
+    }
+  }
+
+  /**
    * test formating isbn13.
    */
   @Test
@@ -45,6 +72,19 @@ public class IsbnUtilTest {
     for (final Entry<String, String> entry : IsbnUtilTestCases.getIsbn13FormatCases().entrySet()) {
       Assert.assertEquals("isbn format failed", entry.getKey(),
           IsbnUtil.isbn13Format(entry.getValue()));
+    }
+  }
+
+  /**
+   * test formating isbn with position.
+   */
+  @Test
+  public void testIsbnFormatWithPos() {
+    Assert.assertNull("isbn format should be null", IsbnUtil.isbnFormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IsbnUtilTestCases
+        .getIsbnFormatWithPosCases().entrySet()) {
+      Assert.assertEquals("isbn format failed", entry.getKey(),
+          IsbnUtil.isbnFormatWithPos(entry.getValue()));
     }
   }
 

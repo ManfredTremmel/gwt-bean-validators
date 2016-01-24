@@ -24,6 +24,7 @@ import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.data.PhoneNumberExtendedInterface;
 import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
 import de.knightsoftnet.validators.shared.data.ValidationInterface;
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -82,12 +83,37 @@ public class PhoneNumberUtil {
   /**
    * parse phone number.
    *
+   * @param pphoneNumber phone number as string with length
+   * @return PhoneNumberData with length
+   */
+  public ValueWithPos<PhoneNumberInterface> parsePhoneNumber(
+      final ValueWithPos<String> pphoneNumber) {
+    return this.parsePhoneNumber(pphoneNumber, new PhoneNumberData(), this.defaultCountryData);
+  }
+
+  /**
+   * parse phone number.
+   *
    * @param pphoneNumber phone number as string
    * @param pcountryCode iso code of country
    * @return PhoneNumberData
    */
   public PhoneNumberInterface parsePhoneNumber(final String pphoneNumber,
       final String pcountryCode) {
+    return this.parsePhoneNumber(pphoneNumber, new PhoneNumberData(),
+        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+            .get(StringUtils.defaultString(pcountryCode)));
+  }
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pcountryCode iso code of country
+   * @return PhoneNumberData
+   */
+  public ValueWithPos<PhoneNumberInterface> parsePhoneNumber(
+      final ValueWithPos<String> pphoneNumber, final String pcountryCode) {
     return this.parsePhoneNumber(pphoneNumber, new PhoneNumberData(),
         PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
@@ -111,11 +137,38 @@ public class PhoneNumberUtil {
    *
    * @param pphoneNumber phone number as string
    * @param pphoneNumberData phone number data to fill
+   * @return PhoneNumberData, the same as in second parameter
+   */
+  public ValueWithPos<PhoneNumberInterface> parsePhoneNumber(
+      final ValueWithPos<String> pphoneNumber, final PhoneNumberInterface pphoneNumberData) {
+    return this.parsePhoneNumber(pphoneNumber, pphoneNumberData, this.defaultCountryData);
+  }
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pphoneNumberData phone number data to fill
    * @param pcountryCode iso code of country
    * @return PhoneNumberData, the same as in second parameter
    */
   public PhoneNumberInterface parsePhoneNumber(final String pphoneNumber,
       final PhoneNumberInterface pphoneNumberData, final String pcountryCode) {
+    return this.parsePhoneNumber(pphoneNumber, pphoneNumberData, PhoneNumberUtil.COUNTRY_CONSTANTS
+        .countryMap().get(StringUtils.defaultString(pcountryCode)));
+  }
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pphoneNumberData phone number data to fill
+   * @param pcountryCode iso code of country
+   * @return PhoneNumberData, the same as in second parameter
+   */
+  public ValueWithPos<PhoneNumberInterface> parsePhoneNumber(
+      final ValueWithPos<String> pphoneNumber, final PhoneNumberInterface pphoneNumberData,
+      final String pcountryCode) {
     return this.parsePhoneNumber(pphoneNumber, pphoneNumberData, PhoneNumberUtil.COUNTRY_CONSTANTS
         .countryMap().get(StringUtils.defaultString(pcountryCode)));
   }
@@ -131,9 +184,38 @@ public class PhoneNumberUtil {
    */
   public PhoneNumberInterface parsePhoneNumber(final String pphoneNumber,
       final PhoneNumberInterface pphoneNumberData, final PhoneCountryData pcountryData) {
+    if (pphoneNumber == null) {
+      return null;
+    }
+    final ValueWithPos<PhoneNumberInterface> formatedValue = this.parsePhoneNumber(
+        new ValueWithPos<String>(pphoneNumber, -1), pphoneNumberData, pcountryData);
+    return formatedValue.getValue();
+  }
+
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pphoneNumberData phone number data to fill
+   * @param pcountryData country data
+   * @return PhoneNumberData, the same as in second parameter
+   */
+  public ValueWithPos<PhoneNumberInterface> parsePhoneNumber(
+      final ValueWithPos<String> pphoneNumber, final PhoneNumberInterface pphoneNumberData,
+      final PhoneCountryData pcountryData) {
     if (pphoneNumber == null || pphoneNumberData == null) {
       return null;
     }
+    int cursorpos = pphoneNumber.getPos();
+    int cursorpossub = 0;
+    for (int pos = 0; pos < cursorpos && pos < StringUtils.length(pphoneNumber.getValue()); pos++) {
+      final char character = pphoneNumber.getValue().charAt(pos);
+      if (character < '0' || character > '9') {
+        cursorpossub++;
+      }
+    }
+    cursorpos -= cursorpossub;
     boolean needsAreaCode = false;
     int minLength = 2;
     int maxLength = 15;
@@ -141,10 +223,10 @@ public class PhoneNumberUtil {
     pphoneNumberData.setAreaCode(null);
     pphoneNumberData.setLineNumber(null);
     pphoneNumberData.setExtension(null);
-    final StringBuilder cleanupString = new StringBuilder(pphoneNumber.length());
-    final boolean containsMinus = StringUtils.contains(pphoneNumber, '-');
+    final StringBuilder cleanupString = new StringBuilder(pphoneNumber.getValue().length());
+    final boolean containsMinus = StringUtils.contains(pphoneNumber.getValue(), '-');
     boolean hasSeperator = false;
-    for (final char character : StringUtils.reverse(pphoneNumber).toCharArray()) {
+    for (final char character : StringUtils.reverse(pphoneNumber.getValue()).toCharArray()) {
       switch (character) {
         case '0':
         case '1':
@@ -180,10 +262,15 @@ public class PhoneNumberUtil {
       if (StringUtils.isNotEmpty(pcountryData.getExitCode())
           && phoneNumberWork.startsWith(pcountryData.getExitCode())) {
         phoneNumberWork = phoneNumberWork.substring(pcountryData.getExitCode().length());
+        cursorpos -= pcountryData.getExitCode().length();
       } else if (StringUtils.isNotEmpty(pcountryData.getTrunkCode())
           && phoneNumberWork.startsWith(pcountryData.getTrunkCode())) {
         phoneNumberWork = pcountryData.getCountryCodeData().getCountryCode()
             + phoneNumberWork.substring(pcountryData.getTrunkCode().length());
+        if (cursorpos >= pcountryData.getTrunkCode().length()) {
+          cursorpos -= pcountryData.getTrunkCode().length();
+          cursorpos += StringUtils.length(pcountryData.getCountryCodeData().getCountryCode());
+        }
       }
     }
     for (final PhoneCountryCodeData countryCode : PhoneNumberUtil.COUNTRY_CONSTANTS
@@ -196,7 +283,7 @@ public class PhoneNumberUtil {
               .setCountryName(countryCode.getCountryCodeName());
         }
         phoneNumberWork = phoneNumberWork.substring(countryCode.getCountryCode().length());
-        if (phoneNumberWork.startsWith("-")) {
+        if (phoneNumberWork.startsWith(EXTENSION_SEPARATOR)) {
           phoneNumberWork = phoneNumberWork.substring(1);
         }
         if (countryCode.getPhoneCountryData() != null) {
@@ -205,6 +292,9 @@ public class PhoneNumberUtil {
               && phoneNumberWork.startsWith(countryCode.getPhoneCountryData().getTrunkCode())) {
             phoneNumberWork = phoneNumberWork
                 .substring(countryCode.getPhoneCountryData().getTrunkCode().length());
+            if (cursorpos >= countryCode.getPhoneCountryData().getTrunkCode().length()) {
+              cursorpos -= countryCode.getPhoneCountryData().getTrunkCode().length();
+            }
           }
         }
         for (final PhoneAreaCodeData areaCode : countryCode.getAreaCodeData()) {
@@ -256,7 +346,18 @@ public class PhoneNumberUtil {
               && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode)
               && callNummerLength >= minLength && callNummerLength <= maxLength);
     }
-    return pphoneNumberData;
+    if (cursorpos < 0) {
+      cursorpos = 0;
+    } else {
+      final int calculatedlength = StringUtils.length(pphoneNumberData.getCountryCode())
+          + StringUtils.length(pphoneNumberData.getAreaCode())
+          + StringUtils.length(pphoneNumberData.getLineNumber())
+          + StringUtils.length(pphoneNumberData.getExtension());
+      if (cursorpos > calculatedlength) {
+        cursorpos = calculatedlength;
+      }
+    }
+    return new ValueWithPos<PhoneNumberInterface>(pphoneNumberData, cursorpos);
   }
 
   /**
@@ -267,6 +368,16 @@ public class PhoneNumberUtil {
    */
   public final String formatE123(final String pphoneNumber) {
     return this.formatE123(this.parsePhoneNumber(pphoneNumber), this.defaultCountryData);
+  }
+
+  /**
+   * format phone number in E123 format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123(final ValueWithPos<String> pphoneNumber) {
+    return this.formatE123WithPos(this.parsePhoneNumber(pphoneNumber), this.defaultCountryData);
   }
 
   /**
@@ -322,6 +433,25 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in E123 format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @param pcountryData country data
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123WithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData,
+      final PhoneCountryData pcountryData) {
+    if (pphoneNumberData != null && pcountryData != null
+        && StringUtils.equals(pcountryData.getCountryCodeData().getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+      return this.formatE123NationalWithPos(pphoneNumberData);
+    } else {
+      return this.formatE123InternationalWithPos(pphoneNumberData);
+    }
+  }
+
+  /**
    * format phone number in E123 international format.
    *
    * @param pphoneNumber phone number as String to format
@@ -329,6 +459,17 @@ public class PhoneNumberUtil {
    */
   public final String formatE123International(final String pphoneNumber) {
     return this.formatE123International(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in E123 international format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123International(
+      final ValueWithPos<String> pphoneNumber) {
+    return this.formatE123InternationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -353,6 +494,41 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in E123 international format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123InternationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append(' ');
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in E123 national format.
    *
    * @param pphoneNumber phone number as String to format
@@ -360,6 +536,16 @@ public class PhoneNumberUtil {
    */
   public final String formatE123National(final String pphoneNumber) {
     return this.formatE123National(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in E123 national format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123National(final ValueWithPos<String> pphoneNumber) {
+    return this.formatE123NationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -397,6 +583,57 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in E123 national format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatE123NationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    final StringBuilder resultNumber = new StringBuilder();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+          .countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return this.formatE123InternationalWithPos(pphoneNumberData);
+      }
+      if (cursor > 0) {
+        cursor -= StringUtils.length(pphoneNumberData.getValue().getCountryCode());
+        cursor += StringUtils.length(phoneCountryData.getTrunkCode());
+      }
+      cursor++;
+      resultNumber.append('(').append(phoneCountryData.getTrunkCode());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+      }
+      if (resultNumber.length() <= cursor) {
+        cursor += 2;
+      }
+      resultNumber.append(") ");
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append(' ');
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in DIN 5008 format.
    *
    * @param pphoneNumber phone number as String to format
@@ -404,6 +641,16 @@ public class PhoneNumberUtil {
    */
   public final String formatDin5008(final String pphoneNumber) {
     return this.formatDin5008(this.parsePhoneNumber(pphoneNumber), this.defaultCountryData);
+  }
+
+  /**
+   * format phone number in DIN 5008 format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008(final ValueWithPos<String> pphoneNumber) {
+    return this.formatDin5008WithPos(this.parsePhoneNumber(pphoneNumber), this.defaultCountryData);
   }
 
   /**
@@ -459,6 +706,25 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in DIN 5008 format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @param pcountryData country data
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008WithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData,
+      final PhoneCountryData pcountryData) {
+    if (pphoneNumberData != null && pcountryData != null
+        && StringUtils.equals(pcountryData.getCountryCodeData().getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+      return this.formatDin5008NationalWithPos(pphoneNumberData);
+    } else {
+      return this.formatDin5008InternationalWithPos(pphoneNumberData);
+    }
+  }
+
+  /**
    * format phone number in DIN 5008 international format.
    *
    * @param pphoneNumber phone number as String to format
@@ -466,6 +732,17 @@ public class PhoneNumberUtil {
    */
   public final String formatDin5008International(final String pphoneNumber) {
     return this.formatDin5008International(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in DIN 5008 international format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008International(
+      final ValueWithPos<String> pphoneNumber) {
+    return this.formatDin5008InternationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -491,6 +768,45 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in DIN 5008 international format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008InternationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append(' ');
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in DIN 5008 national format.
    *
    * @param pphoneNumber phone number as String to format
@@ -498,6 +814,16 @@ public class PhoneNumberUtil {
    */
   public final String formatDin5008National(final String pphoneNumber) {
     return this.formatDin5008National(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in DIN 5008 national format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008National(final ValueWithPos<String> pphoneNumber) {
+    return this.formatDin5008NationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -535,6 +861,56 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in DIN 5008 national format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatDin5008NationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    final StringBuilder resultNumber = new StringBuilder();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+          .countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return this.formatDin5008InternationalWithPos(pphoneNumberData);
+      }
+      if (cursor > 0) {
+        cursor -= StringUtils.length(pphoneNumberData.getValue().getCountryCode());
+        cursor += StringUtils.length(phoneCountryData.getTrunkCode());
+      }
+      resultNumber.append(phoneCountryData.getTrunkCode());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+      }
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in RFC 3966 format.
    *
    * @param pphoneNumber phone number as String to format
@@ -542,6 +918,16 @@ public class PhoneNumberUtil {
    */
   public final String formatRfc3966(final String pphoneNumber) {
     return this.formatRfc3966(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in RFC 3966 format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatRfc3966(final ValueWithPos<String> pphoneNumber) {
+    return this.formatRfc3966WithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -566,6 +952,41 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in RFC 3966 format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatRfc3966WithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append('-');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in Microsoft canonical address format.
    *
    * @param pphoneNumber phone number as String to format
@@ -573,6 +994,16 @@ public class PhoneNumberUtil {
    */
   public final String formatMs(final String pphoneNumber) {
     return this.formatMs(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in Microsoft canonical address format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatMs(final ValueWithPos<String> pphoneNumber) {
+    return this.formatMsWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -598,6 +1029,53 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in Microsoft canonical address format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatMsWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    final StringBuilder resultNumber = new StringBuilder();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('(').append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor += 2;
+        }
+        resultNumber.append(") ");
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor += 3;
+        }
+        resultNumber.append(" - ");
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    if (cursor < 0) {
+      cursor = 0;
+    } else if (cursor > resultNumber.length()) {
+      cursor = resultNumber.length();
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in URL format.
    *
    * @param pphoneNumber phone number as String to format
@@ -605,6 +1083,16 @@ public class PhoneNumberUtil {
    */
   public final String formatUrl(final String pphoneNumber) {
     return this.formatUrl(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in URL format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatUrl(final ValueWithPos<String> pphoneNumber) {
+    return this.formatUrlWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -632,6 +1120,45 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in URL format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatUrlWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append('-');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in Common format.
    *
    * @param pphoneNumber phone number as String to format
@@ -639,6 +1166,16 @@ public class PhoneNumberUtil {
    */
   public final String formatCommon(final String pphoneNumber) {
     return this.formatCommon(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in common format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommon(final ValueWithPos<String> pphoneNumber) {
+    return this.formatCommonWithPos(this.parsePhoneNumber(pphoneNumber), this.defaultCountryData);
   }
 
   /**
@@ -682,6 +1219,25 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in common format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @param pcountryData country data
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommonWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData,
+      final PhoneCountryData pcountryData) {
+    if (pphoneNumberData != null && pcountryData != null
+        && StringUtils.equals(pcountryData.getCountryCodeData().getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+      return this.formatCommonNationalWithPos(pphoneNumberData);
+    } else {
+      return this.formatCommonInternationalWithPos(pphoneNumberData);
+    }
+  }
+
+  /**
    * format phone number in Common international format.
    *
    * @param pphoneNumber phone number as String to format
@@ -689,6 +1245,17 @@ public class PhoneNumberUtil {
    */
   public final String formatCommonInternational(final String pphoneNumber) {
     return this.formatCommonInternational(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in common international format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommonInternational(
+      final ValueWithPos<String> pphoneNumber) {
+    return this.formatCommonInternationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -725,6 +1292,65 @@ public class PhoneNumberUtil {
   }
 
   /**
+   * format phone number in common international format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommonInternationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    final StringBuilder resultNumber = new StringBuilder();
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+          .countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return null;
+      }
+      cursor++;
+      resultNumber.append('+').append(pphoneNumberData.getValue().getCountryCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      if (resultNumber.length() <= cursor) {
+        cursor += 2;
+      }
+      resultNumber.append('(').append(phoneCountryData.getTrunkCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(')');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        resultNumber.append(pphoneNumberData.getValue().getAreaCode());
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append(' ');
+      }
+      resultNumber.append(pphoneNumberData.getValue().getLineNumber());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor++;
+        }
+        resultNumber.append('-');
+        resultNumber.append(pphoneNumberData.getValue().getExtension());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  /**
    * format phone number in Common national format.
    *
    * @param pphoneNumber phone number as String to format
@@ -732,6 +1358,16 @@ public class PhoneNumberUtil {
    */
   public final String formatCommonNational(final String pphoneNumber) {
     return this.formatCommonNational(this.parsePhoneNumber(pphoneNumber));
+  }
+
+  /**
+   * format phone number in common national format with cursor position handling.
+   *
+   * @param pphoneNumber phone number as String to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommonNational(final ValueWithPos<String> pphoneNumber) {
+    return this.formatCommonNationalWithPos(this.parsePhoneNumber(pphoneNumber));
   }
 
   /**
@@ -764,6 +1400,95 @@ public class PhoneNumberUtil {
       }
     }
     return StringUtils.trimToNull(resultNumber.toString());
+  }
+
+  /**
+   * format phone number in common national format with cursor position handling.
+   *
+   * @param pphoneNumberData phone number to format with cursor position
+   * @return formated phone number as String with new cursor position
+   */
+  public final ValueWithPos<String> formatCommonNationalWithPos(
+      final ValueWithPos<PhoneNumberInterface> pphoneNumberData) {
+    if (pphoneNumberData == null) {
+      return null;
+    }
+    int cursor = pphoneNumberData.getPos();
+    final StringBuilder resultNumber = new StringBuilder();
+    if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
+      PhoneCountryData phoneCountryData = null;
+      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+          .countryCodeData()) {
+        if (StringUtils.equals(country.getCountryCode(),
+            pphoneNumberData.getValue().getCountryCode())) {
+          phoneCountryData = country.getPhoneCountryData();
+          break;
+        }
+      }
+      if (phoneCountryData == null) {
+        return null;
+      }
+      if (cursor > 0) {
+        cursor -= StringUtils.length(pphoneNumberData.getValue().getCountryCode());
+        cursor += StringUtils.length(phoneCountryData.getTrunkCode());
+      }
+      resultNumber.append(phoneCountryData.getTrunkCode());
+      if (resultNumber.length() <= cursor) {
+        cursor++;
+      }
+      resultNumber.append(' ');
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getAreaCode())) {
+        final ValueWithPos<String> areaCode = this.groupIntoParts(
+            new ValueWithPos<String>(pphoneNumberData.getValue().getAreaCode(), cursor),
+            resultNumber.length(), 2);
+        cursor = areaCode.getPos();
+        resultNumber.append(areaCode.getValue());
+      }
+      if (resultNumber.length() <= cursor) {
+        cursor += 3;
+      }
+      resultNumber.append(" / ");
+      final ValueWithPos<String> lineNumber = this.groupIntoParts(
+          new ValueWithPos<String>(pphoneNumberData.getValue().getLineNumber(), cursor),
+          resultNumber.length(), 2);
+      cursor = lineNumber.getPos();
+      resultNumber.append(lineNumber.getValue());
+      if (StringUtils.isNotBlank(pphoneNumberData.getValue().getExtension())) {
+        if (resultNumber.length() <= cursor) {
+          cursor += 3;
+        }
+        resultNumber.append(" - ");
+        final ValueWithPos<String> extension = this.groupIntoParts(
+            new ValueWithPos<String>(pphoneNumberData.getValue().getExtension(), cursor),
+            resultNumber.length(), 2);
+        cursor = extension.getPos();
+        resultNumber.append(extension.getValue());
+      }
+    }
+    return new ValueWithPos<String>(StringUtils.trimToNull(resultNumber.toString()), cursor);
+  }
+
+  private final ValueWithPos<String> groupIntoParts(final ValueWithPos<String> pstring,
+      final int plength, final int pblockLength) {
+    if (pstring == null || pstring.getValue() == null) {
+      return new ValueWithPos<String>(StringUtils.EMPTY, pblockLength);
+    }
+    final StringBuilder formatedSb = new StringBuilder();
+    int pos = 0;
+    for (final char charCode : pstring.getValue().toCharArray()) {
+      if (CharUtils.isAsciiNumeric(charCode)) {
+        if (pos > 0 && pos % pblockLength == 0) {
+          if (formatedSb.length() + plength <= pstring.getPos()) {
+            pstring.setPos(pstring.getPos() + 1);
+          }
+          formatedSb.append(' ');
+        }
+        formatedSb.append(charCode);
+        pos++;
+      }
+    }
+    pstring.setValue(formatedSb.toString());
+    return pstring;
   }
 
   private final String groupIntoParts(final String pstring, final int pblockLength) {

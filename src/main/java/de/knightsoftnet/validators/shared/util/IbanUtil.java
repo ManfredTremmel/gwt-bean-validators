@@ -15,6 +15,8 @@
 
 package de.knightsoftnet.validators.shared.util;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
+
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,8 +27,54 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class IbanUtil {
+  /**
+   * character used for separating blocks.
+   */
+  public static final char SEPARATOR = ' ';
 
   private static final int BLOCK_LENGTH = 4;
+
+  /**
+   * format iban to four character blocks.
+   *
+   * @param pentry string to format and cursor position
+   * @return formated string with new cursor position
+   */
+  public static ValueWithPos<String> ibanFormatWithPos(final ValueWithPos<String> pentry) {
+    if (pentry == null) {
+      return null;
+    }
+    if (StringUtils.isNotEmpty(pentry.getValue())) {
+      final StringBuilder ibanSb = new StringBuilder(pentry.getValue().length());
+      int pos = 0;
+      int posformated = 0;
+      for (final char charCode : pentry.getValue().toCharArray()) {
+        if (CharUtils.isAsciiAlphaUpper(charCode) || CharUtils.isAsciiNumeric(charCode)) {
+          if (pos > 0 && pos % BLOCK_LENGTH == 0) {
+            ibanSb.append(SEPARATOR);
+            if (posformated <= pentry.getPos()) {
+              pentry.setPos(pentry.getPos() + 1);
+            }
+            posformated++;
+          }
+          ibanSb.append(charCode);
+          pos++;
+          posformated++;
+        } else {
+          if (posformated < pentry.getPos()) {
+            pentry.setPos(pentry.getPos() - 1);
+          }
+        }
+      }
+      pentry.setValue(ibanSb.toString());
+      if (pentry.getPos() < 0) {
+        pentry.setPos(0);
+      } else if (pentry.getPos() >= ibanSb.length()) {
+        pentry.setPos(ibanSb.length());
+      }
+    }
+    return pentry;
+  }
 
   /**
    * format iban to four character blocks.
@@ -38,18 +86,9 @@ public class IbanUtil {
     if (pstring == null) {
       return null;
     }
-    final StringBuilder ibanSb = new StringBuilder();
-    int pos = 0;
-    for (final char charCode : pstring.toCharArray()) {
-      if (CharUtils.isAsciiAlphaUpper(charCode) || CharUtils.isAsciiNumeric(charCode)) {
-        if (pos > 0 && pos % BLOCK_LENGTH == 0) {
-          ibanSb.append(' ');
-        }
-        ibanSb.append(charCode);
-        pos++;
-      }
-    }
-    return ibanSb.toString();
+    final ValueWithPos<String> formatedValue =
+        ibanFormatWithPos(new ValueWithPos<String>(pstring, -1));
+    return formatedValue.getValue();
   }
 
   /**
@@ -59,9 +98,6 @@ public class IbanUtil {
    * @return iban without spaces
    */
   public static String ibanCompress(final String pstring) {
-    if (pstring == null) {
-      return null;
-    }
-    return pstring.replaceAll("\\s", StringUtils.EMPTY);
+    return StringUtils.remove(pstring, SEPARATOR);
   }
 }

@@ -15,6 +15,7 @@
 
 package de.knightsoftnet.validators.client.util;
 
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.testcases.IbanUtilTestCases;
 import de.knightsoftnet.validators.shared.util.IbanUtil;
 
@@ -36,6 +37,18 @@ public class GwtTstIbanUtil extends GWTTestCase {
     assertNull("iban format should be null", IbanUtil.ibanFormat(null));
     for (final Entry<String, String> entry : IbanUtilTestCases.getFormatCases().entrySet()) {
       assertEquals("iban format failed", entry.getKey(), IbanUtil.ibanFormat(entry.getValue()));
+    }
+  }
+
+  /**
+   * test formating iban with position.
+   */
+  public void testIbanFormatWithPos() {
+    assertNull("iban format should be null", IbanUtil.ibanFormatWithPos(null));
+    for (final Entry<ValueWithPos<String>, ValueWithPos<String>> entry : IbanUtilTestCases
+        .getFormatWithPosCases().entrySet()) {
+      assertEquals("iban format failed", entry.getKey(),
+          IbanUtil.ibanFormatWithPos(entry.getValue()));
     }
   }
 
