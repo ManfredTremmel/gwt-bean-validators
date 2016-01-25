@@ -338,8 +338,12 @@ public class PhoneNumberUtil {
       }
     }
     if (pphoneNumberData instanceof ValidationInterface) {
-      final int callNummerLength = StringUtils.length(pphoneNumberData.getLineNumber()
-          + StringUtils.defaultString(pphoneNumberData.getExtension()));
+      int callNummerLength = StringUtils.length(pphoneNumberData.getLineNumber());
+      if (StringUtils.isNotEmpty(pphoneNumberData.getExtension())) {
+        // if we do have extensions, phone number including extension may be longer then allowed
+        // number, but at least one digit counts
+        callNummerLength++;
+      }
       ((ValidationInterface) pphoneNumberData)
           .setValid(StringUtils.isNotEmpty(pphoneNumberData.getCountryCode())
               && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber())

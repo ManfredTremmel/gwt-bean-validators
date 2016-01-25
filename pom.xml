@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.6</version>
+	<version>0.9.7</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
