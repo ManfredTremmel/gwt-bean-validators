@@ -15,9 +15,9 @@
 
 package de.knightsoftnet.validators.shared.data;
 
-import org.apache.commons.lang3.StringUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.io.Serializable;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * phone number data.
@@ -25,9 +25,8 @@ import java.io.Serializable;
  * @author Manfred Tremmel
  *
  */
-public class PhoneNumberData
-    implements Serializable, PhoneNumberExtendedInterface, ValidationInterface {
-  private static final long serialVersionUID = -5715038613377873088L;
+@JsonFormat
+public class PhoneNumberData implements PhoneNumberExtendedInterface, ValidationInterface {
 
   private String countryCode;
   private String countryName;
@@ -61,74 +60,94 @@ public class PhoneNumberData
     this.extension = pextension;
   }
 
+  /**
+   * constructor initializing fields.
+   *
+   * @param pphoneNumber phone number data
+   */
+  public PhoneNumberData(final PhoneNumberInterface pphoneNumber) {
+    super();
+    this.countryCode = pphoneNumber.getCountryCode();
+    this.areaCode = pphoneNumber.getAreaCode();
+    this.lineNumber = pphoneNumber.getLineNumber();
+    this.extension = pphoneNumber.getExtension();
+    if (pphoneNumber instanceof PhoneNumberExtendedInterface) {
+      this.countryName = ((PhoneNumberExtendedInterface) pphoneNumber).getCountryName();
+      this.areaName = ((PhoneNumberExtendedInterface) pphoneNumber).getAreaName();
+    }
+    if (pphoneNumber instanceof ValidationInterface) {
+      this.valid = ((ValidationInterface) pphoneNumber).isValid();
+    }
+  }
+
 
   @Override
-  public String getCountryCode() {
+  public final String getCountryCode() {
     return this.countryCode;
   }
 
   @Override
-  public void setCountryCode(final String pcountryCode) {
+  public final void setCountryCode(final String pcountryCode) {
     this.countryCode = pcountryCode;
   }
 
   @Override
-  public String getCountryName() {
+  public final String getCountryName() {
     return this.countryName;
   }
 
   @Override
-  public void setCountryName(final String pcountryName) {
+  public final void setCountryName(final String pcountryName) {
     this.countryName = pcountryName;
   }
 
   @Override
-  public String getAreaCode() {
+  public final String getAreaCode() {
     return this.areaCode;
   }
 
   @Override
-  public void setAreaCode(final String pareaCode) {
+  public final void setAreaCode(final String pareaCode) {
     this.areaCode = pareaCode;
   }
 
   @Override
-  public String getAreaName() {
+  public final String getAreaName() {
     return this.areaName;
   }
 
   @Override
-  public void setAreaName(final String pareaName) {
+  public final void setAreaName(final String pareaName) {
     this.areaName = pareaName;
   }
 
   @Override
-  public String getLineNumber() {
+  public final String getLineNumber() {
     return this.lineNumber;
   }
 
   @Override
-  public void setLineNumber(final String plineNumber) {
+  public final void setLineNumber(final String plineNumber) {
     this.lineNumber = plineNumber;
   }
 
   @Override
-  public String getExtension() {
+  public final String getExtension() {
     return this.extension;
   }
 
   @Override
-  public void setExtension(final String pextension) {
+  public final void setExtension(final String pextension) {
     this.extension = pextension;
   }
 
   @Override
-  public boolean isValid() {
+  public final boolean isValid() {
     return this.valid;
   }
 
   @Override
-  public void setValid(final boolean pvalid) {
+  public final void setValid(final boolean pvalid) {
     this.valid = pvalid;
   }
 

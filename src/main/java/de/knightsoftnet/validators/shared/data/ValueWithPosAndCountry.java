@@ -17,24 +17,22 @@ package de.knightsoftnet.validators.shared.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Objects;
-
 /**
- * bean with value and cursor position.
+ * bean with value, cursor position and default country.
  *
  * @author Manfred Tremmel
  *
  * @param <E> Type of value
  */
 @JsonFormat
-public class ValueWithPos<E> {
-  private E value;
-  private int pos;
+public class ValueWithPosAndCountry<E> extends ValueWithPos<E> {
+  private String language;
+  private String country;
 
   /**
    * default constructor.
    */
-  public ValueWithPos() {
+  public ValueWithPosAndCountry() {
     super();
   }
 
@@ -44,51 +42,38 @@ public class ValueWithPos<E> {
    * @param pvalue value entry
    * @param ppos cursor position
    */
-  public ValueWithPos(final E pvalue, final int ppos) {
-    super();
-    this.value = pvalue;
-    this.pos = ppos;
+  public ValueWithPosAndCountry(final E pvalue, final int ppos) {
+    super(pvalue, ppos);
   }
 
-  public final E getValue() {
-    return this.value;
+  /**
+   * constructor initializing fields.
+   *
+   * @param pvalue value entry
+   * @param ppos cursor position
+   * @param pcountry default country code
+   * @param planguage language to get messages
+   */
+  public ValueWithPosAndCountry(final E pvalue, final int ppos, final String pcountry,
+      final String planguage) {
+    this(pvalue, ppos);
+    this.country = pcountry;
+    this.language = planguage;
   }
 
-  public final void setValue(final E pvalue) {
-    this.value = pvalue;
+  public final String getCountry() {
+    return this.country;
   }
 
-  public final int getPos() {
-    return this.pos;
+  public final void setCountry(final String pcountry) {
+    this.country = pcountry;
   }
 
-  public final void setPos(final int ppos) {
-    this.pos = ppos;
+  public final String getLanguage() {
+    return this.language;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(Integer.valueOf(this.pos), this.value);
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (this.getClass() != obj.getClass()) {
-      return false;
-    }
-    @SuppressWarnings("unchecked")
-    final ValueWithPos<E> other = (ValueWithPos<E>) obj;
-    return this.pos == other.pos && Objects.equals(this.value, other.value);
-  }
-
-  @Override
-  public String toString() {
-    return "ValueWithPos [value=" + this.value + ", pos=" + this.pos + "]";
+  public final void setLanguage(final String planguage) {
+    this.language = planguage;
   }
 }
