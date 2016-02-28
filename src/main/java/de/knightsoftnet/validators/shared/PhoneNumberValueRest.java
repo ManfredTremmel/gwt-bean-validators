@@ -100,7 +100,7 @@ public @interface PhoneNumberValueRest {
   boolean allowCommon() default true;
 
   /**
-   * Defines several {@code @PhoneNumberValue} annotations on the same element.
+   * Defines several {@code @PhoneNumberValueRest} annotations on the same element.
    */
   @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
   @Retention(RetentionPolicy.RUNTIME)

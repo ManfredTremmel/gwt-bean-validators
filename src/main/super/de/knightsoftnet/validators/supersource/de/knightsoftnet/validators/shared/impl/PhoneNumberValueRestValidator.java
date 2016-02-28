@@ -16,7 +16,7 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.client.rest.api.PhoneNumberServiceAsync;
-import de.knightsoftnet.validators.shared.PhoneNumberValue;
+import de.knightsoftnet.validators.shared.PhoneNumberValueRest;
 import de.knightsoftnet.validators.shared.data.PhoneNumberDataWithFormats;
 
 import com.google.gwt.core.client.GWT;
@@ -43,7 +43,7 @@ import javax.validation.ConstraintValidatorContext;
  *
  */
 public class PhoneNumberValueRestValidator
-    implements ConstraintValidator<PhoneNumberValue, Object> {
+    implements ConstraintValidator<PhoneNumberValueRest, Object> {
 
   /**
    * error message key.
@@ -103,7 +103,7 @@ public class PhoneNumberValueRestValidator
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
    */
   @Override
-  public final void initialize(final PhoneNumberValue pconstraintAnnotation) {
+  public final void initialize(final PhoneNumberValueRest pconstraintAnnotation) {
     this.message = pconstraintAnnotation.message();
     this.fieldPhoneNumber = pconstraintAnnotation.fieldPhoneNumber();
     this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
