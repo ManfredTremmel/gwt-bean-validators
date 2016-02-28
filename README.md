@@ -53,6 +53,7 @@ Included Validators - multi fields
 |NotEmptyIfOtherIsEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is empty
 |NotEmptyIfOtherIsNotEmpty | `field` and `fieldCompare` (no defaults) | can be used for dependency checks, `field` must be filled if `fieldCompare` is not empty
 |PhoneNumberValue | `fieldCountryCode` (default: countryCode), `fieldPhoneNumber` (default phoneNumber), `allowLowerCaseCountryCode` (default: false), `allowDin5008`, `allowE123`, `allowUri`, `allowMs`, and `allowCommon` (default for all true) | checks phone number based on country- and area code data, with the parameters you can disable formats
+|PhoneNumberValueRest | `fieldCountryCode` (default: countryCode), `fieldPhoneNumber` (default phoneNumber), `allowLowerCaseCountryCode` (default: false), `allowDin5008`, `allowE123`, `allowUri`, `allowMs`, and `allowCommon` (default for all true) | same as PhoneNumberValue, but check is done on server using rest call to keep client code small
 |PostalCode | `fieldCountryCode` (default: countryCode), `fieldPostalCode` (default postalCode) and `allowLowerCaseCountryCode` (default: false) | postal code, post code or zip is validated using country specific rules, the country code is read from `fieldCountryCode`, there are rules for 161 countries included
 |VatId | `fieldCountryCode` (default: countryCode), `fieldVatId` (default vatId) and `allowLowerCaseCountryCode` (default: false) | vat registration number is validated using country specific rules, the country code is read from `fieldCountryCode`, there are format rules for 49 and checksum checks for 16 countries included
 
@@ -71,7 +72,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.9.7</version>
+      <version>0.9.8</version>
     </dependency>
     <dependency>
       <groupId>de.knightsoft-net</groupId>
@@ -94,7 +95,7 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.9.7</version>
+      <version>0.9.8</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.gwt</groupId>
@@ -107,6 +108,10 @@ For non GWT-Projects you can get rid of all gwt dependencies and use the origina
         <exclusion>
           <groupId>de.knightsoft-net</groupId>
           <artifactId>gwt-commons-validator</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.fusesource.restygwt</groupId>
+          <artifactId>restygwt</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
