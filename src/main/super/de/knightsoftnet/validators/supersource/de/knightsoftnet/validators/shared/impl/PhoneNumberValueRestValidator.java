@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.client.rest.api.PhoneNumberServiceAsync;
+import de.knightsoftnet.validators.client.rest.api.ServiceFactory;
 import de.knightsoftnet.validators.shared.PhoneNumberValueRest;
 import de.knightsoftnet.validators.shared.data.PhoneNumberDataWithFormats;
 
@@ -28,8 +29,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.RestServiceProxy;
 
 import java.util.Objects;
 
@@ -112,9 +111,7 @@ public class PhoneNumberValueRestValidator
     this.allowUri = pconstraintAnnotation.allowUri();
     this.allowMs = pconstraintAnnotation.allowMs();
     this.allowCommon = pconstraintAnnotation.allowCommon();
-    final Resource resource = new Resource(GWT.getModuleBaseURL());
-    this.service = GWT.create(PhoneNumberServiceAsync.class);
-    ((RestServiceProxy) this.service).setResource(resource);
+    this.service = ServiceFactory.getPhoneNumberService();
   }
 
   /**
