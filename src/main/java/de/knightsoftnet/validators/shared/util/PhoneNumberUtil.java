@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.util;
 
-import de.knightsoftnet.validators.server.data.CreateClass;
+import de.knightsoftnet.validators.server.data.CreatePhoneCountryConstantsClass;
 import de.knightsoftnet.validators.shared.data.PhoneAreaCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryData;
@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class PhoneNumberUtil {
   private static final PhoneCountrySharedConstants COUNTRY_CONSTANTS =
-      CreateClass.create(PhoneCountrySharedConstants.class);
+      CreatePhoneCountryConstantsClass.create();
   private static final String EXTENSION_SEPARATOR = "-";
 
   private PhoneCountryData defaultCountryData;
@@ -1785,7 +1785,7 @@ public class PhoneNumberUtil {
 
   /**
    * get suggestions.
-   * 
+   *
    * @param psearch search string
    * @param plimit limit entries
    * @return list of phone number data

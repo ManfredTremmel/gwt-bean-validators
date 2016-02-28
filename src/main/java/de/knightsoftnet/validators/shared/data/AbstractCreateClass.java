@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.data;
 
-import de.knightsoftnet.validators.server.data.CreateClass;
+import de.knightsoftnet.validators.server.data.CreatePhoneCountryConstantsClass;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,10 +33,11 @@ import java.util.TreeSet;
  */
 public abstract class AbstractCreateClass { // NOPMD, can't include abstract static methods
 
-
   protected static PhoneCountryConstantsImpl createPhoneCountryConstants() {
-    final Map<String, String> phoneCountryNames = CreateClass.readPhoneCountryNames();
-    final Map<String, String> phoneCountryCodes = CreateClass.readPhoneCountryCodes();
+    final Map<String, String> phoneCountryNames =
+        CreatePhoneCountryConstantsClass.readPhoneCountryNames();
+    final Map<String, String> phoneCountryCodes =
+        CreatePhoneCountryConstantsClass.readPhoneCountryCodes();
     final Set<PhoneCountryCodeData> countryCodeData =
         readPhoneCountryProperties(phoneCountryNames, phoneCountryCodes);
     return new PhoneCountryConstantsImpl(countryCodeData,
@@ -53,10 +54,12 @@ public abstract class AbstractCreateClass { // NOPMD, can't include abstract sta
       if (StringUtils.equals(country.getKey(), "49")) {
         // to much data in German file, has to be splitted into two separate property files
         phoneRegionCodes = new HashMap<>();
-        phoneRegionCodes.putAll(CreateClass.readPhoneRegionCodes(country.getKey()));
-        phoneRegionCodes.putAll(CreateClass.readPhoneRegionCodes(country.getKey() + "b"));
+        phoneRegionCodes
+            .putAll(CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey()));
+        phoneRegionCodes
+            .putAll(CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey() + "b"));
       } else {
-        phoneRegionCodes = CreateClass.readPhoneRegionCodes(country.getKey());
+        phoneRegionCodes = CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey());
       }
       for (final Entry<String, String> region : phoneRegionCodes.entrySet()) {
         final PhoneAreaCodeData areaData = new PhoneAreaCodeData(region.getKey(), region.getValue(),
@@ -72,7 +75,8 @@ public abstract class AbstractCreateClass { // NOPMD, can't include abstract sta
       final Set<PhoneCountryCodeData> pcountries, final Map<String, String> pphoneCountryNames,
       final Map<String, String> pphoneCountryCodes) {
     final Map<String, PhoneCountryData> countryPhoneMap = new HashMap<>();
-    final Map<String, String> phoneTrunkAndExitCodes = CreateClass.readPhoneTrunkAndExitCodes();
+    final Map<String, String> phoneTrunkAndExitCodes =
+        CreatePhoneCountryConstantsClass.readPhoneTrunkAndExitCodes();
 
     for (final PhoneCountryCodeData entry : pcountries) {
       final String countryCode = pphoneCountryCodes.get(entry.getCountryCode());

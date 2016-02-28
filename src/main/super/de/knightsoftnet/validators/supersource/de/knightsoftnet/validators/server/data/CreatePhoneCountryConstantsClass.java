@@ -15,8 +15,6 @@
 
 package de.knightsoftnet.validators.server.data;
 
-import de.knightsoftnet.validators.client.data.BicMapConstants;
-import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
 import de.knightsoftnet.validators.client.data.PhoneCountryCodeConstants;
 import de.knightsoftnet.validators.client.data.PhoneCountryNameConstants;
 import de.knightsoftnet.validators.client.data.PhoneCountryTrunkAndExitCodesConstants;
@@ -241,14 +239,9 @@ import de.knightsoftnet.validators.client.data.PhoneRegionCode994Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode995Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode996Constants;
 import de.knightsoftnet.validators.client.data.PhoneRegionCode998Constants;
-import de.knightsoftnet.validators.client.data.PostalCodesMapConstants;
-import de.knightsoftnet.validators.client.data.VatIdMapConstants;
 import de.knightsoftnet.validators.shared.data.AbstractCreateClass;
-import de.knightsoftnet.validators.shared.data.BicMapSharedConstants;
-import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 import de.knightsoftnet.validators.shared.data.PhoneCountryConstantsImpl;
-import de.knightsoftnet.validators.shared.data.PostalCodesMapSharedConstants;
-import de.knightsoftnet.validators.shared.data.VatIdMapSharedConstants;
+import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 
 import com.google.gwt.core.client.GWT;
 
@@ -261,77 +254,24 @@ import java.util.Map;
  * @author Manfred Tremmel
  *
  */
-public class CreateClass extends AbstractCreateClass {
+public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
 
-  private static volatile BicMapConstants bicMapConstants = null;
-  private static volatile IbanLengthMapConstants ibanLengthMapConstants = null;
-  private static volatile PostalCodesMapConstants postalCodesMapConstants = null;
-  private static volatile VatIdMapConstants vatIdMapConstants = null;
   private static volatile PhoneCountryConstantsImpl phoneCountryConstants = null;
 
   /**
    * Instantiates a class via deferred binding.
    *
-   * <p>
-   * The argument to {@link #create(Class)}&#160;<i>must</i> be a class literal because the
-   * Production Mode compiler must be able to statically determine the requested type at
-   * compile-time. This can be tricky because using a {@link Class} variable may appear to work
-   * correctly in Development Mode.
-   * </p>
-   *
-   * @param pclassLiteral a class literal specifying the base class to be instantiated
    * @return the new instance, which must be cast to the requested class
    */
-  @SuppressWarnings("unchecked")
-  public static <T> T create(final Class<?> pclassLiteral) {
-    if (pclassLiteral.equals(BicMapSharedConstants.class)) {
-      if (bicMapConstants == null) { // NOPMD it's thread save!
-        synchronized (BicMapConstants.class) {
-          if (bicMapConstants == null) {
-            bicMapConstants = GWT.create(BicMapConstants.class);
-          }
+  public static PhoneCountrySharedConstants create() {
+    if (phoneCountryConstants == null) { // NOPMD it's thread save!
+      synchronized (PhoneCountryConstantsImpl.class) {
+        if (phoneCountryConstants == null) {
+          phoneCountryConstants = createPhoneCountryConstants();
         }
       }
-      return (T) bicMapConstants;
-    } else if (pclassLiteral.equals(IbanLengthMapSharedConstants.class)) {
-      if (ibanLengthMapConstants == null) { // NOPMD it's thread save!
-        synchronized (IbanLengthMapConstants.class) {
-          if (ibanLengthMapConstants == null) {
-            ibanLengthMapConstants = GWT.create(IbanLengthMapConstants.class);
-          }
-        }
-      }
-      return (T) ibanLengthMapConstants;
-    } else if (pclassLiteral.equals(PostalCodesMapSharedConstants.class)) {
-      if (postalCodesMapConstants == null) { // NOPMD it's thread save!
-        synchronized (PostalCodesMapConstants.class) {
-          if (postalCodesMapConstants == null) {
-            postalCodesMapConstants = GWT.create(PostalCodesMapConstants.class);
-          }
-        }
-      }
-      return (T) postalCodesMapConstants;
-    } else if (pclassLiteral.equals(VatIdMapSharedConstants.class)) {
-      if (vatIdMapConstants == null) { // NOPMD it's thread save!
-        synchronized (VatIdMapConstants.class) {
-          if (vatIdMapConstants == null) {
-            vatIdMapConstants = GWT.create(VatIdMapConstants.class);
-          }
-        }
-      }
-      return (T) vatIdMapConstants;
-    } else if (pclassLiteral
-        .equals(de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants.class)) {
-      if (phoneCountryConstants == null) { // NOPMD it's thread save!
-        synchronized (PhoneCountryConstantsImpl.class) {
-          if (phoneCountryConstants == null) {
-            phoneCountryConstants = createPhoneCountryConstants();
-          }
-        }
-      }
-      return (T) phoneCountryConstants;
     }
-    return null;
+    return phoneCountryConstants;
   }
 
 
@@ -348,7 +288,7 @@ public class CreateClass extends AbstractCreateClass {
   /**
    * read phone country codes and country iso codes.
    *
-   * @return map of phone country code and country iso code 
+   * @return map of phone country code and country iso code
    */
   public static Map<String, String> readPhoneCountryCodes() {
     final PhoneCountryCodeConstants phoneCountryCodes = GWT.create(PhoneCountryCodeConstants.class);
@@ -364,8 +304,7 @@ public class CreateClass extends AbstractCreateClass {
     final Map<String, String> phoneRegionCodes;
     switch (pphoneCountryCode) {
       case "1":
-        final PhoneRegionCode1Constants regionCodes1 =
-            GWT.create(PhoneRegionCode1Constants.class);
+        final PhoneRegionCode1Constants regionCodes1 = GWT.create(PhoneRegionCode1Constants.class);
         phoneRegionCodes = regionCodes1.phoneRegionCodes1();
         break;
       case "20":
@@ -1194,8 +1133,7 @@ public class CreateClass extends AbstractCreateClass {
         phoneRegionCodes = regionCodes692.phoneRegionCodes692();
         break;
       case "7":
-        final PhoneRegionCode7Constants regionCodes7 =
-            GWT.create(PhoneRegionCode7Constants.class);
+        final PhoneRegionCode7Constants regionCodes7 = GWT.create(PhoneRegionCode7Constants.class);
         phoneRegionCodes = regionCodes7.phoneRegionCodes7();
         break;
       case "800":
@@ -1477,7 +1415,7 @@ public class CreateClass extends AbstractCreateClass {
 
   /**
    * read phone trunk an exit code map from property file.
-   * 
+   *
    * @return map of country code and combined string of trunk an exit code
    */
   public static Map<String, String> readPhoneTrunkAndExitCodes() {
