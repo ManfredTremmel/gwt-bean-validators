@@ -15,20 +15,14 @@
 
 package de.knightsoftnet.validators.shared.impl;
 
-import de.knightsoftnet.validators.client.rest.api.PhoneNumberServiceAsync;
 import de.knightsoftnet.validators.client.rest.api.ServiceFactory;
 import de.knightsoftnet.validators.shared.PhoneNumberValueRest;
-import de.knightsoftnet.validators.shared.data.PhoneNumberDataWithFormats;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.http.client.URL;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.fusesource.restygwt.client.Method;
-import org.fusesource.restygwt.client.MethodCallback;
 
 import java.util.Objects;
 
@@ -90,13 +84,6 @@ public class PhoneNumberValueRestValidator
   private boolean allowCommon;
 
   /**
-   * phone number rest service.
-   */
-  private PhoneNumberServiceAsync service;
-
-  private Boolean valid;
-
-  /**
    * {@inheritDoc} initialize the validator.
    *
    * @see javax.validation.ConstraintValidator#initialize(java.lang.annotation.Annotation)
@@ -111,7 +98,6 @@ public class PhoneNumberValueRestValidator
     this.allowUri = pconstraintAnnotation.allowUri();
     this.allowMs = pconstraintAnnotation.allowMs();
     this.allowCommon = pconstraintAnnotation.allowCommon();
-    this.service = ServiceFactory.getPhoneNumberService();
   }
 
   /**
@@ -123,8 +109,6 @@ public class PhoneNumberValueRestValidator
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString = Objects.toString(pvalue, null);
-
-    this.valid = null;
 
     if (StringUtils.isEmpty(valueAsString)) {
       // empty field is ok
@@ -140,58 +124,15 @@ public class PhoneNumberValueRestValidator
       if (this.allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
-      this.service.parseAndFormatPhoneNumber(LocaleInfo.getCurrentLocale().getLocaleName(),
-          countryCode, phoneNumber, new MethodCallback<PhoneNumberDataWithFormats>() {
-
-            @Override
-            public void onFailure(final Method pmethod, final Throwable pexception) {
-              // error, validation can't be done
-              GWT.log(pexception.getMessage(), pexception);
-              PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-            }
-
-            @Override
-            public void onSuccess(final Method pmethod,
-                final PhoneNumberDataWithFormats presponse) {
-              PhoneNumberValueRestValidator.this.valid = Boolean.FALSE;
-              if (presponse.isValid()) {
-                PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                if (PhoneNumberValueRestValidator.this.allowDin5008
-                    && (StringUtils.equals(phoneNumber, presponse.getDin5008National())
-                        || StringUtils.equals(phoneNumber, presponse.getDin5008International()))) {
-                  PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                }
-                if (PhoneNumberValueRestValidator.this.allowE123
-                    && (StringUtils.equals(phoneNumber, presponse.getE123National())
-                        || StringUtils.equals(phoneNumber, presponse.getE123International()))) {
-                  PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                }
-                if (PhoneNumberValueRestValidator.this.allowUri
-                    && StringUtils.equals(phoneNumber, presponse.getUrl())) {
-                  PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                }
-                if (PhoneNumberValueRestValidator.this.allowMs
-                    && StringUtils.equals(phoneNumber, presponse.getMs())) {
-                  PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                }
-                if (PhoneNumberValueRestValidator.this.allowCommon
-                    && (StringUtils.equals(phoneNumber, presponse.getCommonNational())
-                        || StringUtils.equals(phoneNumber, presponse.getCommonInternational()))) {
-                  PhoneNumberValueRestValidator.this.valid = Boolean.TRUE;
-                }
-              }
-            }
-
-          });
-
-      final Scheduler.RepeatingCommand cmd = new Scheduler.RepeatingCommand() {
-        @Override
-        public boolean execute() {
-          return PhoneNumberValueRestValidator.this.valid == null;
-        }
-      };
-      Scheduler.get().scheduleIncremental(cmd);
-      if (BooleanUtils.isNotFalse(this.valid)) {
+      final String url = GWT.getModuleBaseURL() + ServiceFactory.REST_BASE_URL
+          + "/validate?country=" + countryCode + "&phonenumber=" + this.urlEncode(phoneNumber)
+          + "&din5008=" + PhoneNumberValueRestValidator.this.allowDin5008 + "&e123="
+          + PhoneNumberValueRestValidator.this.allowE123 + "&uri="
+          + PhoneNumberValueRestValidator.this.allowUri + "&ms="
+          + PhoneNumberValueRestValidator.this.allowMs + "&common="
+          + PhoneNumberValueRestValidator.this.allowCommon;
+      final String restResult = PhoneNumberValueRestValidator.restValidate(url);
+      if (StringUtils.equalsIgnoreCase("TRUE", restResult)) {
         return true;
       }
       this.switchContext(pcontext);
@@ -202,9 +143,25 @@ public class PhoneNumberValueRestValidator
     }
   }
 
+  private String urlEncode(final String pphoneNumber) {
+    if (StringUtils.startsWith(pphoneNumber, "+")) {
+      return "%2B" + URL.encode(StringUtils.substring(pphoneNumber, 1));
+    } else {
+      return URL.encode(pphoneNumber);
+    }
+  }
+
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
     pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldPhoneNumber)
         .addConstraintViolation();
   }
+
+  // simple synchronous rest get call
+  private static native String restValidate(final String purl) /*-{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", purl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+  }-*/;
 }

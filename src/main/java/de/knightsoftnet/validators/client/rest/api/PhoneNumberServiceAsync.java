@@ -186,4 +186,13 @@ public interface PhoneNumberServiceAsync extends RestService {
   void getSuggestions(@QueryParam("language") final String planguage,
       @QueryParam("search") final String psearch, @QueryParam("limit") final int plimit,
       MethodCallback<List<PhoneNumberData>> pcallback);
+
+
+  @GET
+  @Path("validate")
+  void validate(@QueryParam("country") final String pcountry,
+      @QueryParam("phonenumber") final String pphoneNumber,
+      @QueryParam("din5008") final Boolean pdin5008, @QueryParam("e123") final Boolean pe123,
+      @QueryParam("uri") final Boolean puri, @QueryParam("ms") final Boolean pms,
+      @QueryParam("common") final Boolean pcommon, MethodCallback<Boolean> pcallback);
 }

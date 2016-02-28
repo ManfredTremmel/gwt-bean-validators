@@ -27,7 +27,7 @@ import org.fusesource.restygwt.client.RestServiceProxy;
  */
 public class ServiceFactory {
 
-  private static final String REST_BASE_URL = "api/phonenumber";
+  public static final String REST_BASE_URL = "api/phonenumber";
 
   private static volatile PhoneNumberServiceAsync phoneNumberService;
 
@@ -44,7 +44,7 @@ public class ServiceFactory {
         }
       }
       ((RestServiceProxy) ServiceFactory.phoneNumberService)
-          .setResource(new Resource(GWT.getModuleBaseURL() + REST_BASE_URL));
+          .setResource(new Resource(GWT.getModuleBaseURL() + ServiceFactory.REST_BASE_URL));
     }
     return ServiceFactory.phoneNumberService;
   }

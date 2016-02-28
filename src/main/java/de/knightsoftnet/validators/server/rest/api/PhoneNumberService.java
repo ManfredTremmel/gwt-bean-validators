@@ -6,6 +6,9 @@ import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.data.ValueWithPosAndCountry;
 import de.knightsoftnet.validators.shared.util.PhoneNumberUtil;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -261,5 +264,58 @@ public class PhoneNumberService {
   public List<PhoneNumberData> getSuggestions(@QueryParam("language") final String planguage,
       @QueryParam("search") final String psearch, @QueryParam("limit") final int plimit) {
     return this.phoneNumberUtil.getSuggstions(psearch, plimit);
+  }
+
+
+  /**
+   * validate a phone number.
+   *
+   * @param pcountry default country
+   * @param pphoneNumber phone number to check
+   * @param pdin5008 set to true if DIN 5008 format is allowed
+   * @param pe123 set to true if E123 format is allowed
+   * @param puri set to true if URI format is allowed
+   * @param pms set to true if Microsoft format is allowed
+   * @param pcommon set to true if common format is allowed
+   * @return true if number is valid
+   */
+  @GET
+  @Path("validate")
+  public Boolean validate(@QueryParam("country") final String pcountry,
+      @QueryParam("phonenumber") final String pphoneNumber,
+      @QueryParam("din5008") final Boolean pdin5008, @QueryParam("e123") final Boolean pe123,
+      @QueryParam("uri") final Boolean puri, @QueryParam("ms") final Boolean pms,
+      @QueryParam("common") final Boolean pcommon) {
+    final PhoneNumberData parsedNumber =
+        this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry);
+    if (parsedNumber.isValid()) {
+      if (BooleanUtils.isTrue(pdin5008) && (StringUtils.equals(pphoneNumber,
+          this.phoneNumberUtil.formatDin5008National(parsedNumber))
+          || StringUtils.equals(pphoneNumber,
+              this.phoneNumberUtil.formatDin5008International(parsedNumber)))) {
+        return Boolean.TRUE;
+      }
+      if (BooleanUtils.isTrue(pe123) && (StringUtils.equals(pphoneNumber,
+          this.phoneNumberUtil.formatE123National(parsedNumber))
+          || StringUtils.equals(pphoneNumber,
+              this.phoneNumberUtil.formatE123International(parsedNumber)))) {
+        return Boolean.TRUE;
+      }
+      if (BooleanUtils.isTrue(puri)
+          && StringUtils.equals(pphoneNumber, this.phoneNumberUtil.formatUrl(parsedNumber))) {
+        return Boolean.TRUE;
+      }
+      if (BooleanUtils.isTrue(pms)
+          && StringUtils.equals(pphoneNumber, this.phoneNumberUtil.formatMs(parsedNumber))) {
+        return Boolean.TRUE;
+      }
+      if (BooleanUtils.isTrue(pcommon) && (StringUtils.equals(pphoneNumber,
+          this.phoneNumberUtil.formatCommonNational(parsedNumber))
+          || StringUtils.equals(pphoneNumber,
+              this.phoneNumberUtil.formatCommonInternational(parsedNumber)))) {
+        return Boolean.TRUE;
+      }
+    }
+    return Boolean.FALSE;
   }
 }
