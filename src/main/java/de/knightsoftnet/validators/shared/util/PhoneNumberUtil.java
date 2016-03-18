@@ -299,16 +299,19 @@ public class PhoneNumberUtil {
     }
     if (pphoneNumberData instanceof ValidationInterface) {
       int callNummerLength = StringUtils.length(pphoneNumberData.getLineNumber());
+      int completeNumberLength = callNummerLength;
       if (StringUtils.isNotEmpty(pphoneNumberData.getExtension())) {
         // if we do have extensions, phone number including extension may be longer then allowed
         // number, but at least one digit counts
         callNummerLength++;
+        completeNumberLength += StringUtils.length(pphoneNumberData.getExtension());
       }
       ((ValidationInterface) pphoneNumberData)
           .setValid(StringUtils.isNotEmpty(pphoneNumberData.getCountryCode())
               && StringUtils.isNotEmpty(pphoneNumberData.getLineNumber())
               && (StringUtils.isNotEmpty(pphoneNumberData.getAreaCode()) || !needsAreaCode)
-              && callNummerLength >= minLength && callNummerLength <= maxLength);
+              && (callNummerLength >= minLength && callNummerLength <= maxLength
+                  || completeNumberLength >= minLength && completeNumberLength <= maxLength));
     }
     if (cursorpos < 0) {
       cursorpos = 0;
