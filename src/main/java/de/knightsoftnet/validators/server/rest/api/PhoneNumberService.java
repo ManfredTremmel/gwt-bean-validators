@@ -268,7 +268,10 @@ public class PhoneNumberService {
 
   private ValueWithPos<String> valueWithPosDefaults(final ValueWithPos<String> pformatValueWithPos,
       final ValueWithPosAndCountry<String> pdefaultNumber) {
-    if (StringUtils.isEmpty(pformatValueWithPos.getValue())) {
+    if (StringUtils.isEmpty(pformatValueWithPos.getValue()) //
+        || StringUtils.startsWith(pdefaultNumber.getValue(), pformatValueWithPos.getValue())
+            && !Character.isDigit(pdefaultNumber.getValue()
+                .charAt(StringUtils.length(pdefaultNumber.getValue()) - 1))) {
       pformatValueWithPos.setValue(pdefaultNumber.getValue());
       pformatValueWithPos.setPos(pdefaultNumber.getPos());
     }
