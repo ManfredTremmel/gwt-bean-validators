@@ -83,7 +83,8 @@ public class PhoneNumberService {
   @PUT
   @Path("formate123withpos")
   public ValueWithPos<String> formatE123WithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatE123WithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -98,8 +99,8 @@ public class PhoneNumberService {
   @Path("formate123internationalwithpos")
   public ValueWithPos<String> formatE123InternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123InternationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatE123InternationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -114,7 +115,8 @@ public class PhoneNumberService {
   @Path("formate123nationalwithpos")
   public ValueWithPos<String> formatE123NationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123NationalWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatE123NationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
 
@@ -130,7 +132,8 @@ public class PhoneNumberService {
   @Path("formatdin5008withpos")
   public ValueWithPos<String> formatDin5008WithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatDin5008WithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -145,8 +148,8 @@ public class PhoneNumberService {
   @Path("formatdin5008internationalwithpos")
   public ValueWithPos<String> formatDin5008InternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008InternationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatDin5008InternationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -161,8 +164,8 @@ public class PhoneNumberService {
   @Path("formatdin5008nationalwithpos")
   public ValueWithPos<String> formatDin5008NationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008NationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatDin5008NationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
 
@@ -178,7 +181,8 @@ public class PhoneNumberService {
   @Path("formatrfc3966withpos")
   public ValueWithPos<String> formatRfc3966WithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatRfc3966WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatRfc3966WithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
 
@@ -193,7 +197,8 @@ public class PhoneNumberService {
   @PUT
   @Path("formatmswithpos")
   public ValueWithPos<String> formatMsWithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatMsWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatMsWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
 
@@ -208,7 +213,8 @@ public class PhoneNumberService {
   @PUT
   @Path("formaturlwithpos")
   public ValueWithPos<String> formatUrlWithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatUrlWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatUrlWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
 
@@ -224,7 +230,8 @@ public class PhoneNumberService {
   @Path("formatcommonwithpos")
   public ValueWithPos<String> formatCommonWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatCommonWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -239,8 +246,8 @@ public class PhoneNumberService {
   @Path("formatcommoninternationalwithpos")
   public ValueWithPos<String> formatCommonInternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonInternationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatCommonInternationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
 
   @GET
@@ -255,9 +262,19 @@ public class PhoneNumberService {
   @Path("formatcommonnationalwithpos")
   public ValueWithPos<String> formatCommonNationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonNationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return this.valueWithPosDefaults(this.phoneNumberUtil.formatCommonNationalWithPos( //
+        pphoneNumber, pphoneNumber.getCountry()), pphoneNumber);
   }
+
+  private ValueWithPos<String> valueWithPosDefaults(final ValueWithPos<String> pformatValueWithPos,
+      final ValueWithPosAndCountry<String> pdefaultNumber) {
+    if (StringUtils.isEmpty(pformatValueWithPos.getValue())) {
+      pformatValueWithPos.setValue(pdefaultNumber.getValue());
+      pformatValueWithPos.setPos(pdefaultNumber.getPos());
+    }
+    return pformatValueWithPos;
+  }
+
 
   @GET
   @Path("getsuggestions")
