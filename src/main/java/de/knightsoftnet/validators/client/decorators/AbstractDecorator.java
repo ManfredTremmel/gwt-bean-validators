@@ -52,7 +52,7 @@ import java.util.Set;
  * @param <T> the type of data being edited
  */
 public abstract class AbstractDecorator<T> extends Composite
-    implements HasEditorErrors<T>, IsEditor<ValueBoxEditor<T>>, TakesValue<T>, HasValue<T>,
+    implements HasEditorErrors<T>, IsEditor<ValueBoxEditor<T>>, HasValue<T>,
     HasValueChangeHandlers<T>, HasKeyUpHandlers, HasKeyPressHandlers, Focusable {
 
   /**
@@ -121,7 +121,7 @@ public abstract class AbstractDecorator<T> extends Composite
         errorLocation == ErrorPanelLocationEnum.LEFT && LocaleInfo.getCurrentLocale().isRTL()
             || errorLocation == ErrorPanelLocationEnum.RIGHT
                 && !LocaleInfo.getCurrentLocale().isRTL()
-        || errorLocation == ErrorPanelLocationEnum.BOTTOM;
+            || errorLocation == ErrorPanelLocationEnum.BOTTOM;
     final FlowPanel layout = new FlowPanel();
     if (errorLocation == ErrorPanelLocationEnum.TOP) {
       layout.add(this.errorLabel);
@@ -316,8 +316,8 @@ public abstract class AbstractDecorator<T> extends Composite
   @SuppressWarnings("unchecked")
   @Override
   public final T getValue() {
-    if (this.contents.getWidget() instanceof HasValue<?>) {
-      return ((HasValue<T>) this.contents.getWidget()).getValue();
+    if (this.contents.getWidget() instanceof TakesValue<?>) {
+      return ((TakesValue<T>) this.contents.getWidget()).getValue();
     } else {
       return null;
     }
@@ -325,15 +325,19 @@ public abstract class AbstractDecorator<T> extends Composite
 
   @Override
   public final void setValue(final T pvalue) {
-    this.setValue(pvalue, true);
+    this.setValue(pvalue, false);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public final void setValue(final T pvalue, final boolean pfireEvents) {
-    if (this.contents.getWidget() instanceof HasValue<?>) {
+    if (this.contents.getWidget() instanceof TakesValue<?>) {
       this.clearErrors();
-      ((HasValue<T>) this.contents.getWidget()).setValue(pvalue, pfireEvents);
+      if (this.contents.getWidget() instanceof HasValue<?>) {
+        ((HasValue<T>) this.contents.getWidget()).setValue(pvalue, pfireEvents);
+      } else {
+        ((TakesValue<T>) this.contents.getWidget()).setValue(pvalue);
+      }
     }
   }
 
