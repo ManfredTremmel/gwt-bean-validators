@@ -4,6 +4,7 @@ import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.data.PhoneNumberDataWithFormats;
 import de.knightsoftnet.validators.shared.data.ValueWithPos;
 import de.knightsoftnet.validators.shared.data.ValueWithPosAndCountry;
+import de.knightsoftnet.validators.shared.util.LocaleUtil;
 import de.knightsoftnet.validators.shared.util.PhoneNumberUtil;
 
 import org.apache.commons.lang3.BooleanUtils;
@@ -34,7 +35,8 @@ public class PhoneNumberService {
   public PhoneNumberData parsePhoneNumber(@QueryParam("language") final String planguage,
       @QueryParam("country") final String pcountry,
       @QueryParam("phonenumber") final String pphoneNumber) {
-    return this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry);
+    return this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry,
+        LocaleUtil.convertLanguageToLocale(planguage));
   }
 
 
@@ -58,8 +60,8 @@ public class PhoneNumberService {
   public PhoneNumberDataWithFormats parseAndFormatPhoneNumber(
       @QueryParam("language") final String planguage, @QueryParam("country") final String pcountry,
       @QueryParam("phonenumber") final String pphoneNumber) {
-    final PhoneNumberDataWithFormats result = new PhoneNumberDataWithFormats(
-        this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry));
+    final PhoneNumberDataWithFormats result = new PhoneNumberDataWithFormats(this.phoneNumberUtil
+        .parsePhoneNumber(pphoneNumber, pcountry, LocaleUtil.convertLanguageToLocale(planguage)));
     result.setCommonInternational(this.phoneNumberUtil.formatCommonInternational(result));
     result.setCommonNational(this.phoneNumberUtil.formatCommonNational(result));
     result.setDin5008International(this.phoneNumberUtil.formatDin5008International(result));
@@ -283,7 +285,8 @@ public class PhoneNumberService {
   @Path("getsuggestions")
   public List<PhoneNumberData> getSuggestions(@QueryParam("language") final String planguage,
       @QueryParam("search") final String psearch, @QueryParam("limit") final int plimit) {
-    return this.phoneNumberUtil.getSuggstions(psearch, plimit);
+    return this.phoneNumberUtil.getSuggstions(psearch, plimit,
+        LocaleUtil.convertLanguageToLocale(planguage));
   }
 
 

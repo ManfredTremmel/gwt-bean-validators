@@ -20,6 +20,7 @@ import de.knightsoftnet.validators.server.data.CreatePhoneCountryConstantsClass;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -33,18 +34,18 @@ import java.util.TreeSet;
  */
 public abstract class AbstractCreateClass { // NOPMD, can't include abstract static methods
 
-  protected static PhoneCountryConstantsImpl createPhoneCountryConstants() {
+  protected static PhoneCountryConstantsImpl createPhoneCountryConstants(final Locale plocale) {
     final Map<String, String> phoneCountryNames =
-        CreatePhoneCountryConstantsClass.readPhoneCountryNames();
+        CreatePhoneCountryConstantsClass.readPhoneCountryNames(plocale);
     final Map<String, String> phoneCountryCodes =
-        CreatePhoneCountryConstantsClass.readPhoneCountryCodes();
+        CreatePhoneCountryConstantsClass.readPhoneCountryCodes(plocale);
     final Set<PhoneCountryCodeData> countryCodeData =
-        readPhoneCountryProperties(phoneCountryNames, phoneCountryCodes);
+        readPhoneCountryProperties(plocale, phoneCountryNames, phoneCountryCodes);
     return new PhoneCountryConstantsImpl(countryCodeData,
-        createMapFromPhoneCountry(countryCodeData, phoneCountryNames, phoneCountryCodes));
+        createMapFromPhoneCountry(plocale, countryCodeData, phoneCountryNames, phoneCountryCodes));
   }
 
-  protected static Set<PhoneCountryCodeData> readPhoneCountryProperties(
+  protected static Set<PhoneCountryCodeData> readPhoneCountryProperties(final Locale plocale,
       final Map<String, String> pphoneCountryNames, final Map<String, String> pphoneCountryCodes) {
     final Set<PhoneCountryCodeData> result = new TreeSet<>();
     for (final Entry<String, String> country : pphoneCountryCodes.entrySet()) {
@@ -54,12 +55,13 @@ public abstract class AbstractCreateClass { // NOPMD, can't include abstract sta
       if (StringUtils.equals(country.getKey(), "49")) {
         // to much data in German file, has to be splitted into two separate property files
         phoneRegionCodes = new HashMap<>();
-        phoneRegionCodes
-            .putAll(CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey()));
-        phoneRegionCodes
-            .putAll(CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey() + "b"));
+        phoneRegionCodes.putAll(
+            CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey(), plocale));
+        phoneRegionCodes.putAll(
+            CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey() + "b", plocale));
       } else {
-        phoneRegionCodes = CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey());
+        phoneRegionCodes =
+            CreatePhoneCountryConstantsClass.readPhoneRegionCodes(country.getKey(), plocale);
       }
       for (final Entry<String, String> region : phoneRegionCodes.entrySet()) {
         final PhoneAreaCodeData areaData = new PhoneAreaCodeData(region.getKey(), region.getValue(),
@@ -71,12 +73,12 @@ public abstract class AbstractCreateClass { // NOPMD, can't include abstract sta
     return result;
   }
 
-  protected static Map<String, PhoneCountryData> createMapFromPhoneCountry(
+  protected static Map<String, PhoneCountryData> createMapFromPhoneCountry(final Locale plocale,
       final Set<PhoneCountryCodeData> pcountries, final Map<String, String> pphoneCountryNames,
       final Map<String, String> pphoneCountryCodes) {
     final Map<String, PhoneCountryData> countryPhoneMap = new HashMap<>();
     final Map<String, String> phoneTrunkAndExitCodes =
-        CreatePhoneCountryConstantsClass.readPhoneTrunkAndExitCodes();
+        CreatePhoneCountryConstantsClass.readPhoneTrunkAndExitCodes(plocale);
 
     for (final PhoneCountryCodeData entry : pcountries) {
       final String countryCode = pphoneCountryCodes.get(entry.getCountryCode());

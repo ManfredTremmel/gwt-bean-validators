@@ -246,6 +246,7 @@ import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 import com.google.gwt.core.client.GWT;
 
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -264,10 +265,19 @@ public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
    * @return the new instance, which must be cast to the requested class
    */
   public static PhoneCountrySharedConstants create() {
+    return CreatePhoneCountryConstantsClass.create(null);
+  }
+
+  /**
+   * Instantiates a class via deferred binding.
+   *
+   * @return the new instance, which must be cast to the requested class
+   */
+  public static PhoneCountrySharedConstants create(final Locale plocale) {
     if (phoneCountryConstants == null) { // NOPMD it's thread save!
       synchronized (PhoneCountryConstantsImpl.class) {
         if (phoneCountryConstants == null) {
-          phoneCountryConstants = createPhoneCountryConstants();
+          phoneCountryConstants = createPhoneCountryConstants(plocale);
         }
       }
     }
@@ -280,7 +290,7 @@ public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
    *
    * @return map of country code and name
    */
-  public static Map<String, String> readPhoneCountryNames() {
+  public static Map<String, String> readPhoneCountryNames(final Locale plocale) {
     final PhoneCountryNameConstants phoneCountryNames = GWT.create(PhoneCountryNameConstants.class);
     return phoneCountryNames.phoneCountryNames();
   }
@@ -290,7 +300,7 @@ public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
    *
    * @return map of phone country code and country iso code
    */
-  public static Map<String, String> readPhoneCountryCodes() {
+  public static Map<String, String> readPhoneCountryCodes(final Locale plocale) {
     final PhoneCountryCodeConstants phoneCountryCodes = GWT.create(PhoneCountryCodeConstants.class);
     return phoneCountryCodes.phoneCountryCodes();
   }
@@ -300,7 +310,8 @@ public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
    *
    * @return map of area code and area name
    */
-  public static Map<String, String> readPhoneRegionCodes(final String pphoneCountryCode) {
+  public static Map<String, String> readPhoneRegionCodes(final String pphoneCountryCode,
+      final Locale plocale) {
     final Map<String, String> phoneRegionCodes;
     switch (pphoneCountryCode) {
       case "1":
@@ -1418,7 +1429,7 @@ public class CreatePhoneCountryConstantsClass extends AbstractCreateClass {
    *
    * @return map of country code and combined string of trunk an exit code
    */
-  public static Map<String, String> readPhoneTrunkAndExitCodes() {
+  public static Map<String, String> readPhoneTrunkAndExitCodes(final Locale plocale) {
     final PhoneCountryTrunkAndExitCodesConstants phoneTrunkAndExitCodes =
         GWT.create(PhoneCountryTrunkAndExitCodesConstants.class);
     return phoneTrunkAndExitCodes.phoneTrunkAndExitCodes();

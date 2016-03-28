@@ -19,7 +19,6 @@ import de.knightsoftnet.validators.server.data.CreatePhoneCountryConstantsClass;
 import de.knightsoftnet.validators.shared.data.PhoneAreaCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryCodeData;
 import de.knightsoftnet.validators.shared.data.PhoneCountryData;
-import de.knightsoftnet.validators.shared.data.PhoneCountrySharedConstants;
 import de.knightsoftnet.validators.shared.data.PhoneNumberData;
 import de.knightsoftnet.validators.shared.data.PhoneNumberExtendedInterface;
 import de.knightsoftnet.validators.shared.data.PhoneNumberInterface;
@@ -31,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Phone Number Util, format and parse phone numbers.
@@ -39,8 +39,6 @@ import java.util.List;
  *
  */
 public class PhoneNumberUtil {
-  private static final PhoneCountrySharedConstants COUNTRY_CONSTANTS =
-      CreatePhoneCountryConstantsClass.create();
   private static final String EXTENSION_SEPARATOR = "-";
 
   private PhoneCountryData defaultCountryData;
@@ -56,7 +54,7 @@ public class PhoneNumberUtil {
    */
   public PhoneNumberUtil(final String pcountryCode) {
     super();
-    this.setCountryCode(pcountryCode);
+    this.setCountryCode(pcountryCode, Locale.ROOT);
   }
 
   /**
@@ -65,10 +63,21 @@ public class PhoneNumberUtil {
    * @param pcountryCode iso code of country
    */
   public final void setCountryCode(final String pcountryCode) {
+    this.setCountryCode(pcountryCode, Locale.ROOT);
+  }
+
+  /**
+   * set country code.
+   *
+   * @param pcountryCode iso code of country
+   * @param plocale locale to read properties in the correct language
+   */
+  public final void setCountryCode(final String pcountryCode, final Locale plocale) {
     if (StringUtils.isEmpty(pcountryCode)) {
       this.defaultCountryData = null;
     } else {
-      this.defaultCountryData = PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap().get(pcountryCode);
+      this.defaultCountryData =
+          CreatePhoneCountryConstantsClass.create(plocale).countryMap().get(pcountryCode);
     }
   }
 
@@ -102,8 +111,21 @@ public class PhoneNumberUtil {
    * @return PhoneNumberData
    */
   public PhoneNumberData parsePhoneNumber(final String pphoneNumber, final String pcountryCode) {
+    return this.parsePhoneNumber(pphoneNumber, pcountryCode, Locale.ROOT);
+  }
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pcountryCode iso code of country
+   * @param plocale locale to read properties in the correct language
+   * @return PhoneNumberData
+   */
+  public PhoneNumberData parsePhoneNumber(final String pphoneNumber, final String pcountryCode,
+      final Locale plocale) {
     return (PhoneNumberData) this.parsePhoneNumber(pphoneNumber, new PhoneNumberData(),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create(plocale).countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -116,8 +138,21 @@ public class PhoneNumberUtil {
    */
   public ValueWithPos<PhoneNumberData> parsePhoneNumber(final ValueWithPos<String> pphoneNumber,
       final String pcountryCode) {
+    return this.parsePhoneNumber(pphoneNumber, pcountryCode, Locale.ROOT);
+  }
+
+  /**
+   * parse phone number.
+   *
+   * @param pphoneNumber phone number as string
+   * @param pcountryCode iso code of country
+   * @param plocale locale to read properties in the correct language
+   * @return PhoneNumberData
+   */
+  public ValueWithPos<PhoneNumberData> parsePhoneNumber(final ValueWithPos<String> pphoneNumber,
+      final String pcountryCode, final Locale plocale) {
     return this.parsePhoneNumber(pphoneNumber, new PhoneNumberData(),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create(plocale).countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -233,7 +268,7 @@ public class PhoneNumberUtil {
         }
       }
     }
-    for (final PhoneCountryCodeData countryCode : PhoneNumberUtil.COUNTRY_CONSTANTS
+    for (final PhoneCountryCodeData countryCode : CreatePhoneCountryConstantsClass.create()
         .countryCodeData()) {
       if (phoneNumberWork.startsWith(countryCode.getCountryCode())) {
         pphoneNumberData.setCountryCode(countryCode.getCountryCode());
@@ -355,8 +390,8 @@ public class PhoneNumberUtil {
    * @return formated phone number as String
    */
   public final String formatE123(final String pphoneNumber, final String pcountryCode) {
-    return this.formatE123(this.parsePhoneNumber(pphoneNumber), PhoneNumberUtil.COUNTRY_CONSTANTS
-        .countryMap().get(StringUtils.defaultString(pcountryCode)));
+    return this.formatE123(this.parsePhoneNumber(pphoneNumber), CreatePhoneCountryConstantsClass
+        .create().countryMap().get(StringUtils.defaultString(pcountryCode)));
   }
 
   /**
@@ -378,7 +413,7 @@ public class PhoneNumberUtil {
    */
   public final String formatE123(final PhoneNumberInterface pphoneNumberData,
       final String pcountryCode) {
-    return this.formatE123(pphoneNumberData, PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+    return this.formatE123(pphoneNumberData, CreatePhoneCountryConstantsClass.create().countryMap()
         .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -409,7 +444,7 @@ public class PhoneNumberUtil {
   public final ValueWithPos<String> formatE123WithPos(final ValueWithPos<String> pphoneNumber,
       final String pcountryCode) {
     return this.formatE123WithPos(this.parsePhoneNumber(pphoneNumber, pcountryCode),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create().countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -444,7 +479,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in E123 international format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -555,7 +590,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in E123 national format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -573,7 +608,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData)) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
           phoneCountryData = country.getPhoneCountryData();
@@ -624,7 +659,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(),
             pphoneNumberData.getValue().getCountryCode())) {
@@ -688,8 +723,8 @@ public class PhoneNumberUtil {
    * @return formated phone number as String
    */
   public final String formatDin5008(final String pphoneNumber, final String pcountryCode) {
-    return this.formatDin5008(this.parsePhoneNumber(pphoneNumber), PhoneNumberUtil.COUNTRY_CONSTANTS
-        .countryMap().get(StringUtils.defaultString(pcountryCode)));
+    return this.formatDin5008(this.parsePhoneNumber(pphoneNumber), CreatePhoneCountryConstantsClass
+        .create().countryMap().get(StringUtils.defaultString(pcountryCode)));
   }
 
   /**
@@ -711,8 +746,8 @@ public class PhoneNumberUtil {
    */
   public final String formatDin5008(final PhoneNumberInterface pphoneNumberData,
       final String pcountryCode) {
-    return this.formatDin5008(pphoneNumberData, PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
-        .get(StringUtils.defaultString(pcountryCode)));
+    return this.formatDin5008(pphoneNumberData, CreatePhoneCountryConstantsClass.create()
+        .countryMap().get(StringUtils.defaultString(pcountryCode)));
   }
 
   /**
@@ -742,7 +777,7 @@ public class PhoneNumberUtil {
   public final ValueWithPos<String> formatDin5008WithPos(final ValueWithPos<String> pphoneNumber,
       final String pcountryCode) {
     return this.formatDin5008WithPos(this.parsePhoneNumber(pphoneNumber, pcountryCode),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create().countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -788,7 +823,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in DIN 5008 international format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -894,7 +929,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in DIN 5008 national format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -912,7 +947,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData)) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
           phoneCountryData = country.getPhoneCountryData();
@@ -963,7 +998,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(),
             pphoneNumberData.getValue().getCountryCode())) {
@@ -1011,7 +1046,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in RFC 3966 format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -1110,7 +1145,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in Microsoft canonical address format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -1222,7 +1257,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in URL format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -1354,7 +1389,7 @@ public class PhoneNumberUtil {
    */
   public final String formatCommon(final String pphoneNumber, final String pcountryCode) {
     return this.formatCommon(this.parsePhoneNumber(pphoneNumber, pcountryCode),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create().countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -1367,8 +1402,8 @@ public class PhoneNumberUtil {
    */
   public final String formatCommon(final PhoneNumberInterface pphoneNumberData,
       final String pcountryCode) {
-    return this.formatCommon(pphoneNumberData, PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
-        .get(StringUtils.defaultString(pcountryCode)));
+    return this.formatCommon(pphoneNumberData, CreatePhoneCountryConstantsClass.create()
+        .countryMap().get(StringUtils.defaultString(pcountryCode)));
   }
 
   /**
@@ -1398,7 +1433,7 @@ public class PhoneNumberUtil {
   public final ValueWithPos<String> formatCommonWithPos(final ValueWithPos<String> pphoneNumber,
       final String pcountryCode) {
     return this.formatCommonWithPos(this.parsePhoneNumber(pphoneNumber, pcountryCode),
-        PhoneNumberUtil.COUNTRY_CONSTANTS.countryMap()
+        CreatePhoneCountryConstantsClass.create().countryMap()
             .get(StringUtils.defaultString(pcountryCode)));
   }
 
@@ -1444,7 +1479,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in common international format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -1463,7 +1498,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData)) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
           phoneCountryData = country.getPhoneCountryData();
@@ -1513,7 +1548,7 @@ public class PhoneNumberUtil {
     int cursor = pphoneNumberData.getPos();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(),
             pphoneNumberData.getValue().getCountryCode())) {
@@ -1570,7 +1605,7 @@ public class PhoneNumberUtil {
   /**
    * format phone number in common national format.
    *
-   * @param pphoneNumberData phone number to format
+   * @param pphoneNumber phone number to format
    * @param pcountryCode iso code of country
    * @return formated phone number as String
    */
@@ -1598,7 +1633,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData)) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(), pphoneNumberData.getCountryCode())) {
           phoneCountryData = country.getPhoneCountryData();
@@ -1647,7 +1682,7 @@ public class PhoneNumberUtil {
     final StringBuilder resultNumber = new StringBuilder();
     if (this.isPhoneNumberNotEmpty(pphoneNumberData.getValue())) {
       PhoneCountryData phoneCountryData = null;
-      for (final PhoneCountryCodeData country : PhoneNumberUtil.COUNTRY_CONSTANTS
+      for (final PhoneCountryCodeData country : CreatePhoneCountryConstantsClass.create()
           .countryCodeData()) {
         if (StringUtils.equals(country.getCountryCode(),
             pphoneNumberData.getValue().getCountryCode())) {
@@ -1794,11 +1829,24 @@ public class PhoneNumberUtil {
    * @return list of phone number data
    */
   public final List<PhoneNumberData> getSuggstions(final String psearch, final int plimit) {
+    return this.getSuggstions(psearch, plimit, Locale.ROOT);
+  }
+
+  /**
+   * get suggestions.
+   *
+   * @param psearch search string
+   * @param plimit limit entries
+   * @return list of phone number data
+   */
+  public final List<PhoneNumberData> getSuggstions(final String psearch, final int plimit,
+      final Locale plocale) {
     final List<PhoneNumberData> suggestList = new ArrayList<>(plimit);
     final String cleanedPhoneNumber = this.cleanString(psearch);
     PhoneCountryCodeData foundCounty = null;
     final List<PhoneCountryCodeData> possibleCountries = new ArrayList<>(plimit);
-    for (final PhoneCountryCodeData countryCode : COUNTRY_CONSTANTS.countryCodeData()) {
+    for (final PhoneCountryCodeData countryCode : CreatePhoneCountryConstantsClass.create(plocale)
+        .countryCodeData()) {
       if (cleanedPhoneNumber.startsWith(countryCode.getCountryCode())) {
         foundCounty = countryCode;
         break;

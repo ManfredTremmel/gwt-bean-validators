@@ -36,8 +36,13 @@ public class CreateClassHelper extends AbstractCreateClass {
 
   protected static Map<String, String> readMapFromProperties(final String pmapName,
       final String pmapRoot) {
+    return readMapFromProperties(pmapName, Locale.ROOT, pmapRoot);
+  }
+
+  protected static Map<String, String> readMapFromProperties(final String pmapName,
+      final Locale plocale, final String pmapRoot) {
     final ResourceBundle bundle =
-        ResourceBundle.getBundle(PROPERTY_PACKAGE + pmapName, Locale.ROOT, new Utf8Control());
+        ResourceBundle.getBundle(PROPERTY_PACKAGE + pmapName, plocale, new Utf8Control());
     final Map<String, String> map = new HashMap<>();
     final String mapNames = StringUtils.defaultString(bundle.getString(pmapRoot));
     if (StringUtils.isNotEmpty(mapNames)) {
