@@ -29,6 +29,7 @@ import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -1862,9 +1863,6 @@ public class PhoneNumberUtil {
         entry.setCountryCode(country.getCountryCode());
         entry.setCountryName(country.getCountryCodeName());
         suggestList.add(entry);
-        if (suggestList.size() >= plimit) {
-          break;
-        }
       }
     } else {
       // we do have a country, search for possible area codes
@@ -1878,13 +1876,13 @@ public class PhoneNumberUtil {
           entry.setAreaCode(areaCode.getAreaCode());
           entry.setAreaName(areaCode.getAreaName());
           suggestList.add(entry);
-          if (suggestList.size() >= plimit) {
-            break;
-          }
         }
       }
     }
-
+    Collections.sort(suggestList, new PhoneNumberSuggestComperator());
+    if (suggestList.size() >= plimit) {
+      return suggestList.subList(0, plimit);
+    }
     return suggestList;
   }
 

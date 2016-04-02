@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.shared.impl;
 
 import de.knightsoftnet.validators.client.rest.api.ServiceFactory;
+import de.knightsoftnet.validators.client.rest.helper.CachedSyncHttpGetCall;
 import de.knightsoftnet.validators.shared.PhoneNumberValueRest;
 
 import com.google.gwt.core.client.GWT;
@@ -131,7 +132,7 @@ public class PhoneNumberValueRestValidator
           + PhoneNumberValueRestValidator.this.allowUri + "&ms="
           + PhoneNumberValueRestValidator.this.allowMs + "&common="
           + PhoneNumberValueRestValidator.this.allowCommon;
-      final String restResult = PhoneNumberValueRestValidator.restValidate(url);
+      final String restResult = CachedSyncHttpGetCall.syncRestCall(url);
       if (StringUtils.equalsIgnoreCase("TRUE", restResult)) {
         return true;
       }
@@ -156,12 +157,4 @@ public class PhoneNumberValueRestValidator
     pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldPhoneNumber)
         .addConstraintViolation();
   }
-
-  // simple synchronous rest get call
-  private static native String restValidate(final String purl) /*-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", purl, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-  }-*/;
 }
