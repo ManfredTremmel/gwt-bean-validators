@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.11-SNAPSHOT</version>
+	<version>0.9.11</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -102,18 +102,18 @@
 		<jackson-jaxrs.version>2.3.2</jackson-jaxrs.version>
 		<jersey.version>2.7</jersey.version>
 		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
-		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-		<maven-source-plugin.version>2.4</maven-source-plugin.version>
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+		<maven-source-plugin.version>3.0.0</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
-		<maven-project-info-reports-plugin.version>2.8.1</maven-project-info-reports-plugin.version>
-		<maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<checkstyle.version>6.13</checkstyle.version>
+		<checkstyle.version>6.17</checkstyle.version>
 		<maven-pmd-plugin.version>3.6</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 		<maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
-		<nexus-staging-maven-plugin.version>1.6.6</nexus-staging-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
 		<wagon-webdav-jackrabbit.version>2.10</wagon-webdav-jackrabbit.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>

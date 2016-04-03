@@ -17,6 +17,10 @@ package de.knightsoftnet.validators.shared.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
+
 /**
  * phone number data including formated values.
  *
@@ -126,5 +130,32 @@ public class PhoneNumberDataWithFormats extends PhoneNumberData {
 
   public final void setCommonInternational(final String pcommonInternational) {
     this.commonInternational = pcommonInternational;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.commonInternational, this.commonNational, this.din5008International,
+        this.din5008National, this.e123International, this.e123National, this.ms, this.url);
+  }
+
+  @Override
+  public boolean equals(final Object pobj) {
+    if (this == pobj) {
+      return true;
+    }
+    if (!super.equals(pobj)) {
+      return false;
+    }
+    if (this.getClass() != pobj.getClass()) {
+      return false;
+    }
+    final PhoneNumberDataWithFormats other = (PhoneNumberDataWithFormats) pobj;
+    return StringUtils.equals(this.commonInternational, other.commonInternational)
+        && StringUtils.equals(this.commonNational, other.commonNational)
+        && StringUtils.equals(this.din5008International, other.din5008International)
+        && StringUtils.equals(this.din5008National, other.din5008National)
+        && StringUtils.equals(this.e123International, other.e123International)
+        && StringUtils.equals(this.e123National, other.e123National)
+        && StringUtils.equals(this.ms, other.ms) && StringUtils.equals(this.url, other.url);
   }
 }

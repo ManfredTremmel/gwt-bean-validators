@@ -17,6 +17,10 @@ package de.knightsoftnet.validators.shared.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
+
 /**
  * bean with value, cursor position and default country.
  *
@@ -75,5 +79,28 @@ public class ValueWithPosAndCountry<E> extends ValueWithPos<E> {
 
   public final void setLanguage(final String planguage) {
     this.language = planguage;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(Integer.valueOf(this.getPos()), this.getValue(), this.country,
+        this.language);
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    @SuppressWarnings("unchecked")
+    final ValueWithPosAndCountry<E> other = (ValueWithPosAndCountry<E>) obj;
+    return super.equals(other) && StringUtils.equals(this.country, other.country)
+        && StringUtils.equals(this.language, other.language);
   }
 }
