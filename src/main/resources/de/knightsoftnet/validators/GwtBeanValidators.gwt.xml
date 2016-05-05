@@ -21,12 +21,6 @@
   <!-- validation by annotation support. -->
   <inherits name="org.hibernate.validator.HibernateValidator" />
 
-  <!-- rest service -->
-  <inherits name="org.fusesource.restygwt.RestyGWT"/>
-
-  <!-- guave support -->
-  <inherits name="com.google.common.cache.Cache" />
-
   <!-- Specify the app entry point class, in this case a dummy class. -->
   <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidators' />
 
