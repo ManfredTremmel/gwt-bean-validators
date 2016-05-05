@@ -17,7 +17,6 @@ package org.apache.commons.beanutils;
 
 import de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface;
 import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
-import de.knightsoftnet.validators.shared.interfaces.HasGetFieldByName;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -29,7 +28,6 @@ import java.util.Objects;
  *
  * @author Manfred Tremmel
  */
-@SuppressWarnings("deprecation")
 public class BeanUtils {
 
   /**
@@ -61,9 +59,6 @@ public class BeanUtils {
       throw new NoSuchMethodException("No method to get property for null");
     }
 
-    if (pbean instanceof HasGetFieldByName) {
-      return Objects.toString(((HasGetFieldByName) pbean).getFieldByName(pname), null);
-    }
     final GwtReflectGetterFactoryInterface reflectGetterFactory =
         GWT.create(GwtReflectGetterFactoryInterface.class);
     final GwtReflectGetterInterface reflectGetter = reflectGetterFactory.getGwtReflectGetter();

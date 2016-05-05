@@ -2,6 +2,16 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
  "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 <module rename-to='GwtBeanValidators'>
+
+  <!-- gwt version of apache commons lang3. -->
+  <inherits name="org.apache.commons.GWTCommonsLang3" />
+
+  <!-- gwt version of apache commons validator. -->
+  <inherits name="org.apache.commons.GWTCommonsValidator" />
+
+  <!-- mt bean validator. -->
+  <inherits name="de.knightsoftnet.validators.MTBeanValidators" />
+
   <!-- Inherit the core Web Toolkit stuff. -->
   <inherits name='com.google.gwt.user.User' />
 
@@ -10,12 +20,6 @@
 
   <!-- validation by annotation support. -->
   <inherits name="org.hibernate.validator.HibernateValidator" />
-
-  <!-- gwt version of apache commons lang3. -->
-  <inherits name="org.apache.commons.GWTCommonsLang3" />
-
-  <!-- gwt version of apache commons validator. -->
-  <inherits name="org.apache.commons.GWTCommonsValidator" />
 
   <!-- rest service -->
   <inherits name="org.fusesource.restygwt.RestyGWT"/>

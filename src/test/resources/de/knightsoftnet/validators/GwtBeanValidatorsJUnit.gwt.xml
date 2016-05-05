@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN"
  "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
-<module rename-to="GwtBeanValidatorsTest">
-  <!-- Inherit the core Web Toolkit stuff. -->
-  <inherits name='com.google.gwt.user.User' />
-
+<module rename-to="GwtBeanValidatorsJUnit">
   <!-- Inherit our applications main module. -->
   <inherits name='de.knightsoftnet.validators.GwtBeanValidators' />
+  
+  <!-- Inherit  -->
+  <inherits name='de.knightsoftnet.validators.MTBeanValidatorsJUnit' />
 
   <!-- Inherit the gwt junit stuff. -->
   <inherits name='com.google.gwt.junit.JUnit' />
