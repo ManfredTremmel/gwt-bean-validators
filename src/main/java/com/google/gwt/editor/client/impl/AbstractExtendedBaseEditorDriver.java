@@ -23,6 +23,8 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.client.impl.DelegateMap.KeyMethod;
 import com.google.gwt.editor.client.testing.EditorHierarchyPrinter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +71,8 @@ public abstract class AbstractExtendedBaseEditorDriver<T, E extends Editor<T>> {
   }
 
   public boolean setConstraintViolations(final Iterable<ConstraintViolation<?>> violations) {
-    return this.doSetViolations(violations == null ? null : SimpleViolation
-        .iterableFromConstrantViolations(violations));
+    return this.doSetViolations(
+        violations == null ? null : SimpleViolation.iterableFromConstrantViolations(violations));
   }
 
   @Override
@@ -78,13 +80,13 @@ public abstract class AbstractExtendedBaseEditorDriver<T, E extends Editor<T>> {
     if (GWT.isProdMode()) {
       return super.toString();
     } else {
-      return this.editor == null ? "Uninitialized" : EditorHierarchyPrinter.toString(this
-          .asEditorDriver());
+      return this.editor == null ? "Uninitialized"
+          : EditorHierarchyPrinter.toString(this.asEditorDriver());
     }
   }
 
   protected void configureDelegate(final AbstractEditorDelegate<T, E> rootDelegate) {
-    rootDelegate.initialize("", this.getEditor());
+    rootDelegate.initialize(StringUtils.EMPTY, this.getEditor());
   }
 
   protected abstract AbstractEditorDelegate<T, E> createDelegate();

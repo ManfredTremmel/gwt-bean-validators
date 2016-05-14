@@ -27,6 +27,7 @@ import com.google.gwt.user.rebind.SourceWriter;
 import com.google.gwt.validation.client.GwtValidation;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.PrintWriter;
@@ -69,7 +70,7 @@ public class GwtReflectGetterGenerator extends Generator {
         src.println("  if (pname == null) {");
         src.println("    throw new NoSuchMethodException(\"No method to get property for null\");");
         src.println("  }");
-        src.println("");
+        src.println(StringUtils.EMPTY);
 
         for (final Class<?> clazz : classes) {
           final String className = clazz.getName();
@@ -93,8 +94,8 @@ public class GwtReflectGetterGenerator extends Generator {
 
             // Invoke the getter on the bean
             src.println("      case \"" + name + "\":");
-            src.println("        return ((" + className + ") pbean)." + readMethod.getName()
-                + "();");
+            src.println(
+                "        return ((" + className + ") pbean)." + readMethod.getName() + "();");
           }
 
           src.println("      default:");
@@ -126,8 +127,8 @@ public class GwtReflectGetterGenerator extends Generator {
    * @param plogger tree logger
    * @return SourceWriter to write the generated sources to
    */
-  private SourceWriter getSourceWriter(final JClassType pclassType,
-      final GeneratorContext pcontext, final TreeLogger plogger) {
+  private SourceWriter getSourceWriter(final JClassType pclassType, final GeneratorContext pcontext,
+      final TreeLogger plogger) {
     final String packageName = this.getClassPackage(pclassType);
     final String simpleName = this.getClassName(pclassType);
     final ClassSourceFileComposerFactory composer =

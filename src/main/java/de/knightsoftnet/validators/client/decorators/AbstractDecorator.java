@@ -42,6 +42,8 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -254,7 +256,7 @@ public abstract class AbstractDecorator<T> extends Composite
    * clear errors.
    */
   public final void clearErrors() {
-    this.errorLabel.setText("");
+    this.errorLabel.setText(StringUtils.EMPTY);
     this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
     if (this.contents.getWidget() != null) {
       this.contents.getWidget().removeStyleName(this.decoratorStyle.errorInputStyle());
@@ -278,7 +280,7 @@ public abstract class AbstractDecorator<T> extends Composite
       }
     }
     if (messages.isEmpty()) {
-      this.errorLabel.setText("");
+      this.errorLabel.setText(StringUtils.EMPTY);
       this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
       if (this.contents.getWidget() != null) {
         this.contents.getWidget().removeStyleName(this.decoratorStyle.errorInputStyle());
