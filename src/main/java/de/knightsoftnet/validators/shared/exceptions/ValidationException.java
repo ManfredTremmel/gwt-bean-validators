@@ -91,9 +91,9 @@ public class ValidationException extends Exception implements Serializable {
     final ArrayList<ConstraintViolation<?>> violations =
         new ArrayList<ConstraintViolation<?>>(this.validationErrorSet.size());
     for (final SerializeableConstraintValidationImpl<?> violation : this.validationErrorSet) {
-      violations.add(new ConstraintViolationImpl(violation.getMessageTemplate(), violation
-          .getMessage(), violation.getRootBeanClass(), pclass, violation.getLeafBean(), null,
-          violation.getPropertyPath(), violation.getConstraintDescriptor(), null));
+      violations.add(new ConstraintViolationImpl(violation.getMessageTemplate(),
+          violation.getMessage(), violation.getRootBeanClass(), pclass, violation.getLeafBean(),
+          null, violation.getPropertyPath(), violation.getConstraintDescriptor(), null));
     }
     return violations;
   }
@@ -110,10 +110,6 @@ public class ValidationException extends Exception implements Serializable {
     final Iterator iterator = pvalidationErrorSet.iterator();
     while (iterator.hasNext()) {
       final ConstraintViolation<?> violation = (ConstraintViolation<?>) iterator.next();
-      // this.validationErrorSet.add(new ConstraintViolationImpl(violation.getMessageTemplate(),
-      // violation.getMessage(), violation.getRootBeanClass(), violation.getRootBean(), violation
-      // .getLeafBean(), null, violation.getPropertyPath(), violation
-      // .getConstraintDescriptor(), null));
       this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
     }
   }
@@ -129,10 +125,6 @@ public class ValidationException extends Exception implements Serializable {
     this.validationErrorSet =
         new ArrayList<SerializeableConstraintValidationImpl<?>>(pvalidationErrorSet.size());
     for (final ConstraintViolation<?> violation : pvalidationErrorSet) {
-      // this.validationErrorSet.add(new ConstraintViolationImpl(violation.getMessageTemplate(),
-      // violation.getMessage(), violation.getRootBeanClass(), violation.getRootBean(), violation
-      // .getLeafBean(), null, violation.getPropertyPath(), violation
-      // .getConstraintDescriptor(), null));
       this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
     }
   }
