@@ -20,7 +20,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.10.0</version>
+      <version>0.10.1</version>
     </dependency>
 ```
 For non GWT-Projects you can use [mt-bean-validators](https://github.com/ManfredTremmel/mt-bean-validators) instead which contains only the validators and has no dependencies to gwt:
