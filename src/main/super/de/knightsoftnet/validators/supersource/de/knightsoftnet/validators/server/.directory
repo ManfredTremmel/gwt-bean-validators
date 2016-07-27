@@ -1,0 +1,6 @@
+[Dolphin]
+HeaderColumnWidths=180,75,108,97,74,97
+Timestamp=2016,7,27,15,3,43
+Version=3
+ViewMode=1
+VisibleRoles=Details_text,Details_size,Details_date,Details_permissions,Details_owner,Details_group,CustomizedDetails
