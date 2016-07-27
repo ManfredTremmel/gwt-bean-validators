@@ -31,7 +31,7 @@ import javax.validation.Validator;
  *
  * @param <E> type of bean to test
  */
-public class AbstractValidationTst<E> extends GWTTestCase {
+public abstract class AbstractValidationTst<E> extends GWTTestCase {
 
   /**
    * Must refer to a valid module that sources this class.
@@ -60,8 +60,8 @@ public class AbstractValidationTst<E> extends GWTTestCase {
       assertFalse("Should have a validation error " + pbean.toString(), cv1.isEmpty());
     }
     for (final ConstraintViolation<E> violation : cv1) {
-      assertEquals("Should be reported by special validator", pexcpetedValidationClass, violation
-          .getConstraintDescriptor().getConstraintValidatorClasses().get(0).getName());
+      assertEquals("Should be reported by special validator", pexcpetedValidationClass,
+          violation.getConstraintDescriptor().getConstraintValidatorClasses().get(0).getName());
       GWT.log("Error Message of type "
           + violation.getConstraintDescriptor().getConstraintValidatorClasses() + " for field \""
           + violation.getPropertyPath().toString() + "\" with value \"" + pbean.toString()

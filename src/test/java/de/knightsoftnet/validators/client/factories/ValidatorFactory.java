@@ -15,6 +15,9 @@
 
 package de.knightsoftnet.validators.client.factories;
 
+import de.knightsoftnet.validators.client.AbstractGwtValidatorFactory;
+import de.knightsoftnet.validators.client.GwtValidation;
+import de.knightsoftnet.validators.client.impl.AbstractGwtValidator;
 import de.knightsoftnet.validators.shared.beans.AgeLimitTestBean;
 import de.knightsoftnet.validators.shared.beans.AlternateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
@@ -60,9 +63,6 @@ import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.validation.client.AbstractGwtValidatorFactory;
-import com.google.gwt.validation.client.GwtValidation;
-import com.google.gwt.validation.client.impl.AbstractGwtValidator;
 
 import javax.validation.Validator;
 

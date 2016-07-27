@@ -26,11 +26,13 @@ package java.lang.reflect;
  * InvocationTargetException is a checked exception that wraps an exception thrown by an invoked
  * method or constructor.
  *
- * <p>As of release 1.4, this exception has been retrofitted to conform to the general purpose
+ * <p>
+ * As of release 1.4, this exception has been retrofitted to conform to the general purpose
  * exception-chaining mechanism. The "target exception" that is provided at construction time and
  * accessed via the {@link #getTargetException()} method is now known as the <i>cause</i>, and may
  * be accessed via the {@link Throwable#getCause()} method, as well as the aforementioned
  * "legacy method."
+ * </p>
  *
  * @see Method
  * @see Constructor
@@ -53,7 +55,7 @@ public class InvocationTargetException extends ReflectiveOperationException {
   /**
    * Constructs an {@code InvocationTargetException} with {@code null} as the target exception.
    */
-  protected InvocationTargetException() {
+  protected InvocationTargetException() { // NOPMD false positive super is called
     super((Throwable) null); // Disallow initCause
   }
 
@@ -62,7 +64,7 @@ public class InvocationTargetException extends ReflectiveOperationException {
    *
    * @param target the target exception
    */
-  public InvocationTargetException(final Throwable target) {
+  public InvocationTargetException(final Throwable target) { // NOPMD false positive super is called
     super((Throwable) null); // Disallow initCause
     this.target = target;
   }
@@ -81,8 +83,10 @@ public class InvocationTargetException extends ReflectiveOperationException {
   /**
    * Get the thrown target exception.
    *
-   * <p>This method predates the general-purpose exception chaining facility. The
+   * <p>
+   * This method predates the general-purpose exception chaining facility. The
    * {@link Throwable#getCause()} method is now the preferred means of obtaining this information.
+   * </p>
    *
    * @return the thrown target exception (cause of this exception).
    */

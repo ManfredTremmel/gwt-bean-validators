@@ -21,6 +21,7 @@ import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
 import de.knightsoftnet.validators.client.editor.CheckTimeEnum;
 import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
+import de.knightsoftnet.validators.client.impl.Validation;
 
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.LeafValueEditor;
@@ -40,7 +41,6 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.validation.client.impl.Validation;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -54,8 +54,8 @@ import javax.validation.Validator;
  * @param <T> the type being edited
  * @param <E> the Editor type
  */
-public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>> extends
-    AbstractExtendedBaseEditorDriver<T, E> implements BeanValidationEditorDriver<T, E> {
+public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
+    extends AbstractExtendedBaseEditorDriver<T, E> implements BeanValidationEditorDriver<T, E> {
 
   /**
    * used to make sure, handlers on the input fields are set only once.
@@ -315,7 +315,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
    * Ensures the existence of the handler manager.
    *
    * @return the handler manager
-   * */
+   */
   private HandlerManager ensureHandlers() {
     if (this.handlerManager == null) {
       this.handlerManager = new HandlerManager(this);

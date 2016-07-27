@@ -17,6 +17,7 @@ package de.knightsoftnet.validators.client.factories;
 
 import de.knightsoftnet.validators.client.AbstractGwtReflectGetterFactory;
 import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
+import de.knightsoftnet.validators.client.GwtValidation;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
@@ -33,7 +34,6 @@ import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.validation.client.GwtValidation;
 
 /**
  * The <code>ReflectGetterFactory</code> class is used for client side reflector replacement of the

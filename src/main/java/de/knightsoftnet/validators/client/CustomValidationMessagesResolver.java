@@ -17,8 +17,6 @@ package de.knightsoftnet.validators.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.ConstantsWithLookup;
-import com.google.gwt.validation.client.AbstractValidationMessageResolver;
-import com.google.gwt.validation.client.UserValidationMessagesResolver;
 
 /**
  * The <code>CustomValidationMessagesResolver</code> is a replacement of the google validation
@@ -27,13 +25,13 @@ import com.google.gwt.validation.client.UserValidationMessagesResolver;
  * @author Manfred Tremmel
  *
  */
-public class CustomValidationMessagesResolver extends AbstractValidationMessageResolver implements
-    UserValidationMessagesResolver {
+public class CustomValidationMessagesResolver extends AbstractValidationMessageResolver
+    implements UserValidationMessagesResolver {
 
   /**
    * default constructor.
    */
-  public CustomValidationMessagesResolver() {
+  public CustomValidationMessagesResolver() { // NOPMD false positive super is called
     super((ConstantsWithLookup) GWT.create(ValidationMessages.class));
   }
 }
