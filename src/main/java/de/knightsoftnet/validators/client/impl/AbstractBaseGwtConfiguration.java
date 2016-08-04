@@ -110,5 +110,4 @@ public abstract class AbstractBaseGwtConfiguration
     this.traversableResolverProperty = resolver;
     return this;
   }
-
 }

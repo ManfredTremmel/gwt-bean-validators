@@ -17,8 +17,7 @@
 <module>
   <inherits name="com.google.gwt.regexp.RegExp" />
   <inherits name="com.google.gwt.i18n.I18N" />
-  <inherits name="com.google.gwt.user.RemoteServiceDTO" />
-  <inherits name="javax.validation.Validation" />
+  <inherits name="javax.validation.NewValidation" />
   <source path="client" />
   <super-source path="super" />
   <public path="public" />

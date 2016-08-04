@@ -27,11 +27,16 @@ public final class GwtConstraintValidatorFactory implements ConstraintValidatorF
   /**
    * Always throws {@link UnsupportedOperationException}.
    *
-   * @throws UnsupportedOperationException unsoporte on gwt
+   * @throws UnsupportedOperationException unsupported on gwt
    */
   @Override
   public <T extends ConstraintValidator<?, ?>> T getInstance(final Class<T> key) {
     throw new UnsupportedOperationException("GWT does not support "
         + ConstraintValidatorFactory.class.getName() + " use GWT.create instead");
+  }
+
+  @Override
+  public void releaseInstance(final ConstraintValidator<?, ?> pinstance) {
+    // ignore the call, as generating is done by GWT.create, release isn't done here
   }
 }

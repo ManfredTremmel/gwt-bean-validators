@@ -40,4 +40,9 @@ public final class MessageInterpolatorContextImpl implements Context {
   public Object getValidatedValue() {
     return this.value;
   }
+
+  @Override
+  public <T> T unwrap(final Class<T> ptype) {
+    throw new UnsupportedOperationException("GWT Validation does not support upwrap()");
+  }
 }

@@ -57,8 +57,7 @@ public class GwtTstCreditCardNumber extends AbstractValidationTst<CreditCardNumb
    */
   public final void testWrongCreditCardsSizeAreWrong() {
     for (final CreditCardNumberTestBean testBean : CreditCardTestCases.getWrongSizeTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 }

@@ -47,7 +47,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
 
     /**
      * build new constraint violation implementation.
-     * 
+     *
      * @return ConstraintViolationImpl
      */
     public ConstraintViolationImpl<T> build() {
@@ -207,5 +207,22 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
         + ", invalidValue=" + this.invalidValue //
         + ", desc=" + this.constraintDescriptor //
         + ", elementType=" + this.elementType + ")";
+  }
+
+  @Override
+  public Object[] getExecutableParameters() {
+    // not supported by gwt implementation
+    return new Object[0];
+  }
+
+  @Override
+  public Object getExecutableReturnValue() {
+    // not supported by gwt implementation
+    return null;
+  }
+
+  @Override
+  public <U> U unwrap(final Class<U> ptype) {
+    throw new UnsupportedOperationException("GWT Validation does not support upwrap()");
   }
 }

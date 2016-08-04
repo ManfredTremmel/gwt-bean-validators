@@ -18,6 +18,8 @@ import de.knightsoftnet.validators.client.spi.GwtValidationProvider;
 
 import java.io.InputStream;
 
+import javax.validation.BootstrapConfiguration;
+import javax.validation.ParameterNameProvider;
 import javax.validation.spi.BootstrapState;
 
 /**
@@ -36,5 +38,21 @@ public final class GwtConfiguration extends AbstractBaseGwtConfiguration {
   @Override
   public GwtConfiguration addMapping(final InputStream stream) {
     throw new UnsupportedOperationException("GWT does not support InputStreams");
+  }
+
+  @Override
+  public AbstractBaseGwtConfiguration parameterNameProvider(
+      final ParameterNameProvider pparameterNameProvider) {
+    throw new UnsupportedOperationException("GWT does not support xml configuration");
+  }
+
+  @Override
+  public ParameterNameProvider getDefaultParameterNameProvider() {
+    throw new UnsupportedOperationException("GWT does not support xml configuration");
+  }
+
+  @Override
+  public BootstrapConfiguration getBootstrapConfiguration() {
+    throw new UnsupportedOperationException("GWT does not support xml configuration");
   }
 }

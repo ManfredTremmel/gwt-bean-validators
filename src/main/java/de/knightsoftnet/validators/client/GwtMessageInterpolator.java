@@ -16,8 +16,6 @@ package de.knightsoftnet.validators.client;
 
 import com.google.gwt.core.client.GWT;
 
-import java.util.Locale;
-
 /**
  * Simple GWT {@link javax.validation.MessageInterpolator}.
  */
@@ -36,17 +34,10 @@ public final class GwtMessageInterpolator extends AbstractBaseMessageInterpolato
    * Creates a {@link javax.validation.MessageInterpolator MessageInterpolator} using the supplied
    * {@link UserValidationMessagesResolver}.
    *
-   * @param userValidationMessagesResolver user validaton messages resolver
+   * @param userValidationMessagesResolver user validation messages resolver
    */
   public GwtMessageInterpolator(
       final UserValidationMessagesResolver userValidationMessagesResolver) {
     super(userValidationMessagesResolver);
-  }
-
-  @Override
-  public String interpolate(final String messageTemplate, final Context context,
-      final Locale locale) {
-    // The super sourced GWT version of this calls gwtInterpolate
-    return messageTemplate;
   }
 }

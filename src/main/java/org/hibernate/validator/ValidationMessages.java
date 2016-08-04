@@ -135,6 +135,15 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   String org_hibernate_validator_constraints_CreditCardNumber_message(); // NOPMD
 
   /**
+   * Translated "invalid {type} barcode".
+   *
+   * @return translated "invalid {type} barcode"
+   */
+  @DefaultStringValue("invalid {type} barcode")
+  @Key("org.hibernate.validator.constraints.EAN.message")
+  String org_hibernate_validator_constraints_EAN_message(); // NOPMD
+
+  /**
    * Translated "not a well-formed email address".
    *
    * @return translated "not a well-formed email address"
@@ -151,6 +160,47 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   @DefaultStringValue("length must be between {min} and {max}")
   @Key("org.hibernate.validator.constraints.Length.message")
   String org_hibernate_validator_constraints_Length_message(); // NOPMD
+
+  /**
+   * Translated "The check digit for ${validatedValue} is invalid, Luhn Modulo 10 checksum failed".
+   *
+   * @return translated
+   *         "The check digit for ${validatedValue} is invalid, Luhn Modulo 10 checksum failed"
+   */
+  @DefaultStringValue("The check digit for ${validatedValue} is invalid, "
+      + "Luhn Modulo 10 checksum failed")
+  @Key("org.hibernate.validator.constraints.LuhnCheck.message")
+  String org_hibernate_validator_constraints_LuhnCheck_message(); // NOPMD
+
+  /**
+   * Translated "The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed".
+   *
+   * @return translated
+   *         "The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed"
+   */
+  @DefaultStringValue("The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed")
+  @Key("org.hibernate.validator.constraints.Mod10Check.message")
+  String org_hibernate_validator_constraints_Mod10Check_message(); // NOPMD
+
+  /**
+   * Translated "The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed".
+   *
+   * @return translated
+   *         "The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed"
+   */
+  @DefaultStringValue("The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed")
+  @Key("org.hibernate.validator.constraints.Mod11Check.message")
+  String org_hibernate_validator_constraints_Mod11Check_message(); // NOPMD
+
+  /**
+   * Translated "The check digit for ${validatedValue} is invalid, ${modType} checksum failed".
+   *
+   * @return translated
+   *         "The check digit for ${validatedValue} is invalid, ${modType} checksum failed"
+   */
+  @DefaultStringValue("The check digit for ${validatedValue} is invalid, ${modType} checksum failed")
+  @Key("org.hibernate.validator.constraints.ModCheck.message")
+  String org_hibernate_validator_constraints_ModCheck_message(); // NOPMD
 
   /**
    * Translated "may not be empty".
@@ -171,6 +221,15 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   String org_hibernate_validator_constraints_NotEmpty_message(); // NOPMD
 
   /**
+   * Translated "script expression "{script}" didn't evaluate to true".
+   *
+   * @return translated "script expression "{script}" didn't evaluate to true"
+   */
+  @DefaultStringValue("script expression \"{script}\" didn't evaluate to true")
+  @Key("org.hibernate.validator.constraints.ParametersScriptAssert.message")
+  String org_hibernate_validator_constraints_ParametersScriptAssert_message(); // NOPMD
+
+  /**
    * Translated "must be between {min} and {max}".
    *
    * @return translated "must be between {min} and {max}"
@@ -178,6 +237,15 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   @DefaultStringValue("must be between {min} and {max}")
   @Key("org.hibernate.validator.constraints.Range.message")
   String org_hibernate_validator_constraints_Range_message(); // NOPMD
+
+  /**
+   * Translated "may have unsafe html content".
+   *
+   * @return translated "may have unsafe html content"
+   */
+  @DefaultStringValue("may have unsafe html content")
+  @Key("org.hibernate.validator.constraints.SafeHtml.message")
+  String org_hibernate_validator_constraints_SafeHtml_message(); // NOPMD
 
   /**
    * Translated "script expression \"{script}\" didn't evaluate to true".
@@ -197,4 +265,34 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   @DefaultStringValue("must be a valid URL")
   @Key("org.hibernate.validator.constraints.URL.message")
   String org_hibernate_validator_constraints_URL_message(); // NOPMD
+
+  /**
+   * Translated "invalid Brazilian corporate taxpayer registry number (CNPJ)".
+   *
+   * @return translated "invalid Brazilian corporate taxpayer registry number (CNPJ)"
+   */
+  @SuppressWarnings("checkstyle:abbreviationaswordinname")
+  @DefaultStringValue("invalid Brazilian corporate taxpayer registry number (CNPJ)")
+  @Key("org.hibernate.validator.constraints.br.CNPJ.message")
+  String org_hibernate_validator_constraints_br_CNPJ_message(); // NOPMD
+
+  /**
+   * Translated "invalid Brazilian individual taxpayer registry number (CPF)".
+   *
+   * @return translated "invalid Brazilian individual taxpayer registry number (CPF)"
+   */
+  @SuppressWarnings("checkstyle:abbreviationaswordinname")
+  @DefaultStringValue("invalid Brazilian individual taxpayer registry number (CPF)")
+  @Key("org.hibernate.validator.constraints.br.CPF.message")
+  String org_hibernate_validator_constraints_br_CPF_message(); // NOPMD
+
+  /**
+   * Translated "invalid Brazilian Voter ID card number".
+   *
+   * @return translated "invalid Brazilian Voter ID card number"
+   */
+  @SuppressWarnings("checkstyle:abbreviationaswordinname")
+  @DefaultStringValue("invalid Brazilian Voter ID card number")
+  @Key("org.hibernate.validator.constraints.br.TituloEleitoral.message")
+  String org_hibernate_validator_constraints_br_TituloEleitoral_message(); // NOPMD
 }

@@ -37,5 +37,4 @@ public final class GwtConfigurationState extends AbstractBaseConfigurationState 
   public Set<InputStream> getMappingStreams() {
     throw new UnsupportedOperationException("GWT Validation does not support getMappingStreams");
   }
-
 }

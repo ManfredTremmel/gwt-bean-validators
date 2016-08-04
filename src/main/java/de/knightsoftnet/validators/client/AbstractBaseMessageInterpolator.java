@@ -19,6 +19,7 @@ import com.google.gwt.i18n.shared.GwtLocale;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.validation.MessageInterpolator;
@@ -80,6 +81,13 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
   @Override
   public final String interpolate(final String messageTemplate, final Context context) {
     return this.gwtInterpolate(messageTemplate, context, null);
+  }
+
+  @Override
+  public String interpolate(final String messageTemplate, final Context context,
+      final Locale locale) {
+    // The super sourced GWT version of this calls gwtInterpolate
+    return messageTemplate;
   }
 
   protected final String gwtInterpolate(final String message, final Context context,

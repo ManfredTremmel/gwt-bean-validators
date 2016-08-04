@@ -14,6 +14,8 @@
 
 package de.knightsoftnet.validators.client.impl;
 
+import org.hibernate.validator.internal.metadata.core.ConstraintHelper;
+
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ConstraintTarget;
 import javax.validation.ConstraintValidator;
 import javax.validation.Payload;
 import javax.validation.metadata.ConstraintDescriptor;
@@ -86,7 +89,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
 
     /**
      * setter for constraint validator class.
-     * 
+     *
      * @param constraintValidatorClasses value to set
      * @return this class
      */
@@ -178,6 +181,11 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
   }
 
   @Override
+  public String getMessageTemplate() {
+    return (String) this.getAttributes().get(ConstraintHelper.MESSAGE);
+  }
+
+  @Override
   public Map<String, Object> getAttributes() {
     return this.attributes;
   }
@@ -208,6 +216,11 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
   @Override
   public Set<Class<? extends Payload>> getPayload() {
     return this.payload;
+  }
+
+  @Override
+  public ConstraintTarget getValidationAppliesTo() {
+    return (ConstraintTarget) this.attributes.get(ConstraintHelper.VALIDATION_APPLIES_TO);
   }
 
   @Override

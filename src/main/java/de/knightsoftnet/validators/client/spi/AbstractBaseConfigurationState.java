@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
+import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.spi.ConfigurationState;
 
@@ -67,5 +68,10 @@ public abstract class AbstractBaseConfigurationState implements ConfigurationSta
   public boolean isIgnoreXmlConfiguration() {
     // Always ignore XML
     return false;
+  }
+
+  @Override
+  public ParameterNameProvider getParameterNameProvider() {
+    return null;
   }
 }

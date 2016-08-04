@@ -21,6 +21,7 @@ import com.google.gwt.core.client.GWT;
 
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
+import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.Validator;
 import javax.validation.ValidatorContext;
@@ -58,6 +59,7 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
   private ConstraintValidatorFactory constraintValidatorFactory;
   private MessageInterpolator messageInterpolator;
   private TraversableResolver traversableResolver;
+  private ParameterNameProvider parameterNameProvider;
 
   /**
    * Implement this method to return a {@link GWT#create}d {@link Validator} annotated with
@@ -87,16 +89,26 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
   }
 
   @Override
+  public ParameterNameProvider getParameterNameProvider() {
+    return this.parameterNameProvider;
+  }
+
+  @Override
   public final Validator getValidator() {
     final AbstractGwtValidator validator = this.createValidator();
     validator.init(this.getConstraintValidatorFactory(), this.getMessageInterpolator(),
-        this.getTraversableResolver());
+        this.getTraversableResolver(), this.parameterNameProvider);
     return validator;
+  }
+
+  @Override
+  public void close() {
+    // nothing to do
   }
 
   /**
    * initialize factory.
-   * 
+   *
    * @param configState ConfigurationState
    */
   public final void init(final ConfigurationState configState) {
@@ -111,6 +123,7 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
     final MessageInterpolator configMessageInterpolator = configState.getMessageInterpolator();
     this.messageInterpolator = configMessageInterpolator == null ? new GwtMessageInterpolator()
         : configMessageInterpolator;
+    this.parameterNameProvider = configState.getParameterNameProvider();
   }
 
   /**

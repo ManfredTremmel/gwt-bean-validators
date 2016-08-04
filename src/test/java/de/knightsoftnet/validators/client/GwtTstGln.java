@@ -56,8 +56,7 @@ public class GwtTstGln extends AbstractValidationTst<GlnTestBean> {
    */
   public final void testToSmallGlnIsWrong() {
     for (final GlnTestBean testBean : GlnTestCases.getToSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 
@@ -66,8 +65,7 @@ public class GwtTstGln extends AbstractValidationTst<GlnTestBean> {
    */
   public final void testToBigGlnIsWrong() {
     for (final GlnTestBean testBean : GlnTestCases.getToBigTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+      super.validationTest(testBean, false, DIGITS_VALIDATOR);
     }
   }
 
@@ -76,8 +74,7 @@ public class GwtTstGln extends AbstractValidationTst<GlnTestBean> {
    */
   public final void testNotNumericGlnIsWrong() {
     for (final GlnTestBean testBean : GlnTestCases.getNotNumericTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+      super.validationTest(testBean, false, DIGITS_VALIDATOR);
     }
   }
 }

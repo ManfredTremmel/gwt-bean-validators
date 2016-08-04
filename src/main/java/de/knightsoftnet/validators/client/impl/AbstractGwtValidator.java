@@ -23,9 +23,11 @@ import java.util.Set;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.ConstraintViolation;
 import javax.validation.MessageInterpolator;
+import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
+import javax.validation.executable.ExecutableValidator;
 
 /**
  * Base methods for implementing {@link Validator} in GWT.
@@ -40,6 +42,7 @@ public abstract class AbstractGwtValidator implements Validator {
   private ConstraintValidatorFactory contraintValidatorFactory;
   private MessageInterpolator messageInterpolator;
   private TraversableResolver traversableResolver;
+  private ParameterNameProvider parameterNameProvider;
 
   /**
    * Creates a validator initialized with the default group inheritance map.
@@ -64,17 +67,19 @@ public abstract class AbstractGwtValidator implements Validator {
 
   /**
    * initialize values.
-   * 
+   *
    * @param factory constraint validator factory to set
    * @param messageInterpolator message interpolator to set
    * @param traversableResolver traversable resolver to set
+   * @param pparameterNameProvider parameter resolver to set
    */
   public void init(final ConstraintValidatorFactory factory,
-      final MessageInterpolator messageInterpolator,
-      final TraversableResolver traversableResolver) {
+      final MessageInterpolator messageInterpolator, final TraversableResolver traversableResolver,
+      final ParameterNameProvider pparameterNameProvider) {
     this.contraintValidatorFactory = factory;
     this.messageInterpolator = messageInterpolator;
     this.traversableResolver = traversableResolver;
+    this.parameterNameProvider = pparameterNameProvider;
   }
 
   @Override
@@ -112,5 +117,15 @@ public abstract class AbstractGwtValidator implements Validator {
 
   protected TraversableResolver getTraversableResolver() {
     return this.traversableResolver;
+  }
+
+  protected ParameterNameProvider getParameterNameProvider() {
+    return this.parameterNameProvider;
+  }
+
+  @Override
+  public ExecutableValidator forExecutables() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

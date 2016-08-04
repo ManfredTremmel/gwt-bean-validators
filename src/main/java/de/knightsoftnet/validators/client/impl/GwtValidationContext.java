@@ -14,6 +14,9 @@
 
 package de.knightsoftnet.validators.client.impl;
 
+import org.hibernate.validator.internal.engine.path.NodeImpl;
+import org.hibernate.validator.internal.engine.path.PathImpl;
+
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +39,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 public final class GwtValidationContext<T> {
 
   private final BeanDescriptor beanDescriptor;
-  private PathImpl path = new PathImpl();
+  private PathImpl path = PathImpl.createRootPath();
   private final Class<T> rootBeanClass;
   private final T rootBean;
   private final MessageInterpolator messageInterpolator;
@@ -89,7 +92,8 @@ public final class GwtValidationContext<T> {
     final GwtValidationContext<T> temp = new GwtValidationContext<T>(this.rootBeanClass,
         this.rootBean, this.beanDescriptor, this.messageInterpolator, this.traversableResolver,
         this.validator, this.validatedObjects);
-    temp.path = this.path.append(name);
+    temp.path = PathImpl.createCopy(this.path);
+    temp.path.addPropertyNode(name);
     return temp;
   }
 
@@ -102,7 +106,8 @@ public final class GwtValidationContext<T> {
     final GwtValidationContext<T> temp = new GwtValidationContext<T>(this.rootBeanClass,
         this.rootBean, this.beanDescriptor, this.messageInterpolator, this.traversableResolver,
         this.validator, this.validatedObjects);
-    temp.path = this.path.appendIndex(name, index);
+    temp.path = PathImpl.createCopy(this.path);
+    temp.path.addParameterNode(name, index);
     return temp;
   }
 
@@ -115,7 +120,9 @@ public final class GwtValidationContext<T> {
     final GwtValidationContext<T> temp = new GwtValidationContext<T>(this.rootBeanClass,
         this.rootBean, this.beanDescriptor, this.messageInterpolator, this.traversableResolver,
         this.validator, this.validatedObjects);
-    temp.path = this.path.appendIterable(name);
+    temp.path = PathImpl.createCopy(this.path);
+    temp.path.addPropertyNode(name);
+    temp.path.makeLeafNodeIterable();
     return temp;
   }
 
@@ -128,7 +135,9 @@ public final class GwtValidationContext<T> {
     final GwtValidationContext<T> temp = new GwtValidationContext<T>(this.rootBeanClass,
         this.rootBean, this.beanDescriptor, this.messageInterpolator, this.traversableResolver,
         this.validator, this.validatedObjects);
-    temp.path = this.path.appendKey(name, key);
+    temp.path = PathImpl.createCopy(this.path);
+    temp.path.addPropertyNode(name);
+    NodeImpl.setMapKey(temp.path.getLeafNode(), key);
     return temp;
   }
 

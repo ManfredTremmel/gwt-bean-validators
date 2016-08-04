@@ -25,6 +25,9 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.ConstructorDescriptor;
+import javax.validation.metadata.MethodDescriptor;
+import javax.validation.metadata.MethodType;
 import javax.validation.metadata.PropertyDescriptor;
 
 /**
@@ -158,5 +161,31 @@ public final class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
   public void setValidationGroupsMetadata(final ValidationGroupsMetadata validationGroupsMetadata) {
     // TODO(idol) Find some way to pass this via the constructor rather than after creation
     this.validationGroupsMetadata = validationGroupsMetadata;
+  }
+
+  @Override
+  public MethodDescriptor getConstraintsForMethod(final String pmethodName,
+      final Class<?>... pparameterTypes) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<MethodDescriptor> getConstrainedMethods(final MethodType pmethodType,
+      final MethodType... pmethodTypes) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ConstructorDescriptor getConstraintsForConstructor(final Class<?>... pparameterTypes) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<ConstructorDescriptor> getConstrainedConstructors() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

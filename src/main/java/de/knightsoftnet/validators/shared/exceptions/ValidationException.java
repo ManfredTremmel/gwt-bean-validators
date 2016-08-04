@@ -15,11 +15,13 @@
 
 package de.knightsoftnet.validators.shared.exceptions;
 
-import org.hibernate.validator.engine.ConstraintViolationImpl;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -86,14 +88,23 @@ public class ValidationException extends Exception implements Serializable {
    *
    * @return the validationErrorSet
    */
-  @SuppressWarnings({"unchecked", "rawtypes"})
+  @SuppressWarnings({"unchecked"})
   public final ArrayList<ConstraintViolation<?>> getValidationErrorSet(final Object pclass) {
     final ArrayList<ConstraintViolation<?>> violations =
-        new ArrayList<ConstraintViolation<?>>(this.validationErrorSet.size());
+        new ArrayList<>(this.validationErrorSet.size());
     for (final SerializeableConstraintValidationImpl<?> violation : this.validationErrorSet) {
-      violations.add(new ConstraintViolationImpl(violation.getMessageTemplate(),
-          violation.getMessage(), violation.getRootBeanClass(), pclass, violation.getLeafBean(),
-          null, violation.getPropertyPath(), violation.getConstraintDescriptor(), null));
+      final Map<String, Object> expressionVariables = new HashMap<String, Object>();
+      violations.add(ConstraintViolationImpl.forBeanValidation( //
+          violation.getMessageTemplate(), //
+          expressionVariables, //
+          violation.getMessage(), //
+          ((SerializeableConstraintValidationImpl<Object>) violation).getRootBeanClass(), //
+          pclass, //
+          violation.getLeafBean(), //
+          null, //
+          violation.getPropertyPath(), //
+          violation.getConstraintDescriptor(), //
+          null));
     }
     return violations;
   }

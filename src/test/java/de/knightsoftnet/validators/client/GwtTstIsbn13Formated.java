@@ -57,8 +57,7 @@ public class GwtTstIsbn13Formated extends AbstractValidationTst<Isbn13FormatedTe
    */
   public final void testToSmallIsbn13IsWrong() {
     for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getToSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 
@@ -67,8 +66,7 @@ public class GwtTstIsbn13Formated extends AbstractValidationTst<Isbn13FormatedTe
    */
   public final void testToBigIsbn13IsWrong() {
     for (final Isbn13FormatedTestBean testBean : Isbn13FormatedTestCases.getToBigTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 

@@ -33,6 +33,11 @@ import javax.validation.Validator;
  */
 public abstract class AbstractValidationTst<E> extends GWTTestCase {
 
+  protected static final String SIZE_VALIDATOR = "org.hibernate.validator.internal."
+      + "constraintvalidators.bv.size.SizeValidatorForCharSequence";
+  protected static final String DIGITS_VALIDATOR = "org.hibernate.validator.internal."
+      + "constraintvalidators.bv.DigitsValidatorForCharSequence";
+
   /**
    * Must refer to a valid module that sources this class.
    */

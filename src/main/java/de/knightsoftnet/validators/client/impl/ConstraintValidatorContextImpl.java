@@ -16,11 +16,15 @@ package de.knightsoftnet.validators.client.impl;
 
 import de.knightsoftnet.validators.client.impl.metadata.MessageAndPath;
 
+import org.hibernate.validator.internal.engine.path.NodeImpl;
+import org.hibernate.validator.internal.engine.path.PathImpl;
+
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.LeafNodeBuilderCustomizableContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderDefinedContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.NodeContextBuilder;
@@ -69,8 +73,28 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderDefinedContext addNode(final String name) {
+      ConstraintValidatorContextImpl.this.basePath.addPropertyNode(name);
       return new NodeBuilderDefinedContextImpl(this, this.messageTemplate,
-          ConstraintValidatorContextImpl.this.basePath.append(name));
+          ConstraintValidatorContextImpl.this.basePath);
+    }
+
+    @Override
+    public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
+      ConstraintValidatorContextImpl.this.basePath.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(this, this.messageTemplate,
+          ConstraintValidatorContextImpl.this.basePath);
+    }
+
+    @Override
+    public LeafNodeBuilderCustomizableContext addBeanNode() {
+      throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
+    }
+
+    @Override
+    public NodeBuilderDefinedContext addParameterNode(final int pindex) {
+      ConstraintValidatorContextImpl.this.basePath.addParameterNode(null, pindex);
+      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate,
+          ConstraintValidatorContextImpl.this.basePath);
     }
   }
 
@@ -91,6 +115,7 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
      */
     public NodeBuilderCustomizableContextImpl(final ConstraintViolationBuilderImpl parent,
         final String messageTemplate, final PathImpl path) {
+      super();
       this.parent = parent;
       this.messageTemplate = messageTemplate;
       this.path = path;
@@ -98,17 +123,31 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public ConstraintValidatorContext addConstraintViolation() {
-      return null;
+      ConstraintValidatorContextImpl.this.messages
+          .add(new MessageAndPath(this.path, this.messageTemplate));
+      return this.parent.context;
     }
 
     @Override
     public NodeBuilderCustomizableContext addNode(final String name) {
-      return this;
+      this.path.addPropertyNode(name);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+    }
+
+    @Override
+    public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
+      this.path.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
     }
 
     @Override
     public NodeContextBuilder inIterable() {
       return new NodeContextBuilderImpl(this.path, this.messageTemplate, this.parent);
+    }
+
+    @Override
+    public LeafNodeBuilderCustomizableContext addBeanNode() {
+      throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
     }
   }
 
@@ -144,8 +183,19 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderCustomizableContext addNode(final String name) {
-      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate,
-          this.path.append(name));
+      this.path.addPropertyNode(name);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+    }
+
+    @Override
+    public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
+      this.path.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+    }
+
+    @Override
+    public LeafNodeBuilderCustomizableContext addBeanNode() {
+      throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
     }
   }
 
@@ -181,20 +231,34 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderCustomizableContext addNode(final String name) {
-      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate,
-          this.path.append(name));
+      this.path.addPropertyNode(name);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+    }
+
+    @Override
+    public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
+      this.path.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
     }
 
     @Override
     public NodeBuilderDefinedContext atIndex(final Integer index) {
-      return new NodeBuilderDefinedContextImpl(this.parent, this.messageTemplate,
-          this.path.appendIndex(null, index.intValue()));
+      this.path.addParameterNode(null, index.intValue());
+      return new NodeBuilderDefinedContextImpl(this.parent, this.messageTemplate, this.path);
     }
 
     @Override
     public NodeBuilderDefinedContext atKey(final Object key) {
-      return new NodeBuilderDefinedContextImpl(this.parent, this.messageTemplate,
-          this.path.appendKey(null, key));
+      NodeImpl.setMapKey(this.path.getLeafNode(), key);
+      return new NodeBuilderDefinedContextImpl(this.parent, this.messageTemplate, this.path);
+    }
+
+    @Override
+    public LeafNodeBuilderCustomizableContext addBeanNode() {
+      throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
+      // this.path.addBeanNode();
+      // return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate,
+      // this.path);
     }
   }
 
@@ -251,5 +315,11 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
 
   public Set<ConstraintViolation<T>> getViolations() {
     return this.violations;
+  }
+
+  @SuppressWarnings("hiding")
+  @Override
+  public <T> T unwrap(final Class<T> ptype) {
+    throw new UnsupportedOperationException("GWT Validation does not support upwrap()");
   }
 }

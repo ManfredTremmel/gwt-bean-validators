@@ -19,6 +19,8 @@ import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamReader;
 import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 
+import org.hibernate.validator.internal.engine.path.PathImpl;
+
 /**
  * Custom Serializer for {@link PathImpl}.
  */

@@ -16,7 +16,7 @@
 package de.knightsoftnet.validators.shared.exceptions;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.engine.PathImpl;
+import org.hibernate.validator.internal.engine.path.PathImpl;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -34,8 +34,8 @@ import javax.validation.metadata.ConstraintDescriptor;
  *
  * @param <T> class type which is handled
  */
-public class SerializeableConstraintValidationImpl<T> implements ConstraintViolation<T>,
-    Serializable {
+public class SerializeableConstraintValidationImpl<T>
+    implements ConstraintViolation<T>, Serializable {
 
   /**
    * serial version unique id.
@@ -111,6 +111,21 @@ public class SerializeableConstraintValidationImpl<T> implements ConstraintViola
 
   private void setPropertyPath(final Path ppropertyPath) {
     this.propertyPath = ppropertyPath.toString();
+  }
+
+  @Override
+  public Object[] getExecutableParameters() {
+    return new Object[0];
+  }
+
+  @Override
+  public Object getExecutableReturnValue() {
+    return null;
+  }
+
+  @Override
+  public <U> U unwrap(final Class<U> ptype) {
+    return null;
   }
 
   @Override

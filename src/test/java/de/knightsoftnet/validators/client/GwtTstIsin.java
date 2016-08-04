@@ -47,8 +47,8 @@ public class GwtTstIsin extends AbstractValidationTst<IsinTestBean> {
    */
   public final void testWrongChecksumIsinIsWrong() {
     for (final IsinTestBean testBean : IsinTestCases.getWrongTestBeans()) {
-      super
-          .validationTest(testBean, false, "de.knightsoftnet.validators.shared.impl.IsinValidator");
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.IsinValidator");
     }
   }
 
@@ -57,8 +57,7 @@ public class GwtTstIsin extends AbstractValidationTst<IsinTestBean> {
    */
   public final void testWrongSizeIsinIsWrong() {
     for (final IsinTestBean testBean : IsinTestCases.getWrongSizeTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 }

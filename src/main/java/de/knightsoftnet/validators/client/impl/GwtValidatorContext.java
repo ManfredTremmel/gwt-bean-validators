@@ -19,6 +19,7 @@ import de.knightsoftnet.validators.client.AbstractGwtValidatorFactory;
 
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
+import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.Validator;
 import javax.validation.ValidatorContext;
@@ -33,10 +34,12 @@ public final class GwtValidatorContext implements ValidatorContext {
   private final ConstraintValidatorFactory factoryConstraintValidatorfactory;
   private final MessageInterpolator factoryMessageInterpolator;
   private final TraversableResolver factoryTraversableResolver;
+  private final ParameterNameProvider factoryParameterNameProvider;
 
   private ConstraintValidatorFactory constraintValidatorfactoryEntry = null;
   private MessageInterpolator messageInterpolatorEntry = null;
   private TraversableResolver traversableResolverEntry = null;
+  private ParameterNameProvider parameterNameProviderEntry = null;
 
   /**
    * constructor.
@@ -54,6 +57,9 @@ public final class GwtValidatorContext implements ValidatorContext {
 
     this.factoryTraversableResolver = validatorFactory.getTraversableResolver();
     this.traversableResolverEntry = validatorFactory.getTraversableResolver();
+
+    this.factoryParameterNameProvider = validatorFactory.getParameterNameProvider();
+    this.parameterNameProviderEntry = validatorFactory.getParameterNameProvider();
   }
 
   @Override
@@ -71,7 +77,7 @@ public final class GwtValidatorContext implements ValidatorContext {
   public Validator getValidator() {
     final AbstractGwtValidator validator = this.validatorFactory.createValidator();
     validator.init(this.constraintValidatorfactoryEntry, this.messageInterpolatorEntry,
-        this.traversableResolverEntry);
+        this.traversableResolverEntry, this.parameterNameProviderEntry);
     return validator;
   }
 
@@ -91,6 +97,17 @@ public final class GwtValidatorContext implements ValidatorContext {
       this.traversableResolverEntry = this.factoryTraversableResolver;
     } else {
       this.traversableResolverEntry = traversableResolver;
+    }
+    return this;
+  }
+
+  @Override
+  public ValidatorContext parameterNameProvider(
+      final ParameterNameProvider pparameterNameProvider) {
+    if (pparameterNameProvider == null) {
+      this.parameterNameProviderEntry = this.factoryParameterNameProvider;
+    } else {
+      this.parameterNameProviderEntry = pparameterNameProvider;
     }
     return this;
   }

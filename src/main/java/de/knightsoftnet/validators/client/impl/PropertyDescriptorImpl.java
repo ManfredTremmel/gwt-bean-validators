@@ -18,10 +18,12 @@ import de.knightsoftnet.validators.client.impl.metadata.BeanMetadata;
 import de.knightsoftnet.validators.client.impl.metadata.ValidationGroupsMetadata;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.GroupConversionDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 
 /**
@@ -35,6 +37,7 @@ public final class PropertyDescriptorImpl implements PropertyDescriptor {
   private final String name;
   private ValidationGroupsMetadata validationGroupsMetadata;
   private final BeanMetadata parentBeanMetadata;
+  private final Set<GroupConversionDescriptor> groupConversions;
 
   public PropertyDescriptorImpl(final String name, final Class<?> elementClass,
       final boolean cascaded, final BeanMetadata parentBeanMetadata,
@@ -57,6 +60,7 @@ public final class PropertyDescriptorImpl implements PropertyDescriptor {
     this.validationGroupsMetadata = validationGroupsMetadata;
     this.parentBeanMetadata = parentBeanMetadata;
     this.descriptors = new HashSet<ConstraintDescriptorImpl<?>>(Arrays.asList(descriptors));
+    this.groupConversions = Collections.emptySet();
   }
 
   @Override
@@ -90,6 +94,11 @@ public final class PropertyDescriptorImpl implements PropertyDescriptor {
     return this.cascaded;
   }
 
+  @Override
+  public Set<GroupConversionDescriptor> getGroupConversions() {
+    return this.groupConversions;
+  }
+
   public void setValidationGroupsMetadata(final ValidationGroupsMetadata validationGroupsMetadata) {
     // TODO(idol) Find some way to pass this via the constructor rather than after creation
     this.validationGroupsMetadata = validationGroupsMetadata;
@@ -97,7 +106,7 @@ public final class PropertyDescriptorImpl implements PropertyDescriptor {
 
   /**
    * create a copy of this instance and return it.
-   * 
+   *
    * @return copy of the class
    */
   public PropertyDescriptorImpl shallowCopy() {

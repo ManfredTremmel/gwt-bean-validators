@@ -57,8 +57,7 @@ public class GwtTstGtin8 extends AbstractValidationTst<Gtin8TestBean> {
    */
   public final void testToSmallGtin8IsWrong() {
     for (final Gtin8TestBean testBean : Gtin8TestCases.getToSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 
@@ -67,8 +66,7 @@ public class GwtTstGtin8 extends AbstractValidationTst<Gtin8TestBean> {
    */
   public final void testToBigGtin8IsWrong() {
     for (final Gtin8TestBean testBean : Gtin8TestCases.getToBigTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+      super.validationTest(testBean, false, DIGITS_VALIDATOR);
     }
   }
 
@@ -77,8 +75,7 @@ public class GwtTstGtin8 extends AbstractValidationTst<Gtin8TestBean> {
    */
   public final void testNotNumericGtin8IsWrong() {
     for (final Gtin8TestBean testBean : Gtin8TestCases.getNotNumericTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.DigitsValidatorForString");
+      super.validationTest(testBean, false, DIGITS_VALIDATOR);
     }
   }
 }

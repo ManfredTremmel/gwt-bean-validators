@@ -86,12 +86,13 @@
 		<jdk.version>1.7</jdk.version>
 		<!-- Convenience property to set the GWT version -->
 		<gwt.version>2.7.0</gwt.version>
-		<hibernate-validator.version>4.1.0.Final</hibernate-validator.version>
+		<validation-api.version>1.1.0.Final</validation-api.version>
+		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<gwt-commons-lang3.version>3.4-2</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.5.1-0</gwt-commons-validator.version>
-		<mt-bean-validators.version>0.10.1</mt-bean-validators.version>
+		<mt-bean-validators.version>0.19.0-SNAPSHOT</mt-bean-validators.version>
 		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.0</maven-source-plugin.version>
@@ -150,6 +151,12 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
+			<version>${validation-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation-api.version}</version>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
@@ -263,7 +270,7 @@
 					<logLevel>INFO</logLevel>
 					<inplace>false</inplace>
 					<style>OBFUSCATED</style>
-					<failOnError>true</failOnError>
+					<failOnError>false</failOnError>
 					<localWorkers>-1</localWorkers>
 					<testTimeOut>300</testTimeOut>
 					<extraJvmArgs>-Xms512m -Xmx1g</extraJvmArgs>

@@ -12,14 +12,14 @@
   <!-- mt bean validator. -->
   <inherits name="de.knightsoftnet.validators.MTBeanValidators" />
 
-  <!-- Inherit the core Web Toolkit stuff. -->
-  <inherits name='com.google.gwt.user.User' />
+  <!-- validation by annotation support. -->
+  <inherits name="org.hibernate.validator.NewHibernateValidator" />
+
+  <!-- Inherit the core Web Toolkit stuff.
+  <inherits name='com.google.gwt.user.User' /> -->
 
   <!-- I18N support is required for localized validation messages. -->
   <inherits name='com.google.gwt.i18n.I18N'/>
-
-  <!-- validation by annotation support. -->
-  <inherits name="org.hibernate.validator.NewHibernateValidator" />
 
   <!-- Specify the app entry point class, in this case a dummy class. -->
   <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidators' />

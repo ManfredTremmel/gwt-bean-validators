@@ -57,8 +57,7 @@ public class GwtTstIbanFormated extends AbstractValidationTst<IbanFormatedTestBe
    */
   public final void testToSmallIbanIsWrong() {
     for (final IbanFormatedTestBean testBean : IbanFormatedTestCases.getToSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 
@@ -67,8 +66,7 @@ public class GwtTstIbanFormated extends AbstractValidationTst<IbanFormatedTestBe
    */
   public final void testToBigIbanIsWrong() {
     for (final IbanFormatedTestBean testBean : IbanFormatedTestCases.getToBigTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.constraints.impl.SizeValidatorForString");
+      super.validationTest(testBean, false, SIZE_VALIDATOR);
     }
   }
 
