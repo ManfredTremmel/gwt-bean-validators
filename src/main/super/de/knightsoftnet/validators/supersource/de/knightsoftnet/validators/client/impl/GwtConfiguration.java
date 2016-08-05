@@ -16,12 +16,10 @@ package de.knightsoftnet.validators.client.impl;
 
 import de.knightsoftnet.validators.client.spi.GwtValidationProvider;
 
-import com.google.gwt.validation.client.impl.BaseGwtConfiguration;
-
 import javax.validation.spi.BootstrapState;
 
 /**
- * Extends {@link BaseGwtConfiguration} with just the parts that are not GWT compatible.
+ * Extends {@link AbstractBaseGwtConfiguration} with just the parts that are not GWT compatible.
  */
 public final class GwtConfiguration extends AbstractBaseGwtConfiguration {
 
