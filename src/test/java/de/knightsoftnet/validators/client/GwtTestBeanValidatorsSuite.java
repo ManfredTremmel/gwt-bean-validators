@@ -38,55 +38,68 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
    */
   public static Test suite() { // NOPMD
     final GWTTestSuite suite = new GWTTestSuite("All Gwt Tests go in here");
-    suite.addTestSuite(GwtTstAgeLimitCheck.class);
-    suite.addTestSuite(GwtTstAlternateSize.class);
-    suite.addTestSuite(GwtTstBankCountry.class);
-    suite.addTestSuite(GwtTstBic.class);
-    suite.addTestSuite(GwtTstBicValue.class);
-    suite.addTestSuite(GwtTstBicWithSpaces.class);
-    suite.addTestSuite(GwtTstCreditCardNumber.class);
-    suite.addTestSuite(GwtTstEmail.class);
-    suite.addTestSuite(GwtTstEmptyIfOtherHasValue.class);
-    suite.addTestSuite(GwtTstEmptyIfOtherIsEmpty.class);
-    suite.addTestSuite(GwtTstEmptyIfOtherIsNotEmpty.class);
-    suite.addTestSuite(GwtTstGln.class);
-    suite.addTestSuite(GwtTstGtin13.class);
-    suite.addTestSuite(GwtTstGtin8.class);
-    suite.addTestSuite(GwtTstGtin.class);
-    suite.addTestSuite(GwtTstIbanFormated.class);
-    suite.addTestSuite(GwtTstIban.class);
-    suite.addTestSuite(GwtTstIbanWithSpaces.class);
-    suite.addTestSuite(GwtTstIsbn10Formated.class);
-    suite.addTestSuite(GwtTstIsbn10.class);
-    suite.addTestSuite(GwtTstIsbn10WithSeparators.class);
-    suite.addTestSuite(GwtTstIsbn13Formated.class);
-    suite.addTestSuite(GwtTstIsbn13.class);
-    suite.addTestSuite(GwtTstIsbn13WithSeparators.class);
-    suite.addTestSuite(GwtTstIsbnFormated.class);
-    suite.addTestSuite(GwtTstIsbn.class);
-    suite.addTestSuite(GwtTstIsbnWithSeparators.class);
-    suite.addTestSuite(GwtTstIsin.class);
-    suite.addTestSuite(GwtTstLevenshteinDistance.class);
-    suite.addTestSuite(GwtTstMustBeEqual.class);
-    suite.addTestSuite(GwtTstMustNotBeEqual.class);
-    suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherHasValue.class);
-    suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsEmpty.class);
-    suite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsNotEmpty.class);
-    suite.addTestSuite(GwtTstNotEmptyIfOtherHasValue.class);
-    suite.addTestSuite(GwtTstNotEmptyIfOtherIsEmpty.class);
-    suite.addTestSuite(GwtTstNotEmptyIfOtherIsNotEmpty.class);
-    suite.addTestSuite(GwtTstPassword.class);
-    suite.addTestSuite(GwtTstPhoneNumber.class);
-    suite.addTestSuite(GwtTstPhoneNumberValue.class);
-    suite.addTestSuite(GwtTstPostalCode.class);
-    suite.addTestSuite(GwtTstRegularExpression.class);
-    suite.addTestSuite(GwtTstSizeWithoutSeparators.class);
-    suite.addTestSuite(GwtTstUrl.class);
-    suite.addTestSuite(GwtTstVatId.class);
-    suite.addTestSuite(GwtTstIbanUtil.class);
-    suite.addTestSuite(GwtTstIsbnUtil.class);
-    suite.addTestSuite(GwtTstPhoneNumberUtil.class);
-    suite.addTestSuite(GwtTstRegExUtil.class);
+
+    GwtTestBeanValidatorsSuite.appendMtBeanValidatorTests(suite);
+    GwtTestBeanValidatorsSuite.appendHibernateBeanValidatorTests(suite);
+
     return suite;
+  }
+
+  private static void appendMtBeanValidatorTests(final GWTTestSuite psuite) {
+    psuite.addTestSuite(GwtTstAgeLimitCheck.class);
+    psuite.addTestSuite(GwtTstAlternateSize.class);
+    psuite.addTestSuite(GwtTstBankCountry.class);
+    psuite.addTestSuite(GwtTstBic.class);
+    psuite.addTestSuite(GwtTstBicValue.class);
+    psuite.addTestSuite(GwtTstBicWithSpaces.class);
+    psuite.addTestSuite(GwtTstCreditCardNumber.class);
+    psuite.addTestSuite(GwtTstEmail.class);
+    psuite.addTestSuite(GwtTstEmptyIfOtherHasValue.class);
+    psuite.addTestSuite(GwtTstEmptyIfOtherIsEmpty.class);
+    psuite.addTestSuite(GwtTstEmptyIfOtherIsNotEmpty.class);
+    psuite.addTestSuite(GwtTstGln.class);
+    psuite.addTestSuite(GwtTstGtin13.class);
+    psuite.addTestSuite(GwtTstGtin8.class);
+    psuite.addTestSuite(GwtTstGtin.class);
+    psuite.addTestSuite(GwtTstIbanFormated.class);
+    psuite.addTestSuite(GwtTstIban.class);
+    psuite.addTestSuite(GwtTstIbanWithSpaces.class);
+    psuite.addTestSuite(GwtTstIsbn10Formated.class);
+    psuite.addTestSuite(GwtTstIsbn10.class);
+    psuite.addTestSuite(GwtTstIsbn10WithSeparators.class);
+    psuite.addTestSuite(GwtTstIsbn13Formated.class);
+    psuite.addTestSuite(GwtTstIsbn13.class);
+    psuite.addTestSuite(GwtTstIsbn13WithSeparators.class);
+    psuite.addTestSuite(GwtTstIsbnFormated.class);
+    psuite.addTestSuite(GwtTstIsbn.class);
+    psuite.addTestSuite(GwtTstIsbnWithSeparators.class);
+    psuite.addTestSuite(GwtTstIsin.class);
+    psuite.addTestSuite(GwtTstLevenshteinDistance.class);
+    psuite.addTestSuite(GwtTstMustBeEqual.class);
+    psuite.addTestSuite(GwtTstMustNotBeEqual.class);
+    psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherHasValue.class);
+    psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsEmpty.class);
+    psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsNotEmpty.class);
+    psuite.addTestSuite(GwtTstNotEmptyIfOtherHasValue.class);
+    psuite.addTestSuite(GwtTstNotEmptyIfOtherIsEmpty.class);
+    psuite.addTestSuite(GwtTstNotEmptyIfOtherIsNotEmpty.class);
+    psuite.addTestSuite(GwtTstPassword.class);
+    psuite.addTestSuite(GwtTstPhoneNumber.class);
+    psuite.addTestSuite(GwtTstPhoneNumberValue.class);
+    psuite.addTestSuite(GwtTstPostalCode.class);
+    psuite.addTestSuite(GwtTstRegularExpression.class);
+    psuite.addTestSuite(GwtTstSizeWithoutSeparators.class);
+    psuite.addTestSuite(GwtTstUrl.class);
+    psuite.addTestSuite(GwtTstVatId.class);
+    psuite.addTestSuite(GwtTstIbanUtil.class);
+    psuite.addTestSuite(GwtTstIsbnUtil.class);
+    psuite.addTestSuite(GwtTstPhoneNumberUtil.class);
+    psuite.addTestSuite(GwtTstRegExUtil.class);
+  }
+
+  private static void appendHibernateBeanValidatorTests(final GWTTestSuite psuite) {
+    psuite.addTestSuite(GwtTstHibernateAssertFalse.class);
+    psuite.addTestSuite(GwtTstHibernateAssertTrue.class);
+    psuite.addTestSuite(GwtTstHibernateEmail.class);
   }
 }
