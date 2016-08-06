@@ -100,6 +100,13 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
   private static void appendHibernateBeanValidatorTests(final GWTTestSuite psuite) {
     psuite.addTestSuite(GwtTstHibernateAssertFalse.class);
     psuite.addTestSuite(GwtTstHibernateAssertTrue.class);
+    psuite.addTestSuite(GwtTstHibernateDecimalMinMax.class);
+    psuite.addTestSuite(GwtTstHibernateDigits.class);
     psuite.addTestSuite(GwtTstHibernateEmail.class);
+    psuite.addTestSuite(GwtTstHibernateMinMax.class);
+    psuite.addTestSuite(GwtTstHibernateNotNull.class);
+    psuite.addTestSuite(GwtTstHibernateNull.class);
+    psuite.addTestSuite(GwtTstHibernatePattern.class);
+    psuite.addTestSuite(GwtTstHibernateSize.class);
   }
 }

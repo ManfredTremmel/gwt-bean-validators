@@ -1,22 +1,77 @@
 /*
- * Copyright 2010 Google Inc. Copyright 2016 Manfred Tremmel
+ * Hibernate Validator, declare and validate application constraints
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * License: Apache License, Version 2.0 See the license.txt file in the root directory or
+ * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
 package org.hibernate.validator.internal.constraintvalidators.bv;
 
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
+
+import org.hibernate.validator.internal.util.logging.Log;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Pattern.Flag;
+
 /**
- * Override the Hibernate implementation with the GWT version.
+ * pattern validator.
+ *
+ * @author Hardy Ferentschik
+ * @author Manfred Tremmel - GWT port
  */
-public class PatternValidator
-    extends de.knightsoftnet.validators.client.constraints.PatternValidator {
+public class PatternValidator implements ConstraintValidator<Pattern, CharSequence> {
+
+  private static final Log LOG = LoggerFactory.make(); // NOPMD
+
+  private RegExp pattern;
+
+  @Override
+  public void initialize(final Pattern parameters) {
+    final Pattern.Flag[] flags = parameters.flags();
+    final StringBuilder flagString = new StringBuilder();
+    for (final Pattern.Flag flag : flags) {
+      flagString.append(this.toString(flag));
+    }
+    try {
+      this.pattern = RegExp.compile(parameters.regexp(), flagString.toString());
+    } catch (final RuntimeException e) {
+      throw LOG.getInvalidRegularExpressionException(e);
+    }
+  }
+
+  @Override
+  public boolean isValid(final CharSequence value,
+      final ConstraintValidatorContext constraintValidatorContext) {
+    if (value == null) {
+      return true;
+    }
+    final MatchResult match = this.pattern.exec(value.toString());
+    if (match == null) {
+      return false;
+    }
+    // Must match the entire string
+    return match.getGroup(0).length() == value.length();
+  }
+
+  private final String toString(final Flag pflag) {
+    String value;
+    switch (pflag) {
+      case CASE_INSENSITIVE:
+      case UNICODE_CASE:
+        value = "i";
+        break;
+      case MULTILINE:
+        value = "m";
+        break;
+      default:
+        throw LOG
+            .getIllegalArgumentException(pflag + " is not a suppoted gwt Pattern (RegExp) flag");
+    }
+    return value;
+  }
 }

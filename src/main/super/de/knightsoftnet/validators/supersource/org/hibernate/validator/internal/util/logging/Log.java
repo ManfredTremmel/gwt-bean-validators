@@ -26,8 +26,8 @@ import javax.validation.ValidationException;
 /**
  * The Hibernate Validator logger interface for JBoss Logging.
  *
- * <p>
  * <b>Note</b>:<br>
+ * <p>
  * New log messages must always use a new (incremented) message id. Don't re-use of existing message
  * ids, even if a given log method is not used anymore. Unused messages can be deleted.
  * </p>
@@ -121,8 +121,7 @@ public class Log {
     return new IllegalArgumentException(MESSAGE.getLengthCannotBeNegativeException());
   }
 
-  public IllegalArgumentException getInvalidRegularExpressionException(
-      final IllegalArgumentException e) {
+  public IllegalArgumentException getInvalidRegularExpressionException(final Exception e) {
     return new IllegalArgumentException(MESSAGE.getInvalidRegularExpressionException(), e);
   }
 
@@ -300,7 +299,8 @@ public class Log {
 
   public ValidationException getUnableToInstantiateException(final Class<?> clazz,
       final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToInstantiateExceptionOneArg(clazz.getName()), e);
+    return new ValidationException(MESSAGE.getUnableToInstantiateExceptionOneArg(clazz.getName()),
+        e);
   }
 
   public ValidationException getUnableToInstantiateException(final String message,

@@ -34,7 +34,14 @@ import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 import de.knightsoftnet.validators.shared.beans.GtinTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertFalseTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertTrueTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateDecimalMinMaxTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateDigitsTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNotNullTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNullTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanWithSpacesTestBean;
@@ -88,12 +95,15 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       EmptyIfOtherIsEmptyTestBean.class, EmptyIfOtherIsNotEmptyTestBean.class, GlnTestBean.class,
       Gtin13TestBean.class, Gtin8TestBean.class, GtinTestBean.class,
       HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
-      HibernateEmailTestBean.class, IbanFormatedTestBean.class, IbanTestBean.class,
-      IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class, Isbn10TestBean.class,
-      Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class, Isbn13TestBean.class,
-      Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class, IsbnTestBean.class,
-      IsbnWithSeparatorsTestBean.class, IsinTestBean.class, MustBeEqualTestBean.class,
-      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,
+      HibernateEmailTestBean.class, HibernateNotNullTestBean.class, HibernateNullTestBean.class,
+      HibernatePatternTestBean.class, HibernateMinMaxTestBean.class, HibernateSizeTestBean.class,
+      IbanFormatedTestBean.class, IbanTestBean.class, IbanWithSpacesTestBean.class,
+      Isbn10FormatedTestBean.class, Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class,
+      Isbn13FormatedTestBean.class, Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class,
+      IsbnFormatedTestBean.class, IsbnTestBean.class, IsbnWithSeparatorsTestBean.class,
+      IsinTestBean.class, MustBeEqualTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
+      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
