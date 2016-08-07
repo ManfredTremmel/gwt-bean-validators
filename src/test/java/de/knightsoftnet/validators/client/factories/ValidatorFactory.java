@@ -37,9 +37,11 @@ import de.knightsoftnet.validators.shared.beans.HibernateAssertTrueTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDecimalMinMaxTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDigitsTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateFutureTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNullTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePastTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
@@ -98,11 +100,12 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,
       HibernateEmailTestBean.class, HibernateNotNullTestBean.class, HibernateNullTestBean.class,
       HibernatePatternTestBean.class, HibernateMinMaxTestBean.class, HibernateSizeTestBean.class,
-      IbanFormatedTestBean.class, IbanTestBean.class, IbanWithSpacesTestBean.class,
-      Isbn10FormatedTestBean.class, Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class,
-      Isbn13FormatedTestBean.class, Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class,
-      IsbnFormatedTestBean.class, IsbnTestBean.class, IsbnWithSeparatorsTestBean.class,
-      IsinTestBean.class, MustBeEqualTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
+      HibernateFutureTestBean.class, HibernatePastTestBean.class, IbanFormatedTestBean.class,
+      IbanTestBean.class, IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class,
+      Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class,
+      Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class,
+      IsbnTestBean.class, IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
+      MustBeEqualTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
       NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,

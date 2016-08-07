@@ -108,5 +108,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateNull.class);
     psuite.addTestSuite(GwtTstHibernatePattern.class);
     psuite.addTestSuite(GwtTstHibernateSize.class);
+    psuite.addTestSuite(GwtTstHibernateFuture.class);
+    psuite.addTestSuite(GwtTstHibernatePast.class);
   }
 }
