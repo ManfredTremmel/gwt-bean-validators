@@ -65,8 +65,11 @@ public abstract class AbstractValidationTst<E> extends GWTTestCase {
       assertFalse("Should have a validation error " + pbean.toString(), cv1.isEmpty());
     }
     for (final ConstraintViolation<E> violation : cv1) {
-      assertEquals("Should be reported by special validator", pexcpetedValidationClass,
-          violation.getConstraintDescriptor().getConstraintValidatorClasses().get(0).getName());
+      if (violation.getConstraintDescriptor().getConstraintValidatorClasses() != null
+          && !violation.getConstraintDescriptor().getConstraintValidatorClasses().isEmpty()) {
+        assertEquals("Should be reported by special validator", pexcpetedValidationClass,
+            violation.getConstraintDescriptor().getConstraintValidatorClasses().get(0).getName());
+      }
       GWT.log("Error Message of type "
           + violation.getConstraintDescriptor().getConstraintValidatorClasses() + " for field \""
           + violation.getPropertyPath().toString() + "\" with value \"" + pbean.toString()

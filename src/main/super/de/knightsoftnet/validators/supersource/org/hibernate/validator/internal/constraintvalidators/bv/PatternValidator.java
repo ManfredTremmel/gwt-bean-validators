@@ -28,7 +28,7 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
 
   private static final Log LOG = LoggerFactory.make(); // NOPMD
 
-  private RegExp pattern;
+  private RegExp pattern = null;
 
   @Override
   public void initialize(final Pattern parameters) {
@@ -47,7 +47,7 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
   @Override
   public boolean isValid(final CharSequence value,
       final ConstraintValidatorContext constraintValidatorContext) {
-    if (value == null) {
+    if (value == null || this.pattern == null) {
       return true;
     }
     final MatchResult match = this.pattern.exec(value.toString());

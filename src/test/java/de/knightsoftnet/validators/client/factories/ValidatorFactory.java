@@ -34,15 +34,23 @@ import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 import de.knightsoftnet.validators.shared.beans.GtinTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertFalseTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertTrueTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateCreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDecimalMinMaxTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDigitsTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateEan13TestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateEan8TestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateFutureTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateLengthTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNotBlankTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePastTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateSizeArrayTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateSizeCollectionTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
@@ -95,12 +103,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       BankCountryTestBean.class, BicTestBean.class, BicValueTestBean.class,
       BicWithSpacesTestBean.class, CreditCardNumberTestBean.class, EmailTestBean.class,
       EmptyIfOtherIsEmptyTestBean.class, EmptyIfOtherIsNotEmptyTestBean.class, GlnTestBean.class,
-      Gtin13TestBean.class, Gtin8TestBean.class, GtinTestBean.class,
-      HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
-      HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,
-      HibernateEmailTestBean.class, HibernateNotNullTestBean.class, HibernateNullTestBean.class,
-      HibernatePatternTestBean.class, HibernateMinMaxTestBean.class, HibernateSizeTestBean.class,
-      HibernateFutureTestBean.class, HibernatePastTestBean.class, IbanFormatedTestBean.class,
+      Gtin13TestBean.class, Gtin8TestBean.class, GtinTestBean.class, IbanFormatedTestBean.class,
       IbanTestBean.class, IbanWithSpacesTestBean.class, Isbn10FormatedTestBean.class,
       Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class,
       Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class,
@@ -111,7 +114,16 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
       PostalCodeTestBean.class, RegExTestBean.class, SizeWithoutSeparatorsTestBean.class,
-      UrlTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
+      UrlTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class,
+
+      HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
+      HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,
+      HibernateEmailTestBean.class, HibernateNotNullTestBean.class, HibernateNullTestBean.class,
+      HibernatePatternTestBean.class, HibernateMinMaxTestBean.class, HibernateSizeTestBean.class,
+      HibernateSizeArrayTestBean.class, HibernateSizeCollectionTestBean.class,
+      HibernateFutureTestBean.class, HibernatePastTestBean.class, HibernateNotBlankTestBean.class,
+      HibernateNotEmptyTestBean.class, HibernateEan8TestBean.class, HibernateEan13TestBean.class,
+      HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class})
   public interface GwtValidator extends Validator {
   }
 

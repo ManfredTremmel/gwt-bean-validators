@@ -105,10 +105,18 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateEmail.class);
     psuite.addTestSuite(GwtTstHibernateMinMax.class);
     psuite.addTestSuite(GwtTstHibernateNotNull.class);
+    psuite.addTestSuite(GwtTstHibernateNotBlank.class);
+    psuite.addTestSuite(GwtTstHibernateNotEmpty.class);
     psuite.addTestSuite(GwtTstHibernateNull.class);
     psuite.addTestSuite(GwtTstHibernatePattern.class);
     psuite.addTestSuite(GwtTstHibernateSize.class);
+    psuite.addTestSuite(GwtTstHibernateSizeArray.class);
+    psuite.addTestSuite(GwtTstHibernateSizeCollection.class);
     psuite.addTestSuite(GwtTstHibernateFuture.class);
     psuite.addTestSuite(GwtTstHibernatePast.class);
+    psuite.addTestSuite(GwtTstHibernateEan8.class);
+    psuite.addTestSuite(GwtTstHibernateEan13.class);
+    psuite.addTestSuite(GwtTstHibernateLength.class);
+    psuite.addTestSuite(GwtTstHibernateCreditCardNumber.class);
   }
 }
