@@ -24,6 +24,8 @@ import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.ValidatorFactory;
 
+// TODO: this interface is unchanged, remove it, when super implementation is removed from gwt
+
 /**
  * Contract between a {@link Configuration} and a {@link ValidationProvider} to create a
  * {@link ValidatorFactory}.
@@ -34,7 +36,6 @@ import javax.validation.ValidatorFactory;
  * @author Emmanuel Bernard
  * @author Hardy Ferentschik
  * @author Gunnar Morling
- * @author Manfred Tremmel - gwt port
  */
 public interface ConfigurationState {
 
@@ -71,20 +72,16 @@ public interface ConfigurationState {
    * <li>mapping XML streams located in the resources defined in {@code META-INF/validation.xml}
    * (constraint-mapping element)</li>
    * </ul>
-   * <p>
+   * <p/>
    * Streams represented in the XML configuration and opened by the {@code Configuration}
    * implementation must be closed by the {@code Configuration} implementation after the
    * {@link ValidatorFactory} creation (or if an exception occurs). All streams are guaranteed to
    * adhere to the mark/reset contract (see {@link InputStream#markSupported()} by the Bean
    * Validation provider.
-   * </p>
-   * <p>
-   * GWT change: Return a set of Strings intest of a InputStream.
-   * </p>
    *
    * @return set of input stream
    */
-  Set<String> getMappingStreams();
+  Set<InputStream> getMappingStreams();
 
   /**
    * Returns the constraint validator factory of this configuration.

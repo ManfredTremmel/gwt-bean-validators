@@ -18,7 +18,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * CPF Validator.
- * 
+ *
  * @author Hardy Ferentschik
  * @author Manfred Tremmel - GWT port
  */
@@ -69,10 +69,10 @@ public class CPFValidator implements ConstraintValidator<CPF, CharSequence> {
       return true;
     }
 
-    if (DIGITS_ONLY.exec(value.toString()) != null) {
+    if (DIGITS_ONLY.exec(value.toString()) != null) { // NOPMD
       return this.withoutSeparatorMod11Validator1.isValid(value, context)
           && this.withoutSeparatorMod11Validator2.isValid(value, context);
-    } else if (SINGLE_DASH_SEPARATOR.exec(value.toString()) != null) {
+    } else if (SINGLE_DASH_SEPARATOR.exec(value.toString()) != null) { // NOPMD
       return this.withDashOnlySeparatorMod11Validator1.isValid(value, context)
           && this.withDashOnlySeparatorMod11Validator2.isValid(value, context);
     } else {
