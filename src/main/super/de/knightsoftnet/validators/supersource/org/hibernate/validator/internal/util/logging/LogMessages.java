@@ -12,6 +12,7 @@ import javax.validation.Path;
  *
  * @author Manfred Tremmel - GWT implementation
  */
+@SuppressWarnings({"checkstyle:abbreviationaswordinname", "checkstyle:linelength"})
 @DefaultLocale("en")
 public interface LogMessages extends com.google.gwt.i18n.client.Messages {
 
@@ -601,8 +602,8 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
       + "Interpolator")
   String getElUnsupported(String expression);
 
-  @DefaultMessage("The constraint of type ''{1}'' defined on ''{0}'' has multiple matching constraint "
-      + "validators which is due to an additional value handler of type ''{2}''. "
+  @DefaultMessage("The constraint of type ''{1}'' defined on ''{0}'' has multiple matching "
+      + "constraint validators which is due to an additional value handler of type ''{2}''. "
       + "It is unclear which value needs validating. Clarify configuration via "
       + "@UnwrapValidatedValue.")
   String getConstraintValidatorExistsForWrapperAndWrappedValueException(String property,

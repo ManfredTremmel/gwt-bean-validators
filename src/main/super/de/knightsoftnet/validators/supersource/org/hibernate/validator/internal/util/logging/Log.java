@@ -35,6 +35,8 @@ import javax.validation.ValidationException;
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2012 SERLI
  * @author Manfred Tremmel - GWT port
  */
+@SuppressWarnings({"checkstyle:abbreviationaswordinname", "checkstyle:linelength",
+    "checkstyle:javadocmethod"})
 public class Log {
 
   private static final LogMessages MESSAGE = GWT.create(LogMessages.class);
@@ -80,9 +82,9 @@ public class Log {
   }
 
   public ValidationException getUnableToCreateAnnotationForConfiguredConstraintException(
-      final RuntimeException e) {
+      final RuntimeException exception) {
     return new ValidationException(
-        MESSAGE.getUnableToCreateAnnotationForConfiguredConstraintException(), e);
+        MESSAGE.getUnableToCreateAnnotationForConfiguredConstraintException(), exception);
   }
 
   public ValidationException getUnableToFindPropertyWithAccessException(final Class<?> beanClass,
@@ -97,8 +99,9 @@ public class Log {
   }
 
   public IllegalArgumentException getInvalidBigDecimalFormatException(final String value,
-      final NumberFormatException e) {
-    return new IllegalArgumentException(MESSAGE.getInvalidBigDecimalFormatException(value), e);
+      final NumberFormatException exception) {
+    return new IllegalArgumentException(MESSAGE.getInvalidBigDecimalFormatException(value),
+        exception);
   }
 
   public IllegalArgumentException getInvalidLengthForIntegerPartException() {
@@ -121,14 +124,14 @@ public class Log {
     return new IllegalArgumentException(MESSAGE.getLengthCannotBeNegativeException());
   }
 
-  public IllegalArgumentException getInvalidRegularExpressionException(final Exception e) {
-    return new IllegalArgumentException(MESSAGE.getInvalidRegularExpressionException(), e);
+  public IllegalArgumentException getInvalidRegularExpressionException(final Exception exception) {
+    return new IllegalArgumentException(MESSAGE.getInvalidRegularExpressionException(), exception);
   }
 
   public ConstraintDeclarationException getErrorDuringScriptExecutionException(final String script,
-      final Exception e) {
+      final Exception exception) {
     return new ConstraintDeclarationException(
-        MESSAGE.getErrorDuringScriptExecutionException(script), e);
+        MESSAGE.getErrorDuringScriptExecutionException(script), exception);
   }
 
   public ConstraintDeclarationException getScriptMustReturnTrueOrFalseException(
@@ -151,8 +154,9 @@ public class Log {
     return new ValidationException(MESSAGE.getUnableToFindProviderException(providerClass));
   }
 
-  public ValidationException getExceptionDuringIsValidCallException(final RuntimeException e) {
-    return new ValidationException(MESSAGE.getExceptionDuringIsValidCallException(), e);
+  public ValidationException getExceptionDuringIsValidCallException(
+      final RuntimeException exception) {
+    return new ValidationException(MESSAGE.getExceptionDuringIsValidCallException(), exception);
   }
 
   public ValidationException getConstraintFactoryMustNotReturnNullException(
@@ -174,9 +178,9 @@ public class Log {
   // }
 
   public ValidationException getUnableToInitializeConstraintValidatorException(
-      final String validatorClassName, final RuntimeException e) {
+      final String validatorClassName, final RuntimeException exception) {
     return new ValidationException(
-        MESSAGE.getUnableToInitializeConstraintValidatorException(validatorClassName), e);
+        MESSAGE.getUnableToInitializeConstraintValidatorException(validatorClassName), exception);
   }
 
   public ValidationException getAtLeastOneCustomMessageMustBeCreatedException() {
@@ -216,15 +220,15 @@ public class Log {
   }
 
   public ValidationException getErrorDuringCallOfTraversableResolverIsReachableException(
-      final RuntimeException e) {
+      final RuntimeException exception) {
     return new ValidationException(
-        MESSAGE.getErrorDuringCallOfTraversableResolverIsReachableException(), e);
+        MESSAGE.getErrorDuringCallOfTraversableResolverIsReachableException(), exception);
   }
 
   public ValidationException getErrorDuringCallOfTraversableResolverIsCascadableException(
-      final RuntimeException e) {
+      final RuntimeException exception) {
     return new ValidationException(
-        MESSAGE.getErrorDuringCallOfTraversableResolverIsCascadableException(), e);
+        MESSAGE.getErrorDuringCallOfTraversableResolverIsCascadableException(), exception);
   }
 
   public GroupDefinitionException getUnableToExpandDefaultGroupListException(
@@ -281,9 +285,9 @@ public class Log {
   }
 
   public ValidationException getUnableToRetrieveAnnotationParameterValueException(
-      final Exception e) {
+      final Exception exception) {
     return new ValidationException(MESSAGE.getUnableToRetrieveAnnotationParameterValueException(),
-        e);
+        exception);
   }
 
   public IllegalArgumentException getInvalidLengthOfParameterMetaDataListException(
@@ -293,19 +297,21 @@ public class Log {
   }
 
   public ValidationException getUnableToInstantiateException(final String className,
-      final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToInstantiateExceptionOneArg(className), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToInstantiateExceptionOneArg(className),
+        exception);
   }
 
   public ValidationException getUnableToInstantiateException(final Class<?> clazz,
-      final Exception e) {
+      final Exception exception) {
     return new ValidationException(MESSAGE.getUnableToInstantiateExceptionOneArg(clazz.getName()),
-        e);
+        exception);
   }
 
   public ValidationException getUnableToInstantiateException(final String message,
-      final Class<?> clazz, final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToInstantiateException(message, clazz), e);
+      final Class<?> clazz, final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToInstantiateException(message, clazz),
+        exception);
   }
 
   public ValidationException getUnableToLoadClassException(final String className) {
@@ -313,8 +319,8 @@ public class Log {
   }
 
   public ValidationException getUnableToLoadClassException(final String className,
-      final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToLoadClassException(className), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToLoadClassException(className), exception);
   }
 
   public IllegalArgumentException getStartIndexCannotBeNegativeException(final int startIndex) {
@@ -336,8 +342,8 @@ public class Log {
         MESSAGE.getInvalidCheckDigitException(startIndex, endIndex));
   }
 
-  public NumberFormatException getCharacterIsNotADigitException(final char c) {
-    return new NumberFormatException(MESSAGE.getCharacterIsNotADigitException(c));
+  public NumberFormatException getCharacterIsNotADigitException(final char character) {
+    return new NumberFormatException(MESSAGE.getCharacterIsNotADigitException(character));
   }
 
   public ConstraintDefinitionException getConstraintParametersCannotStartWithValidException() {
@@ -358,9 +364,9 @@ public class Log {
   }
 
   public ConstraintDefinitionException getWrongTypeForPayloadParameterException(
-      final String constraintName, final ClassCastException e) {
+      final String constraintName, final ClassCastException exception) {
     return new ConstraintDefinitionException(
-        MESSAGE.getWrongTypeForPayloadParameterException(constraintName), e);
+        MESSAGE.getWrongTypeForPayloadParameterException(constraintName), exception);
   }
 
   public ConstraintDefinitionException getWrongDefaultValueForGroupsParameterException(
@@ -370,9 +376,9 @@ public class Log {
   }
 
   public ConstraintDefinitionException getWrongTypeForGroupsParameterException(
-      final String constraintName, final ClassCastException e) {
+      final String constraintName, final ClassCastException exception) {
     return new ConstraintDefinitionException(
-        MESSAGE.getWrongTypeForGroupsParameterException(constraintName), e);
+        MESSAGE.getWrongTypeForGroupsParameterException(constraintName), exception);
   }
 
   public ConstraintDefinitionException getWrongTypeForMessageParameterException(
@@ -401,15 +407,16 @@ public class Log {
   }
 
   public ValidationException getUnableToFindAnnotationParameterException(final String parameterName,
-      final NoSuchMethodException e) {
+      final NoSuchMethodException exception) {
     return new ValidationException(
-        MESSAGE.getUnableToFindAnnotationParameterException(parameterName), e);
+        MESSAGE.getUnableToFindAnnotationParameterException(parameterName), exception);
   }
 
   public ValidationException getUnableToGetAnnotationParameterException(final String parameterName,
-      final String annotationName, final Exception e) {
+      final String annotationName, final Exception exception) {
     return new ValidationException(
-        MESSAGE.getUnableToGetAnnotationParameterException(parameterName, annotationName), e);
+        MESSAGE.getUnableToGetAnnotationParameterException(parameterName, annotationName),
+        exception);
   }
 
   public IllegalArgumentException getNoValueProvidedForAnnotationParameterException(
@@ -440,8 +447,8 @@ public class Log {
   // }
 
   public ValidationException getUnableToAccessMemberException(final String memberName,
-      final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToAccessMemberException(memberName), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToAccessMemberException(memberName), exception);
   }
 
   public IllegalArgumentException getHasToBeAPrimitiveTypeException(final Class<?> clazz) {
@@ -460,10 +467,10 @@ public class Log {
   // }
 
   public ValidationException getUnableToInstantiateConstraintFactoryClassException(
-      final String constraintFactoryClassName, final ValidationException e) {
+      final String constraintFactoryClassName, final ValidationException exception) {
     return new ValidationException(
         MESSAGE.getUnableToInstantiateConstraintFactoryClassException(constraintFactoryClassName),
-        e);
+        exception);
   }
 
   public ValidationException getUnableToOpenInputStreamForMappingFileException(
@@ -473,26 +480,28 @@ public class Log {
   }
 
   public ValidationException getUnableToInstantiateMessageInterpolatorClassException(
-      final String messageInterpolatorClassName, final Exception e) {
-    return new ValidationException(MESSAGE
-        .getUnableToInstantiateMessageInterpolatorClassException(messageInterpolatorClassName), e);
+      final String messageInterpolatorClassName, final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToInstantiateMessageInterpolatorClassException(
+        messageInterpolatorClassName), exception);
   }
 
   public ValidationException getUnableToInstantiateTraversableResolverClassException(
-      final String traversableResolverClassName, final Exception e) {
-    return new ValidationException(MESSAGE
-        .getUnableToInstantiateTraversableResolverClassException(traversableResolverClassName), e);
+      final String traversableResolverClassName, final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToInstantiateTraversableResolverClassException(
+        traversableResolverClassName), exception);
   }
 
   public ValidationException getUnableToInstantiateValidationProviderClassException(
-      final String providerClassName, final Exception e) {
+      final String providerClassName, final Exception exception) {
     return new ValidationException(
-        MESSAGE.getUnableToInstantiateValidationProviderClassException(providerClassName), e);
+        MESSAGE.getUnableToInstantiateValidationProviderClassException(providerClassName),
+        exception);
   }
 
   public ValidationException getUnableToParseValidationXmlFileException(final String file,
-      final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToParseValidationXmlFileException(file), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToParseValidationXmlFileException(file),
+        exception);
   }
 
   public ValidationException getIsNotAnAnnotationException(final String annotationClassName) {
@@ -544,13 +553,14 @@ public class Log {
     return new ValidationException(MESSAGE.getUnexpectedParameterValueException());
   }
 
-  public ValidationException getUnexpectedParameterValueException(final ClassCastException e) {
-    return new ValidationException(MESSAGE.getUnexpectedParameterValueException(), e);
+  public ValidationException getUnexpectedParameterValueException(
+      final ClassCastException exception) {
+    return new ValidationException(MESSAGE.getUnexpectedParameterValueException(), exception);
   }
 
   public ValidationException getInvalidNumberFormatException(final String formatName,
-      final NumberFormatException e) {
-    return new ValidationException(MESSAGE.getInvalidNumberFormatException(formatName), e);
+      final NumberFormatException exception) {
+    return new ValidationException(MESSAGE.getInvalidNumberFormatException(formatName), exception);
   }
 
   public ValidationException getInvalidCharValueException(final String value) {
@@ -558,8 +568,8 @@ public class Log {
   }
 
   public ValidationException getInvalidReturnTypeException(final Class<?> returnType,
-      final ClassCastException e) {
-    return new ValidationException(MESSAGE.getInvalidReturnTypeException(returnType), e);
+      final ClassCastException exception) {
+    return new ValidationException(MESSAGE.getInvalidReturnTypeException(returnType), exception);
   }
 
   public ValidationException getReservedParameterNamesException(final String messageParameterName,
@@ -572,8 +582,8 @@ public class Log {
     return new ValidationException(MESSAGE.getWrongPayloadClassException(payloadClassName));
   }
 
-  public ValidationException getErrorParsingMappingFileException(final Exception e) {
-    return new ValidationException(MESSAGE.getErrorParsingMappingFileException(), e);
+  public ValidationException getErrorParsingMappingFileException(final Exception exception) {
+    return new ValidationException(MESSAGE.getErrorParsingMappingFileException(), exception);
   }
 
   public IllegalArgumentException getIllegalArgumentException(final String message) {
@@ -591,15 +601,16 @@ public class Log {
   }
 
   public ValidationException getUnableToInstantiateParameterNameProviderClassException(
-      final String parameterNameProviderClassName, final ValidationException e) {
+      final String parameterNameProviderClassName, final ValidationException exception) {
     return new ValidationException(MESSAGE
         .getUnableToInstantiateParameterNameProviderClassException(parameterNameProviderClassName),
-        e);
+        exception);
   }
 
   public ValidationException getUnableToDetermineSchemaVersionException(final String file,
-      final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToDetermineSchemaVersionException(file), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToDetermineSchemaVersionException(file),
+        exception);
   }
 
   public ValidationException getUnsupportedSchemaVersionException(final String file,
@@ -624,12 +635,13 @@ public class Log {
     return new ConstraintDeclarationException(MESSAGE.getGroupConversionForSequenceException(from));
   }
 
-  public void unknownPropertyInExpressionLanguage(final String expression, final Exception e) {
-    GWT.log(MESSAGE.unknownPropertyInExpressionLanguage(expression), e);
+  public void unknownPropertyInExpressionLanguage(final String expression,
+      final Exception exception) {
+    GWT.log(MESSAGE.unknownPropertyInExpressionLanguage(expression), exception);
   }
 
-  public void errorInExpressionLanguage(final String expression, final Exception e) {
-    GWT.log(MESSAGE.errorInExpressionLanguage(expression), e);
+  public void errorInExpressionLanguage(final String expression, final Exception exception) {
+    GWT.log(MESSAGE.errorInExpressionLanguage(expression), exception);
   }
 
   // public ConstraintDeclarationException
@@ -664,9 +676,10 @@ public class Log {
   }
 
   public ValidationException getUnableToLoadConstraintAnnotationClassException(
-      final String constraintAnnotationClass, final Exception e) {
+      final String constraintAnnotationClass, final Exception exception) {
     return new ValidationException(
-        MESSAGE.getUnableToLoadConstraintAnnotationClassException(constraintAnnotationClass), e);
+        MESSAGE.getUnableToLoadConstraintAnnotationClassException(constraintAnnotationClass),
+        exception);
   }
 
   public ValidationException getMethodIsDefinedTwiceInMappingXmlForBeanException(final String name,
@@ -724,14 +737,14 @@ public class Log {
   }
 
   public void evaluatingExpressionLanguageExpressionCausedException(final String expression,
-      final Exception e) {
-    GWT.log(MESSAGE.evaluatingExpressionLanguageExpressionCausedException(expression), e);
+      final Exception exception) {
+    GWT.log(MESSAGE.evaluatingExpressionLanguageExpressionCausedException(expression), exception);
   }
 
   public ValidationException getExceptionOccurredDuringMessageInterpolationException(
-      final Exception e) {
+      final Exception exception) {
     return new ValidationException(
-        MESSAGE.getExceptionOccurredDuringMessageInterpolationException(), e);
+        MESSAGE.getExceptionOccurredDuringMessageInterpolationException(), exception);
   }
 
   public UnexpectedTypeException getMultipleValidatorsForSameTypeException(final String constraint,
@@ -863,9 +876,9 @@ public class Log {
   // }
 
   public ConstraintDeclarationException getCreationOfScriptExecutorFailedException(
-      final String languageName, final Exception e) {
+      final String languageName, final Exception exception) {
     return new ConstraintDeclarationException(
-        MESSAGE.getCreationOfScriptExecutorFailedException(languageName), e);
+        MESSAGE.getCreationOfScriptExecutorFailedException(languageName), exception);
   }
 
   public ValidationException getBeanClassHasAlreadyBeConfiguredViaProgrammaticApiException(
@@ -974,13 +987,15 @@ public class Log {
             property, clazz));
   }
 
-  public ValidationException getUnableToCreateXMLEventReader(final String file, final Exception e) {
-    return new ValidationException(MESSAGE.getUnableToCreateXMLEventReader(file), e);
+  public ValidationException getUnableToCreateXMLEventReader(final String file,
+      final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToCreateXMLEventReader(file), exception);
   }
 
   public ValidationException validatedValueUnwrapperCannotBeCreated(final String className,
-      final Exception e) {
-    return new ValidationException(MESSAGE.validatedValueUnwrapperCannotBeCreated(className), e);
+      final Exception exception) {
+    return new ValidationException(MESSAGE.validatedValueUnwrapperCannotBeCreated(className),
+        exception);
   }
 
   public void unknownJvmVersion(final String vmVersionStr) {

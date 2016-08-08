@@ -23,6 +23,7 @@ import static javaemul.internal.InternalPreconditions.checkNotNull;
  * TODO(chehayeb): move these checks to InternalPreconditions.
  * </p>
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 final class IOUtils {
 
   /**

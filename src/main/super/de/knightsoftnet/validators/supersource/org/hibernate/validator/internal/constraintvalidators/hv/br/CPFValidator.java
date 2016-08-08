@@ -22,6 +22,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author Hardy Ferentschik
  * @author Manfred Tremmel - GWT port
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class CPFValidator implements ConstraintValidator<CPF, CharSequence> {
   private static final RegExp DIGITS_ONLY = RegExp.compile("\\d+");
   private static final RegExp SINGLE_DASH_SEPARATOR = RegExp.compile("\\d+-\\d\\d");

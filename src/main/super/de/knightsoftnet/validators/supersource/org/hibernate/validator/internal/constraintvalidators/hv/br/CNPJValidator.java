@@ -22,6 +22,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author Hardy Ferentschik
  * @author Manfred Tremmel - GWT implementation
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class CNPJValidator implements ConstraintValidator<CNPJ, CharSequence> {
   private static final RegExp DIGITS_ONLY = RegExp.compile("\\d+");
 

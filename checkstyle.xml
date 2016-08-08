@@ -32,7 +32,9 @@
         <module name="FileTabCharacter">
             <property name="eachLine" value="true"/>
         </module>
-    
+
+    <module name="SuppressWarningsFilter" />
+
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
@@ -196,6 +198,7 @@
              value="Method name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="SingleLineJavadoc"/>
+        <module name="SuppressWarningsHolder" />
         <!-- <module name="EmptyCatchBlock">
             <property name="exceptionVariableName" value="expected"/>
         </module> -->

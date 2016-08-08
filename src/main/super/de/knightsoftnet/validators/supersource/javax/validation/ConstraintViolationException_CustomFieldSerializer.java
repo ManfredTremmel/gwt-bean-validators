@@ -24,6 +24,7 @@ import java.util.Set;
 /**
  * Custom Serializer for {@link ConstraintViolationException}.
  */
+@SuppressWarnings("checkstyle:typename")
 public class ConstraintViolationException_CustomFieldSerializer
     extends CustomFieldSerializer<ConstraintViolationException> {
 
@@ -33,6 +34,13 @@ public class ConstraintViolationException_CustomFieldSerializer
     // no fields
   }
 
+  /**
+   * instantiate constraint violation exception.
+   *
+   * @param streamReader serialization stream reader to read data from
+   * @return ConstraintViolationException
+   * @throws SerializationException if deserialization fails
+   */
   public static ConstraintViolationException instantiate(
       final SerializationStreamReader streamReader) throws SerializationException {
     final String message = streamReader.readString();

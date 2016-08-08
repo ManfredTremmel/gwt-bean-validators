@@ -20,7 +20,7 @@ import com.google.gwt.regexp.shared.RegExp;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * RegEx Util contails hlper routines for regular expressions.
+ * RegEx Util contains helper routines for regular expressions.
  *
  * @author Manfred Tremmel
  *

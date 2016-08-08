@@ -58,6 +58,7 @@ import com.google.gwt.thirdparty.guava.common.primitives.Primitives;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 
 import java.beans.BeanInfo;
@@ -100,6 +101,7 @@ import javax.validation.metadata.PropertyDescriptor;
  * This class is not thread safe.
  * </p>
  */
+@SuppressWarnings("checkstyle:linelength")
 public final class GwtSpecificValidatorCreator extends AbstractCreator {
   private static enum Stage {
     OBJECT, PROPERTY, VALUE
@@ -128,7 +130,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   };
 
   public static String asGetter(final PropertyDescriptor propertyDescriptor) {
-    return "get" + capitalizeFirstLetter(propertyDescriptor.getPropertyName());
+    return "get" + StringUtils.capitalize(propertyDescriptor.getPropertyName());
   }
 
   /**
@@ -188,28 +190,6 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       throw new IllegalArgumentException(
           value.getClass() + " can not be represented as a Java Literal.");
     }
-  }
-
-  /**
-   * capitalize first letter.
-   *
-   * @param propertyName property to check
-   * @return capitalized version of propertyName
-   */
-  public static String capitalizeFirstLetter(final String propertyName) {
-    if (propertyName == null || propertyName.isEmpty()) {
-      return propertyName;
-    }
-    final char firstChar = propertyName.charAt(0);
-    if (Character.isUpperCase(firstChar)) {
-      return propertyName;
-    }
-    final StringBuilder cap = new StringBuilder();
-    cap.append(Character.toUpperCase(firstChar));
-    if (propertyName.length() > 1) {
-      cap.append(propertyName.substring(1));
-    }
-    return cap.toString();
   }
 
   /**

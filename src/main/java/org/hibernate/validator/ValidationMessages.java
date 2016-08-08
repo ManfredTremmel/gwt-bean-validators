@@ -4,6 +4,7 @@ package org.hibernate.validator;
  * Interface to represent the constants contained in resource bundle:
  * 'validation/ValidationMessages.properties'.
  */
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
 public interface ValidationMessages extends com.google.gwt.i18n.client.ConstantsWithLookup {
 
   /**
@@ -198,7 +199,8 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
    * @return translated
    *         "The check digit for ${validatedValue} is invalid, ${modType} checksum failed"
    */
-  @DefaultStringValue("The check digit for ${validatedValue} is invalid, ${modType} checksum failed")
+  @DefaultStringValue("The check digit for ${validatedValue} is invalid, ${modType} "
+      + "checksum failed")
   @Key("org.hibernate.validator.constraints.ModCheck.message")
   String org_hibernate_validator_constraints_ModCheck_message(); // NOPMD
 
@@ -261,7 +263,6 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
    *
    * @return translated "must be a valid URL"
    */
-  @SuppressWarnings("checkstyle:abbreviationaswordinname")
   @DefaultStringValue("must be a valid URL")
   @Key("org.hibernate.validator.constraints.URL.message")
   String org_hibernate_validator_constraints_URL_message(); // NOPMD
@@ -271,7 +272,6 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
    *
    * @return translated "invalid Brazilian corporate taxpayer registry number (CNPJ)"
    */
-  @SuppressWarnings("checkstyle:abbreviationaswordinname")
   @DefaultStringValue("invalid Brazilian corporate taxpayer registry number (CNPJ)")
   @Key("org.hibernate.validator.constraints.br.CNPJ.message")
   String org_hibernate_validator_constraints_br_CNPJ_message(); // NOPMD
@@ -281,7 +281,6 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
    *
    * @return translated "invalid Brazilian individual taxpayer registry number (CPF)"
    */
-  @SuppressWarnings("checkstyle:abbreviationaswordinname")
   @DefaultStringValue("invalid Brazilian individual taxpayer registry number (CPF)")
   @Key("org.hibernate.validator.constraints.br.CPF.message")
   String org_hibernate_validator_constraints_br_CPF_message(); // NOPMD
@@ -291,7 +290,6 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
    *
    * @return translated "invalid Brazilian Voter ID card number"
    */
-  @SuppressWarnings("checkstyle:abbreviationaswordinname")
   @DefaultStringValue("invalid Brazilian Voter ID card number")
   @Key("org.hibernate.validator.constraints.br.TituloEleitoral.message")
   String org_hibernate_validator_constraints_br_TituloEleitoral_message(); // NOPMD
