@@ -118,5 +118,6 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateEan13.class);
     psuite.addTestSuite(GwtTstHibernateLength.class);
     psuite.addTestSuite(GwtTstHibernateCreditCardNumber.class);
+    psuite.addTestSuite(GwtTstHibernateUrl.class);
   }
 }

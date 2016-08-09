@@ -52,6 +52,7 @@ import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeArrayTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeCollectionTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateUrlTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanWithSpacesTestBean;
@@ -123,7 +124,8 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       HibernateSizeArrayTestBean.class, HibernateSizeCollectionTestBean.class,
       HibernateFutureTestBean.class, HibernatePastTestBean.class, HibernateNotBlankTestBean.class,
       HibernateNotEmptyTestBean.class, HibernateEan8TestBean.class, HibernateEan13TestBean.class,
-      HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class})
+      HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class,
+      HibernateUrlTestBean.class})
   public interface GwtValidator extends Validator {
   }
 
