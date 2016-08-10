@@ -24,8 +24,8 @@ import javax.validation.ConstraintValidatorContext;
  */
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class CPFValidator implements ConstraintValidator<CPF, CharSequence> {
-  private static final RegExp DIGITS_ONLY = RegExp.compile("\\d+");
-  private static final RegExp SINGLE_DASH_SEPARATOR = RegExp.compile("\\d+-\\d\\d");
+  private static final RegExp DIGITS_ONLY = RegExp.compile("^\\d+$");
+  private static final RegExp SINGLE_DASH_SEPARATOR = RegExp.compile("^\\d+-\\d\\d$");
 
   private final Mod11CheckValidator withSeparatorMod11Validator1 = new Mod11CheckValidator();
   private final Mod11CheckValidator withSeparatorMod11Validator2 = new Mod11CheckValidator();

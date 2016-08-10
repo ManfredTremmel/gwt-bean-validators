@@ -34,6 +34,8 @@ import de.knightsoftnet.validators.shared.beans.Gtin8TestBean;
 import de.knightsoftnet.validators.shared.beans.GtinTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertFalseTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertTrueTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateCnpjTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateCpfTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateCreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDecimalMinMaxTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDigitsTestBean;
@@ -125,7 +127,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       HibernateFutureTestBean.class, HibernatePastTestBean.class, HibernateNotBlankTestBean.class,
       HibernateNotEmptyTestBean.class, HibernateEan8TestBean.class, HibernateEan13TestBean.class,
       HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class,
-      HibernateUrlTestBean.class})
+      HibernateUrlTestBean.class, HibernateCnpjTestBean.class, HibernateCpfTestBean.class})
   public interface GwtValidator extends Validator {
   }
 

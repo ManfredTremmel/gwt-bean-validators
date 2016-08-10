@@ -119,5 +119,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateLength.class);
     psuite.addTestSuite(GwtTstHibernateCreditCardNumber.class);
     psuite.addTestSuite(GwtTstHibernateUrl.class);
+    psuite.addTestSuite(GwtTstHibernateCnpj.class);
+    psuite.addTestSuite(GwtTstHibernateCpf.class);
   }
 }

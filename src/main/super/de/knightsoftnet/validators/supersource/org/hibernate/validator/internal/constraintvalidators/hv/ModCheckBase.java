@@ -31,7 +31,7 @@ public abstract class ModCheckBase { // NOPMD
 
   private static final Log LOG = LoggerFactory.make(); // NOPMD
 
-  private static final RegExp NUMBERS_ONLY_REGEXP = RegExp.compile("[^0-9]");
+  private static final RegExp NUMBERS_ONLY_REGEXP = RegExp.compile("[^0-9]", "g");
 
   private static final int DEC_RADIX = 10;
 
@@ -54,7 +54,7 @@ public abstract class ModCheckBase { // NOPMD
 
   /**
    * valid check.
-   * 
+   *
    * @param value value to check.
    * @param context constraint validator context
    * @return true if valid
@@ -124,7 +124,7 @@ public abstract class ModCheckBase { // NOPMD
    * @throws NumberFormatException in case any of the characters is not a digit
    */
   private List<Integer> extractDigits(final String value) throws NumberFormatException {
-    final List<Integer> digits = new ArrayList<Integer>(value.length());
+    final List<Integer> digits = new ArrayList<>(value.length());
     final char[] chars = value.toCharArray();
     for (final char c : chars) {
       digits.add(this.extractDigit(c));
