@@ -264,7 +264,7 @@ public final class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.
         && Objects.equals(this.kind, other.kind) //
         && Objects.equals(this.name, other.name) //
         && Objects.equals(this.parameterIndex, other.parameterIndex) //
-        && Objects.equals(this.parameterTypes, other.parameterTypes) //
+        && Arrays.equals(this.parameterTypes, other.parameterTypes) //
         && Objects.equals(this.parent, other.parent);
   }
 }

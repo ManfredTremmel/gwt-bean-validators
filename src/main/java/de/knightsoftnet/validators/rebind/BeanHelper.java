@@ -37,7 +37,7 @@ public final class BeanHelper {
       new Function<BeanHelper, Class<?>>() {
         @Override
         public Class<?> apply(final BeanHelper helper) {
-          return helper.getClazz();
+          return helper == null ? null : helper.getClazz();
         }
       };
 
@@ -59,7 +59,7 @@ public final class BeanHelper {
 
   /**
    * get association type.
-   * 
+   *
    * @param ppropertyDescriptor property description
    * @param puseField use field
    * @return JClassType

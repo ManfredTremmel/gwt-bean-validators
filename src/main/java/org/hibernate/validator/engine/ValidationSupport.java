@@ -34,7 +34,7 @@ import java.util.HashSet;
  * The following classes are included.
  * </p>
  * <ul>
- * <li>{@link ConstraintViolationImpl}</li>
+ * <li>{@link de.knightsoftnet.validators.client.impl.ConstraintViolationImpl}</li>
  * <li>{@link PathImpl}</li>
  * <li>{@link HashSet}</li>
  * </ul>

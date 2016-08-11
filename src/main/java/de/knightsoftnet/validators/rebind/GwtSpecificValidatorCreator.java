@@ -117,7 +117,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       new Function<java.beans.PropertyDescriptor, String>() {
         @Override
         public String apply(final java.beans.PropertyDescriptor pd) {
-          return pd.getName();
+          return pd == null ? null : pd.getName();
         }
       };
 
@@ -125,7 +125,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
     @Override
     public String apply(final Object input) {
-      return asLiteral(input);
+      return input == null ? null : asLiteral(input);
     }
   };
 
@@ -150,8 +150,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final StringBuilder sb = new StringBuilder();
       final Object[] array = (Object[]) value;
 
-      sb.append("new " + clazz.getComponentType().getCanonicalName() + "[] ");
-      sb.append('{');
+      sb.append("new " + clazz.getComponentType().getCanonicalName() + "[] {");
       boolean first = true;
       for (final Object object : array) {
         if (first) {
@@ -671,7 +670,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     final Class<?> beanClazz = this.beanHelper.getClazz();
     sw.print(asLiteral(beanClazz));
     final GroupSequence groupSeqAnnotation = beanClazz.getAnnotation(GroupSequence.class);
-    final List<Class<?>> groupSequence = new ArrayList<Class<?>>();
+    final List<Class<?>> groupSequence = new ArrayList<>();
     if (groupSeqAnnotation == null) {
       groupSequence.add(beanClazz);
     } else {
@@ -1638,7 +1637,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
 
     // if(instance != null && !context.alreadyValidated(instance)) {
-    sw.println(" if(instance != null  && !context.alreadyValidated(instance)) {");
+    sw.println(" if (instance != null  && !context.alreadyValidated(instance)) {");
     sw.indent();
 
     // violations.addAll(
@@ -1693,7 +1692,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
     // if(entry.getValue() != null &&
     // !context.alreadyValidated(entry.getValue())) {
-    sw.println(" if(entry.getValue() != null && !context.alreadyValidated(entry.getValue())) {");
+    sw.println(" if (entry.getValue() != null && !context.alreadyValidated(entry.getValue())) {");
     sw.indent();
 
     // violations.addAll(
@@ -1736,7 +1735,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     if (this.beanHelper.hasGetter(property)) {
       if (useValue) {
         // if ( value == null || value instanceof propertyType) {
-        sw.print("if ( value == null || value instanceof ");
+        sw.print("if (value == null || value instanceof ");
         sw.print(this
             .getQualifiedSourceNonPrimitiveType(this.beanHelper.getElementType(property, false)));
         sw.println(") {");
@@ -1775,9 +1774,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       }
     }
 
-    if (useValue & (this.beanHelper.hasGetter(property) || this.beanHelper.hasField(property))) {
+    if (useValue && (this.beanHelper.hasGetter(property) || this.beanHelper.hasField(property))) {
       // if(!valueTypeMatches) {
-      sw.println("if(!valueTypeMatches)  {");
+      sw.println("if (!valueTypeMatches)  {");
       sw.indent();
 
       // throw new ValidationException(value.getClass +

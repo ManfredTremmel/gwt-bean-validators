@@ -91,7 +91,7 @@ public interface GwtSpecificValidator<G> {
   /**
    * Validates all constraints on <code>object</code>.
    *
-   * @param<T> the type of the RootBean for this validation context
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context The gwt validation context
    * @param object object to validate
@@ -122,7 +122,7 @@ public interface GwtSpecificValidator<G> {
    * Validates all constraints placed on the property of <code>object</code> named
    * <code>propertyName</code>.
    *
-   * @param<T> the type of the RootBean for this validation context
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context The gwt validation context
    * @param object object to validate
@@ -158,7 +158,7 @@ public interface GwtSpecificValidator<G> {
    * <code>ConstraintViolation</code> objects return null for
    * {@link ConstraintViolation#getRootBean()} and {@link ConstraintViolation#getLeafBean()}
    *
-   * @param<T> the type of the RootBean for this validation context
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context The gwt validation context
    * @param beanType the bean type
