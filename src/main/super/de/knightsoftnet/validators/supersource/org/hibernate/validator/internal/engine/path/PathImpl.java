@@ -30,7 +30,7 @@ import javax.validation.Path;
  * @author Manfred Tremmel ported to gwt
  */
 @SuppressWarnings("checkstyle:javadocmethod")
-public final class PathImpl implements Path, Serializable {
+public class PathImpl implements Path, Serializable {
   private static final long serialVersionUID = 7564511574909882392L;
 
   private static final String PROPERTY_PATH_SEPARATOR = ".";
@@ -286,13 +286,13 @@ public final class PathImpl implements Path, Serializable {
     this.currentLeafNode = (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
   }
 
-  private PathImpl() {
-    this.nodeList = new ArrayList<Node>();
+  protected PathImpl() {
+    this.nodeList = new ArrayList<>();
     this.hashCodeEntry = -1;
   }
 
   private PathImpl(final List<Node> nodeList) {
-    this.nodeList = new ArrayList<Node>(nodeList);
+    this.nodeList = new ArrayList<>(nodeList);
     this.hashCodeEntry = -1;
   }
 

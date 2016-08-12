@@ -27,7 +27,7 @@ import javax.validation.metadata.ConstraintDescriptor;
  *
  * @param <T> the type of bean validated.
  */
-public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>, Serializable {
+public class ConstraintViolationImpl<T> implements ConstraintViolation<T>, Serializable {
 
   /**
    * Builder for ConstraintViolations.
@@ -51,7 +51,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
      * @return ConstraintViolationImpl
      */
     public ConstraintViolationImpl<T> build() {
-      return new ConstraintViolationImpl<T>(this.message, this.messageTemplate, // NOPMD
+      return new ConstraintViolationImpl<>(this.message, this.messageTemplate, // NOPMD
           this.rootBean, this.rootBeanClass, this.leafBean, this.propertyPath, this.invalidValue,
           this.elementType, this.constraintDescriptor);
     }
@@ -105,7 +105,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
   private static final long serialVersionUID = 1L;
 
   public static <T> Builder<T> builder() {
-    return new Builder<T>();
+    return new Builder<>();
   }
 
   private final String message;
@@ -118,7 +118,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
   private final ElementType elementType;
   private final ConstraintDescriptor<?> constraintDescriptor;
 
-  private ConstraintViolationImpl(final String message, final String messageTemplate,
+  protected ConstraintViolationImpl(final String message, final String messageTemplate,
       final T rootBean, final Class<T> rootBeanClass, final Object leafBean,
       final Path propertyPath, final Object invalidValue, final ElementType elementType,
       final ConstraintDescriptor<?> constraintDescriptor) {

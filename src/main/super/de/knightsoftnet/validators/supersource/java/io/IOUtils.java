@@ -14,7 +14,7 @@
 
 package java.io;
 
-import static javaemul.internal.InternalPreconditions.checkNotNull;
+import static com.google.gwt.core.shared.impl.InternalPreconditions.checkNotNull;
 
 /**
  * Provides a series of utilities to be reused between IO classes.

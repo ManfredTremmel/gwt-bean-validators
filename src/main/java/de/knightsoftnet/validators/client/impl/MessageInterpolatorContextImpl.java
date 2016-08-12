@@ -20,7 +20,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 /**
  * Implementation of {@link Context}.
  */
-public final class MessageInterpolatorContextImpl implements Context {
+public class MessageInterpolatorContextImpl implements Context {
 
   private final ConstraintDescriptor<?> constraintDescriptor;
   private final Object value;

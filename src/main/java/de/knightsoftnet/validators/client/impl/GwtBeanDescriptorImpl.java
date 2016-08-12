@@ -38,7 +38,7 @@ import javax.validation.metadata.PropertyDescriptor;
  *
  * @param <T> the bean Type
  */
-public final class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
+public class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
 
   /**
    * Builder for {@link GwtBeanDescriptor}s.
@@ -49,9 +49,9 @@ public final class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
 
     private final Class<T> clazz;
     private final Map<String, PropertyDescriptorImpl> descriptorMap =
-        new HashMap<String, PropertyDescriptorImpl>();
+        new HashMap<>();
     private final Set<ConstraintDescriptorImpl<? extends Annotation>> constraints =
-        new HashSet<ConstraintDescriptorImpl<? extends Annotation>>();
+        new HashSet<>();
     private boolean isConstrained;
     private BeanMetadata beanMetadata;
 
@@ -66,7 +66,7 @@ public final class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
     }
 
     public GwtBeanDescriptorImpl<T> build() {
-      return new GwtBeanDescriptorImpl<T>(this.clazz, this.isConstrained, // NOPMD
+      return new GwtBeanDescriptorImpl<>(this.clazz, this.isConstrained, // NOPMD
           this.descriptorMap, this.beanMetadata, this.constraints);
     }
 
@@ -87,22 +87,22 @@ public final class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
   }
 
   public static <T> Builder<T> builder(final Class<T> clazz) {
-    return new Builder<T>(clazz); // NOPMD
+    return new Builder<>(clazz); // NOPMD
   }
 
   private final Class<T> clazz;
   private final Set<ConstraintDescriptorImpl<?>> constraints =
-      new HashSet<ConstraintDescriptorImpl<?>>();
+      new HashSet<>();
 
   private final Map<String, PropertyDescriptorImpl> descriptorMap =
-      new HashMap<String, PropertyDescriptorImpl>();
+      new HashMap<>();
   private final boolean isConstrained;
 
   private final BeanMetadata beanMetadata;
 
   private ValidationGroupsMetadata validationGroupsMetadata;
 
-  private GwtBeanDescriptorImpl(final Class<T> clazz, final boolean isConstrained,
+  protected GwtBeanDescriptorImpl(final Class<T> clazz, final boolean isConstrained,
       final Map<String, PropertyDescriptorImpl> descriptorMap, final BeanMetadata beanMetadata,
       final Set<ConstraintDescriptorImpl<?>> constraints) {
     this.clazz = clazz;

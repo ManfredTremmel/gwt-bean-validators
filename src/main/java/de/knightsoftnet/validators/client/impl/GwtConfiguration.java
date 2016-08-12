@@ -25,7 +25,7 @@ import javax.validation.spi.BootstrapState;
 /**
  * Extends {@link AbstractBaseGwtConfiguration} with just the parts that are not GWT compatible.
  */
-public final class GwtConfiguration extends AbstractBaseGwtConfiguration {
+public class GwtConfiguration extends AbstractBaseGwtConfiguration {
 
   public GwtConfiguration(final GwtValidationProvider gwtValidationProvider,
       final BootstrapState state) {

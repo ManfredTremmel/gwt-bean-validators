@@ -24,7 +24,7 @@ import javax.validation.Path;
  * @author Gunnar Morling
  * @author Manfred Tremmel (gwt port)
  */
-public final class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.ConstructorNode,
+public class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.ConstructorNode,
     Path.BeanNode, Path.ParameterNode, Path.ReturnValueNode, Path.CrossParameterNode,
     org.hibernate.validator.path.PropertyNode, Serializable {
   private static final long serialVersionUID = 2075466571633860499L;
@@ -50,7 +50,7 @@ public final class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.
 
   private String valueAsString;
 
-  private NodeImpl(final String name, final NodeImpl parent, final boolean indexable,
+  protected NodeImpl(final String name, final NodeImpl parent, final boolean indexable,
       final Integer index, final Object key, final ElementKind kind,
       final Class<?>[] parameterTypes, final Integer parameterIndex, final Object value) {
     this.name = name;
@@ -236,7 +236,7 @@ public final class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.
     return builder.toString();
   }
 
-  public int buildHashCode() {
+  public final int buildHashCode() {
     return Objects.hash(this.index, this.isIterableValue, this.key, this.kind, this.name,
         this.parameterIndex, this.parameterTypes, this.parent);
   }

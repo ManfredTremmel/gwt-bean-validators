@@ -34,8 +34,7 @@ import javax.validation.metadata.ConstraintDescriptor;
  *
  * @param <T> the constraint annotation to describe.
  */
-public final class ConstraintDescriptorImpl<T extends Annotation>
-    implements ConstraintDescriptor<T> {
+public class ConstraintDescriptorImpl<T extends Annotation> implements ConstraintDescriptor<T> {
 
   /**
    * Builder for {@link ConstraintDescriptorImpl}.
@@ -49,7 +48,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
     private List<Class<? extends ConstraintValidator<T, ?>>> constraintValidatorClasses;
     private Map<String, Object> attributes;
     private final Set<ConstraintDescriptor<?>> composingConstraints =
-        new HashSet<ConstraintDescriptor<?>>();
+        new HashSet<>();
     private boolean reportAsSingleViolation;
     private ElementType elementType;
     private ConstraintOrigin definedOn;
@@ -65,7 +64,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
      * @return created ConstraintDescriptorImpl
      */
     public ConstraintDescriptorImpl<T> build() {
-      return new ConstraintDescriptorImpl<T>( // NOPMD
+      return new ConstraintDescriptorImpl<>( // NOPMD
           this.annotation, //
           this.groups, //
           this.payload, //
@@ -118,7 +117,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
     }
 
     public Builder<T> setGroups(final Class<?>[] classes) {
-      this.setGroups(new HashSet<Class<?>>(Arrays.asList(classes)));
+      this.setGroups(new HashSet<>(Arrays.asList(classes)));
       return this;
     }
 
@@ -128,7 +127,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
     }
 
     public Builder<T> setPayload(final Class<? extends Payload>[] classes) {
-      this.setPayload(new HashSet<Class<? extends Payload>>(Arrays.asList(classes)));
+      this.setPayload(new HashSet<>(Arrays.asList(classes)));
       return this;
     }
 
@@ -144,7 +143,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
   }
 
   public static <T extends Annotation> Builder<T> builder() {
-    return new Builder<T>();
+    return new Builder<>();
   }
 
   private final T annotation;
@@ -157,7 +156,7 @@ public final class ConstraintDescriptorImpl<T extends Annotation>
   private final ElementType elementType;
   private final ConstraintOrigin definedOn;
 
-  private ConstraintDescriptorImpl(final T annotation, final Set<Class<?>> groups,
+  protected ConstraintDescriptorImpl(final T annotation, final Set<Class<?>> groups,
       final Set<Class<? extends Payload>> payload,
       final List<Class<? extends ConstraintValidator<T, ?>>> constraintValidatorClasses,
       final Map<String, Object> attributes, final Set<ConstraintDescriptor<?>> composingConstraints,

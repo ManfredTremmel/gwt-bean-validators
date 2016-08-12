@@ -17,7 +17,7 @@
 
 package java.io;
 
-import static javaemul.internal.InternalPreconditions.checkNotNull;
+import static com.google.gwt.core.shared.impl.InternalPreconditions.checkNotNull;
 
 /**
  * A readable source of bytes.

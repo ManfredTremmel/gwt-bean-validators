@@ -25,7 +25,7 @@ import javax.validation.TraversableResolver;
 /**
  * Only the GWT incompatible parts.
  */
-public final class GwtConfigurationState extends AbstractBaseConfigurationState {
+public class GwtConfigurationState extends AbstractBaseConfigurationState {
 
   public GwtConfigurationState(final ConstraintValidatorFactory constraintValidatorFactory,
       final MessageInterpolator messageInterpolator, final Map<String, String> properties,

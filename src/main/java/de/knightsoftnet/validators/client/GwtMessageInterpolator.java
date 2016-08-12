@@ -19,7 +19,7 @@ import com.google.gwt.core.client.GWT;
 /**
  * Simple GWT {@link javax.validation.MessageInterpolator}.
  */
-public final class GwtMessageInterpolator extends AbstractBaseMessageInterpolator {
+public class GwtMessageInterpolator extends AbstractBaseMessageInterpolator {
   // This class only has the parts the need to overridden for GWT
 
   /**

@@ -29,7 +29,7 @@ import javax.validation.metadata.PropertyDescriptor;
 /**
  * Describes a constrained bean property.
  */
-public final class PropertyDescriptorImpl implements PropertyDescriptor {
+public class PropertyDescriptorImpl implements PropertyDescriptor {
 
   private final boolean cascaded;
   private final Set<ConstraintDescriptorImpl<?>> descriptors;
@@ -59,7 +59,7 @@ public final class PropertyDescriptorImpl implements PropertyDescriptor {
     this.name = name;
     this.validationGroupsMetadata = validationGroupsMetadata;
     this.parentBeanMetadata = parentBeanMetadata;
-    this.descriptors = new HashSet<ConstraintDescriptorImpl<?>>(Arrays.asList(descriptors));
+    this.descriptors = new HashSet<>(Arrays.asList(descriptors));
     this.groupConversions = Collections.emptySet();
   }
 

@@ -40,7 +40,7 @@ import javax.validation.metadata.ConstraintDescriptor;
  * @param <A> the constraint being validated
  * @param <T> the type of object being validated
  */
-public final class ConstraintValidatorContextImpl<A extends Annotation, T>
+public class ConstraintValidatorContextImpl<A extends Annotation, T>
     implements ConstraintValidatorContext {
 
   /**
@@ -266,8 +266,8 @@ public final class ConstraintValidatorContextImpl<A extends Annotation, T>
   private final ConstraintDescriptor<A> descriptor;
 
   private boolean disableDefault;
-  private final Set<ConstraintViolation<T>> violations = new HashSet<ConstraintViolation<T>>();
-  private final HashSet<MessageAndPath> messages = new HashSet<MessageAndPath>();
+  private final Set<ConstraintViolation<T>> violations = new HashSet<>();
+  private final HashSet<MessageAndPath> messages = new HashSet<>();
 
   /**
    * constructor.

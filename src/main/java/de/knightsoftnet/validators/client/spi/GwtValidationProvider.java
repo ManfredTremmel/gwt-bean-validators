@@ -29,7 +29,7 @@ import javax.validation.spi.ValidationProvider;
 /**
  * GWT {@link ValidationProvider}.
  */
-public final class GwtValidationProvider //
+public class GwtValidationProvider //
     implements ValidationProvider<AbstractBaseGwtConfiguration> {
 
   @Override

@@ -27,7 +27,7 @@ import javax.validation.ValidatorContext;
 /**
  * GWT {@link ValidatorContext}.
  */
-public final class GwtValidatorContext implements ValidatorContext {
+public class GwtValidatorContext implements ValidatorContext {
 
   private final AbstractGwtValidatorFactory validatorFactory;
 
