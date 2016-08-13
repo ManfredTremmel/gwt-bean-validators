@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.hibernate.validator;
+package org.hibernate.validator.message;
 
 import de.knightsoftnet.validators.client.AbstractValidationMessageResolver;
 import de.knightsoftnet.validators.client.ProviderValidationMessageResolver;

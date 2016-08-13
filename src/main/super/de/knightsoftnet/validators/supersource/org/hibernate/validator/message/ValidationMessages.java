@@ -1,4 +1,4 @@
-package org.hibernate.validator;
+package org.hibernate.validator.message;
 
 /**
  * Interface to represent the constants contained in resource bundle:
@@ -46,8 +46,8 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   /**
    * Translated "numeric value out of bounds (<{integer} digits>.<{fraction} digits> expected)".
    *
-   * @return translated
-   *         "numeric value out of bounds (<{integer} digits>.<{fraction} digits> expected)"
+   * @return translated "numeric value out of bounds (<{integer} digits>.<{fraction} digits>
+   *         expected)"
    */
   @DefaultStringValue("numeric value out of bounds "
       + "(<{integer} digits>.<{fraction} digits> expected)")
@@ -163,44 +163,38 @@ public interface ValidationMessages extends com.google.gwt.i18n.client.Constants
   String org_hibernate_validator_constraints_Length_message(); // NOPMD
 
   /**
-   * Translated "The check digit for ${validatedValue} is invalid, Luhn Modulo 10 checksum failed".
+   * Translated "The check digit for {value} is invalid, Luhn Modulo 10 checksum failed".
    *
-   * @return translated
-   *         "The check digit for ${validatedValue} is invalid, Luhn Modulo 10 checksum failed"
+   * @return translated "The check digit for {value} is invalid, Luhn Modulo 10 checksum failed"
    */
-  @DefaultStringValue("The check digit for ${validatedValue} is invalid, "
-      + "Luhn Modulo 10 checksum failed")
+  @DefaultStringValue("The check digit for {value} is invalid, " + "Luhn Modulo 10 checksum failed")
   @Key("org.hibernate.validator.constraints.LuhnCheck.message")
   String org_hibernate_validator_constraints_LuhnCheck_message(); // NOPMD
 
   /**
-   * Translated "The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed".
+   * Translated "The check digit for {value} is invalid, Modulo 10 checksum failed".
    *
-   * @return translated
-   *         "The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed"
+   * @return translated "The check digit for {value} is invalid, Modulo 10 checksum failed"
    */
-  @DefaultStringValue("The check digit for ${validatedValue} is invalid, Modulo 10 checksum failed")
+  @DefaultStringValue("The check digit for {value} is invalid, Modulo 10 checksum failed")
   @Key("org.hibernate.validator.constraints.Mod10Check.message")
   String org_hibernate_validator_constraints_Mod10Check_message(); // NOPMD
 
   /**
-   * Translated "The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed".
+   * Translated "The check digit for {value} is invalid, Modulo 11 checksum failed".
    *
-   * @return translated
-   *         "The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed"
+   * @return translated "The check digit for {value} is invalid, Modulo 11 checksum failed"
    */
-  @DefaultStringValue("The check digit for ${validatedValue} is invalid, Modulo 11 checksum failed")
+  @DefaultStringValue("The check digit for {value} is invalid, Modulo 11 checksum failed")
   @Key("org.hibernate.validator.constraints.Mod11Check.message")
   String org_hibernate_validator_constraints_Mod11Check_message(); // NOPMD
 
   /**
-   * Translated "The check digit for ${validatedValue} is invalid, ${modType} checksum failed".
+   * Translated "The check digit for {value} is invalid, {modType} checksum failed".
    *
-   * @return translated
-   *         "The check digit for ${validatedValue} is invalid, ${modType} checksum failed"
+   * @return translated "The check digit for {value} is invalid, {modType} checksum failed"
    */
-  @DefaultStringValue("The check digit for ${validatedValue} is invalid, ${modType} "
-      + "checksum failed")
+  @DefaultStringValue("The check digit for {value} is invalid, {modType} " + "checksum failed")
   @Key("org.hibernate.validator.constraints.ModCheck.message")
   String org_hibernate_validator_constraints_ModCheck_message(); // NOPMD
 

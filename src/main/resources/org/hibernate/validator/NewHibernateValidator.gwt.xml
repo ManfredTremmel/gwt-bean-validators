@@ -83,7 +83,7 @@ gwt clients.
   </source>
   <super-source path="super" />
   <replace-with
-    class="org.hibernate.validator.HibernateValidationMessageResolver">
+    class="org.hibernate.validator.message.HibernateValidationMessageResolver">
     <when-type-is class="de.knightsoftnet.validators.client.ProviderValidationMessageResolver" />
   </replace-with>
 </module>
