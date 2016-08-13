@@ -73,16 +73,15 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderDefinedContext addNode(final String name) {
-      ConstraintValidatorContextImpl.this.basePath.addPropertyNode(name);
-      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate,
-          ConstraintValidatorContextImpl.this.basePath);
+      this.context.basePath.addPropertyNode(name);
+      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate, this.context.basePath);
     }
 
     @Override
     public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
-      ConstraintValidatorContextImpl.this.basePath.addPropertyNode(pname);
+      this.context.basePath.addPropertyNode(pname);
       return new NodeBuilderCustomizableContextImpl(this, this.messageTemplate,
-          ConstraintValidatorContextImpl.this.basePath);
+          this.context.basePath);
     }
 
     @Override
@@ -92,9 +91,8 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderDefinedContext addParameterNode(final int pindex) {
-      ConstraintValidatorContextImpl.this.basePath.addParameterNode(null, pindex);
-      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate,
-          ConstraintValidatorContextImpl.this.basePath);
+      this.context.basePath.addParameterNode(null, pindex);
+      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate, this.context.basePath);
     }
   }
 

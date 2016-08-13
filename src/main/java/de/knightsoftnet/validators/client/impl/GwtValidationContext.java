@@ -149,7 +149,7 @@ public class GwtValidationContext<T> {
    */
   public <A extends Annotation, V> ConstraintValidatorContextImpl<A, V> //
       createConstraintValidatorContext(final ConstraintDescriptor<A> descriptor) {
-    return new ConstraintValidatorContextImpl<>(this.path, descriptor);
+    return new ConstraintValidatorContextImpl<>(PathImpl.createCopy(this.path), descriptor);
   }
 
   public MessageInterpolator getMessageInterpolator() {
