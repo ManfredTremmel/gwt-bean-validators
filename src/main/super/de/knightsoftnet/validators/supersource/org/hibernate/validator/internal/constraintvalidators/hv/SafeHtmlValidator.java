@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.constraintvalidators.hv;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
 
-import javax.validation.constraints.Future;
+import org.hibernate.validator.constraints.SafeHtml;
 
 /**
  * Validate that the string does not contain malicious code.
@@ -22,5 +22,5 @@ import javax.validation.constraints.Future;
  * @author Hardy Ferentschik
  * @author Manfred Tremmel - GWT port
  */
-public class SafeHtmlValidator extends AbstractNotGwtCompatibleValidator<Future, CharSequence> {
+public class SafeHtmlValidator extends AbstractNotGwtCompatibleValidator<SafeHtml, CharSequence> {
 }

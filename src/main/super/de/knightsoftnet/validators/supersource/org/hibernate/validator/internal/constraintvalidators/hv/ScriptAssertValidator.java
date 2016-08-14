@@ -16,10 +16,10 @@ package org.hibernate.validator.internal.constraintvalidators.hv;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
 
-import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 /**
  * This Validator is not GWT complatible.
  */
-public class ScriptAssertValidator extends AbstractNotGwtCompatibleValidator<Email, String> {
+public class ScriptAssertValidator extends AbstractNotGwtCompatibleValidator<ScriptAssert, String> {
 }
