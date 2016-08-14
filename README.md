@@ -74,4 +74,4 @@ Two Decorators, the decent [UniversalDecorator.java](https://github.com/ManfredT
 </ui:UiBinder>
 ```
 
-I've added a little [example application on GitHub](https://github.com/ManfredTremmel/gwt-bean-validators-example), where you can see, how to use bean validation on client and server side, based on gwt/gwtp and spring with REST webservices. The concepts of the application are documented on the wiki page](https://github.com/ManfredTremmel/gwt-bean-validators-example/wiki).
+I've added a little [example application on GitHub](https://github.com/ManfredTremmel/gwt-bean-validators-example), where you can see, how to use bean validation on client and server side, based on gwt/gwtp and spring with REST webservices. The concepts of the application are documented on the [wiki page](https://github.com/ManfredTremmel/gwt-bean-validators-example/wiki).
