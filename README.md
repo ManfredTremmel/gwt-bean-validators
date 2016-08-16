@@ -16,7 +16,7 @@ On the gwt frontend side, apache-commons-lang3 and apache-commons-validators are
 Maven integraten
 ----------------
 
-Add the dependency itself for GWT-Projects and overwrite validation-api before any gwt library (otherwise old 1.0.0.GA will be included):
+Add the dependencies itself for GWT-Projects:
 
 ```
     <dependency>
@@ -35,6 +35,22 @@ Add the dependency itself for GWT-Projects and overwrite validation-api before a
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
       <version>0.20.0</version>
+    </dependency>
+```
+
+And exclude **validation-api** from your **gwt-user** dependency (otherwise old 1.0.0.GA will be included):
+
+```
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>2.7.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 ```
 For non GWT-Projects you can use [mt-bean-validators](https://github.com/ManfredTremmel/mt-bean-validators) instead, which contains only the validators and has no dependencies to gwt:
