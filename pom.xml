@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.20.1</version>
+	<version>0.20.2</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -167,11 +167,6 @@
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava-gwt</artifactId>
-			<version>20.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>de.knightsoft-net</groupId>
 			<artifactId>mt-bean-validators</artifactId>
 			<version>${mt-bean-validators.version}</version>
@@ -224,23 +219,11 @@
 			<groupId>de.knightsoft-net</groupId>
 			<artifactId>gwt-commons-lang3</artifactId>
 			<version>${gwt-commons-lang3.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava-gwt</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.knightsoft-net</groupId>
 			<artifactId>gwt-commons-validator</artifactId>
 			<version>${gwt-commons-validator.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava-gwt</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 
