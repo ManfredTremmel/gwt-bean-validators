@@ -14,8 +14,6 @@
 
 package java.io;
 
-import static com.google.gwt.core.shared.impl.InternalPreconditions.checkNotNull;
-
 /**
  * Provides a series of utilities to be reused between IO classes.
  *
@@ -40,7 +38,9 @@ final class IOUtils {
       final int byteCount) {
     // Ensure we throw a NullPointerException instead of a JavascriptException in case the
     // given buffer is null.
-    checkNotNull(buffer);
+    if (buffer == null) {
+      throw new NullPointerException();
+    }
     checkOffsetAndCount(buffer.length, byteOffset, byteCount);
   }
 
@@ -58,7 +58,9 @@ final class IOUtils {
       final int charCount) {
     // Ensure we throw a NullPointerException instead of a JavascriptException in case the
     // given buffer is null.
-    checkNotNull(buffer);
+    if (buffer == null) {
+      throw new NullPointerException();
+    }
     checkOffsetAndCount(buffer.length, charOffset, charCount);
   }
 

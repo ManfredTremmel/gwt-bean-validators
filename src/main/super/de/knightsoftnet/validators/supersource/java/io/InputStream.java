@@ -17,8 +17,6 @@
 
 package java.io;
 
-import static com.google.gwt.core.shared.impl.InternalPreconditions.checkNotNull;
-
 /**
  * A readable source of bytes.
  *
@@ -175,7 +173,9 @@ public abstract class InputStream extends Object implements Closeable { // NOPMD
     // Note that GWT will throw a JavascriptException rather than a NullPointerException if we
     // skip this check and the buffer array is null. This way we ensure that this implementation
     // behaves in the same way as the classes that are emulated.
-    checkNotNull(buffer);
+    if (buffer == null) {
+      throw new NullPointerException();
+    }
     return this.read(buffer, 0, buffer.length);
   }
 
