@@ -68,10 +68,10 @@ public class BeanUtils {
       if (posPoint >= 0) {
         final Object subObject = reflectGetter.getProperty(pbean, pname.substring(0, posPoint));
         if (subObject == null) {
-          return null;
-        } else {
-          return getProperty(subObject, pname.substring(posPoint + 1));
+          throw new NestedNullException(
+              "Null property value for '" + pname + "' on bean class '" + pbean.getClass() + "'");
         }
+        return getProperty(subObject, pname.substring(posPoint + 1));
       }
       return Objects.toString(reflectGetter.getProperty(pbean, pname), null);
     } catch (final ReflectiveOperationException e) {
