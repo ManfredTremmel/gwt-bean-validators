@@ -62,7 +62,7 @@ public class ConstraintViolationImpl_CustomFieldSerializer
     final Map<String, Object> expressionVariables = new HashMap<>();
     return (ConstraintViolationImpl<Object>) ConstraintViolationImpl.forBeanValidation(
         messageTemplate, expressionVariables, interpolatedMessage, rootBeanClass, rootBean,
-        leafBeanInstance, value, propertyPath, constraintDescriptor, elementType);
+        leafBeanInstance, value, propertyPath, constraintDescriptor, elementType, null);
   }
 
   /**

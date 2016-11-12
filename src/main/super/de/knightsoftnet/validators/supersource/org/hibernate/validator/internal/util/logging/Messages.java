@@ -91,6 +91,13 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
       + "All Bean Validation "
       + "features work as expected. See also https://hibernate.atlassian.net/browse/HV-1023.")
   String unableToUseResourceBundleAggregation();
+
+  @DefaultMessage("The annotation type must not be null when creating a constraint definition.")
+  String annotationTypeMustNotBeNull();
+
+  @DefaultMessage("The annotation type must be annotated with @javax.validation.Constraint "
+      + "when creating a constraint definition.")
+  String annotationTypeMustBeAnnotatedWithConstraint();
 }
 
 

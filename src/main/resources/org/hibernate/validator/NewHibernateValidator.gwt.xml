@@ -80,6 +80,7 @@ gwt clients.
     <include name="path/PropertyNode.java"/>
     <include name="spi/time/TimeProvider.java"/>
     <include name="constraintvalidation/HibernateConstraintValidatorContext.java"/>
+    <include name="engine/HibernateConstraintViolation.java"/>
   </source>
   <super-source path="super" />
   <replace-with

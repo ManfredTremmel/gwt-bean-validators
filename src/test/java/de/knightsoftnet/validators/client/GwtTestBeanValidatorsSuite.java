@@ -74,6 +74,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstIsbn.class);
     psuite.addTestSuite(GwtTstIsbnWithSeparators.class);
     psuite.addTestSuite(GwtTstIsin.class);
+    psuite.addTestSuite(GwtTstLimitCharset.class);
     psuite.addTestSuite(GwtTstLevenshteinDistance.class);
     psuite.addTestSuite(GwtTstMustBeEqual.class);
     psuite.addTestSuite(GwtTstMustNotBeEqual.class);

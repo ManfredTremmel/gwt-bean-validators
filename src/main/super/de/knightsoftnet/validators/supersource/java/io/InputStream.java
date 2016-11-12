@@ -21,10 +21,10 @@ package java.io;
  * A readable source of bytes.
  *
  * <p>
- * Most clients will use input streams that read data from the file system ({@link FileInputStream}
- * ), the network ({@link java.net.Socket#getInputStream()}/
- * {@link java.net.HttpURLConnection#getInputStream()}), or from an in-memory byte array (
- * {@link ByteArrayInputStream}).
+ * Most clients will use input streams that read data from the file system
+ * ({@link FileInputStream}), the network
+ * ({@link java.net.Socket#getInputStream()}/{@link java.net.HttpURLConnection#getInputStream()}),
+ * or from an in-memory byte array ({@link ByteArrayInputStream}).
  * </p>
  *
  * <p>

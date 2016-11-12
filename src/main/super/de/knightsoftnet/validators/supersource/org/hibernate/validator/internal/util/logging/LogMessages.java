@@ -132,7 +132,7 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Invalid property path.")
   String getInvalidPropertyPathExceptionNoArg();
 
-  @DefaultMessage("Invalid property path. There is no property {0} in entity {1}.")
+  @DefaultMessage("Invalid property path. Either there is no property {1} in entity {0} or it is not possible to cascade to the property.")
   String getInvalidPropertyPathException(String propertyName, String beanClassName);
 
   @DefaultMessage("Property path must provide index or map key.")
@@ -192,8 +192,8 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Unable to instantiate {0}: {1}.")
   String getUnableToInstantiateException(String message, Class<?> clazz);
 
-  @DefaultMessage("Unable to load class: {0}.")
-  String getUnableToLoadClassException(String className);
+  @DefaultMessage("Unable to load class: {0} from {1}.")
+  String getUnableToLoadClassException(String className, Object loader);
 
   @DefaultMessage("Start index cannot be negative: {0}.")
   String getStartIndexCannotBeNegativeException(int startIndex);
@@ -631,6 +631,19 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Couldn''t determine Java version from value {0}; Not enabling features "
       + "requiring Java 8")
   String unknownJvmVersion(String vmVersionStr);
+
+  @DefaultMessage("{0} is configured more than once via the programmatic constraint definition API.")
+  String getConstraintHasAlreadyBeenConfiguredViaProgrammaticApiException(
+      String annotationClassName);
+
+  @DefaultMessage("An empty element is only supported when a CharSequence is expected.")
+  String getEmptyElementOnlySupportedWhenCharSequenceIsExpectedExpection();
+
+  @DefaultMessage("Unable to reach the property to validate for the bean {0} and the property path {1}. A property is null along the way.")
+  String getUnableToReachPropertyToValidateException(Object bean, String path);
+
+  @DefaultMessage("Unable to convert the Type {0} to a Class.")
+  String getUnableToConvertTypeToClassException(String type);
 }
 
 

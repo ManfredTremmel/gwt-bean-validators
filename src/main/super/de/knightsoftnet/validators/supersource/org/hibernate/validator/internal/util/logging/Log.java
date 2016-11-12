@@ -314,13 +314,15 @@ public class Log {
         exception);
   }
 
-  public ValidationException getUnableToLoadClassException(final String className) {
-    return new ValidationException(MESSAGE.getUnableToLoadClassException(className));
+  public ValidationException getUnableToLoadClassException(final String className,
+      final ClassLoader loader) {
+    return new ValidationException(MESSAGE.getUnableToLoadClassException(className, loader));
   }
 
   public ValidationException getUnableToLoadClassException(final String className,
-      final Exception exception) {
-    return new ValidationException(MESSAGE.getUnableToLoadClassException(className), exception);
+      final ClassLoader loader, final Exception exception) {
+    return new ValidationException(MESSAGE.getUnableToLoadClassException(className, loader),
+        exception);
   }
 
   public IllegalArgumentException getStartIndexCannotBeNegativeException(final int startIndex) {
@@ -1000,6 +1002,28 @@ public class Log {
 
   public void unknownJvmVersion(final String vmVersionStr) {
     GWT.log(MESSAGE.unknownJvmVersion(vmVersionStr));
+  }
+
+  public ValidationException getConstraintHasAlreadyBeenConfiguredViaProgrammaticApiException(
+      final String annotationClassName) {
+    return new ValidationException(MESSAGE
+        .getConstraintHasAlreadyBeenConfiguredViaProgrammaticApiException(annotationClassName));
+  }
+
+  public ValidationException getEmptyElementOnlySupportedWhenCharSequenceIsExpectedExpection() {
+    return new ValidationException(
+        MESSAGE.getEmptyElementOnlySupportedWhenCharSequenceIsExpectedExpection());
+  }
+
+  public ValidationException getUnableToReachPropertyToValidateException(final Object bean,
+      final Path path) {
+    return new ValidationException(
+        MESSAGE.getUnableToReachPropertyToValidateException(bean, Objects.toString(path)));
+  }
+
+  public ValidationException getUnableToConvertTypeToClassException(final Object type) {
+    return new ValidationException(
+        MESSAGE.getUnableToConvertTypeToClassException(Objects.toString(type)));
   }
 
   public void debugf(final String pstring, final Object pdescriptor) {

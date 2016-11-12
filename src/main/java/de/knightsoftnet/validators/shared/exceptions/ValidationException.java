@@ -47,7 +47,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   public ValidationException() {
     super();
-    this.validationErrorSet = new ArrayList<SerializeableConstraintValidationImpl<?>>(1);
+    this.validationErrorSet = new ArrayList<>(1);
   }
 
   /**
@@ -68,7 +68,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   public ValidationException(final String pmessage) {
     super(pmessage);
-    this.validationErrorSet = new ArrayList<SerializeableConstraintValidationImpl<?>>(1);
+    this.validationErrorSet = new ArrayList<>(1);
   }
 
   /**
@@ -93,7 +93,7 @@ public class ValidationException extends Exception implements Serializable {
     final ArrayList<ConstraintViolation<?>> violations =
         new ArrayList<>(this.validationErrorSet.size());
     for (final SerializeableConstraintValidationImpl<?> violation : this.validationErrorSet) {
-      final Map<String, Object> expressionVariables = new HashMap<String, Object>();
+      final Map<String, Object> expressionVariables = new HashMap<>();
       violations.add(ConstraintViolationImpl.forBeanValidation( //
           violation.getMessageTemplate(), //
           expressionVariables, //
@@ -104,6 +104,7 @@ public class ValidationException extends Exception implements Serializable {
           null, //
           violation.getPropertyPath(), //
           violation.getConstraintDescriptor(), //
+          null, //
           null));
     }
     return violations;
@@ -117,7 +118,7 @@ public class ValidationException extends Exception implements Serializable {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(final Set pvalidationErrorSet) {
     this.validationErrorSet =
-        new ArrayList<SerializeableConstraintValidationImpl<?>>(pvalidationErrorSet.size());
+        new ArrayList<>(pvalidationErrorSet.size());
     final Iterator iterator = pvalidationErrorSet.iterator();
     while (iterator.hasNext()) {
       final ConstraintViolation<?> violation = (ConstraintViolation<?>) iterator.next();
@@ -134,7 +135,7 @@ public class ValidationException extends Exception implements Serializable {
   public final void setValidationErrorSet(
       final ArrayList<ConstraintViolation<?>> pvalidationErrorSet) {
     this.validationErrorSet =
-        new ArrayList<SerializeableConstraintValidationImpl<?>>(pvalidationErrorSet.size());
+        new ArrayList<>(pvalidationErrorSet.size());
     for (final ConstraintViolation<?> violation : pvalidationErrorSet) {
       this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
     }

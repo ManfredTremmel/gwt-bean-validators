@@ -7,6 +7,8 @@
 
 package org.hibernate.validator.internal.engine;
 
+import org.hibernate.validator.engine.HibernateConstraintViolation;
+
 import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.util.Map;
@@ -25,7 +27,8 @@ import javax.validation.metadata.ConstraintDescriptor;
  * @author Hardy Ferentschik
  * @author Manfred Tremmel - gwt port
  */
-public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>, Serializable {
+public final class ConstraintViolationImpl<T>
+    implements HibernateConstraintViolation<T>, Serializable {
   private static final long serialVersionUID = -4970067626703103139L;
 
   private final String interpolatedMessage;
@@ -40,6 +43,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
   private final ElementType elementType;
   private final Object[] executableParameters;
   private final Object executableReturnValue;
+  private final Object dynamicPayload;
   private final int hashCodeValue;
 
   /**
@@ -49,10 +53,11 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
       final Map<String, Object> expressionVariables, final String interpolatedMessage,
       final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
       final Object value, final Path propertyPath,
-      final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType) {
-    return new ConstraintViolationImpl<T>(messageTemplate, expressionVariables, interpolatedMessage,
+      final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
+      final Object dynamicPayload) {
+    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
         rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, null, null);
+        elementType, null, null, dynamicPayload);
   }
 
   /**
@@ -63,10 +68,10 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
       final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
       final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
-      final Object[] executableParameters) {
-    return new ConstraintViolationImpl<T>(messageTemplate, expressionVariables, interpolatedMessage,
+      final Object[] executableParameters, final Object dynamicPayload) {
+    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
         rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, executableParameters, null);
+        elementType, executableParameters, null, dynamicPayload);
   }
 
   /**
@@ -77,10 +82,10 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
       final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
       final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
-      final Object executableReturnValue) {
-    return new ConstraintViolationImpl<T>(messageTemplate, expressionVariables, interpolatedMessage,
+      final Object executableReturnValue, final Object dynamicPayload) {
+    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
         rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, null, executableReturnValue);
+        elementType, null, executableReturnValue, dynamicPayload);
   }
 
   private ConstraintViolationImpl(final String messageTemplate,
@@ -88,7 +93,8 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
       final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
       final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
-      final Object[] executableParameters, final Object executableReturnValue) {
+      final Object[] executableParameters, final Object executableReturnValue,
+      final Object dynamicPayload) {
     this.messageTemplate = messageTemplate;
     this.expressionVariables = expressionVariables;
     this.interpolatedMessage = interpolatedMessage;
@@ -101,6 +107,7 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
     this.elementType = elementType;
     this.executableParameters = executableParameters;
     this.executableReturnValue = executableReturnValue;
+    this.dynamicPayload = dynamicPayload;
     // pre-calculate hash code, the class is immutable and hashCode is needed often
     this.hashCodeValue = this.createHashCode();
   }
@@ -171,14 +178,21 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
   }
 
   @Override
-  // IMPORTANT - some behaviour of Validator depends on the correct implementation of this equals
-  // method! (HF)
+  public <C> C getDynamicPayload(final Class<C> type) {
+    throw new UnsupportedOperationException("GWT Validation does not support getDynamicPayload()");
+  }
 
-  // Do not take expressionVariables into account here. If everything else matches, the two CV
-  // should be considered
-  // equals (and because of the scary comment above). After all, expressionVariables is just a hint
-  // about how we got
-  // to the actual CV. (NF)
+  /**
+   * IMPORTANT - some behaviour of Validator depends on the correct implementation of this equals
+   * method! (HF)
+   *
+   * {@code expressionVariables} and {@code dynamicPayload} are not taken into account for equality.
+   * These variables solely enrich the actual Constraint Violation with additional information e.g
+   * how we actually got to this CV.
+   *
+   * @return true if the two ConstraintViolation's are considered equals; false otherwise
+   */
+  @Override
   public boolean equals(final Object pobject) {
     if (this == pobject) {
       return true;
@@ -197,7 +211,8 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
         && Objects.equals(this.elementType, that.elementType)
         && Objects.equals(this.messageTemplate, that.messageTemplate)
         && Objects.equals(this.rootBeanClass, that.rootBeanClass)
-        && Objects.equals(this.value, that.value);
+        && Objects.equals(this.value, that.value)
+        && Objects.equals(this.dynamicPayload, that.dynamicPayload);
   }
 
   @Override
@@ -217,7 +232,9 @@ public final class ConstraintViolationImpl<T> implements ConstraintViolation<T>,
     return sb.toString();
   }
 
-  // Same as for equals, do not take expressionVariables into account here.
+  /**
+   * @see #equals(Object) on which fields are taken into account.
+   */
   private int createHashCode() {
     return Objects.hash(this.interpolatedMessage, this.propertyPath, this.rootBean,
         this.leafBeanInstance, this.value, this.constraintDescriptor, this.messageTemplate,

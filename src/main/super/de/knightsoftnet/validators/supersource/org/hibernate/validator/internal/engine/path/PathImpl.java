@@ -120,6 +120,15 @@ public class PathImpl implements Path, Serializable {
     return this.currentLeafNode;
   }
 
+  public NodeImpl addCollectionElementNode() {
+    final NodeImpl parent =
+        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.currentLeafNode = NodeImpl.createCollectionElementNode(parent);
+    this.nodeList.add(this.currentLeafNode);
+    this.hashCodeEntry = -1;
+    return this.currentLeafNode;
+  }
+
   public NodeImpl addParameterNode(final String nodeName, final int index) {
     final NodeImpl parent =
         this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);

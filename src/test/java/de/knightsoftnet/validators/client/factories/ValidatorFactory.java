@@ -69,6 +69,7 @@ import de.knightsoftnet.validators.shared.beans.IsbnTestBean;
 import de.knightsoftnet.validators.shared.beans.IsbnWithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
+import de.knightsoftnet.validators.shared.beans.LimitCharsetTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
@@ -111,8 +112,8 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class,
       Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class,
       IsbnTestBean.class, IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
-      MustBeEqualTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
-      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      LimitCharsetTestBean.class, MustBeEqualTestBean.class,
+      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,

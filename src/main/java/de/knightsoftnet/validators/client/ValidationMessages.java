@@ -332,4 +332,13 @@ public interface ValidationMessages extends ConstantsWithLookup {
   @DefaultStringValue("no valid vat registration number")
   @Key("deKnightsoftnetValidatorsSharedValidationVatIdMessage")
   String deKnightsoftnetValidatorsSharedValidationVatIdMessage();
+
+  /**
+   * message used for limit charset check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationLimitCharsetMessage
+   */
+  @DefaultStringValue("only characters from charset {charset} are allowed")
+  @Key("deKnightsoftnetValidatorsSharedValidationLimitCharsetMessage")
+  String deKnightsoftnetValidatorsSharedValidationLimitCharsetMessage();
 }
