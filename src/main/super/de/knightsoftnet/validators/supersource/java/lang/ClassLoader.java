@@ -263,6 +263,7 @@ public class ClassLoader {
 
   // Returns true if the specified class loader can be found in this class
   // loader's delegation chain.
+  @SuppressWarnings("checkstyle:rightCurly")
   boolean isAncestor(final ClassLoader cl) {
     ClassLoader acl = this;
     do {

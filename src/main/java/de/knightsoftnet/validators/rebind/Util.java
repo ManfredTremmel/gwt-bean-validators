@@ -33,6 +33,10 @@ import java.util.Set;
  */
 final class Util {
 
+  private Util() {
+    super();
+  }
+
   /**
    * Creates a Predicate that returns false if source contains an associated class that is a super
    * type of the class associated with the tested T.
@@ -69,7 +73,7 @@ final class Util {
    */
   static Set<Class<?>> findBestMatches(final Class<?> target,
       final Set<Class<?>> availableClasses) {
-    final Set<Class<?>> matches = new HashSet<Class<?>>();
+    final Set<Class<?>> matches = new HashSet<>();
     if (availableClasses.contains(target)) {
       return ImmutableSet.<Class<?>>of(target);
     } else {
@@ -88,6 +92,7 @@ final class Util {
    * Returns a Immutable List sorted with the most specific associated class first. Each element is
    * guaranteed to not be assignable to any element that appears before it in the list.
    */
+  @SuppressWarnings("checkstyle:rightCurly")
   static <T> ImmutableList<T> sortMostSpecificFirst(final Iterable<T> classes,
       final Function<T, Class<?>> toClass) {
     final List<T> working = Lists.newArrayList();
@@ -118,6 +123,4 @@ final class Util {
     }
     return ImmutableList.copyOf(sorted);
   }
-
-  private Util() {}
 }

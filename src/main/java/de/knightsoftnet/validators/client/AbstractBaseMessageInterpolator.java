@@ -90,6 +90,7 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
     return messageTemplate;
   }
 
+  @SuppressWarnings("checkstyle:rightCurly")
   protected final String gwtInterpolate(final String message, final Context context,
       final GwtLocale locale) {
     // see Section 4.3.1.1

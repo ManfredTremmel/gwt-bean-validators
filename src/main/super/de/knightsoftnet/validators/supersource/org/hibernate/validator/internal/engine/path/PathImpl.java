@@ -305,6 +305,7 @@ public class PathImpl implements Path, Serializable {
     this.hashCodeEntry = -1;
   }
 
+  @SuppressWarnings("checkstyle:rightCurly")
   private static PathImpl parseProperty(final String propertyName) {
     final PathImpl path = createRootPath();
     String tmp = propertyName;
