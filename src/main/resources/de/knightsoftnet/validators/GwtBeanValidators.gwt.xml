@@ -26,7 +26,7 @@
 
   <!-- message resolver for localized error messages, use our version. -->
   <replace-with class="de.knightsoftnet.validators.client.CustomValidationMessagesResolver">
-    <when-type-is class="de.knightsoftnet.validators.client.UserValidationMessagesResolver" />
+    <when-type-is class="de.knightsoftnet.validators.client.ProviderValidationMessageResolver" />
   </replace-with>
 
   <!-- bic map generator. -->
