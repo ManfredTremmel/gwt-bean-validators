@@ -88,13 +88,13 @@
 		<!-- Convenience property to set the GWT version -->
 		<gwt.version>2.8.0</gwt.version>
 		<validation-api.version>1.1.0.Final</validation-api.version>
-		<hibernate-validator.version>5.3.3.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<gwt-commons-lang3.version>3.5-1</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.5.1-2</gwt-commons-validator.version>
-		<mt-bean-validators.version>0.22.0</mt-bean-validators.version>
-		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
+		<mt-bean-validators.version>0.22.1</mt-bean-validators.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
