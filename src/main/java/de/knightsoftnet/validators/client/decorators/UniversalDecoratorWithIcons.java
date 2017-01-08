@@ -70,7 +70,7 @@ public class UniversalDecoratorWithIcons<T> extends AbstractDecorator<T> {
      * @return decorator style
      */
     @Override
-    @Source("EditorDecoratorWithIcons.css")
+    @Source("EditorDecoratorWithIcons.gss")
     DecoratorStyle decoratorStyle();
   }
 

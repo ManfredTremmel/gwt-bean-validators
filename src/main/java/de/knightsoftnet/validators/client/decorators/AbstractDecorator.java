@@ -67,7 +67,7 @@ public abstract class AbstractDecorator<T> extends Composite
      *
      * @return decorator style
      */
-    @Source("EditorDecorator.css")
+    @Source("EditorDecorator.gss")
     DecoratorStyle decoratorStyle();
   }
 
@@ -224,7 +224,7 @@ public abstract class AbstractDecorator<T> extends Composite
   public void setChildWidget(final TakesValue<T> pwidget) {
     this.widget = (Widget) pwidget;
     this.contents.add(this.widget);
-    this.setEditor(new ExtendedValueBoxEditor<T>(pwidget, this));
+    this.setEditor(new ExtendedValueBoxEditor<>(pwidget, this));
   }
 
   @SuppressWarnings("unchecked")
@@ -273,7 +273,7 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @Override
   public void showErrors(final List<EditorError> errors) {
-    final Set<String> messages = new HashSet<String>();
+    final Set<String> messages = new HashSet<>();
     for (final EditorError error : errors) {
       if (this.editorErrorMatches(error)) {
         messages.add(error.getMessage());
