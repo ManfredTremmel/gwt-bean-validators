@@ -15,8 +15,6 @@
 
 package de.knightsoftnet.validators.client.editor.impl;
 
-import de.knightsoftnet.validators.client.decorators.AbstractDecorator;
-import de.knightsoftnet.validators.client.decorators.ExtendedValueBoxEditor;
 import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
 import de.knightsoftnet.validators.client.editor.CheckTimeEnum;
 import de.knightsoftnet.validators.client.event.FormSubmitEvent;
@@ -24,8 +22,8 @@ import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 import de.knightsoftnet.validators.client.impl.Validation;
 
 import com.google.gwt.editor.client.Editor;
-import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.editor.client.impl.AbstractExtendedBaseEditorDriver;
+import com.google.gwt.editor.client.EditorVisitor;
+import com.google.gwt.editor.client.impl.BaseEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -55,7 +53,7 @@ import javax.validation.Validator;
  * @param <E> the Editor type
  */
 public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
-    extends AbstractExtendedBaseEditorDriver<T, E> implements BeanValidationEditorDriver<T, E> {
+    extends BaseEditorDriver<T, E> implements BeanValidationEditorDriver<T, E> {
 
   /**
    * used to make sure, handlers on the input fields are set only once.
@@ -147,37 +145,19 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
     };
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public void edit(final T object) {
     this.doEdit(object);
     if (this.checkTime != CheckTimeEnum.ON_SUBMIT) {
       this.validate();
     }
-    if (!this.handlersSet) {
-      this.handlersSet = true;
-      for (final LeafValueEditor<?> entry : super.getLeafValueMap().keySet()) {
-        if (entry instanceof ExtendedValueBoxEditor<?>) {
-          final AbstractDecorator<?> decorator = ((ExtendedValueBoxEditor<?>) entry).getDecorator();
-          decorator.setFocusOnError(this.checkTime == CheckTimeEnum.ON_SUBMIT);
-          // add value change handler which delegates changes
-          decorator.addValueChangeHandler((ValueChangeHandler) this.valueChangeHandler);
-          // if widget has a value change handler, validate on change
-          if (AbstractBeanValidationEditorDriver.this.checkTime == CheckTimeEnum.ON_CHANGE
-              || AbstractBeanValidationEditorDriver.this.checkTime == CheckTimeEnum.ON_KEY_UP) {
-            decorator.addValueChangeHandler((ValueChangeHandler) this.validateOnVueChangeHandler);
-          }
-          // if widget has a key up handler, validate on key up
-          if (this.checkTime == CheckTimeEnum.ON_KEY_UP) {
-            decorator.addKeyUpHandler(this.validateOnKeyUpHandler);
-          }
-          // try to submit form on return
-          if (this.submitOnReturn) {
-            decorator.addKeyPressHandler(this.commitOnReturnHandler);
-          }
-        }
-      }
-    }
+  }
+
+  @Override
+  protected EditorVisitor createInitializerVisitor() {
+    return new BeanValidationInitializer(this.commitOnReturnHandler, this.validateOnKeyUpHandler,
+        this.validateOnVueChangeHandler, this.valueChangeHandler, this.checkTime,
+        this.submitOnReturn);
   }
 
   @Override
