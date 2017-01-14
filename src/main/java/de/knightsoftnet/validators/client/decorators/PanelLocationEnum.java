@@ -18,7 +18,7 @@ package de.knightsoftnet.validators.client.decorators;
 /**
  * The location of the error message relative to the widget.
  */
-public enum ErrorPanelLocationEnum {
+public enum PanelLocationEnum {
   /**
    * display error panel on top of the field.
    */

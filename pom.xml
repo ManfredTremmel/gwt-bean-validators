@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.22.2</version>
+	<version>0.22.3</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -93,7 +93,7 @@
 		<slf4j.version>1.7.21</slf4j.version>
 		<gwt-commons-lang3.version>3.5-1</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.5.1-2</gwt-commons-validator.version>
-		<mt-bean-validators.version>0.22.2</mt-bean-validators.version>
+		<mt-bean-validators.version>0.22.3</mt-bean-validators.version>
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
@@ -101,7 +101,7 @@
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<checkstyle.version>7.3</checkstyle.version>
+		<checkstyle.version>7.4</checkstyle.version>
 		<maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>

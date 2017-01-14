@@ -38,3 +38,8 @@
 .errorInputStyle {
   border: 1px solid red !important;
 }
+
+.labelStyleFocused {
+  font-size: 0.8rem;
+  transform: translateY(-140%);
+}

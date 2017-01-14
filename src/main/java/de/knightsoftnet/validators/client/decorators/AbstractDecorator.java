@@ -84,12 +84,12 @@ public abstract class AbstractDecorator<T> extends Composite
   /**
    * value box resource with css.
    */
-  private final DecoratorStyle decoratorStyle;
+  protected final DecoratorStyle decoratorStyle;
 
   /**
    * the widget.
    */
-  private Widget widget;
+  protected Widget widget;
 
   /**
    * label to display error message.
@@ -108,31 +108,82 @@ public abstract class AbstractDecorator<T> extends Composite
   private boolean focusOnError;
 
   /**
+   * panel which surrounds the widget.
+   */
+  private final FlowPanel layout;
+
+  /**
+   * Constructs a Decorator.
+   *
+   * @param errorLocation location of the error text
+   */
+  public AbstractDecorator(final PanelLocationEnum errorLocation) {
+    this(errorLocation, getDefaultResources());
+  }
+
+  /**
+   * Constructs a Decorator using a {@link Widget} widget with error location and style sheet.
+   *
+   * @param pwidget the widget
+   * @param errorLocation location of the error text
+   * @param decoratorResource resource with css information
+   */
+  public AbstractDecorator(final Widget pwidget, final PanelLocationEnum errorLocation,
+      final Resources decoratorResource) {
+    this(errorLocation, decoratorResource);
+    this.widget = pwidget;
+    this.contents.add(pwidget);
+  }
+
+  /**
+   * Constructs a Decorator using a {@link Widget} widget with error location.
+   *
+   * @param pwidget the widget
+   * @param errorLocation location of the error text
+   */
+  public AbstractDecorator(final Widget pwidget, final PanelLocationEnum errorLocation) {
+    this(pwidget, errorLocation, getDefaultResources());
+  }
+
+  /**
+   * Constructs a Decorator using a {@link Widget} widget with error location.
+   *
+   * @param pwidget the widget
+   */
+  public AbstractDecorator(final Widget pwidget) {
+    this(pwidget, PanelLocationEnum.RIGHT, getDefaultResources());
+  }
+
+  /**
    * Constructs a Decorator.
    *
    * @param errorLocation location of the error text
    * @param resource resource with css information
    */
-  public AbstractDecorator(final ErrorPanelLocationEnum errorLocation, final Resources resource) {
+  public AbstractDecorator(final PanelLocationEnum errorLocation, final Resources resource) {
     super();
     // Inject the stylesheet.
     this.decoratorStyle = resource.decoratorStyle();
     this.decoratorStyle.ensureInjected();
 
+    this.layout = this.createWidgetPanel(errorLocation);
+    this.initWidget(this.layout);
+  }
+
+  private FlowPanel createWidgetPanel(final PanelLocationEnum perrorLocation) {
     final boolean contentFirst =
-        errorLocation == ErrorPanelLocationEnum.LEFT && LocaleInfo.getCurrentLocale().isRTL()
-            || errorLocation == ErrorPanelLocationEnum.RIGHT
-                && !LocaleInfo.getCurrentLocale().isRTL()
-            || errorLocation == ErrorPanelLocationEnum.BOTTOM;
+        perrorLocation == PanelLocationEnum.LEFT && LocaleInfo.getCurrentLocale().isRTL()
+            || perrorLocation == PanelLocationEnum.RIGHT && !LocaleInfo.getCurrentLocale().isRTL()
+            || perrorLocation == PanelLocationEnum.BOTTOM;
     final FlowPanel layout = new FlowPanel();
-    if (errorLocation == ErrorPanelLocationEnum.TOP) {
+    if (perrorLocation == PanelLocationEnum.TOP) {
       layout.add(this.errorLabel);
       layout.add(this.contents);
     } else {
       layout.add(this.contents);
       layout.add(this.errorLabel);
     }
-    switch (errorLocation) {
+    switch (perrorLocation) {
       case TOP:
         this.errorLabel.setStylePrimaryName(this.decoratorStyle.errorLabelStyleTop());
         this.contents.setStylePrimaryName(this.decoratorStyle.contentContainerStyleTop());
@@ -153,49 +204,11 @@ public abstract class AbstractDecorator<T> extends Composite
     }
     this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
     this.focusOnError = true;
-    this.initWidget(layout);
+    return layout;
   }
 
-  /**
-   * Constructs a Decorator.
-   *
-   * @param errorLocation location of the error text
-   */
-  public AbstractDecorator(final ErrorPanelLocationEnum errorLocation) {
-    this(errorLocation, getDefaultResources());
-  }
-
-  /**
-   * Constructs a Decorator using a {@link Widget} widget with error location and style sheet.
-   *
-   * @param pwidget the widget
-   * @param errorLocation location of the error text
-   * @param decoratorResource resource with css information
-   */
-  public AbstractDecorator(final Widget pwidget, final ErrorPanelLocationEnum errorLocation,
-      final Resources decoratorResource) {
-    this(errorLocation, decoratorResource);
-    this.widget = pwidget;
-    this.contents.add(pwidget);
-  }
-
-  /**
-   * Constructs a Decorator using a {@link Widget} widget with error location.
-   *
-   * @param pwidget the widget
-   * @param errorLocation location of the error text
-   */
-  public AbstractDecorator(final Widget pwidget, final ErrorPanelLocationEnum errorLocation) {
-    this(pwidget, errorLocation, getDefaultResources());
-  }
-
-  /**
-   * Constructs a Decorator using a {@link Widget} widget with error location.
-   *
-   * @param pwidget the widget
-   */
-  public AbstractDecorator(final Widget pwidget) {
-    this(pwidget, ErrorPanelLocationEnum.RIGHT, getDefaultResources());
+  public FlowPanel getLayout() {
+    return this.layout;
   }
 
   /**

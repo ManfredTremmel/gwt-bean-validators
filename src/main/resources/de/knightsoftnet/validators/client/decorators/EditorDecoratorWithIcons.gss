@@ -29,6 +29,7 @@
 
 .errorLabelStyleBottom {
   color: red;
+  float: left;
 }
 
 .validInputStyle {

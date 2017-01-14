@@ -33,21 +33,24 @@ import com.google.gwt.uibinder.client.UiConstructor;
  *
  * <pre>
  * &#064;UiField
- * UniversalDecorator&lt;String&gt; name;
+ * UniversalDecoratorWithLabel&lt;String&gt; name;
  * </pre>
  *
  * <pre>
- * &lt;e:UniversalDecorator ui:field='name'&gt;
+ * &lt;e:UniversalDecoratorWithLabel ui:field='name'&gt;
  * &lt;e:widget&gt;
  * &lt;g:TextBox /&gt;
  * &lt;/e:widget&gt;
- * &lt;/e:UniversalDecorator&gt;
+ * &lt;e:label&gt;
+ * &lt;g:Label&gt;Text&lt;/g:Label&gt;
+ * &lt;/e:label&gt;
+ * &lt;/e:UniversalDecoratorWithLabel&gt;
  * </pre>
  *
  * @param <T> the type of data being edited
  */
 
-public class UniversalDecorator<T> extends AbstractDecorator<T> {
+public class UniversalDecoratorWithLabel<T> extends AbstractDecoratorWithLabel<T> {
 
   /**
    * Constructs a ValueBoxEditorDecorator.
@@ -55,7 +58,7 @@ public class UniversalDecorator<T> extends AbstractDecorator<T> {
    * @param errorLocation location of the error text
    */
   @UiConstructor
-  public UniversalDecorator(final PanelLocationEnum errorLocation) {
+  public UniversalDecoratorWithLabel(final PanelLocationEnum errorLocation) {
     super(errorLocation);
   }
 }

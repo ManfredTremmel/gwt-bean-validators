@@ -85,7 +85,7 @@ public class UniversalDecoratorWithIcons<T> extends AbstractDecorator<T> {
    * @param errorLocation location of the error text
    */
   @UiConstructor
-  public UniversalDecoratorWithIcons(final ErrorPanelLocationEnum errorLocation) {
+  public UniversalDecoratorWithIcons(final PanelLocationEnum errorLocation) {
     super(errorLocation, getExtendedResources());
   }
 
