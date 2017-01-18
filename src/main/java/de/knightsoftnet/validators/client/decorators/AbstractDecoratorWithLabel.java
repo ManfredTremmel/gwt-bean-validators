@@ -2,6 +2,10 @@ package de.knightsoftnet.validators.client.decorators;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.dom.client.HasFocusHandlers;
 import com.google.gwt.uibinder.client.UiChild;
@@ -91,23 +95,34 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
     this.contents.add(this.widget);
     this.setEditor(new ExtendedValueBoxEditor<>(pwidget, this));
     if (pwidget instanceof HasFocusHandlers) {
-      ((HasFocusHandlers) pwidget).addFocusHandler(pevent -> {
-        if (!this.label.getElement()
-            .hasClassName(((DecoratorStyleWithLabel) this.decoratorStyle).labelStyleFocused())) {
-          this.label.getElement()
-              .addClassName(((DecoratorStyleWithLabel) this.decoratorStyle).labelStyleFocused());
+      ((HasFocusHandlers) pwidget).addFocusHandler(new FocusHandler() {
+
+        @Override
+        public void onFocus(final FocusEvent pevent) {
+          if (!AbstractDecoratorWithLabel.this.label.getElement().hasClassName(
+              ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+                  .labelStyleFocused())) {
+            AbstractDecoratorWithLabel.this.label.getElement().addClassName(
+                ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+                    .labelStyleFocused());
+          }
         }
       });
     }
     if (pwidget instanceof HasBlurHandlers) {
-      ((HasBlurHandlers) pwidget).addBlurHandler(pevent -> {
-        boolean hide = true;
-        if (pwidget instanceof TakesValue<?>) {
-          hide = StringUtils.isEmpty(Objects.toString(((TakesValue<?>) pwidget).getValue()));
-        }
-        if (hide) {
-          this.label.getElement()
-              .removeClassName(((DecoratorStyleWithLabel) this.decoratorStyle).labelStyleFocused());
+      ((HasBlurHandlers) pwidget).addBlurHandler(new BlurHandler() {
+
+        @Override
+        public void onBlur(final BlurEvent pevent) {
+          boolean hide = true;
+          if (pwidget instanceof TakesValue<?>) {
+            hide = StringUtils.isEmpty(Objects.toString(((TakesValue<?>) pwidget).getValue()));
+          }
+          if (hide) {
+            AbstractDecoratorWithLabel.this.label.getElement().removeClassName(
+                ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+                    .labelStyleFocused());
+          }
         }
       });
     }
