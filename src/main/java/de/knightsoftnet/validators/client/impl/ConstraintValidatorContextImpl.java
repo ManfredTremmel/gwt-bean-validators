@@ -284,7 +284,8 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
   public ConstraintViolationBuilder buildConstraintViolationWithTemplate(
       final String messageTemplate) {
     final ConstraintViolationBuilderImpl builder =
-        new ConstraintViolationBuilderImpl(this, messageTemplate);
+        new ConstraintViolationBuilderImpl(new ConstraintValidatorContextImpl<A, T>(
+            PathImpl.createCopy(this.basePath), this.descriptor), messageTemplate);
     return builder;
   }
 
