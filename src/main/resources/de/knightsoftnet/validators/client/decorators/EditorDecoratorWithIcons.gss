@@ -34,28 +34,19 @@
 
 .validInputStyle {
   background-image: resourceUrl("resValidImage");
-  background-repeat: no-repeat !important;
-  padding-right: 1em !important;
 }
 
 .errorInputStyle {
   background-image: resourceUrl("resErrorImage");
-  background-repeat: no-repeat !important;
   border: 1px solid red !important;
   padding-right: 1em !important;
 }
 
-@if (is("ie6") || is("ie8") || is("ie9") || is("ie10") || is("ie11")) {
-  .validInputStyle, .errorInputStyle {
-    background-size: 16px 16px;
-    -ms-background-position-x: right;
-    -ms-background-psoition-y: top;
-    background-position-x: right;
-    background-psoition-y: top;
-  }
-} @else {
-  .validInputStyle, .errorInputStyle {
-    background-size: Auto 50%;
-    background-position: right top;
-  }
+.validInputStyle, .errorInputStyle {
+  background-repeat: no-repeat !important;
+  padding-right: 1em !important;
+  background-size: Auto 50%;
+  background-position: right top;
+  -ms-background-position-x: right;
+  -ms-background-psoition-y: top;
 }
