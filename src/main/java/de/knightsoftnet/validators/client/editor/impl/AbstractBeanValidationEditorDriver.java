@@ -81,6 +81,11 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   private boolean submitOnReturn = true;
 
   /**
+   * submit form when value changes is hit.
+   */
+  private boolean submitOnValueChange = false;
+
+  /**
    * submit button.
    */
   private Widget submitButton;
@@ -141,6 +146,9 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
       public void onValueChange(final ValueChangeEvent<Object> pevent) {
         ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
             AbstractBeanValidationEditorDriver.this.getObject());
+        if (AbstractBeanValidationEditorDriver.this.submitOnValueChange) {
+          AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+        }
       }
     };
   }
@@ -265,6 +273,16 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   public final void setSubmitOnReturn(final boolean psubmitOnReturn) throws RuntimeException {
     this.checkHandlerSet();
     this.submitOnReturn = psubmitOnReturn;
+  }
+
+  @Override
+  public boolean isSubmitOnValueChange() {
+    return this.submitOnValueChange;
+  }
+
+  @Override
+  public void setSubmitOnValueChange(final boolean psubmitOnValueChange) {
+    this.submitOnValueChange = psubmitOnValueChange;
   }
 
   /**

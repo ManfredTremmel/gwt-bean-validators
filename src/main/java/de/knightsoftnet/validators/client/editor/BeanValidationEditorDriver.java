@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
  * interface MyDriver extends AbstractBeanValidationEditorDriver&lt;MyObject, MyObjectEditor&gt; {
  * }
- * 
+ *
  * MyDriver instance = GWT.create(MyDriver.class);
  * {
  *   MyObjectEditor editor = new MyObjectEditor();
@@ -51,8 +51,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @param <E> the Editor for the type
  * @see com.google.gwt.editor.client.testing.MockSimpleBeanEditorDriver
  */
-public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> extends
-    EditorDriver<T>, HasFormSubmitHandlers<T>, HasValueChangeHandlers<T> {
+public interface BeanValidationEditorDriver<T, E extends Editor<? super T>>
+    extends EditorDriver<T>, HasFormSubmitHandlers<T>, HasValueChangeHandlers<T> {
 
   /**
    * Push the data in an object graph into the Editor given to {@link #initialize}.
@@ -151,13 +151,28 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>> exte
   boolean isSubmitOnReturn();
 
   /**
-   * set state of submit on return (form is submitted if it's valid and return/enter is pressed). to
+   * set state of submit on return (form is submitted if it's valid and return/enter is pressed). To
    * change this state is only possible, before the first edit call was done.
    *
    * @param psubmitOnReturn true/false
    * @throws RuntimeException if this method is called after a edit call
    */
   void setSubmitOnReturn(boolean psubmitOnReturn) throws RuntimeException;
+
+  /**
+   * get state of submit on value change (form is submitted if it's valid and value has changed).
+   *
+   * @return true if it's active
+   */
+  boolean isSubmitOnValueChange();
+
+  /**
+   * set state of submit on value change (form is submitted if it's valid and value has changed). To
+   * change this state is only possible, before the first edit call was done.
+   *
+   * @param psubmitOnValueChange true/false
+   */
+  void setSubmitOnValueChange(boolean psubmitOnValueChange);
 
   /**
    * setter to add as submit button which is automatically .
