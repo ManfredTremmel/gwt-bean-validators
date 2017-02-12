@@ -19,6 +19,10 @@ gwt clients.
     <include name="constraintvalidators/hv/ParameterScriptAssertValidator.java"/>
     <include name="constraintvalidators/hv/br/CPFValidator.java"/>
     <include name="constraintvalidators/hv/br/CNPJValidator.java"/>
+    <include name="constraintvalidators/hv/pl/NIPValidator.java"/>
+    <include name="constraintvalidators/hv/pl/PESELValidator.java"/>
+    <include name="constraintvalidators/hv/pl/PolishNumberValidator.java"/>
+    <include name="constraintvalidators/hv/pl/REGONValidator.java"/>
     <include name="constraintvalidators/hv/Mod11CheckValidator.java"/>
     <include name="constraintvalidators/hv/EANValidator.java"/>
     <include name="constraintvalidators/hv/ScriptAssertValidator.java"/>

@@ -18,7 +18,7 @@ import javax.validation.constraints.Future;
  * future.
  *
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2011 SERLI
- * @author Manfred Tremmel - GWT port
+ * @author Manfred Tremmel - disabled for GWT, no ReadableInstant available
  */
 @IgnoreJava6Requirement
 public class FutureValidatorForReadableInstant

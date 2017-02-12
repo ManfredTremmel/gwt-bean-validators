@@ -155,6 +155,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String org_hibernate_validator_constraints_CreditCardNumber_message(); // NOPMD
 
   /**
+   * Translated "invalid currency (must be one of {value})".
+   *
+   * @return translated "invalid currency (must be one of {value})"
+   */
+  @DefaultStringValue("invalid currency (must be one of {value})")
+  @Key("org.hibernate.validator.constraints.Currency.message")
+  String org_hibernate_validator_constraints_Currency_message(); // NOPMD
+
+  /**
    * Translated "invalid {type} barcode".
    *
    * @return translated "invalid {type} barcode"
@@ -306,6 +315,33 @@ public interface ValidationMessages extends ConstantsWithLookup {
   @DefaultStringValue("invalid Brazilian Voter ID card number")
   @Key("org.hibernate.validator.constraints.br.TituloEleitoral.message")
   String org_hibernate_validator_constraints_br_TituloEleitoral_message(); // NOPMD
+
+  /**
+   * Translated "Invalid Polish Taxpayer Identification Number (REGON)".
+   *
+   * @return translated "Invalid Polish Taxpayer Identification Number (REGON)"
+   */
+  @DefaultStringValue("Invalid Polish Taxpayer Identification Number (REGON)")
+  @Key("org.hibernate.validator.constraints.pl.REGON.message")
+  String org_hibernate_validator_constraints_pl_REGON_message(); // NOPMD
+
+  /**
+   * Translated "Invalid VAT Identification Number (NIP)".
+   *
+   * @return translated "Invalid VAT Identification Number (NIP)"
+   */
+  @DefaultStringValue("Invalid VAT Identification Number (NIP)")
+  @Key("org.hibernate.validator.constraints.pl.NIP.message")
+  String org_hibernate_validator_constraints_pl_NIP_message(); // NOPMD
+
+  /**
+   * Translated "Invalid Polish National Identification Number (PESEL)".
+   *
+   * @return translated "Invalid Polish National Identification Number (PESEL)"
+   */
+  @DefaultStringValue("Invalid Polish National Identification Number (PESEL)")
+  @Key("org.hibernate.validator.constraints.pl.PESEL.message")
+  String org_hibernate_validator_constraints_pl_PESEL_message(); // NOPMD
 
   /**
    * message used for age limit check.

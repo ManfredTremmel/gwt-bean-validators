@@ -49,7 +49,6 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * @param <T> the type being edited
  * @param <E> the Editor for the type
- * @see com.google.gwt.editor.client.testing.MockSimpleBeanEditorDriver
  */
 public interface BeanValidationEditorDriver<T, E extends Editor<? super T>>
     extends EditorDriver<T>, HasFormSubmitHandlers<T>, HasValueChangeHandlers<T> {

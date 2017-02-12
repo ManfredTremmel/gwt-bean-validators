@@ -35,11 +35,25 @@ import javax.validation.ConstraintValidatorContext;
  * @author Guillaume Smet
  * @author Manfred Tremmel - GWT port
  */
+@SuppressWarnings("checkstyle:avoidEscapedUnicodeCharacters")
 public class EmailValidator implements ConstraintValidator<Email, CharSequence> {
   private static final String LOCAL_PART_ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~\u0080-\uFFFF-]";
+  private static final String LOCAL_PART_INSIDE_QUOTES_ATOM =
+      "([a-z0-9!#$%&'*.(),<>\\[\\]:;  @+/=?^_`{|}~\u0080-\uFFFF-]|\\\\\\\\|\\\\\\\")";
   private static final String DOMAIN_LABEL = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
   private static final String DOMAIN = DOMAIN_LABEL + "+(\\." + DOMAIN_LABEL + "+)*";
   private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
+  // IP v6 regex taken from
+  // http://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
+  private static final String IP_V6_DOMAIN =
+      "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}"
+          + ":[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}"
+          + ":){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|"
+          + "([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:"
+          + "[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}"
+          + "%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])"
+          + "\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|"
+          + "(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))";
   private static final String CASE_INSENSITIVE = "i";
   private static final int MAX_LOCAL_PART_LENGTH = 64;
   /**
@@ -52,14 +66,17 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
   /**
    * Regular expression for the local part of an email address (everything before '@').
    */
-  private static final RegExp LOCAL_PART_PATTERN =
-      RegExp.compile("^" + LOCAL_PART_ATOM + "+(\\." + LOCAL_PART_ATOM + "+)*$", CASE_INSENSITIVE);
+  private static final RegExp LOCAL_PART_PATTERN = RegExp.compile(
+      "^(" + LOCAL_PART_ATOM + "+|\"" + LOCAL_PART_INSIDE_QUOTES_ATOM + "+\")" + "(\\." + "("
+          + LOCAL_PART_ATOM + "+|\"" + LOCAL_PART_INSIDE_QUOTES_ATOM + "+\")" + ")*$",
+      CASE_INSENSITIVE);
 
   /**
    * Regular expression for the domain part of an email address (everything after '@').
    */
   private static final RegExp DOMAIN_PATTERN =
-      RegExp.compile(DOMAIN + "|" + IP_DOMAIN, CASE_INSENSITIVE);
+      RegExp.compile("^(" + DOMAIN + "|" + IP_DOMAIN + "|" + "\\[IPv6:" + IP_V6_DOMAIN + "\\])$",
+          CASE_INSENSITIVE);
 
   @Override
   public void initialize(final Email annotation) {}
@@ -70,22 +87,24 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
       return true;
     }
 
-    // split email at '@' and consider local and domain part separately;
-    // note a split limit of 3 is used as it causes all characters following to an (illegal) second
-    // @ character to
-    // be put into a separate array element, avoiding the regex application in this case since the
-    // resulting array
-    // has more than 2 elements
-    final String[] emailParts = value.toString().split("@", 3);
-    if (emailParts.length != 2) {
+    // cannot split email string at @ as it can be a part of quoted local part of email.
+    // so we need to split at a position of last @ present in the string:
+    final String stringValue = value.toString();
+    final int splitPosition = stringValue.lastIndexOf('@');
+
+    // need to check if
+    if (splitPosition < 0) {
       return false;
     }
 
-    if (!this.matchLocalPart(emailParts[0])) {
+    final String localPart = stringValue.substring(0, splitPosition);
+    final String domainPart = stringValue.substring(splitPosition + 1);
+
+    if (!this.matchLocalPart(localPart)) {
       return false;
     }
 
-    return this.matchDomain(emailParts[1]);
+    return this.matchDomain(domainPart);
   }
 
   private boolean matchLocalPart(final String localPart) {

@@ -122,5 +122,8 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateUrl.class);
     psuite.addTestSuite(GwtTstHibernateCnpj.class);
     psuite.addTestSuite(GwtTstHibernateCpf.class);
+    psuite.addTestSuite(GwtTstHibernateNip.class);
+    psuite.addTestSuite(GwtTstHibernatePesel.class);
+    psuite.addTestSuite(GwtTstHibernateRegon.class);
   }
 }

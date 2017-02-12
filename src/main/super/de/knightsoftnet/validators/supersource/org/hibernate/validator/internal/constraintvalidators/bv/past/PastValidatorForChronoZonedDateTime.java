@@ -17,7 +17,8 @@ import javax.validation.constraints.Future;
  * Check that the {@code java.time.chrono.ChronoZonedDateTime} passed is in the past.
  *
  * @author Khalid Alqinyah
- * @author Manfred Tremmel - GWT port
+ * @author Guillaume Smet
+ * @author Manfred Tremmel - disabled for GWT, no ChronoZonedDateTime available
  */
 @IgnoreJava6Requirement
 public class PastValidatorForChronoZonedDateTime

@@ -17,7 +17,7 @@ import javax.validation.constraints.Future;
  * Check if Joda Time type who implements {@code org.joda.time.ReadablePartial} is in the past.
  *
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2011 SERLI
- * @author Manfred Tremmel - GWT port
+ * @author Manfred Tremmel - disabled for GWT, no ReadablePartial available
  */
 @IgnoreJava6Requirement
 public class PastValidatorForReadablePartial

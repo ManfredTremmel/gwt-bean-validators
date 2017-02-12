@@ -17,7 +17,8 @@ import javax.validation.constraints.Future;
  * Check that the {@code java.time.OffsetDateTime} passed is in the past.
  *
  * @author Khalid Alqinyah
- * @author Manfred Tremmel - GWT port
+ * @author Khalid Alqinyah
+ * @author Manfred Tremmel - disabled for GWT, no OffsetDateTime available
  */
 @IgnoreJava6Requirement
 public class PastValidatorForOffsetDateTime

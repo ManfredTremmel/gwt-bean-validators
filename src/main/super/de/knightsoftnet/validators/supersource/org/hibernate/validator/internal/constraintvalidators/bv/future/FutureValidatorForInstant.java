@@ -17,7 +17,8 @@ import javax.validation.constraints.Future;
  * Check that the {@code java.time.Instant} passed is in the future.
  *
  * @author Khalid Alqinyah
- * @author Manfred Tremmel - GWT port
+ * @author Guillaume Smet
+ * @author Manfred Tremmel - disabled for GWT, no Instant available
  */
 @IgnoreJava6Requirement
 public class FutureValidatorForInstant extends AbstractNotGwtCompatibleValidator<Future, Object> {

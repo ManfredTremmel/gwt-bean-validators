@@ -45,12 +45,15 @@ import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateFutureTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateLengthTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNipTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotBlankTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePastTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePeselTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateRegonTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeArrayTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeCollectionTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
@@ -128,7 +131,8 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       HibernateFutureTestBean.class, HibernatePastTestBean.class, HibernateNotBlankTestBean.class,
       HibernateNotEmptyTestBean.class, HibernateEan8TestBean.class, HibernateEan13TestBean.class,
       HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class,
-      HibernateUrlTestBean.class, HibernateCnpjTestBean.class, HibernateCpfTestBean.class})
+      HibernateUrlTestBean.class, HibernateCnpjTestBean.class, HibernateCpfTestBean.class,
+      HibernateNipTestBean.class, HibernatePeselTestBean.class, HibernateRegonTestBean.class})
   public interface GwtValidator extends Validator {
   }
 
