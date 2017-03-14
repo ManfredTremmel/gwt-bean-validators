@@ -22,7 +22,15 @@ import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerIntegerTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerIntegerTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmptyTestBean;
@@ -51,6 +59,10 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
    */
   @GwtValidation(value = {BankCountryTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
       EmptyIfOtherIsNotEmptyTestBean.class, MustBeEqualTestBean.class,
+      MustBeBiggerDateTestBean.class, MustBeBiggerIntegerTestBean.class,
+      MustBeBiggerOrEqualDateTestBean.class, MustBeBiggerOrEqualIntegerTestBean.class,
+      MustBeSmallerDateTestBean.class, MustBeSmallerIntegerTestBean.class,
+      MustBeSmallerOrEqualDateTestBean.class, MustBeSmallerOrEqualIntegerTestBean.class,
       NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,

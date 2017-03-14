@@ -15,11 +15,6 @@
 
 package org.apache.commons.beanutils;
 
-import de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface;
-import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
-
-import com.google.gwt.core.shared.GWT;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -52,30 +47,6 @@ public class BeanUtils {
   public static String getProperty(final Object pbean, final String pname)
       throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
-    if (pbean == null) {
-      throw new NoSuchMethodException("A null object has no getters");
-    }
-    if (pname == null) {
-      throw new NoSuchMethodException("No method to get property for null");
-    }
-
-    final GwtReflectGetterFactoryInterface reflectGetterFactory =
-        GWT.create(GwtReflectGetterFactoryInterface.class);
-    final GwtReflectGetterInterface reflectGetter = reflectGetterFactory.getGwtReflectGetter();
-
-    final int posPoint = pname.indexOf('.');
-    try {
-      if (posPoint >= 0) {
-        final Object subObject = reflectGetter.getProperty(pbean, pname.substring(0, posPoint));
-        if (subObject == null) {
-          throw new NestedNullException(
-              "Null property value for '" + pname + "' on bean class '" + pbean.getClass() + "'");
-        }
-        return getProperty(subObject, pname.substring(posPoint + 1));
-      }
-      return Objects.toString(reflectGetter.getProperty(pbean, pname), null);
-    } catch (final ReflectiveOperationException e) {
-      throw new InvocationTargetException(e);
-    }
+    return Objects.toString(PropertyUtils.getProperty(pbean, pname), null);
   }
 }

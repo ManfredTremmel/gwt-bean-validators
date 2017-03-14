@@ -73,7 +73,15 @@ import de.knightsoftnet.validators.shared.beans.IsbnWithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
 import de.knightsoftnet.validators.shared.beans.LimitCharsetTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerIntegerTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeEqualTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerIntegerTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualDateTestBean;
+import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmptyTestBean;
@@ -115,8 +123,12 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       Isbn10TestBean.class, Isbn10WithSeparatorsTestBean.class, Isbn13FormatedTestBean.class,
       Isbn13TestBean.class, Isbn13WithSeparatorsTestBean.class, IsbnFormatedTestBean.class,
       IsbnTestBean.class, IsbnWithSeparatorsTestBean.class, IsinTestBean.class,
-      LimitCharsetTestBean.class, MustBeEqualTestBean.class,
-      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      LimitCharsetTestBean.class, MustBeEqualTestBean.class, MustBeBiggerDateTestBean.class,
+      MustBeBiggerIntegerTestBean.class, MustBeBiggerOrEqualDateTestBean.class,
+      MustBeBiggerOrEqualIntegerTestBean.class, MustBeSmallerDateTestBean.class,
+      MustBeSmallerIntegerTestBean.class, MustBeSmallerOrEqualDateTestBean.class,
+      MustBeSmallerOrEqualIntegerTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
+      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
