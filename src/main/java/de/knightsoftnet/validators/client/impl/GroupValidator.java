@@ -14,7 +14,6 @@
 
 package de.knightsoftnet.validators.client.impl;
 
-
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;

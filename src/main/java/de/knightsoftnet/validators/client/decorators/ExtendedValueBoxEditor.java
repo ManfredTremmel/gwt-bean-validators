@@ -80,7 +80,9 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
   @Override
   public void setValue(final T pvalue) {
     this.takesValues.setValue(pvalue);
-    this.decorator.clearErrors();
+    if (this.decorator != null) {
+      this.decorator.clearErrors();
+    }
   }
 
   /**

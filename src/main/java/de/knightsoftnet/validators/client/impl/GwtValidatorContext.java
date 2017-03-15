@@ -14,7 +14,6 @@
 
 package de.knightsoftnet.validators.client.impl;
 
-
 import de.knightsoftnet.validators.client.AbstractGwtValidatorFactory;
 
 import javax.validation.ConstraintValidatorFactory;
