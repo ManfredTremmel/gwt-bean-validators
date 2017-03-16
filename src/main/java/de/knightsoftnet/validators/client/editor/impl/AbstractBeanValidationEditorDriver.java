@@ -21,6 +21,8 @@ import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 import de.knightsoftnet.validators.client.impl.Validation;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorVisitor;
 import com.google.gwt.editor.client.impl.BaseEditorDriver;
@@ -157,7 +159,15 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   public void edit(final T object) {
     this.doEdit(object);
     if (this.checkTime != CheckTimeEnum.ON_SUBMIT) {
-      this.validate();
+      Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+
+        @Override
+        public boolean execute() {
+          AbstractBeanValidationEditorDriver.this.validate();
+          return false;
+        }
+
+      }, 200);
     }
   }
 
