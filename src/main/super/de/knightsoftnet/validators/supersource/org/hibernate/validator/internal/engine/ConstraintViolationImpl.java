@@ -38,6 +38,7 @@ public final class ConstraintViolationImpl<T>
   private final Object leafBeanInstance;
   private final ConstraintDescriptor<?> constraintDescriptor;
   private final String messageTemplate;
+  private final Map<String, Object> messageParameters;
   private final Map<String, Object> expressionVariables;
   private final Class<T> rootBeanClass;
   private final ElementType elementType;
@@ -50,52 +51,53 @@ public final class ConstraintViolationImpl<T>
    * create ConstraintViolation for bean validation.
    */
   public static <T> ConstraintViolation<T> forBeanValidation(final String messageTemplate,
-      final Map<String, Object> expressionVariables, final String interpolatedMessage,
-      final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
-      final Object value, final Path propertyPath,
+      final Map<String, Object> messageParameters, final Map<String, Object> expressionVariables,
+      final String interpolatedMessage, final Class<T> rootBeanClass, final T rootBean,
+      final Object leafBeanInstance, final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
       final Object dynamicPayload) {
-    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
-        rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, null, null, dynamicPayload);
+    return new ConstraintViolationImpl<>(messageTemplate, messageParameters, expressionVariables,
+        interpolatedMessage, rootBeanClass, rootBean, leafBeanInstance, value, propertyPath,
+        constraintDescriptor, elementType, null, null, dynamicPayload);
   }
 
   /**
    * create ConstraintViolation for parameter validation.
    */
   public static <T> ConstraintViolation<T> forParameterValidation(final String messageTemplate,
-      final Map<String, Object> expressionVariables, final String interpolatedMessage,
-      final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
-      final Object value, final Path propertyPath,
+      final Map<String, Object> messageParameters, final Map<String, Object> expressionVariables,
+      final String interpolatedMessage, final Class<T> rootBeanClass, final T rootBean,
+      final Object leafBeanInstance, final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
       final Object[] executableParameters, final Object dynamicPayload) {
-    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
-        rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, executableParameters, null, dynamicPayload);
+    return new ConstraintViolationImpl<>(messageTemplate, messageParameters, expressionVariables,
+        interpolatedMessage, rootBeanClass, rootBean, leafBeanInstance, value, propertyPath,
+        constraintDescriptor, elementType, executableParameters, null, dynamicPayload);
   }
 
   /**
    * create ConstraintViolation for return value validation.
    */
   public static <T> ConstraintViolation<T> forReturnValueValidation(final String messageTemplate,
-      final Map<String, Object> expressionVariables, final String interpolatedMessage,
-      final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
-      final Object value, final Path propertyPath,
+      final Map<String, Object> messageParameters, final Map<String, Object> expressionVariables,
+      final String interpolatedMessage, final Class<T> rootBeanClass, final T rootBean,
+      final Object leafBeanInstance, final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
       final Object executableReturnValue, final Object dynamicPayload) {
-    return new ConstraintViolationImpl<>(messageTemplate, expressionVariables, interpolatedMessage,
-        rootBeanClass, rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor,
-        elementType, null, executableReturnValue, dynamicPayload);
+    return new ConstraintViolationImpl<>(messageTemplate, messageParameters, expressionVariables,
+        interpolatedMessage, rootBeanClass, rootBean, leafBeanInstance, value, propertyPath,
+        constraintDescriptor, elementType, null, executableReturnValue, dynamicPayload);
   }
 
   private ConstraintViolationImpl(final String messageTemplate,
-      final Map<String, Object> expressionVariables, final String interpolatedMessage,
-      final Class<T> rootBeanClass, final T rootBean, final Object leafBeanInstance,
-      final Object value, final Path propertyPath,
+      final Map<String, Object> messageParameters, final Map<String, Object> expressionVariables,
+      final String interpolatedMessage, final Class<T> rootBeanClass, final T rootBean,
+      final Object leafBeanInstance, final Object value, final Path propertyPath,
       final ConstraintDescriptor<?> constraintDescriptor, final ElementType elementType,
       final Object[] executableParameters, final Object executableReturnValue,
       final Object dynamicPayload) {
     this.messageTemplate = messageTemplate;
+    this.messageParameters = messageParameters;
     this.expressionVariables = expressionVariables;
     this.interpolatedMessage = interpolatedMessage;
     this.rootBean = rootBean;
@@ -120,6 +122,16 @@ public final class ConstraintViolationImpl<T>
   @Override
   public String getMessageTemplate() {
     return this.messageTemplate;
+  }
+
+  /**
+   * get message parameters.
+   *
+   * @return the message parameters added using
+   *         {@link ConstraintValidatorContextImpl#addMessageParameter(String, Object)}
+   */
+  public Map<String, Object> getMessageParameters() {
+    return this.messageParameters;
   }
 
   /**
@@ -186,9 +198,11 @@ public final class ConstraintViolationImpl<T>
    * IMPORTANT - some behaviour of Validator depends on the correct implementation of this equals
    * method! (HF)
    *
-   * {@code expressionVariables} and {@code dynamicPayload} are not taken into account for equality.
-   * These variables solely enrich the actual Constraint Violation with additional information e.g
-   * how we actually got to this CV.
+   * <p>
+   * {@code messageParameters}, {@code expressionVariables} and {@code dynamicPayload} are not taken
+   * into account for equality. These variables solely enrich the actual Constraint Violation with
+   * additional information e.g how we actually got to this CV.
+   * </p>
    *
    * @return true if the two ConstraintViolation's are considered equals; false otherwise
    */

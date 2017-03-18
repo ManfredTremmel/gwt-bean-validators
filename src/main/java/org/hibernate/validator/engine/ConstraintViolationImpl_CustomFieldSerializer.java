@@ -59,10 +59,11 @@ public class ConstraintViolationImpl_CustomFieldSerializer
     final Path propertyPath = (Path) streamReader.readObject();
     final ConstraintDescriptor<?> constraintDescriptor = null;
     final ElementType elementType = null;
+    final Map<String, Object> messageParameters = new HashMap<>();
     final Map<String, Object> expressionVariables = new HashMap<>();
     return (ConstraintViolationImpl<Object>) ConstraintViolationImpl.forBeanValidation(
-        messageTemplate, expressionVariables, interpolatedMessage, rootBeanClass, rootBean,
-        leafBeanInstance, value, propertyPath, constraintDescriptor, elementType, null);
+        messageTemplate, messageParameters, expressionVariables, interpolatedMessage, rootBeanClass,
+        rootBean, leafBeanInstance, value, propertyPath, constraintDescriptor, elementType, null);
   }
 
   /**

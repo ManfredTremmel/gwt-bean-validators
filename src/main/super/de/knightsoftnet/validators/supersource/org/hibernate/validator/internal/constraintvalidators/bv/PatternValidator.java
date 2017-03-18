@@ -10,6 +10,8 @@ package org.hibernate.validator.internal.constraintvalidators.bv;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
+import org.hibernate.validator.internal.engine.messageinterpolation.util.InterpolationHelper;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
@@ -29,6 +31,7 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
   private static final Log LOG = LoggerFactory.make(); // NOPMD
 
   private RegExp pattern = null;
+  private String escapedRegexp;
 
   @Override
   public void initialize(final Pattern parameters) {
@@ -42,6 +45,7 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
     } catch (final RuntimeException e) {
       throw LOG.getInvalidRegularExpressionException(e);
     }
+    this.escapedRegexp = InterpolationHelper.escapeMessageParameter(parameters.regexp());
   }
 
   @Override
@@ -50,6 +54,11 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
     if (value == null || this.pattern == null) {
       return true;
     }
+    if (constraintValidatorContext instanceof HibernateConstraintValidatorContext) {
+      constraintValidatorContext.unwrap(HibernateConstraintValidatorContext.class)
+          .addMessageParameter("regexp", this.escapedRegexp);
+    }
+
     final MatchResult match = this.pattern.exec(value.toString());
     if (match == null) {
       return false;

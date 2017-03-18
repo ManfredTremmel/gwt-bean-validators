@@ -84,10 +84,11 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
   String parameterizedTypesWithMoreThanOneTypeArgument();
 
   @DefaultMessage("Hibernate Validator cannot instantiate AggregateResourceBundle.CONTROL. "
-      + "This can happen most notably in a Google App Engine environment. "
+      + "This can happen most notably in a Google App Engine environment or when "
+      + "running Hibernate Validator as Java 9 named module. "
       + "A PlatformResourceBundleLocator without bundle aggregation was created. "
       + "This only effects you in case you are using multiple ConstraintDefinitionContributor "
-      + "jars. " + "ConstraintDefinitionContributors are a Hibernate Validator specific feature. "
+      + "JARs. " + "ConstraintDefinitionContributors are a Hibernate Validator specific feature. "
       + "All Bean Validation "
       + "features work as expected. See also https://hibernate.atlassian.net/browse/HV-1023.")
   String unableToUseResourceBundleAggregation();

@@ -12,6 +12,7 @@ gwt clients.
   <source path="internal">
     <include name="engine/path/NodeImpl.java"/>
     <include name="engine/path/PathImpl.java"/>
+    <include name="engine/messageinterpolation/util/InterpolationHelper.java"/>
     <include name="util/CollectionHelper.java"/>
     <include name="util/Contracts.java"/>
     <include name="util/ModUtil.java"/>

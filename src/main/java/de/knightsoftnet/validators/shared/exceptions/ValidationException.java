@@ -93,9 +93,11 @@ public class ValidationException extends Exception implements Serializable {
     final ArrayList<ConstraintViolation<?>> violations =
         new ArrayList<>(this.validationErrorSet.size());
     for (final SerializeableConstraintValidationImpl<?> violation : this.validationErrorSet) {
+      final Map<String, Object> messageParameters = new HashMap<>();
       final Map<String, Object> expressionVariables = new HashMap<>();
       violations.add(ConstraintViolationImpl.forBeanValidation( //
           violation.getMessageTemplate(), //
+          messageParameters, //
           expressionVariables, //
           violation.getMessage(), //
           ((SerializeableConstraintValidationImpl<Object>) violation).getRootBeanClass(), //
@@ -117,8 +119,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(final Set pvalidationErrorSet) {
-    this.validationErrorSet =
-        new ArrayList<>(pvalidationErrorSet.size());
+    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.size());
     final Iterator iterator = pvalidationErrorSet.iterator();
     while (iterator.hasNext()) {
       final ConstraintViolation<?> violation = (ConstraintViolation<?>) iterator.next();
@@ -134,8 +135,7 @@ public class ValidationException extends Exception implements Serializable {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(
       final ArrayList<ConstraintViolation<?>> pvalidationErrorSet) {
-    this.validationErrorSet =
-        new ArrayList<>(pvalidationErrorSet.size());
+    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.size());
     for (final ConstraintViolation<?> violation : pvalidationErrorSet) {
       this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
     }
