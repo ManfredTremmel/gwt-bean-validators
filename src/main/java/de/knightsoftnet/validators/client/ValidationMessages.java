@@ -659,4 +659,41 @@ public interface ValidationMessages extends ConstantsWithLookup {
   @DefaultStringValue("only characters from charset {charset} are allowed")
   @Key("deKnightsoftnetValidatorsSharedValidationLimitCharsetMessage")
   String deKnightsoftnetValidatorsSharedValidationLimitCharsetMessage();
+
+  /**
+   * message used for must be smaller check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationMustBeSmallerMessage
+   */
+  @DefaultStringValue("the values of {field1} must be smaller then the value of {field2}")
+  @Key("deKnightsoftnetValidatorsSharedValidationMustBeSmallerMessage")
+  String deKnightsoftnetValidatorsSharedValidationMustBeSmallerMessage();
+
+  /**
+   * message used for must be smaller or equal check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationMustBeSmallerOrEqualMessage
+   */
+  @DefaultStringValue("the values of {field1} must be smaller (or equal) then the value of "
+      + "{field2}")
+  @Key("deKnightsoftnetValidatorsSharedValidationMustBeSmallerOrEqualMessage")
+  String deKnightsoftnetValidatorsSharedValidationMustBeSmallerOrEqualMessage();
+
+  /**
+   * message used for must be bigger check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationMustBeBiggerMessage
+   */
+  @DefaultStringValue("the values of {field1} must be bigger then the value of {field2}")
+  @Key("deKnightsoftnetValidatorsSharedValidationMustBeBiggerMessage")
+  String deKnightsoftnetValidatorsSharedValidationMustBeBiggerMessage();
+
+  /**
+   * message used for must be bigger or equal check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationMustBeBiggerOrEqualMessage
+   */
+  @DefaultStringValue("the values of {field1} must be bigger (or equal) then the value of {field2}")
+  @Key("deKnightsoftnetValidatorsSharedValidationMustBeBiggerOrEqualMessage")
+  String deKnightsoftnetValidatorsSharedValidationMustBeBiggerOrEqualMessage();
 }
