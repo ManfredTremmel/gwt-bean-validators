@@ -53,7 +53,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
    * </p>
    */
   public static final class AttributeBuilder {
-    private final HashMap<String, Object> tempMap = new HashMap<String, Object>();
+    private final HashMap<String, Object> tempMap = new HashMap<>();
 
     private AttributeBuilder() {
       super();
@@ -187,7 +187,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
   protected List<Class<?>> addDefaultGroupWhenEmpty(final List<Class<?>> pgroups) {
     List<Class<?>> groups = pgroups;
     if (groups.isEmpty()) {
-      groups = new ArrayList<Class<?>>();
+      groups = new ArrayList<>();
       groups.add(Default.class);
     }
     return groups;
@@ -235,7 +235,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
         new MessageInterpolatorContextImpl(constraintDescriptor, value);
     final String message =
         messageInterpolator.interpolate(messageAndPath.getMessage(), messageContext);
-    final ConstraintViolation<T> violation = ConstraintViolationImpl.<T>builder() //
+    return ConstraintViolationImpl.<T>builder() //
         .setConstraintDescriptor(constraintDescriptor) //
         .setInvalidValue(value) //
         .setLeafBean(object) //
@@ -246,7 +246,6 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
         .setRootBeanClass(context.getRootBeanClass()) //
         .setElementType(constraintDescriptor.getElementType()) //
         .build();
-    return violation;
   }
 
   private <T> GroupChain createGroupChainFromGroups(final GwtValidationContext<T> context,
@@ -264,7 +263,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
   private <T> Set<ConstraintViolation<T>> validateGroups(final GwtValidationContext<T> context,
       final GroupValidator groupValidator, final GroupChain groupChain) {
 
-    final Set<ConstraintViolation<T>> violations = new HashSet<ConstraintViolation<T>>();
+    final Set<ConstraintViolation<T>> violations = new HashSet<>();
 
     final Collection<Group> allGroups = groupChain.getAllGroups();
     final Group[] allGroupsArray = allGroups.toArray(new Group[allGroups.size()]);

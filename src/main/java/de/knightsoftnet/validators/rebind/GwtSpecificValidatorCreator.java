@@ -103,7 +103,7 @@ import javax.validation.metadata.PropertyDescriptor;
  */
 @SuppressWarnings("checkstyle:linelength")
 public final class GwtSpecificValidatorCreator extends AbstractCreator {
-  private static enum Stage {
+  private enum Stage {
     OBJECT, PROPERTY, VALUE
   }
 
