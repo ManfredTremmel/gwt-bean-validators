@@ -34,7 +34,7 @@ Add the dependencies itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.40.2</version>
+      <version>0.41.0</version>
     </dependency>
 ```
 
@@ -90,4 +90,5 @@ Two Decorators, the decent [UniversalDecorator.java](https://github.com/ManfredT
 </ui:UiBinder>
 ```
 
+Alternate, you can use widgets which include error handling by implementing the HasEditorErrors interface. All the widgets from [gwt-mt-widgets](https://github.com/ManfredTremmel/gwt-mt-widgets) containing support for error handling by using HTML5 methods.
 I've added a little [example application on GitHub](https://github.com/ManfredTremmel/gwt-bean-validators-example), where you can see, how to use bean validation on client and server side, based on gwt/gwtp and spring with REST webservices. The concepts of the application are documented on the [wiki page](https://github.com/ManfredTremmel/gwt-bean-validators-example/wiki).

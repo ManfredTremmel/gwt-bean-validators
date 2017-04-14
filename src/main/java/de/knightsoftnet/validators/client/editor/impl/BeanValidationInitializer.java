@@ -56,11 +56,6 @@ public class BeanValidationInitializer extends Initializer {
   private final CheckTimeEnum checkTime;
 
   /**
-   * submit form when enter/return is hit.
-   */
-  private final boolean submitOnReturn;
-
-  /**
    * constructor.
    *
    * @param pcommitOnReturnHandler commit on return handler
@@ -76,58 +71,44 @@ public class BeanValidationInitializer extends Initializer {
       final ValueChangeHandler<?> pvalueChangeHandler, final CheckTimeEnum pcheckTime,
       final boolean psubmitOnReturn) {
     super();
-    this.commitOnReturnHandler = pcommitOnReturnHandler;
-    this.validateOnKeyUpHandler = pvalidateOnKeyUpHandler;
-    this.validateOnVueChangeHandler = pvalidateOnVueChangeHandler;
+    this.commitOnReturnHandler = psubmitOnReturn ? pcommitOnReturnHandler : null;
+    this.validateOnKeyUpHandler =
+        pcheckTime == CheckTimeEnum.ON_KEY_UP ? pvalidateOnKeyUpHandler : null;
+    this.validateOnVueChangeHandler =
+        pcheckTime == CheckTimeEnum.ON_CHANGE || pcheckTime == CheckTimeEnum.ON_KEY_UP
+            ? pvalidateOnVueChangeHandler : null;
     this.valueChangeHandler = pvalueChangeHandler;
     this.checkTime = pcheckTime;
-    this.submitOnReturn = psubmitOnReturn;
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public <Q> boolean visit(final EditorContext<Q> pctx) {
     final boolean result = super.visit(pctx);
+    Object editor = null;
     if (pctx.getEditor() instanceof ExtendedValueBoxEditor<?>
         && ((ExtendedValueBoxEditor<?>) pctx.getEditor()).getDecorator() != null) {
       final AbstractDecorator<?> decorator =
           ((ExtendedValueBoxEditor<?>) pctx.getEditor()).getDecorator();
       decorator.setFocusOnError(this.checkTime == CheckTimeEnum.ON_SUBMIT);
-      // add value change handler which delegates changes
-      decorator.addValueChangeHandler((ValueChangeHandler) this.valueChangeHandler);
-      // if widget has a value change handler, validate on change
-      if ((this.checkTime == CheckTimeEnum.ON_CHANGE || this.checkTime == CheckTimeEnum.ON_KEY_UP)
-          && this.validateOnVueChangeHandler != null) {
-        decorator.addValueChangeHandler((ValueChangeHandler) this.validateOnVueChangeHandler);
-      }
-      // if widget has a key up handler, validate on key up
-      if (this.checkTime == CheckTimeEnum.ON_KEY_UP && this.validateOnKeyUpHandler != null) {
-        decorator.addKeyUpHandler(this.validateOnKeyUpHandler);
-      }
-      // try to submit form on return
-      if (this.submitOnReturn && this.commitOnReturnHandler != null) {
-        decorator.addKeyPressHandler(this.commitOnReturnHandler);
-      }
+      editor = decorator;
     } else {
-      if (pctx.getEditor() instanceof HasValueChangeHandlers) {
-        ((HasValueChangeHandlers) pctx.getEditor()).addValueChangeHandler(this.valueChangeHandler);
-        // if widget has a value change handler, validate on change
-        if ((this.checkTime == CheckTimeEnum.ON_CHANGE || this.checkTime == CheckTimeEnum.ON_KEY_UP)
-            && this.validateOnVueChangeHandler != null) {
-          ((HasValueChangeHandlers) pctx.getEditor())
-              .addValueChangeHandler(this.validateOnVueChangeHandler);
-        }
+      editor = pctx.getEditor();
+    }
+    if (editor instanceof HasValueChangeHandlers) {
+      ((HasValueChangeHandlers) editor).addValueChangeHandler(this.valueChangeHandler);
+      // if widget has a value change handler, validate on change
+      if (this.validateOnVueChangeHandler != null) {
+        ((HasValueChangeHandlers) editor).addValueChangeHandler(this.validateOnVueChangeHandler);
       }
-      // if widget has a key up handler, validate on key up
-      if (pctx.getEditor() instanceof HasKeyUpHandlers && this.checkTime == CheckTimeEnum.ON_KEY_UP
-          && this.validateOnKeyUpHandler != null) {
-        ((HasKeyUpHandlers) pctx.getEditor()).addKeyUpHandler(this.validateOnKeyUpHandler);
-      }
-      // try to submit form on return
-      if (pctx.getEditor() instanceof HasKeyPressHandlers && this.submitOnReturn
-          && this.commitOnReturnHandler != null) {
-        ((HasKeyPressHandlers) pctx.getEditor()).addKeyPressHandler(this.commitOnReturnHandler);
-      }
+    }
+    // if widget has a key up handler, validate on key up
+    if (editor instanceof HasKeyUpHandlers && this.validateOnKeyUpHandler != null) {
+      ((HasKeyUpHandlers) editor).addKeyUpHandler(this.validateOnKeyUpHandler);
+    }
+    // try to submit form on return
+    if (editor instanceof HasKeyPressHandlers && this.commitOnReturnHandler != null) {
+      ((HasKeyPressHandlers) editor).addKeyPressHandler(this.commitOnReturnHandler);
     }
 
     return result;

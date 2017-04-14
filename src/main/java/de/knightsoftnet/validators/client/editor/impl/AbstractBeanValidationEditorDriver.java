@@ -21,8 +21,6 @@ import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
 import de.knightsoftnet.validators.client.impl.Validation;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorVisitor;
 import com.google.gwt.editor.client.impl.BaseEditorDriver;
@@ -157,17 +155,13 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   @Override
   public void edit(final T object) {
-    this.doEdit(object);
-    if (this.checkTime != CheckTimeEnum.ON_SUBMIT) {
-      Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+    this.edit(object, this.checkTime != CheckTimeEnum.ON_SUBMIT);
+  }
 
-        @Override
-        public boolean execute() {
-          AbstractBeanValidationEditorDriver.this.validate();
-          return false;
-        }
-
-      }, 200);
+  private void edit(final T object, final boolean pcheck) {
+    super.doEdit(object);
+    if (pcheck) {
+      this.validate();
     }
   }
 
@@ -231,7 +225,9 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   @Override
   public final boolean tryToSubmitFrom() {
     boolean result = false;
-    if (this.validate() && (this.submitUnchanged || this.isDirty())) {
+    final boolean dirty = this.isDirty();
+    if ((this.submitUnchanged || dirty) && this.validate()) {
+      this.edit(this.getObject(), false);
       FormSubmitEvent.fire(this, this.getObject());
       result = true;
     }
