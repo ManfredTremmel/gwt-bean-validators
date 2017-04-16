@@ -160,8 +160,8 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   private void edit(final T object, final boolean pcheck) {
     super.doEdit(object);
-    if (pcheck) {
-      this.validate();
+    if (pcheck && this.validate() && this.checkTime != CheckTimeEnum.ON_CHANGE) {
+      this.tryToSubmitFrom(true);
     }
   }
 
@@ -224,10 +224,16 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   @Override
   public final boolean tryToSubmitFrom() {
+    return this.tryToSubmitFrom(this.isDirty());
+  }
+
+  private final boolean tryToSubmitFrom(final boolean pdirty) {
     boolean result = false;
-    final boolean dirty = this.isDirty();
-    if ((this.submitUnchanged || dirty) && this.validate()) {
-      this.edit(this.getObject(), false);
+    if ((this.submitUnchanged || pdirty) && this.validate()) {
+      if (!this.submitUnchanged) {
+        // edit changed values, so dirty flag is gone and no useless resubmission is done
+        this.edit(this.getObject(), false);
+      }
       FormSubmitEvent.fire(this, this.getObject());
       result = true;
     }
