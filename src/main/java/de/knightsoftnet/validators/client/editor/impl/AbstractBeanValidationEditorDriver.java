@@ -160,8 +160,8 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   private void edit(final T object, final boolean pcheck) {
     super.doEdit(object);
-    if (pcheck && this.validate() && this.checkTime != CheckTimeEnum.ON_CHANGE) {
-      this.tryToSubmitFrom(true);
+    if (pcheck) {
+      this.validate();
     }
   }
 
@@ -227,7 +227,8 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
     return this.tryToSubmitFrom(this.isDirty());
   }
 
-  private final boolean tryToSubmitFrom(final boolean pdirty) {
+  @Override
+  public final boolean tryToSubmitFrom(final boolean pdirty) {
     boolean result = false;
     if ((this.submitUnchanged || pdirty) && this.validate()) {
       if (!this.submitUnchanged) {

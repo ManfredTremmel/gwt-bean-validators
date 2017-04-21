@@ -93,6 +93,14 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>>
   boolean tryToSubmitFrom();
 
   /**
+   * try to submit with dirty as parameter.
+   *
+   * @param pdirty dirty flag, if true form is handled as dirty/changed
+   * @return true if submit is done
+   */
+  boolean tryToSubmitFrom(final boolean pdirty);
+
+  /**
    * submit unchanged forms.
    *
    * @return true if unchanged forms can be submitted
