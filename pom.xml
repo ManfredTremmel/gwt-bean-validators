@@ -101,8 +101,8 @@
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<checkstyle.version>7.6.1</checkstyle.version>
-		<maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
+		<checkstyle.version>7.7</checkstyle.version>
+		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 		<maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
