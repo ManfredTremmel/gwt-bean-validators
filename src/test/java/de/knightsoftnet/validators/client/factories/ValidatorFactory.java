@@ -94,6 +94,7 @@ import de.knightsoftnet.validators.shared.beans.PhoneNumberValueTestBean;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
 import de.knightsoftnet.validators.shared.beans.RegExTestBean;
 import de.knightsoftnet.validators.shared.beans.SizeWithoutSeparatorsTestBean;
+import de.knightsoftnet.validators.shared.beans.TinTestBean;
 import de.knightsoftnet.validators.shared.beans.UrlTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
@@ -133,7 +134,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
       PostalCodeTestBean.class, RegExTestBean.class, SizeWithoutSeparatorsTestBean.class,
-      UrlTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class,
+      TinTestBean.class, UrlTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class,
 
       HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
       HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,

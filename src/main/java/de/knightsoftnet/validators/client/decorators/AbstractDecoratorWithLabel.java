@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.dom.client.HasFocusHandlers;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.user.client.TakesValue;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +43,7 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
    * label of the widget.
    */
   @Ignore
-  private Label label;
+  private Widget label;
 
   public AbstractDecoratorWithLabel(final PanelLocationEnum perrorLocation) {
     this(perrorLocation, getDefaultResources());
@@ -77,7 +76,7 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
    * @param plabel a label widget
    */
   @UiChild(limit = 1, tagname = "label")
-  public void setChildLabel(final Label plabel) {
+  public void setChildLabel(final Widget plabel) {
     this.label = plabel;
     this.getLayout().add(this.label);
   }

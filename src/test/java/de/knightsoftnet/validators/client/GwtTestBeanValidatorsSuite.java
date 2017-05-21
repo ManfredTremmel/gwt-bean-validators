@@ -98,6 +98,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstPostalCode.class);
     psuite.addTestSuite(GwtTstRegularExpression.class);
     psuite.addTestSuite(GwtTstSizeWithoutSeparators.class);
+    psuite.addTestSuite(GwtTstTin.class);
     psuite.addTestSuite(GwtTstUrl.class);
     psuite.addTestSuite(GwtTstVatId.class);
     psuite.addTestSuite(GwtTstIbanUtil.class);
