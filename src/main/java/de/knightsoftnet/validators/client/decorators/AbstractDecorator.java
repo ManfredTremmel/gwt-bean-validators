@@ -38,6 +38,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -55,7 +56,7 @@ import java.util.Set;
  */
 public abstract class AbstractDecorator<T> extends Composite
     implements HasEditorErrors<T>, IsEditor<ValueBoxEditor<T>>, HasValue<T>,
-    HasValueChangeHandlers<T>, HasKeyUpHandlers, HasKeyPressHandlers, Focusable {
+    HasValueChangeHandlers<T>, HasKeyUpHandlers, HasKeyPressHandlers, Focusable, HasEnabled {
 
   /**
    * A ClientBundle that provides images and decoratorStyle sheets for the decorator.
@@ -382,6 +383,21 @@ public abstract class AbstractDecorator<T> extends Composite
   public final void setFocus(final boolean pfocused) {
     if (this.contents.getWidget() instanceof Focusable) {
       ((Focusable) this.contents.getWidget()).setFocus(pfocused);
+    }
+  }
+
+  @Override
+  public boolean isEnabled() {
+    if (this.contents.getWidget() instanceof HasEnabled) {
+      ((HasEnabled) this.contents.getWidget()).isEnabled();
+    }
+    return false;
+  }
+
+  @Override
+  public void setEnabled(final boolean penabled) {
+    if (this.contents.getWidget() instanceof HasEnabled) {
+      ((HasEnabled) this.contents.getWidget()).setEnabled(penabled);
     }
   }
 
