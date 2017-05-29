@@ -346,7 +346,7 @@ public abstract class AbstractDecorator<T> extends Composite
 
   @SuppressWarnings("unchecked")
   @Override
-  public final void setValue(final T pvalue, final boolean pfireEvents) {
+  public void setValue(final T pvalue, final boolean pfireEvents) {
     if (this.contents.getWidget() instanceof TakesValue<?>) {
       this.clearErrors();
       if (this.contents.getWidget() instanceof HasValue<?>) {

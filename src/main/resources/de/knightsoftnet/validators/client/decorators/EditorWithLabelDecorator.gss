@@ -37,6 +37,7 @@
 
 .errorInputStyle {
   border: 1px solid red !important;
+  display: inherit;
 }
 
 .labelStyleFocused {

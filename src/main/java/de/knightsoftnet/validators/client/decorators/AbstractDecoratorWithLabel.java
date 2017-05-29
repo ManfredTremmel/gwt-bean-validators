@@ -126,4 +126,14 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
       });
     }
   }
+
+  @Override
+  public void setValue(final T pvalue, final boolean pfireEvents) {
+    super.setValue(pvalue, pfireEvents);
+    if (StringUtils.isNotEmpty(Objects.toString(pvalue))) {
+      AbstractDecoratorWithLabel.this.label.getElement()
+          .addClassName(((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+              .labelStyleFocused());
+    }
+  }
 }

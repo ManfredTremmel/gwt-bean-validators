@@ -44,6 +44,7 @@
 
 .validInputStyle, .errorInputStyle {
   background-repeat: no-repeat !important;
+  display: inherit;
   padding-right: 1em !important;
   background-size: Auto 50%;
   background-position: right top;
