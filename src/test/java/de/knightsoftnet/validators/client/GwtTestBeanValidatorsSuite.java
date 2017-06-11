@@ -86,6 +86,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstMustBeSmallerInteger.class);
     psuite.addTestSuite(GwtTstMustBeSmallerOrEqualDate.class);
     psuite.addTestSuite(GwtTstMustBeSmallerOrEqualInteger.class);
+    psuite.addTestSuite(GwtTstNotEmptyAfterStrip.class);
     psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherHasValue.class);
     psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsEmpty.class);
     psuite.addTestSuite(GwtTstNotEmptyAlternateIfOtherIsNotEmpty.class);

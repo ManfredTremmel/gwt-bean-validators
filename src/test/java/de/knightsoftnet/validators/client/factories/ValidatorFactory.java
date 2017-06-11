@@ -82,6 +82,7 @@ import de.knightsoftnet.validators.shared.beans.MustBeSmallerDateTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeSmallerIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualDateTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeSmallerOrEqualIntegerTestBean;
+import de.knightsoftnet.validators.shared.beans.NotEmptyAfterStripTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherHasValueTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyAlternateIfOtherIsNotEmptyTestBean;
@@ -128,8 +129,8 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       MustBeBiggerIntegerTestBean.class, MustBeBiggerOrEqualDateTestBean.class,
       MustBeBiggerOrEqualIntegerTestBean.class, MustBeSmallerDateTestBean.class,
       MustBeSmallerIntegerTestBean.class, MustBeSmallerOrEqualDateTestBean.class,
-      MustBeSmallerOrEqualIntegerTestBean.class, NotEmptyAlternateIfOtherHasValueTestBean.class,
-      NotEmptyAlternateIfOtherIsEmptyTestBean.class,
+      MustBeSmallerOrEqualIntegerTestBean.class, NotEmptyAfterStripTestBean.class,
+      NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
