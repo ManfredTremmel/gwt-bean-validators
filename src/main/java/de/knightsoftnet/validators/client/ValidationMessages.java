@@ -643,6 +643,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String deKnightsoftnetValidatorsSharedValidationRegularExpressionMessage();
 
   /**
+   * message used for tax number check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationTaxNumberMessage
+   */
+  @DefaultStringValue("no valid tax number")
+  @Key("deKnightsoftnetValidatorsSharedValidationTaxNumberMessage")
+  String deKnightsoftnetValidatorsSharedValidationTaxNumberMessage();
+
+  /**
    * message used for tax identification number check.
    *
    * @return deKnightsoftnetValidatorsSharedValidationTinMessage

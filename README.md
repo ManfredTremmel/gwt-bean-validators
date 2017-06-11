@@ -34,7 +34,7 @@ Add the dependencies itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.42.3-SNAPSHOT</version>
+      <version>0.42.3</version>
     </dependency>
 ```
 

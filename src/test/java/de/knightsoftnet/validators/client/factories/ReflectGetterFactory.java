@@ -39,6 +39,7 @@ import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.NotEmptyIfOtherIsNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.PhoneNumberValueTestBean;
 import de.knightsoftnet.validators.shared.beans.PostalCodeTestBean;
+import de.knightsoftnet.validators.shared.beans.TaxNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.TinTestBean;
 import de.knightsoftnet.validators.shared.beans.VatIdTestBean;
 
@@ -67,8 +68,8 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
       NotEmptyAlternateIfOtherHasValueTestBean.class, NotEmptyAlternateIfOtherIsEmptyTestBean.class,
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
-      PhoneNumberValueTestBean.class, PostalCodeTestBean.class, TinTestBean.class,
-      VatIdTestBean.class, LevenshteinDistanceTestBean.class})
+      PhoneNumberValueTestBean.class, PostalCodeTestBean.class, TaxNumberTestBean.class,
+      TinTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
   public interface GwtGetReflector extends GwtReflectGetterInterface {
   }
 
