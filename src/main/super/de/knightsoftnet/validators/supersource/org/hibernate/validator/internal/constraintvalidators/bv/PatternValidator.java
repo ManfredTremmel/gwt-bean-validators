@@ -67,7 +67,7 @@ public class PatternValidator implements ConstraintValidator<Pattern, CharSequen
     return match.getGroup(0).length() == value.length();
   }
 
-  private final String toString(final Flag pflag) {
+  private String toString(final Flag pflag) {
     String value;
     switch (pflag) {
       case CASE_INSENSITIVE:
