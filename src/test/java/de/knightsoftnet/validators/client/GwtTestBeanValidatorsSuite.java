@@ -54,6 +54,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstBicWithSpaces.class);
     psuite.addTestSuite(GwtTstCreditCardNumber.class);
     psuite.addTestSuite(GwtTstEmail.class);
+    psuite.addTestSuite(GwtTstEmailMustHaveSameDomain.class);
     psuite.addTestSuite(GwtTstEmptyIfOtherHasValue.class);
     psuite.addTestSuite(GwtTstEmptyIfOtherIsEmpty.class);
     psuite.addTestSuite(GwtTstEmptyIfOtherIsNotEmpty.class);

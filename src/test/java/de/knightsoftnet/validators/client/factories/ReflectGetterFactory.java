@@ -19,6 +19,7 @@ import de.knightsoftnet.validators.client.AbstractGwtReflectGetterFactory;
 import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
 import de.knightsoftnet.validators.client.GwtValidation;
 import de.knightsoftnet.validators.shared.beans.BankCountryTestBean;
+import de.knightsoftnet.validators.shared.beans.EmailMustHaveSameDomainTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
@@ -59,9 +60,9 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
    * Validator marker for the Reflector Sample project. Only the classes and groups listed in the
    * {@link GwtValidation} annotation can be reflected.
    */
-  @GwtValidation(value = {BankCountryTestBean.class, EmptyIfOtherIsEmptyTestBean.class,
-      EmptyIfOtherIsNotEmptyTestBean.class, MustBeEqualTestBean.class,
-      MustBeBiggerDateTestBean.class, MustBeBiggerIntegerTestBean.class,
+  @GwtValidation(value = {BankCountryTestBean.class, EmailMustHaveSameDomainTestBean.class,
+      EmptyIfOtherIsEmptyTestBean.class, EmptyIfOtherIsNotEmptyTestBean.class,
+      MustBeEqualTestBean.class, MustBeBiggerDateTestBean.class, MustBeBiggerIntegerTestBean.class,
       MustBeBiggerOrEqualDateTestBean.class, MustBeBiggerOrEqualIntegerTestBean.class,
       MustBeSmallerDateTestBean.class, MustBeSmallerIntegerTestBean.class,
       MustBeSmallerOrEqualDateTestBean.class, MustBeSmallerOrEqualIntegerTestBean.class,

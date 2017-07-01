@@ -714,4 +714,13 @@ public interface ValidationMessages extends ConstantsWithLookup {
   @DefaultStringValue("the values of {field1} must be bigger (or equal) then the value of {field2}")
   @Key("deKnightsoftnetValidatorsSharedValidationMustBeBiggerOrEqualMessage")
   String deKnightsoftnetValidatorsSharedValidationMustBeBiggerOrEqualMessage();
+
+  /**
+   * message used for must be bigger or equal check.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationEmailMustHaveSameDomainMessage
+   */
+  @DefaultStringValue("the eMail-Domain differs")
+  @Key("deKnightsoftnetValidatorsSharedValidationEmailMustHaveSameDomainMessage")
+  String deKnightsoftnetValidatorsSharedValidationEmailMustHaveSameDomainMessage();
 }
