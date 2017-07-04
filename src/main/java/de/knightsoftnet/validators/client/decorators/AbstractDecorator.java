@@ -269,7 +269,7 @@ public abstract class AbstractDecorator<T> extends Composite
   /**
    * clear errors.
    */
-  public final void clearErrors() {
+  public void clearErrors() {
     this.errorLabel.setText(StringUtils.EMPTY);
     this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
     if (this.contents.getWidget() != null) {

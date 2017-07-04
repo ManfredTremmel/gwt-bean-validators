@@ -98,13 +98,7 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
 
         @Override
         public void onFocus(final FocusEvent pevent) {
-          if (!AbstractDecoratorWithLabel.this.label.getElement().hasClassName(
-              ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
-                  .labelStyleFocused())) {
-            AbstractDecoratorWithLabel.this.label.getElement().addClassName(
-                ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
-                    .labelStyleFocused());
-          }
+          AbstractDecoratorWithLabel.this.addStyleToLabel();
         }
       });
     }
@@ -114,13 +108,12 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
         @Override
         public void onBlur(final BlurEvent pevent) {
           boolean hide = true;
-          if (pwidget instanceof TakesValue<?>) {
-            hide = StringUtils.isEmpty(Objects.toString(((TakesValue<?>) pwidget).getValue()));
+          if (AbstractDecoratorWithLabel.this.widget instanceof TakesValue<?>) {
+            hide = StringUtils.isEmpty(Objects
+                .toString(((TakesValue<?>) AbstractDecoratorWithLabel.this.widget).getValue()));
           }
           if (hide) {
-            AbstractDecoratorWithLabel.this.label.getElement().removeClassName(
-                ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
-                    .labelStyleFocused());
+            AbstractDecoratorWithLabel.this.removeStyleFromLabel();
           }
         }
       });
@@ -130,9 +123,42 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
   @Override
   public void setValue(final T pvalue, final boolean pfireEvents) {
     super.setValue(pvalue, pfireEvents);
-    if (StringUtils.isNotEmpty(Objects.toString(pvalue))) {
+    if (StringUtils.isEmpty(Objects.toString(pvalue))) {
+      this.removeStyleFromLabel();
+    } else {
+      this.addStyleToLabel();
+    }
+  }
+
+  @Override
+  public void clearErrors() {
+    super.clearErrors();
+    if (this.contents.getWidget() instanceof TakesValue<?>) {
+      if (StringUtils
+          .isEmpty(Objects.toString(((TakesValue<?>) this.contents.getWidget()).getValue()))) {
+        this.removeStyleFromLabel();
+      } else {
+        this.addStyleToLabel();
+      }
+    }
+  }
+
+  private void addStyleToLabel() {
+    if (!AbstractDecoratorWithLabel.this.label.getElement()
+        .hasClassName(((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+            .labelStyleFocused())) {
       AbstractDecoratorWithLabel.this.label.getElement()
           .addClassName(((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+              .labelStyleFocused());
+    }
+  }
+
+  private void removeStyleFromLabel() {
+    if (AbstractDecoratorWithLabel.this.label.getElement()
+        .hasClassName(((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
+            .labelStyleFocused())) {
+      AbstractDecoratorWithLabel.this.label.getElement().removeClassName(
+          ((DecoratorStyleWithLabel) AbstractDecoratorWithLabel.this.decoratorStyle)
               .labelStyleFocused());
     }
   }
