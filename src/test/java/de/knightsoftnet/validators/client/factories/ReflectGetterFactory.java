@@ -23,6 +23,7 @@ import de.knightsoftnet.validators.shared.beans.EmailMustHaveSameDomainTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.EmptyIfOtherIsNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
+import de.knightsoftnet.validators.shared.beans.ListOfEmailsTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerDateTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualDateTestBean;
@@ -70,7 +71,8 @@ public class ReflectGetterFactory extends AbstractGwtReflectGetterFactory {
       NotEmptyAlternateIfOtherIsNotEmptyTestBean.class, NotEmptyIfOtherHasValueTestBean.class,
       NotEmptyIfOtherIsEmptyTestBean.class, NotEmptyIfOtherIsNotEmptyTestBean.class,
       PhoneNumberValueTestBean.class, PostalCodeTestBean.class, TaxNumberTestBean.class,
-      TinTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class})
+      TinTestBean.class, VatIdTestBean.class, LevenshteinDistanceTestBean.class,
+      ListOfEmailsTestBean.class})
   public interface GwtGetReflector extends GwtReflectGetterInterface {
   }
 

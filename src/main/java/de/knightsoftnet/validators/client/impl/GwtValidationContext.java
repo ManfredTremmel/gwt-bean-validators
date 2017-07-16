@@ -108,6 +108,8 @@ public class GwtValidationContext<T> {
         this.validator, this.validatedObjects);
     temp.path = PathImpl.createCopy(this.path);
     temp.path.addParameterNode(name, index);
+    temp.path.makeLeafNodeIterable();
+    temp.path.setLeafNodeIndex(index);
     return temp;
   }
 

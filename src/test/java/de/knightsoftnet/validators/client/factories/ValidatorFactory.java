@@ -74,6 +74,7 @@ import de.knightsoftnet.validators.shared.beans.IsbnWithSeparatorsTestBean;
 import de.knightsoftnet.validators.shared.beans.IsinTestBean;
 import de.knightsoftnet.validators.shared.beans.LevenshteinDistanceTestBean;
 import de.knightsoftnet.validators.shared.beans.LimitCharsetTestBean;
+import de.knightsoftnet.validators.shared.beans.ListOfEmailsTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerDateTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerIntegerTestBean;
 import de.knightsoftnet.validators.shared.beans.MustBeBiggerOrEqualDateTestBean;
@@ -139,7 +140,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       PasswordTestBean.class, PhoneNumberTestBean.class, PhoneNumberValueTestBean.class,
       PostalCodeTestBean.class, RegExTestBean.class, SizeWithoutSeparatorsTestBean.class,
       TaxNumberTestBean.class, TinTestBean.class, UrlTestBean.class, VatIdTestBean.class,
-      LevenshteinDistanceTestBean.class,
+      LevenshteinDistanceTestBean.class, ListOfEmailsTestBean.class,
 
       HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
       HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,

@@ -108,6 +108,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstIsbnUtil.class);
     psuite.addTestSuite(GwtTstPhoneNumberUtil.class);
     psuite.addTestSuite(GwtTstRegExUtil.class);
+    psuite.addTestSuite(GwtTstListOfEmails.class);
   }
 
   private static void appendHibernateBeanValidatorTests(final GWTTestSuite psuite) {

@@ -52,8 +52,9 @@ public abstract class AbstractValidationTst<E> extends GWTTestCase {
    * @param pbean the bean to test
    * @param pshouldBeOk true if it's expected, that the test brings no validation error
    * @param pexcpetedValidationClass the validator class that will report an error
+   * @return violation list for additional tests
    */
-  public final void validationTest(final E pbean, final boolean pshouldBeOk,
+  public final Set<ConstraintViolation<E>> validationTest(final E pbean, final boolean pshouldBeOk,
       final String pexcpetedValidationClass) {
     final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -75,5 +76,6 @@ public abstract class AbstractValidationTst<E> extends GWTTestCase {
           + violation.getPropertyPath().toString() + "\" with value \"" + pbean.toString()
           + "\", message: " + violation.getMessage());
     }
+    return cv1;
   }
 }
