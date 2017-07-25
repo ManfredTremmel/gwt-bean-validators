@@ -166,7 +166,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   }
 
   @Override
-  protected EditorVisitor createInitializerVisitor() {
+  public EditorVisitor createInitializerVisitor() {
     return new BeanValidationInitializer(this.commitOnReturnHandler, this.validateOnKeyUpHandler,
         this.validateOnVueChangeHandler, this.valueChangeHandler, this.checkTime,
         this.submitOnReturn);

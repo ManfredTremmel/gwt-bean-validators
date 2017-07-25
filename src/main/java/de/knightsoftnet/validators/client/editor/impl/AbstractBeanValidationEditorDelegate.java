@@ -15,7 +15,11 @@
 
 package de.knightsoftnet.validators.client.editor.impl;
 
+import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
+import de.knightsoftnet.validators.client.editor.HasParentDriverSetter;
+
 import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.EditorVisitor;
 import com.google.gwt.editor.client.impl.AbstractEditorDelegate;
 import com.google.gwt.event.shared.HandlerRegistration;
 
@@ -25,11 +29,26 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * @param <T> the type being editor
  * @param <E> the type of editor
  */
-public abstract class AbstractBeanValidationEditorDelegate<T, E extends Editor<T>> extends
-    AbstractEditorDelegate<T, E> {
+public abstract class AbstractBeanValidationEditorDelegate<T, E extends Editor<T>>
+    extends AbstractEditorDelegate<T, E> implements HasParentDriverSetter {
+
+  private BeanValidationEditorDriver<?, ?> parentDriver;
+
+  @Override
+  public final void setParentDriver(final BeanValidationEditorDriver<?, ?> pparentDriver) {
+    this.parentDriver = pparentDriver;
+  }
 
   @Override
   public HandlerRegistration subscribe() {
     return null;
+  }
+
+  @Override
+  protected EditorVisitor createInitializerVisitor() {
+    if (this.parentDriver != null) {
+      return this.parentDriver.createInitializerVisitor();
+    }
+    return new BeanValidationInitializer(null, null, null, null, null, false);
   }
 }

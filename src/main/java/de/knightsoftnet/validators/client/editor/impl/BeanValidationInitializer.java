@@ -81,11 +81,10 @@ public class BeanValidationInitializer extends Initializer {
     this.checkTime = pcheckTime;
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public <Q> boolean visit(final EditorContext<Q> pctx) {
+    Object editor = pctx.getEditor();
     final boolean result = super.visit(pctx);
-    Object editor = null;
     if (pctx.getEditor() instanceof ExtendedValueBoxEditor<?>
         && ((ExtendedValueBoxEditor<?>) pctx.getEditor()).getDecorator() != null) {
       final AbstractDecorator<?> decorator =
@@ -95,7 +94,19 @@ public class BeanValidationInitializer extends Initializer {
     } else {
       editor = pctx.getEditor();
     }
-    if (editor instanceof HasValueChangeHandlers) {
+    this.initializeEditors(editor);
+
+    return result;
+  }
+
+  /**
+   * initialize one editor.
+   *
+   * @param editor editor to initialize
+   */
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public void initializeEditors(final Object editor) {
+    if (editor instanceof HasValueChangeHandlers && this.valueChangeHandler != null) {
       ((HasValueChangeHandlers) editor).addValueChangeHandler(this.valueChangeHandler);
       // if widget has a value change handler, validate on change
       if (this.validateOnVueChangeHandler != null) {
@@ -110,7 +121,5 @@ public class BeanValidationInitializer extends Initializer {
     if (editor instanceof HasKeyPressHandlers && this.commitOnReturnHandler != null) {
       ((HasKeyPressHandlers) editor).addKeyPressHandler(this.commitOnReturnHandler);
     }
-
-    return result;
   }
 }

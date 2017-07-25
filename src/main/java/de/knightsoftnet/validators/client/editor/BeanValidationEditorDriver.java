@@ -20,6 +20,7 @@ import de.knightsoftnet.validators.client.event.HasFormSubmitHandlers;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDelegate;
 import com.google.gwt.editor.client.EditorDriver;
+import com.google.gwt.editor.client.EditorVisitor;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -195,4 +196,11 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>>
    *        {@link javax.validation.groups.Default})
    */
   void setValidationGroups(Class<?>... pgroups);
+
+  /**
+   * create a initializer visitor implementation.
+   * 
+   * @return editor visitor
+   */
+  EditorVisitor createInitializerVisitor();
 }
