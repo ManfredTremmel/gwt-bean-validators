@@ -3,7 +3,7 @@ gwt-bean-validators
 
 A collection of JSR-303/JSR-349 bean validators that can also be used on the client side of gwt. It also includes missing functionality in gwt like getter reflection, editor component which validates entries on typing, on change or on submit and decorators to display errors inside the form.
 
-Starting with version 0.20.0, gwt-bean-validators replaces the bean validation implementation of gwt, because it's outdated (validation-api 1.0.0.GA and hibernate-validator 4.1.0) and should be removed in future gwt versions (deprecated since gwt 2.8-rc1). It started as one by one copy and was updated to current validation-api 1.1.0 and hibernate-validator 5.2.4 (meanwhile 5.4.0), so switching to new version is easy (see below: GWT Integration). If you prefer the internal gwt validation, you can still use gwt-bean-validators 0.10.1.
+Starting with version 0.20.0, gwt-bean-validators replaces the bean validation implementation of gwt, because it's outdated (validation-api 1.0.0.GA and hibernate-validator 4.1.0) and should be removed in future gwt versions (deprecated since gwt 2.8-rc1). It started as one by one copy and was updated to current validation-api 1.1.0 and hibernate-validator 5.2.4 (meanwhile 5.4.1), so switching to new version is easy (see below: GWT Integration). If you prefer the internal gwt validation, you can still use gwt-bean-validators 0.10.1.
 
 A list of the included validators you can find in the [mt-bean-validators](https://github.com/ManfredTremmel/mt-bean-validators) project. Also the hibernate-validator validation routines have replacements if needed, and work on client side expect @Future and @Past validation for types which are not supported in gwt (you can use it with java.util.Date, but not with java.time.chrono.ChronoZonedDateTime or org.joda.time.ReadableInstant) and the @ParameterScriptAssert, @ScriptAssert and @SafeHtml validations are also not supported at the moment. With hibernet-validator 5.4.0 support for JavaMoney was added, because of a missing JavaMoney Implementation for gwt, there is also no support for the @Currency validation and the @Min and @Max validation for the monetary types. If anybody knows a JavaMoney port for gwt, let me know.
 
@@ -44,7 +44,7 @@ And exclude **validation-api** from your **gwt-user** dependency (otherwise old 
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>2.8.0</version>
+      <version>2.8.1</version>
       <exclusions>
         <exclusion>
           <groupId>javax.validation</groupId>
