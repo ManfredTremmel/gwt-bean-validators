@@ -123,7 +123,7 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
   @Override
   public void setValue(final T pvalue, final boolean pfireEvents) {
     super.setValue(pvalue, pfireEvents);
-    if (StringUtils.isEmpty(Objects.toString(pvalue))) {
+    if (StringUtils.isEmpty(Objects.toString(pvalue, null))) {
       this.removeStyleFromLabel();
     } else {
       this.addStyleToLabel();
@@ -134,8 +134,8 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
   public void clearErrors() {
     super.clearErrors();
     if (this.contents.getWidget() instanceof TakesValue<?>) {
-      if (StringUtils
-          .isEmpty(Objects.toString(((TakesValue<?>) this.contents.getWidget()).getValue()))) {
+      if (StringUtils.isEmpty(
+          Objects.toString(((TakesValue<?>) this.contents.getWidget()).getValue(), null))) {
         this.removeStyleFromLabel();
       } else {
         this.addStyleToLabel();
