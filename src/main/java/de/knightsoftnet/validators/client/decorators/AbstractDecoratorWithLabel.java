@@ -109,8 +109,8 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
         public void onBlur(final BlurEvent pevent) {
           boolean hide = true;
           if (AbstractDecoratorWithLabel.this.widget instanceof TakesValue<?>) {
-            hide = StringUtils.isEmpty(Objects
-                .toString(((TakesValue<?>) AbstractDecoratorWithLabel.this.widget).getValue()));
+            hide = StringUtils.isEmpty(Objects.toString(
+                ((TakesValue<?>) AbstractDecoratorWithLabel.this.widget).getValue(), null));
           }
           if (hide) {
             AbstractDecoratorWithLabel.this.removeStyleFromLabel();
