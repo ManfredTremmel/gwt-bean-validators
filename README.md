@@ -13,7 +13,7 @@ Dependencies
 If you want to use this validators only on server side, you needn't add any gwt libraries, the code of the validators itself uses no gwt specific functions, include [mt-bean-validators](https://github.com/ManfredTremmel/mt-bean-validators) instead of gwt-bean-validators.
 On the gwt frontend side, apache-commons-lang3 and apache-commons-validators are replaced with my [gwt-commons-lang3](https://github.com/ManfredTremmel/gwt-commons-lang3) and [gwt-commons-validators](https://github.com/ManfredTremmel/gwt-commons-validator) packages, you shouldn't add both in your project.
 
-Maven integraten
+Maven integration
 ----------------
 
 Add the dependencies itself for GWT-Projects:
