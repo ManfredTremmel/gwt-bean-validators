@@ -15,16 +15,28 @@
 
 package de.knightsoftnet.validators.client.data;
 
-import com.google.gwt.i18n.client.Constants;
+import de.knightsoftnet.validators.shared.data.IbanLengthDefinition;
+import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
-/**
- * map to detect length of IBAN numbers.
- *
- * @author Manfred Tremmel
- *
- */
-public interface IbanLengthMapConstants extends Constants {
-  Map<String, String> ibanLengths();
+public class IbanLengthMapConstantsClient implements IbanLengthMapSharedConstants {
+  private final Map<String, IbanLengthDefinition> ibanLengthMap;
+
+  /**
+   * constructor initializing map.
+   * 
+   * @param pmap map to put
+   */
+  public IbanLengthMapConstantsClient(final Map<String, String> pmap) {
+    this.ibanLengthMap = pmap.entrySet().stream().collect(Collectors.toMap( //
+        entry -> entry.getKey(), //
+        entry -> new IbanLengthDefinition(entry.getValue())));
+  }
+
+  @Override
+  public Map<String, IbanLengthDefinition> ibanLengths() {
+    return this.ibanLengthMap;
+  }
 }

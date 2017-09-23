@@ -71,4 +71,14 @@ public class GwtTstBankCountry extends AbstractValidationTst<BankCountryTestBean
           "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
     }
   }
+
+  /**
+   * correct bank, iban and bic with bic doesn't match iban.
+   */
+  public final void testWrongBicIbanRelationBicIsWrong() {
+    for (final BankCountryTestBean testBean : BankCountryTestCases.getWrongBicForIbanTestBeans()) {
+      super.validationTest(testBean, false,
+          "de.knightsoftnet.validators.shared.impl.BankCountryValidator");
+    }
+  }
 }

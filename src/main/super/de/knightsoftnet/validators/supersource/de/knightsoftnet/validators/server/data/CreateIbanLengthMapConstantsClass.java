@@ -16,6 +16,7 @@
 package de.knightsoftnet.validators.server.data;
 
 import de.knightsoftnet.validators.client.data.IbanLengthMapConstants;
+import de.knightsoftnet.validators.client.data.IbanLengthMapConstantsClient;
 import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 
 import com.google.gwt.core.client.GWT;
@@ -28,7 +29,7 @@ import com.google.gwt.core.client.GWT;
  */
 public class CreateIbanLengthMapConstantsClass {
 
-  private static volatile IbanLengthMapConstants ibanLengthMapConstants = null;
+  private static volatile IbanLengthMapConstantsClient ibanLengthMapConstants = null;
 
   /**
    * Instantiates a class via deferred binding.
@@ -37,9 +38,10 @@ public class CreateIbanLengthMapConstantsClass {
    */
   public static IbanLengthMapSharedConstants create() {
     if (ibanLengthMapConstants == null) { // NOPMD it's thread save!
-      synchronized (IbanLengthMapConstants.class) {
+      synchronized (IbanLengthMapConstantsClient.class) {
         if (ibanLengthMapConstants == null) {
-          ibanLengthMapConstants = GWT.create(IbanLengthMapConstants.class);
+          final IbanLengthMapConstants ibanLengthMap = GWT.create(IbanLengthMapConstants.class);
+          ibanLengthMapConstants = new IbanLengthMapConstantsClient(ibanLengthMap.ibanLengths());
         }
       }
     }

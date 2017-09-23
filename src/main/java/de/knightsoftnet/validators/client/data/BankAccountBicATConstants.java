@@ -20,11 +20,12 @@ import com.google.gwt.i18n.client.Constants;
 import java.util.Map;
 
 /**
- * map to detect length of IBAN numbers.
+ * set of bank account to bic mappings for Austria.
  *
  * @author Manfred Tremmel
  *
  */
-public interface IbanLengthMapConstants extends Constants {
-  Map<String, String> ibanLengths();
+@SuppressWarnings("checkstyle:abbreviationaswordinname")
+public interface BankAccountBicATConstants extends Constants {
+  Map<String, String> bankAccounts();
 }

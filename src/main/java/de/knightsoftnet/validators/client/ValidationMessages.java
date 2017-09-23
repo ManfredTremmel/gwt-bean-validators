@@ -371,6 +371,15 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String deKnightsoftnetValidatorsSharedValidationBankCountryMessage();
 
   /**
+   * message used for bank account iban bic matching check validation.
+   *
+   * @return deKnightsoftnetValidatorsSharedValidationBankCountryWrongBicMessage
+   */
+  @DefaultStringValue("BIC and IBAN do not match")
+  @Key("deKnightsoftnetValidatorsSharedValidationBankCountryWrongBicMessage")
+  String deKnightsoftnetValidatorsSharedValidationBankCountryWrongBicMessage();
+
+  /**
    * message used for bic check validation.
    *
    * @return deKnightsoftnetValidatorsSharedValidationBicMessage
