@@ -20,7 +20,7 @@ import de.knightsoftnet.validators.shared.data.CountryBankAccountData;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Map.Entry;
 
 public class BankAccountBicConstants implements BankAccountBicSharedConstants {
   private final Map<CountryBankAccountData, String> bankAccountBicMap;
@@ -42,8 +42,12 @@ public class BankAccountBicConstants implements BankAccountBicSharedConstants {
 
   @Override
   public void addBankAccounts(final String pcountry, final Map<String, String> pmap) {
-    this.bankAccountBicMap.putAll(pmap.entrySet().stream().collect(Collectors.toMap( //
-        entry -> new CountryBankAccountData(pcountry, entry.getKey()), //
-        entry -> entry.getValue())));
+    // this.bankAccountBicMap.putAll(pmap.entrySet().stream().collect(Collectors.toMap( //
+    // entry -> new CountryBankAccountData(pcountry, entry.getKey()), //
+    // entry -> entry.getValue())));
+    for (final Entry<String, String> entry : pmap.entrySet()) {
+      this.bankAccountBicMap.put(new CountryBankAccountData(pcountry, entry.getKey()),
+          entry.getValue());
+    }
   }
 }
