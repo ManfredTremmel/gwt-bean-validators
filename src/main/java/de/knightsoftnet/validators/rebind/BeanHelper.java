@@ -17,6 +17,7 @@ package de.knightsoftnet.validators.rebind;
 import com.google.gwt.core.ext.typeinfo.JArrayType;
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.google.gwt.core.ext.typeinfo.JField;
+import com.google.gwt.core.ext.typeinfo.JMethod;
 import com.google.gwt.core.ext.typeinfo.JParameterizedType;
 import com.google.gwt.core.ext.typeinfo.JRawType;
 import com.google.gwt.core.ext.typeinfo.JType;
@@ -67,6 +68,9 @@ public final class BeanHelper {
   public JClassType getAssociationType(final PropertyDescriptor ppropertyDescriptor,
       final boolean puseField) {
     final JType type = this.getElementType(ppropertyDescriptor, puseField);
+    if (type == null) {
+      return null;
+    }
     final JArrayType jarray = type.isArray();
     if (jarray != null) {
       return jarray.getComponentType().isClassOrInterface();
@@ -125,11 +129,44 @@ public final class BeanHelper {
 
   JType getElementType(final PropertyDescriptor ppropertyDescriptor, final boolean puseField) {
     if (puseField) {
-      return this.jclass.findField(ppropertyDescriptor.getPropertyName()).getType();
+      final JField field =
+          this.findRecursiveField(this.jclass, ppropertyDescriptor.getPropertyName());
+      if (field == null) {
+        return null;
+      }
+      return field.getType();
     } else {
-      return this.jclass.findMethod(GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor),
-          GwtSpecificValidatorCreator.NO_ARGS).getReturnType();
+      final JMethod method = this.findRecursiveMethod(this.jclass,
+          GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor),
+          GwtSpecificValidatorCreator.NO_ARGS);
+      if (method == null) {
+        return null;
+      }
+      return method.getReturnType();
     }
+  }
+
+  private JMethod findRecursiveMethod(final JClassType pjclass, final String pasGetter,
+      final JType[] pnoArgs) {
+    if (pjclass == null || pasGetter == null) {
+      return null;
+    }
+    final JMethod method = pjclass.findMethod(pasGetter, pnoArgs);
+    if (method == null) {
+      return this.findRecursiveMethod(pjclass.getSuperclass(), pasGetter, pnoArgs);
+    }
+    return method;
+  }
+
+  private JField findRecursiveField(final JClassType pjclass, final String ppropertyName) {
+    if (pjclass == null || ppropertyName == null) {
+      return null;
+    }
+    final JField field = pjclass.findField(ppropertyName);
+    if (field == null) {
+      return this.findRecursiveField(pjclass.getSuperclass(), ppropertyName);
+    }
+    return field;
   }
 
   boolean hasField(final PropertyDescriptor ppropertyDescriptor) {

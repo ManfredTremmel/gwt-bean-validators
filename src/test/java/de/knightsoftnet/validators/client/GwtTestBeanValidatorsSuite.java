@@ -41,6 +41,7 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
 
     GwtTestBeanValidatorsSuite.appendMtBeanValidatorTests(suite);
     GwtTestBeanValidatorsSuite.appendHibernateBeanValidatorTests(suite);
+    GwtTestBeanValidatorsSuite.appendOtherBeanValidatorTests(suite);
 
     return suite;
   }
@@ -138,5 +139,10 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateNip.class);
     psuite.addTestSuite(GwtTstHibernatePesel.class);
     psuite.addTestSuite(GwtTstHibernateRegon.class);
+  }
+
+  private static void appendOtherBeanValidatorTests(final GWTTestSuite psuite) {
+    psuite.addTestSuite(GwtTstFoo.class);
+    psuite.addTestSuite(GwtTstFooFoo.class);
   }
 }
