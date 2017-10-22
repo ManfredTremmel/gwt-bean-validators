@@ -34,7 +34,7 @@ Add the dependencies itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwt-bean-validators</artifactId>
-      <version>0.44.4</version>
+      <version>0.44.5-SNAPSHOT</version>
     </dependency>
 ```
 
@@ -44,7 +44,7 @@ And exclude **validation-api** from your **gwt-user** dependency (otherwise old 
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>2.8.1</version>
+      <version>2.8.2</version>
       <exclusions>
         <exclusion>
           <groupId>javax.validation</groupId>

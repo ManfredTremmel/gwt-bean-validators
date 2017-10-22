@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.44.4</version>
+	<version>0.44.5-SNAPSHOT</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -86,14 +86,15 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Convenience property to set the GWT version -->
-		<gwt.version>2.8.1</gwt.version>
+		<gwt.version>2.8.2</gwt.version>
+<!-- 		<gwt-maven-plugin.version>1.0-rc-8</gwt-maven-plugin.version> -->
 		<validation-api.version>1.1.0.Final</validation-api.version>
 		<hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<gwt-commons-lang3.version>3.6-0</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.6-0</gwt-commons-validator.version>
-		<mt-bean-validators.version>0.44.4</mt-bean-validators.version>
+		<mt-bean-validators.version>0.44.5-SNAPSHOT</mt-bean-validators.version>
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
@@ -101,7 +102,7 @@
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<checkstyle.version>8.2</checkstyle.version>
+		<checkstyle.version>8.3</checkstyle.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
@@ -239,7 +240,7 @@
 					</execution>
 				</executions>
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
+ 					documentation at codehaus.org -->
 				<configuration>
 					<modules>
 						<module>de.knightsoftnet.validators.GwtBeanValidators</module>
@@ -253,6 +254,38 @@
 					<extraJvmArgs>-Xms512m -Xmx1g</extraJvmArgs>
 				</configuration>
 			</plugin>
+<!-- 			<plugin> -->
+<!--   				<groupId>net.ltgt.gwt.maven</groupId> -->
+<!--   				<artifactId>gwt-maven-plugin</artifactId> -->
+<!--   				<version>${gwt-maven-plugin.version}</version> -->
+<!--   				<extensions>true</extensions> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>compile</goal> -->
+<!-- 							<goal>test</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!--   				<configuration> -->
+<!-- 					<moduleName>de.knightsoftnet.validators.GwtBeanValidators</moduleName> -->
+<!-- 					<compilerArgs> -->
+<!-- 						<compileArg>-logLevel</compileArg> -->
+<!-- 						<compileArg>INFO</compileArg> -->
+<!-- 						<compileArg>-style</compileArg> -->
+<!-- 						<compileArg>OBFUSCATED</compileArg> -->
+<!-- 						<compileArg>-failOnError</compileArg> -->
+<!-- 						<compileArg>-localWorkers</compileArg> -->
+<!-- 						<compileArg>-1</compileArg> -->
+<!-- 					</compilerArgs> -->
+<!-- 					<codeserverArgs> -->
+<!-- 						<arg>-Xms512m</arg> -->
+<!-- 						<arg>-Xmx1g</arg> -->
+<!-- 						<arg>-localWorkers</arg> -->
+<!-- 						<arg>-1</arg> -->
+<!-- 					</codeserverArgs> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
