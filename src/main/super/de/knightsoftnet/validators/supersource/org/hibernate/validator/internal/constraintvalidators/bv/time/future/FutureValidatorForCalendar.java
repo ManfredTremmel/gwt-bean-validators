@@ -5,33 +5,33 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.past;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.future;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Future;
 
 /**
- * Check that the <code>java.util.Date</code> passed to be validated is in the past.
+ * Check that the <code>java.util.Calendar</code> passed to be validated is in the future.
  *
  * @author Alaa Nassef
  * @author Manfred Tremmel - GWT port
  */
-public class PastValidatorForDate implements ConstraintValidator<Past, Date> {
+public class FutureValidatorForCalendar implements ConstraintValidator<Future, Calendar> {
 
   @Override
-  public void initialize(final Past constraintAnnotation) {}
+  public void initialize(final Future constraintAnnotation) {}
 
   @Override
-  public boolean isValid(final Date date,
+  public boolean isValid(final Calendar date,
       final ConstraintValidatorContext constraintValidatorContext) {
     // null values are valid
     if (date == null) {
       return true;
     }
 
-    return date.before(new Date());
+    return date.after(Calendar.getInstance());
   }
 }

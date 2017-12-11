@@ -51,7 +51,8 @@ public class GwtTstHibernateDecimalMinMax
     for (final HibernateDecimalMinMaxTestBean testBean : HibernateDecimalMinMaxTestCases
         .getWrongtoSmallTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.DecimalMinValidatorForNumber");
+          "org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal."
+              + "DecimalMinValidatorForBigDecimal");
     }
   }
 
@@ -62,7 +63,8 @@ public class GwtTstHibernateDecimalMinMax
     for (final HibernateDecimalMinMaxTestBean testBean : HibernateDecimalMinMaxTestCases
         .getWrongtoBigTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.DecimalMaxValidatorForNumber");
+          "org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal."
+              + "DecimalMaxValidatorForBigDecimal");
     }
   }
 }

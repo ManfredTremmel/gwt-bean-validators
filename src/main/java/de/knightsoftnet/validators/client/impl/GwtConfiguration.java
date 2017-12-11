@@ -19,8 +19,10 @@ import de.knightsoftnet.validators.client.spi.GwtValidationProvider;
 import java.io.InputStream;
 
 import javax.validation.BootstrapConfiguration;
+import javax.validation.ClockProvider;
 import javax.validation.ParameterNameProvider;
 import javax.validation.spi.BootstrapState;
+import javax.validation.valueextraction.ValueExtractor;
 
 /**
  * Extends {@link AbstractBaseGwtConfiguration} with just the parts that are not GWT compatible.
@@ -54,5 +56,21 @@ public class GwtConfiguration extends AbstractBaseGwtConfiguration {
   @Override
   public BootstrapConfiguration getBootstrapConfiguration() {
     throw new UnsupportedOperationException("GWT does not support xml configuration");
+  }
+
+  @Override
+  public ClockProvider getDefaultClockProvider() {
+    throw new UnsupportedOperationException("GWT does not support getDefaultClockProvider().");
+  }
+
+  @Override
+  public AbstractBaseGwtConfiguration addValueExtractor(final ValueExtractor<?> extractor) {
+    throw new UnsupportedOperationException(
+        "GWT does not support addValueExtractor(ValueExtractor).");
+  }
+
+  @Override
+  public AbstractBaseGwtConfiguration clockProvider(final ClockProvider clockProvider) {
+    throw new UnsupportedOperationException("GWT does not support clockProvider(ClockProvider).");
   }
 }

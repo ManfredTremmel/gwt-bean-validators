@@ -5,11 +5,9 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.past;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
-
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 
 import javax.validation.constraints.Future;
 
@@ -20,6 +18,5 @@ import javax.validation.constraints.Future;
  * @author Guillaume Smet
  * @author Manfred Tremmel - disabled for GWT, no Instant available
  */
-@IgnoreJava6Requirement
 public class PastValidatorForInstant extends AbstractNotGwtCompatibleValidator<Future, Object> {
 }

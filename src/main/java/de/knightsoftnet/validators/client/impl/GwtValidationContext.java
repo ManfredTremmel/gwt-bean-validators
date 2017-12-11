@@ -109,7 +109,7 @@ public class GwtValidationContext<T> {
     temp.path = PathImpl.createCopy(this.path);
     temp.path.addParameterNode(name, index);
     temp.path.makeLeafNodeIterable();
-    temp.path.setLeafNodeIndex(index);
+    temp.path.makeLeafNodeIterableAndSetIndex(index);
     return temp;
   }
 
@@ -139,7 +139,7 @@ public class GwtValidationContext<T> {
         this.validator, this.validatedObjects);
     temp.path = PathImpl.createCopy(this.path);
     temp.path.addPropertyNode(name);
-    NodeImpl.setMapKey(temp.path.getLeafNode(), key);
+    NodeImpl.makeIterableAndSetMapKey(temp.path.getLeafNode(), key);
     return temp;
   }
 

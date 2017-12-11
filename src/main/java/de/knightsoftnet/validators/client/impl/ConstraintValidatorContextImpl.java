@@ -23,6 +23,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.LeafNodeBuilderCustomizableContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext;
@@ -32,7 +33,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.metadata.ConstraintDescriptor;
 
 /**
- * GWT safe immutable implementation of {@link ConstraintValidatorContext}
+ * GWT safe immutable implementation of {@link ConstraintValidatorContext}.
  * <p>
  * These objects are very short lived.
  * </p>
@@ -90,6 +91,13 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
     }
 
     @Override
+    public ContainerElementNodeBuilderCustomizableContext addContainerElementNode(final String name,
+        final Class<?> containerType, final Integer typeArgumentIndex) {
+      throw new UnsupportedOperationException(
+          "GWT Validation does not support addContainerElementNode(String, Class, Integer).");
+    }
+
+    @Override
     public NodeBuilderDefinedContext addParameterNode(final int pindex) {
       this.context.basePath.addParameterNode(null, pindex);
       return new NodeBuilderDefinedContextImpl(this, this.messageTemplate, this.context.basePath);
@@ -144,8 +152,23 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
     }
 
     @Override
+    public NodeBuilderCustomizableContext inContainer(final Class<?> containerClass,
+        final Integer typeArgumentIndex) {
+      throw new UnsupportedOperationException(
+          "GWT Validation does not support inContainer(Class, Integer).");
+    }
+
+    @Override
     public LeafNodeBuilderCustomizableContext addBeanNode() {
       throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
+    }
+
+    @Override
+    public ConstraintViolationBuilder.ContainerElementNodeBuilderCustomizableContext //
+        addContainerElementNode(final String name, final Class<?> containerType,
+            final Integer typeArgumentIndex) {
+      throw new UnsupportedOperationException(
+          "GWT Validation does not support addContainerElementNode(String, Class, Integer).");
     }
   }
 
@@ -194,6 +217,14 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
     @Override
     public LeafNodeBuilderCustomizableContext addBeanNode() {
       throw new UnsupportedOperationException("GWT Validation does not support addBeanNode()");
+    }
+
+    @Override
+    public ConstraintViolationBuilder.ContainerElementNodeBuilderCustomizableContext //
+        addContainerElementNode(final String name, final Class<?> containerType,
+            final Integer typeArgumentIndex) {
+      throw new UnsupportedOperationException(
+          "GWT Validation does not support addContainerElementNode(String, Class, Integer).");
     }
   }
 
@@ -247,7 +278,7 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderDefinedContext atKey(final Object key) {
-      NodeImpl.setMapKey(this.path.getLeafNode(), key);
+      NodeImpl.makeIterableAndSetMapKey(this.path.getLeafNode(), key);
       return new NodeBuilderDefinedContextImpl(this.parent, this.messageTemplate, this.path);
     }
 
@@ -257,6 +288,14 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
       // this.path.addBeanNode();
       // return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate,
       // this.path);
+    }
+
+    @Override
+    public ConstraintViolationBuilder.ContainerElementNodeBuilderCustomizableContext //
+        addContainerElementNode(final String name, final Class<?> containerType,
+            final Integer typeArgumentIndex) {
+      throw new UnsupportedOperationException(
+          "GWT Validation does not support addContainerElementNode(String, Class, Integer).");
     }
   }
 
@@ -295,6 +334,11 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
   @Override
   public String getDefaultConstraintMessageTemplate() {
     return (String) this.descriptor.getAttributes().get("message");
+  }
+
+  @Override
+  public ClockProvider getClockProvider() {
+    throw new UnsupportedOperationException("GWT Validation does not support getClockProvider().");
   }
 
   /**

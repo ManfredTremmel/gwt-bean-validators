@@ -15,6 +15,8 @@ import org.hibernate.validator.internal.engine.messageinterpolation.util.Interpo
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.Pattern;
@@ -28,7 +30,7 @@ import javax.validation.constraints.Pattern.Flag;
  */
 public class PatternValidator implements ConstraintValidator<Pattern, CharSequence> {
 
-  private static final Log LOG = LoggerFactory.make(); // NOPMD
+  private static final Log LOG = LoggerFactory.make(MethodHandles.lookup()); // NOPMD
 
   private RegExp pattern = null;
   private String escapedRegexp;

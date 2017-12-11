@@ -29,7 +29,7 @@ public class NodeImpl extends org.hibernate.validator.internal.engine.path.NodeI
       final org.hibernate.validator.internal.engine.path.NodeImpl pparent, final boolean pindexable,
       final Integer pindex, final Object pkey, final ElementKind pkind,
       final Class<?>[] pparameterTypes, final Integer pparameterIndex, final Object pvalue) {
-    super(pname, pparent, pindexable, pindex, pkey, pkind, pparameterTypes, pparameterIndex,
-        pvalue);
+    super(pname, pparent, pindexable, pindex, pkey, pkind, pparameterTypes, pparameterIndex, pvalue,
+        null, null);
   }
 }

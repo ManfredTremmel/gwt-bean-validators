@@ -26,12 +26,15 @@ import de.knightsoftnet.validators.shared.testcases.HibernateNotEmptyTestCases;
  */
 public class GwtTstHibernateNotEmpty extends AbstractValidationTst<HibernateNotEmptyTestBean> {
 
+  private static final String VALIDATION_CLASS =
+      "org.hibernate.validator.internal.constraintvalidators.bv.notempty."
+          + "NotEmptyValidatorForCharSequence";
+
   /**
    * empty not empty is not allowed.
    */
   public final void testEmptyNotEmptyIsWrong() {
-    super.validationTest(HibernateNotEmptyTestCases.getEmptyTestBean(), false,
-        "org.hibernate.validator.internal.constraintvalidators.hv.NotEmptyValidator");
+    super.validationTest(HibernateNotEmptyTestCases.getEmptyTestBean(), false, VALIDATION_CLASS);
   }
 
   /**
@@ -50,8 +53,7 @@ public class GwtTstHibernateNotEmpty extends AbstractValidationTst<HibernateNotE
   public final void testWrongNotEmptyAreWrong() {
     for (final HibernateNotEmptyTestBean testBean : HibernateNotEmptyTestCases
         .getWrongtoSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.hv.NotEmptyValidator");
+      super.validationTest(testBean, false, VALIDATION_CLASS);
     }
   }
 }

@@ -28,6 +28,7 @@ import javax.validation.ConstraintTarget;
 import javax.validation.ConstraintValidator;
 import javax.validation.Payload;
 import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.ValidateUnwrappedValue;
 
 /**
  * A immutable GWT implementation of {@link ConstraintDescriptor}.
@@ -47,8 +48,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
     private Set<Class<? extends Payload>> payload;
     private List<Class<? extends ConstraintValidator<T, ?>>> constraintValidatorClasses;
     private Map<String, Object> attributes;
-    private final Set<ConstraintDescriptor<?>> composingConstraints =
-        new HashSet<>();
+    private final Set<ConstraintDescriptor<?>> composingConstraints = new HashSet<>();
     private boolean reportAsSingleViolation;
     private ElementType elementType;
     private ConstraintOrigin definedOn;
@@ -225,6 +225,17 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
   @Override
   public boolean isReportAsSingleViolation() {
     return this.reportAsSingleViolation;
+  }
+
+  @Override
+  public ValidateUnwrappedValue getValueUnwrapping() {
+    throw new UnsupportedOperationException(
+        "GWT Validation does not support getValueUnwrapping().");
+  }
+
+  @Override
+  public <U> U unwrap(final Class<U> type) {
+    throw new UnsupportedOperationException("GWT Validation does not support unwrap(Class).");
   }
 
   /**

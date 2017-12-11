@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.beans;
 
-import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.Email;
 
 public class HibernateEmailTestBean {
 

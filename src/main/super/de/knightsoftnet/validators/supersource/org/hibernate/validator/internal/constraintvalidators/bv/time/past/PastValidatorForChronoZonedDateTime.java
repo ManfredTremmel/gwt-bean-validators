@@ -5,21 +5,19 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.future;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
-
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 
 import javax.validation.constraints.Future;
 
 /**
- * Check that the {@code java.time.Instant} passed is in the future.
+ * Check that the {@code java.time.chrono.ChronoZonedDateTime} passed is in the past.
  *
  * @author Khalid Alqinyah
  * @author Guillaume Smet
- * @author Manfred Tremmel - disabled for GWT, no Instant available
+ * @author Manfred Tremmel - disabled for GWT, no ChronoZonedDateTime available
  */
-@IgnoreJava6Requirement
-public class FutureValidatorForInstant extends AbstractNotGwtCompatibleValidator<Future, Object> {
+public class PastValidatorForChronoZonedDateTime
+    extends AbstractNotGwtCompatibleValidator<Future, Object> {
 }

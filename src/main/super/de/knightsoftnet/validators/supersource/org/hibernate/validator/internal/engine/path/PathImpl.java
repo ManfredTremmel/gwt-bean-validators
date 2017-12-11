@@ -1,5 +1,5 @@
 /*
- * Hibernate Validator, declare and validate application constraints
+ * Hibernate pathImpl.
  *
  * License: Apache License, Version 2.0 See the license.txt file in the root directory or
  * <http://www.apache.org/licenses/LICENSE-2.0>.
@@ -11,14 +11,18 @@ import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
 import org.hibernate.validator.internal.util.Contracts;
+import org.hibernate.validator.internal.util.logging.Log;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.ElementKind;
 import javax.validation.Path;
 
 /**
@@ -32,8 +36,10 @@ import javax.validation.Path;
 @SuppressWarnings("checkstyle:javadocmethod")
 public class PathImpl implements Path, Serializable {
   private static final long serialVersionUID = 7564511574909882392L;
+  private static final Log LOG = LoggerFactory.make(MethodHandles.lookup()); // NOPMD
 
   private static final String PROPERTY_PATH_SEPARATOR = ".";
+  private static final int[] A = new int[256];
 
   /**
    * Regular expression used to split a string path into its elements.
@@ -51,7 +57,8 @@ public class PathImpl implements Path, Serializable {
   private static final int INDEX_GROUP = 3;
   private static final int REMAINING_STRING_GROUP = 5;
 
-  private final List<Node> nodeList;
+  private List<Node> nodeList;
+  private boolean nodeListRequiresCopy;
   private NodeImpl currentLeafNode;
   private int hashCodeEntry;
 
@@ -112,93 +119,132 @@ public class PathImpl implements Path, Serializable {
   }
 
   public NodeImpl addPropertyNode(final String nodeName) {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
     this.currentLeafNode = NodeImpl.createPropertyNode(nodeName, parent);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
-  public NodeImpl addCollectionElementNode() {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
-    this.currentLeafNode = NodeImpl.createCollectionElementNode(parent);
+  public NodeImpl addContainerElementNode(final String nodeName) {
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
+    this.currentLeafNode = NodeImpl.createContainerElementNode(nodeName, parent);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
   public NodeImpl addParameterNode(final String nodeName, final int index) {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
     this.currentLeafNode = NodeImpl.createParameterNode(nodeName, parent, index);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
   public NodeImpl addCrossParameterNode() {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
     this.currentLeafNode = NodeImpl.createCrossParameterNode(parent);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
   public NodeImpl addBeanNode() {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
     this.currentLeafNode = NodeImpl.createBeanNode(parent);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
   public NodeImpl addReturnValueNode() {
-    final NodeImpl parent =
-        this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+    this.requiresWriteableNodeList();
+
+    final NodeImpl parent = this.currentLeafNode;
     this.currentLeafNode = NodeImpl.createReturnValue(parent);
     this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
   public NodeImpl makeLeafNodeIterable() {
+    this.requiresWriteableNodeList();
+
     this.currentLeafNode = NodeImpl.makeIterable(this.currentLeafNode);
 
-    this.nodeList.remove(this.nodeList.size() - 1);
-    this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.nodeList.set(this.nodeList.size() - 1, this.currentLeafNode);
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
-  public NodeImpl setLeafNodeIndex(final Integer index) {
-    this.currentLeafNode = NodeImpl.setIndex(this.currentLeafNode, index);
+  public NodeImpl makeLeafNodeIterableAndSetIndex(final Integer index) {
+    this.requiresWriteableNodeList();
 
-    this.nodeList.remove(this.nodeList.size() - 1);
-    this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.currentLeafNode = NodeImpl.makeIterableAndSetIndex(this.currentLeafNode, index);
+
+    this.nodeList.set(this.nodeList.size() - 1, this.currentLeafNode);
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
-  public NodeImpl setLeafNodeMapKey(final Object key) {
-    this.currentLeafNode = NodeImpl.setMapKey(this.currentLeafNode, key);
+  public NodeImpl makeLeafNodeIterableAndSetMapKey(final Object key) {
+    this.requiresWriteableNodeList();
 
-    this.nodeList.remove(this.nodeList.size() - 1);
-    this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+    this.currentLeafNode = NodeImpl.makeIterableAndSetMapKey(this.currentLeafNode, key);
+
+    this.nodeList.set(this.nodeList.size() - 1, this.currentLeafNode);
+    this.resetHashCode();
     return this.currentLeafNode;
   }
 
-  public NodeImpl setLeafNodeValue(final Object value) {
-    this.currentLeafNode = NodeImpl.setPropertyValue(this.currentLeafNode, value);
+  public NodeImpl setLeafNodeValueIfRequired(final Object value) {
+    // The value is only exposed for property and container element nodes
+    if (this.currentLeafNode.getKind() == ElementKind.PROPERTY
+        || this.currentLeafNode.getKind() == ElementKind.CONTAINER_ELEMENT) {
+      this.requiresWriteableNodeList();
 
-    this.nodeList.remove(this.nodeList.size() - 1);
-    this.nodeList.add(this.currentLeafNode);
-    this.hashCodeEntry = -1;
+      this.currentLeafNode = NodeImpl.setPropertyValue(this.currentLeafNode, value);
+
+      this.nodeList.set(this.nodeList.size() - 1, this.currentLeafNode);
+
+      // the property value is not part of the NodeImpl hashCode so we don't need to reset the
+      // PathImpl hashCode
+    }
     return this.currentLeafNode;
+  }
+
+  public NodeImpl setLeafNodeTypeParameter(final Class<?> containerClass,
+      final Integer typeArgumentIndex) {
+    this.requiresWriteableNodeList();
+
+    this.currentLeafNode =
+        NodeImpl.setTypeParameter(this.currentLeafNode, containerClass, typeArgumentIndex);
+
+    this.nodeList.set(this.nodeList.size() - 1, this.currentLeafNode);
+    this.resetHashCode();
+    return this.currentLeafNode;
+  }
+
+  public void removeLeafNode() {
+    if (!this.nodeList.isEmpty()) {
+      this.requiresWriteableNodeList();
+
+      this.nodeList.remove(this.nodeList.size() - 1);
+      this.currentLeafNode =
+          this.nodeList.isEmpty() ? null : (NodeImpl) this.nodeList.get(this.nodeList.size() - 1);
+      this.resetHashCode();
+    }
   }
 
   public NodeImpl getLeafNode() {
@@ -242,6 +288,19 @@ public class PathImpl implements Path, Serializable {
       first = false;
     }
     return builder.toString();
+  }
+
+  private void requiresWriteableNodeList() {
+    if (!this.nodeListRequiresCopy) {
+      return;
+    }
+
+    // Usually, the write operation is about adding one more node, so let's make the list one
+    // element larger.
+    final List<Node> newNodeList = new ArrayList<>(this.nodeList.size() + 1);
+    newNodeList.addAll(this.nodeList);
+    this.nodeList = newNodeList;
+    this.nodeListRequiresCopy = false;
   }
 
   @Override
@@ -296,12 +355,19 @@ public class PathImpl implements Path, Serializable {
   }
 
   protected PathImpl() {
-    this.nodeList = new ArrayList<>();
-    this.hashCodeEntry = -1;
+    this.nodeList = new ArrayList<>(1);
+    this.resetHashCode();
+    this.nodeListRequiresCopy = false;
   }
 
   private PathImpl(final List<Node> nodeList) {
-    this.nodeList = new ArrayList<>(nodeList);
+    this.nodeList = nodeList;
+    this.currentLeafNode = (NodeImpl) nodeList.get(nodeList.size() - 1);
+    this.resetHashCode();
+    this.nodeListRequiresCopy = true;
+  }
+
+  private void resetHashCode() {
     this.hashCodeEntry = -1;
   }
 
@@ -333,9 +399,9 @@ public class PathImpl implements Path, Serializable {
         if (indexOrKey != null && indexOrKey.length() > 0) {
           try {
             final Integer i = Integer.parseInt(indexOrKey);
-            path.setLeafNodeIndex(i);
+            path.makeLeafNodeIterableAndSetIndex(i);
           } catch (final NumberFormatException e) {
-            path.setLeafNodeMapKey(indexOrKey);
+            path.makeLeafNodeIterableAndSetMapKey(indexOrKey);
           }
         }
 
@@ -378,10 +444,55 @@ public class PathImpl implements Path, Serializable {
   }
 
   private static boolean isJavaIdentifierStart(final int ch) {
-    return (ch & 0x00007000) >= 0x00005000;
+    final int prop = getProperties(ch);
+    return (prop & 0x00007000) >= 0x00005000;
   }
 
   private static boolean isJavaIdentifierPart(final int ch) {
-    return (ch & 0x00003000) != 0;
+    final int prop = getProperties(ch);
+    return (prop & 0x00003000) != 0;
+  }
+
+  private static int getProperties(final int var1) {
+    final char var2 = (char) var1;
+    return A[var2];
+  }
+
+  static {
+    @SuppressWarnings("checkstyle:avoidEscapedUnicodeCharacters")
+    final char[] var0 = ( //
+    "䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ堀䀏倀䀏堀䀏怀䀏倀䀏䠀ဏ䠀ဏ" //
+        + "䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ倀䀏倀䀏倀䀏堀䀏怀䀌栀" //
+        + "\u0018栀\u0018⠀\u0018⠀怚⠀\u0018栀\u0018栀\u0018\ue800\u0015\ue800" //
+        + "\u0016栀\u0018 \u0019㠀\u0018 \u0014㠀\u0018㠀\u0018᠀㘉᠀㘉᠀㘉᠀㘉᠀㘉" //
+        + "᠀㘉᠀㘉᠀㘉᠀㘉᠀㘉㠀\u0018栀\u0018\ue800\u0019栀\u0019\ue800\u0019栀" //
+        + "\u0018栀\u0018\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡" //
+        + "\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡" //
+        + "\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡\u0082翡" //
+        + "\u0082翡\u0082翡\u0082翡\u0082翡\ue800\u0015栀\u0018\ue800\u0016栀" //
+        + "\u001b栀倗栀\u001b\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢" //
+        + "\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢" //
+        + "\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢\u0081翢" //
+        + "\u0081翢\u0081翢\u0081翢\u0081翢\ue800\u0015栀\u0019\ue800\u0016栀" //
+        + "\u0019䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ倀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀" //
+        + "ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ䠀ဏ㠀" //
+        + "\f栀\u0018⠀怚⠀怚⠀怚⠀怚栀\u001c栀\u0018栀\u001b栀\u001c\u0000瀅\ue800" //
+        + "\u001d栀\u0019䠀တ栀\u001c栀\u001b⠀\u001c⠀\u0019᠀؋᠀؋栀\u001b\u07fd瀂栀" //
+        + "\u0018栀\u0018栀\u001b᠀ԋ\u0000瀅\ue800\u001e栀ࠋ栀ࠋ栀ࠋ栀\u0018\u0082瀁" //
+        + "\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁" //
+        + "\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁\u0082瀁" //
+        + "\u0082瀁\u0082瀁\u0082瀁\u0082瀁栀\u0019\u0082瀁\u0082瀁\u0082瀁\u0082瀁" //
+        + "\u0082瀁\u0082瀁\u0082瀁\u07fd瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂" //
+        + "\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂" //
+        + "\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂栀" //
+        + "\u0019\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u0081瀂\u061d瀂").toCharArray();
+    assert var0.length == 512;
+
+    int var1 = 0;
+
+    int var3;
+    for (int var2 = 0; var1 < 512; A[var2++] = var3 | var0[var1++]) {
+      var3 = var0[var1++] << 16;
+    }
   }
 }

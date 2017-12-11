@@ -48,7 +48,7 @@ public class GwtTstHibernateEmail extends AbstractValidationTst<HibernateEmailTe
   public final void testWrongEmailsAreWrong() {
     for (final HibernateEmailTestBean testBean : HibernateEmailTestCases.getWrongTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator");
+          "org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator");
     }
   }
 }

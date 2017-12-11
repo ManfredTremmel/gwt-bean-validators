@@ -15,7 +15,7 @@
 
 package de.knightsoftnet.validators.shared.beans;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class HibernateNotBlankTestBean {
 

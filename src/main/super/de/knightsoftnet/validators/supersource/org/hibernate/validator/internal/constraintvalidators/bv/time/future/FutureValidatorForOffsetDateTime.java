@@ -5,22 +5,18 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.past;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.future;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
-
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 
 import javax.validation.constraints.Future;
 
 /**
- * Check that the {@code java.time.OffsetDateTime} passed is in the past.
+ * Check that the {@code java.time.OffsetDateTime} passed is in the future.
  *
- * @author Khalid Alqinyah
  * @author Khalid Alqinyah
  * @author Manfred Tremmel - disabled for GWT, no OffsetDateTime available
  */
-@IgnoreJava6Requirement
-public class PastValidatorForOffsetDateTime
+public class FutureValidatorForOffsetDateTime
     extends AbstractNotGwtCompatibleValidator<Future, Object> {
 }

@@ -18,9 +18,11 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.TraversableResolver;
+import javax.validation.valueextraction.ValueExtractor;
 
 /**
  * Only the GWT incompatible parts.
@@ -36,5 +38,15 @@ public class GwtConfigurationState extends AbstractBaseConfigurationState {
   @Override
   public Set<InputStream> getMappingStreams() {
     throw new UnsupportedOperationException("GWT Validation does not support getMappingStreams");
+  }
+
+  @Override
+  public ClockProvider getClockProvider() {
+    return null;
+  }
+
+  @Override
+  public Set<ValueExtractor<?>> getValueExtractors() {
+    throw new UnsupportedOperationException("GWT does not support getValueExtractors().");
   }
 }

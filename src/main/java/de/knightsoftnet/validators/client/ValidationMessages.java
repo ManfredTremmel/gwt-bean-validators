@@ -101,11 +101,11 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String javax_validation_constraints_Min_message(); // NOPMD
 
   /**
-   * Translated "may not be null".
+   * Translated "must not be null".
    *
-   * @return translated "may not be null"
+   * @return translated "must not be null"
    */
-  @DefaultStringValue("may not be null")
+  @DefaultStringValue("must not be null")
   @Key("javax.validation.constraints.NotNull.message")
   String javax_validation_constraints_NotNull_message(); // NOPMD
 
@@ -227,22 +227,22 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String org_hibernate_validator_constraints_ModCheck_message(); // NOPMD
 
   /**
-   * Translated "may not be empty".
+   * Translated "must not be empty".
    *
-   * @return translated "may not be empty"
+   * @return translated "must not be empty"
    */
-  @DefaultStringValue("may not be empty")
-  @Key("org.hibernate.validator.constraints.NotBlank.message")
-  String org_hibernate_validator_constraints_NotBlank_message(); // NOPMD
+  @DefaultStringValue("must not be empty")
+  @Key("javax.validation.constraints.NotBlank.message")
+  String javax_validation_constraints_NotBlank_message(); // NOPMD
 
   /**
-   * Translated "may not be empty".
+   * Translated "must not be empty".
    *
-   * @return translated "may not be empty"
+   * @return translated "must not be empty"
    */
-  @DefaultStringValue("may not be empty")
-  @Key("org.hibernate.validator.constraints.NotEmpty.message")
-  String org_hibernate_validator_constraints_NotEmpty_message(); // NOPMD
+  @DefaultStringValue("must not be empty")
+  @Key("javax.validation.constraints.NotEmpty.message")
+  String javax_validation_constraints_NotEmpty_message(); // NOPMD
 
   /**
    * Translated "script expression "{script}" didn't evaluate to true".

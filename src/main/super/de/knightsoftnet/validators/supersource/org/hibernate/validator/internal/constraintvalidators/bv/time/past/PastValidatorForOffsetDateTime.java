@@ -5,22 +5,19 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.past;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
-
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 
 import javax.validation.constraints.Future;
 
 /**
- * Check that the {@code java.time.chrono.ChronoZonedDateTime} passed is in the past.
+ * Check that the {@code java.time.OffsetDateTime} passed is in the past.
  *
  * @author Khalid Alqinyah
- * @author Guillaume Smet
- * @author Manfred Tremmel - disabled for GWT, no ChronoZonedDateTime available
+ * @author Khalid Alqinyah
+ * @author Manfred Tremmel - disabled for GWT, no OffsetDateTime available
  */
-@IgnoreJava6Requirement
-public class PastValidatorForChronoZonedDateTime
+public class PastValidatorForOffsetDateTime
     extends AbstractNotGwtCompatibleValidator<Future, Object> {
 }

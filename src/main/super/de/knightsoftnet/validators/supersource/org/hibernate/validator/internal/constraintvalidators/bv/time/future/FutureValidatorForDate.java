@@ -5,7 +5,7 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.future;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.future;
 
 import java.util.Date;
 

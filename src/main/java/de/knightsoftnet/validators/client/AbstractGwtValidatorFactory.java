@@ -19,6 +19,7 @@ import de.knightsoftnet.validators.client.impl.GwtValidatorContext;
 
 import com.google.gwt.core.client.GWT;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.ParameterNameProvider;
@@ -139,5 +140,10 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
   @Override
   public final ValidatorContext usingContext() {
     return new GwtValidatorContext(this);
+  }
+
+  @Override
+  public ClockProvider getClockProvider() {
+    throw new UnsupportedOperationException("GWT does not support getClockProvider().");
   }
 }

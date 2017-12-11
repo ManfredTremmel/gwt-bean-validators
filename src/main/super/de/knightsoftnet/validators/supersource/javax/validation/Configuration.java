@@ -16,6 +16,8 @@ package javax.validation;
 import java.io.InputStream;
 
 import javax.validation.spi.ValidationProvider;
+import javax.validation.valueextraction.ValueExtractor;
+import javax.validation.valueextraction.ValueExtractorDeclarationException;
 
 // TODO: this interface is unchanged, remove it, when super implementation is removed from gwt
 
@@ -46,7 +48,8 @@ import javax.validation.spi.ValidationProvider;
  * requested and use it</li>
  * <li>if a specific provider is requested in {@code META-INF/validation.xml}>, find the first
  * provider implementing the provider class requested and use it</li>
- * <li>otherwise, use the first provider returned by the {@code ValidationProviderResolver}</li>
+ * <li>otherwise, use the first provider returned by the {@code
+ * ValidationProviderResolver}</li>
  * </ul>
  * <p/>
  * Implementations are not meant to be thread-safe.
@@ -61,7 +64,8 @@ public interface Configuration<T extends Configuration<T>> {
    * Ignores data from the {@code META-INF/validation.xml} file if this method is called.
    * <p/>
    * This method is typically useful for containers that parse {@code META-INF/validation.xml}
-   * themselves and pass the information via the {@code Configuration} methods.
+   * themselves and pass the information via the {@code
+   * Configuration} methods.
    *
    * @return {@code this} following the chaining method pattern.
    */
@@ -111,7 +115,6 @@ public interface Configuration<T extends Configuration<T>> {
    *
    * @param parameterNameProvider parameter name provider implementation
    * @return {@code this} following the chaining method pattern.
-   *
    * @since 1.1
    */
   T parameterNameProvider(ParameterNameProvider parameterNameProvider);
@@ -125,7 +128,6 @@ public interface Configuration<T extends Configuration<T>> {
    * @param stream XML mapping stream; the given stream should support the mark/reset contract (see
    *        {@link InputStream#markSupported()}); if it doesn't, it will be wrapped into a stream
    *        supporting the mark/reset contract by the Bean Validation provider
-   *
    * @return {@code this} following the chaining method pattern
    * @throws IllegalArgumentException if {@code stream} is null
    */
@@ -143,7 +145,7 @@ public interface Configuration<T extends Configuration<T>> {
    * <p>
    * It is more appropriate to use, if available, the type-safe equivalent provided by a specific
    * provider via its {@link Configuration} subclass.
-   * 
+   *
    * <pre>
    * ValidatorFactory factory = Validation.byProvider(ACMEProvider.class).configure()
    *     .providerSpecificProperty(ACMEState.FAST).buildValidatorFactory();
@@ -220,7 +222,6 @@ public interface Configuration<T extends Configuration<T>> {
    * </ul>
    *
    * @return default {@code ParameterNameProvider} implementation compliant with the specification
-   *
    * @since 1.1
    */
   ParameterNameProvider getDefaultParameterNameProvider();
@@ -234,7 +235,6 @@ public interface Configuration<T extends Configuration<T>> {
    * @return returns an instance of {@link BootstrapConfiguration}; this method never returns
    *         {@code null}; if there is no {@code META-INF/validation.xml} the different getters of
    *         the returned instance will return {@code null} respectively an empty set or map
-   *
    * @since 1.1
    */
   BootstrapConfiguration getBootstrapConfiguration();
@@ -246,4 +246,41 @@ public interface Configuration<T extends Configuration<T>> {
    * @throws ValidationException if the {@code ValidatorFactory} cannot be built
    */
   ValidatorFactory buildValidatorFactory();
+
+  /**
+   * Returns an implementation of the {@link ClockProvider} interface following the default
+   * {@code ClockProvider} defined in the specification:
+   * <ul>
+   * <li>returns a clock representing the current system time and default time zone.</li>
+   * </ul>
+   *
+   * @return default {@code ClockProvider} implementation compliant with the specification
+   * @since 2.0
+   */
+  ClockProvider getDefaultClockProvider();
+
+  /**
+   * Adds a value extractor. Has priority over any extractor for the same type and type parameter
+   * detected through the service loader or given in the XML configuration.
+   *
+   * @param extractor value extractor implementation
+   * @return {@code this} following the chaining method pattern.
+   * @throws ValueExtractorDeclarationException if more than one extractor for the same type and
+   *         type parameter is added
+   * @since 2.0
+   */
+  T addValueExtractor(ValueExtractor<?> extractor);
+
+  /**
+   * Defines the clock provider. Has priority over the configuration based provider.
+   * <p>
+   * If {@code null} is passed, the default clock provider is used (defined in XML or the
+   * specification default).
+   * </p>
+   *
+   * @param clockProvider clock provider implementation
+   * @return {@code this} following the chaining method pattern.
+   * @since 2.0
+   */
+  T clockProvider(ClockProvider clockProvider);
 }

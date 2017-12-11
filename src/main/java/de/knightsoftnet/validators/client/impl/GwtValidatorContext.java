@@ -16,12 +16,14 @@ package de.knightsoftnet.validators.client.impl;
 
 import de.knightsoftnet.validators.client.AbstractGwtValidatorFactory;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.Validator;
 import javax.validation.ValidatorContext;
+import javax.validation.valueextraction.ValueExtractor;
 
 /**
  * GWT {@link ValidatorContext}.
@@ -109,5 +111,16 @@ public class GwtValidatorContext implements ValidatorContext {
       this.parameterNameProviderEntry = pparameterNameProvider;
     }
     return this;
+  }
+
+  @Override
+  public ValidatorContext clockProvider(final ClockProvider clockProvider) {
+    throw new UnsupportedOperationException(
+        "GWT Validation does not support clockProvider(ClockProvider).");
+  }
+
+  @Override
+  public ValidatorContext addValueExtractor(final ValueExtractor<?> extractor) {
+    throw new UnsupportedOperationException("GWT Validation does not support addValueExtractor().");
   }
 }

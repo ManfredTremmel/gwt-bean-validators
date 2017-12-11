@@ -7,3 +7,5 @@
 /www-test/
 /gwt-unitCache/
 /.gwt/
+.idea/*
+*.iml

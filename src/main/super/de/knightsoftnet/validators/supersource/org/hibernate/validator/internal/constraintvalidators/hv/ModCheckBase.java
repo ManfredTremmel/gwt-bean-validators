@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public abstract class ModCheckBase { // NOPMD
 
-  private static final Log LOG = LoggerFactory.make(); // NOPMD
+  private static final Log LOG = LoggerFactory.make(MethodHandles.lookup()); // NOPMD
 
   private static final RegExp NUMBERS_ONLY_REGEXP = RegExp.compile("[^0-9]", "g");
 

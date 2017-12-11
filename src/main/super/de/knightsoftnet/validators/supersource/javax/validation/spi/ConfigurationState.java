@@ -17,12 +17,14 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ClockProvider;
 import javax.validation.Configuration;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
 import javax.validation.ValidatorFactory;
+import javax.validation.valueextraction.ValueExtractor;
 
 // TODO: this interface is unchanged, remove it, when super implementation is removed from gwt
 
@@ -147,4 +149,49 @@ public interface ConfigurationState {
    * @return {@code Map} whose key is the property key and the value the property value
    */
   Map<String, String> getProperties();
+
+  /**
+   * Returns the clock provider for this configuration.
+   * <p>
+   * {@link ClockProvider} is defined in the following decreasing priority:
+   * </p>
+   * <ul>
+   * <li>set via the {@link Configuration} programmatic API</li>
+   * <li>defined in {@code META-INF/validation.xml} provided that {@code ignoreXmlConfiguration} is
+   * {@code false}. In this case the instance is created via its no-arg constructor.</li>
+   * <li>{@code null} if undefined.</li>
+   * </ul>
+   *
+   * @return clock provider instance or {@code null} if not defined
+   *
+   * @since 2.0
+   */
+  ClockProvider getClockProvider();
+
+  /**
+   * Returns a set of value extractors.
+   * <p>
+   * The extractors are retrieved from the following sources in decreasing order:
+   * </p>
+   * <ul>
+   * <li>extractors passed programmatically to {@link Configuration}</li>
+   * <li>extractors defined in {@code META-INF/validation.xml} provided that
+   * {@code ignoredXmlConfiguration} is {@code false}</li>
+   * <li>extractors loaded through the Java service loader</li>
+   * </ul>
+   * An extractor for a given type and type parameter passed in programmatically takes precedence
+   * over any extractor for the same type and type parameter defined in
+   * {@code META-INF/validation.xml} or loaded through the service loader. Extractors defined in
+   * {@code META-INF/validation.xml} take precedence over any extractor for the same type and type
+   * parameter loaded through the service loader.
+   * <p>
+   * Extractors defined in {@code META-INF/validation.xml} or loaded through the service loader are
+   * instantiated using their no-arg constructor.
+   * </p>
+   *
+   * @return set of value extractors; may be empty but never {@code null}
+   *
+   * @since 2.0
+   */
+  Set<ValueExtractor<?>> getValueExtractors();
 }

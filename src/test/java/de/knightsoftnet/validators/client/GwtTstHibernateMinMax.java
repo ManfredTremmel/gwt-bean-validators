@@ -49,7 +49,8 @@ public class GwtTstHibernateMinMax extends AbstractValidationTst<HibernateMinMax
     for (final HibernateMinMaxTestBean testBean : HibernateMinMaxTestCases
         .getWrongtoSmallTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.MinValidatorForNumber");
+          "org.hibernate.validator.internal.constraintvalidators.bv.number.bound."
+              + "MinValidatorForBigDecimal");
     }
   }
 
@@ -60,7 +61,8 @@ public class GwtTstHibernateMinMax extends AbstractValidationTst<HibernateMinMax
     for (final HibernateMinMaxTestBean testBean : HibernateMinMaxTestCases
         .getWrongtoBigTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.MaxValidatorForNumber");
+          "org.hibernate.validator.internal.constraintvalidators.bv.number.bound."
+              + "MaxValidatorForBigDecimal");
     }
   }
 }

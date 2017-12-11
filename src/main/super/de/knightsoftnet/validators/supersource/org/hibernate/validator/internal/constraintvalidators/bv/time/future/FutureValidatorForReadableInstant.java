@@ -5,21 +5,19 @@
  * <http://www.apache.org/licenses/LICENSE-2.0>.
  */
 
-package org.hibernate.validator.internal.constraintvalidators.bv.past;
+package org.hibernate.validator.internal.constraintvalidators.bv.time.future;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
-
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 
 import javax.validation.constraints.Future;
 
 /**
- * Check if Joda Time type who implements {@code org.joda.time.ReadablePartial} is in the past.
+ * Check if Joda Time type who implements {@code import org.joda.time.ReadableInstant} is in the
+ * future.
  *
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2011 SERLI
- * @author Manfred Tremmel - disabled for GWT, no ReadablePartial available
+ * @author Manfred Tremmel - disabled for GWT, no ReadableInstant available
  */
-@IgnoreJava6Requirement
-public class PastValidatorForReadablePartial
+public class FutureValidatorForReadableInstant
     extends AbstractNotGwtCompatibleValidator<Future, Object> {
 }

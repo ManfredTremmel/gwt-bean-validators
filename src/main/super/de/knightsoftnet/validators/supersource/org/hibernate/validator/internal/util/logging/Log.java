@@ -10,14 +10,17 @@ package org.hibernate.validator.internal.util.logging;
 import com.google.gwt.core.shared.GWT;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.internal.engine.path.NodeImpl;
 
 import java.lang.annotation.ElementType;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.ConstraintDeclarationException;
 import javax.validation.ConstraintDefinitionException;
+import javax.validation.ElementKind;
 import javax.validation.GroupDefinitionException;
 import javax.validation.Path;
 import javax.validation.UnexpectedTypeException;
@@ -1032,5 +1035,13 @@ public class Log {
 
   public boolean isDebugEnabled() {
     return !GWT.isProdMode();
+  }
+
+  public ClassCastException getUnableToNarrowNodeTypeException(
+      final Class<? extends NodeImpl> pclass, final ElementKind pkind, final Class<?> pnodeType) {
+    final ClassCastException result = new ClassCastException();
+    final StackTraceElement[] st = result.getStackTrace();
+    result.setStackTrace(Arrays.copyOfRange(st, 1, st.length));
+    return result;
   }
 }

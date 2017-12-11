@@ -48,7 +48,7 @@ public class GwtTstHibernatePast extends AbstractValidationTst<HibernatePastTest
   public final void testWrongPastAreWrong() {
     for (final HibernatePastTestBean testBean : HibernatePastTestCases.getWrongtoSmallTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.past."
+          "org.hibernate.validator.internal.constraintvalidators.bv.time.past."
               + "PastValidatorForCalendar");
     }
   }

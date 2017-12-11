@@ -49,7 +49,7 @@ public class GwtTstHibernateFuture extends AbstractValidationTst<HibernateFuture
     for (final HibernateFutureTestBean testBean : HibernateFutureTestCases
         .getWrongtoSmallTestBeans()) {
       super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.bv.future."
+          "org.hibernate.validator.internal.constraintvalidators.bv.time.future."
               + "FutureValidatorForCalendar");
     }
   }

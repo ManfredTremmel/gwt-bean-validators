@@ -26,12 +26,14 @@ import de.knightsoftnet.validators.shared.testcases.HibernateNotBlankTestCases;
  */
 public class GwtTstHibernateNotBlank extends AbstractValidationTst<HibernateNotBlankTestBean> {
 
+  private static final String VALIDATION_CLASS =
+      "org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator";
+
   /**
    * empty not blank is not allowed.
    */
   public final void testEmptyNotBlankIsWrong() {
-    super.validationTest(HibernateNotBlankTestCases.getEmptyTestBean(), false,
-        "org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator");
+    super.validationTest(HibernateNotBlankTestCases.getEmptyTestBean(), false, VALIDATION_CLASS);
   }
 
   /**
@@ -50,8 +52,7 @@ public class GwtTstHibernateNotBlank extends AbstractValidationTst<HibernateNotB
   public final void testWrongNotBlankAreWrong() {
     for (final HibernateNotBlankTestBean testBean : HibernateNotBlankTestCases
         .getWrongtoSmallTestBeans()) {
-      super.validationTest(testBean, false,
-          "org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator");
+      super.validationTest(testBean, false, VALIDATION_CLASS);
     }
   }
 }

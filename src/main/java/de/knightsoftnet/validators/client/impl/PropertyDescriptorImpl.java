@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.ContainerElementTypeDescriptor;
 import javax.validation.metadata.GroupConversionDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 
@@ -120,5 +121,11 @@ public class PropertyDescriptorImpl implements PropertyDescriptor {
         this.parentBeanMetadata, //
         this.validationGroupsMetadata, //
         desc);
+  }
+
+  @Override
+  public Set<ContainerElementTypeDescriptor> getConstrainedContainerElementTypes() {
+    throw new UnsupportedOperationException(
+        "GWT Validation does not support getConstrainedContainerElementTypes().");
   }
 }
