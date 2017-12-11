@@ -115,20 +115,30 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
   private static void appendHibernateBeanValidatorTests(final GWTTestSuite psuite) {
     psuite.addTestSuite(GwtTstHibernateAssertFalse.class);
     psuite.addTestSuite(GwtTstHibernateAssertTrue.class);
+    psuite.addTestSuite(GwtTstHibernateCodePointLength.class);
     psuite.addTestSuite(GwtTstHibernateDecimalMinMax.class);
     psuite.addTestSuite(GwtTstHibernateDigits.class);
     psuite.addTestSuite(GwtTstHibernateEmail.class);
+    psuite.addTestSuite(GwtTstHibernateLuhnCheck.class);
     psuite.addTestSuite(GwtTstHibernateMinMax.class);
+    psuite.addTestSuite(GwtTstHibernateMod10Check.class);
+    psuite.addTestSuite(GwtTstHibernateMod11Check.class);
+    psuite.addTestSuite(GwtTstHibernateNegative.class);
+    psuite.addTestSuite(GwtTstHibernateNegativeOrZero.class);
     psuite.addTestSuite(GwtTstHibernateNotNull.class);
     psuite.addTestSuite(GwtTstHibernateNotBlank.class);
     psuite.addTestSuite(GwtTstHibernateNotEmpty.class);
     psuite.addTestSuite(GwtTstHibernateNull.class);
     psuite.addTestSuite(GwtTstHibernatePattern.class);
+    psuite.addTestSuite(GwtTstHibernatePositive.class);
+    psuite.addTestSuite(GwtTstHibernatePositiveOrZero.class);
     psuite.addTestSuite(GwtTstHibernateSize.class);
     psuite.addTestSuite(GwtTstHibernateSizeArray.class);
     psuite.addTestSuite(GwtTstHibernateSizeCollection.class);
     psuite.addTestSuite(GwtTstHibernateFuture.class);
+    psuite.addTestSuite(GwtTstHibernateFutureOrPresent.class);
     psuite.addTestSuite(GwtTstHibernatePast.class);
+    psuite.addTestSuite(GwtTstHibernatePastOrPresent.class);
     psuite.addTestSuite(GwtTstHibernateEan8.class);
     psuite.addTestSuite(GwtTstHibernateEan13.class);
     psuite.addTestSuite(GwtTstHibernateLength.class);
@@ -138,7 +148,10 @@ public class GwtTestBeanValidatorsSuite extends GWTTestSuite {
     psuite.addTestSuite(GwtTstHibernateCpf.class);
     psuite.addTestSuite(GwtTstHibernateNip.class);
     psuite.addTestSuite(GwtTstHibernatePesel.class);
+    psuite.addTestSuite(GwtTstHibernateRange.class);
     psuite.addTestSuite(GwtTstHibernateRegon.class);
+    psuite.addTestSuite(GwtTstHibernateUniqueElements.class);
+    psuite.addTestSuite(GwtTstHibernateTituloEleitoral.class);
   }
 
   private static void appendOtherBeanValidatorTests(final GWTTestSuite psuite) {

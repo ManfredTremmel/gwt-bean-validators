@@ -199,7 +199,7 @@ public interface BeanValidationEditorDriver<T, E extends Editor<? super T>>
 
   /**
    * create a initializer visitor implementation.
-   * 
+   *
    * @return editor visitor
    */
   EditorVisitor createInitializerVisitor();

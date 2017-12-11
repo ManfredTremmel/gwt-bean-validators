@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
 
-import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 
 /**
  * Check that the {@code java.time.chrono.ChronoZonedDateTime} passed is in the past.
@@ -19,5 +19,5 @@ import javax.validation.constraints.Future;
  * @author Manfred Tremmel - disabled for GWT, no ChronoZonedDateTime available
  */
 public class PastValidatorForChronoZonedDateTime
-    extends AbstractNotGwtCompatibleValidator<Future, Object> {
+    extends AbstractNotGwtCompatibleValidator<Past, Object> {
 }

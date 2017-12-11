@@ -35,12 +35,7 @@ import javax.validation.metadata.PropertyDescriptor;
 public final class BeanHelper {
 
   public static final Function<BeanHelper, Class<?>> TO_CLAZZ =
-      new Function<BeanHelper, Class<?>>() {
-        @Override
-        public Class<?> apply(final BeanHelper helper) {
-          return helper == null ? null : helper.getClazz();
-        }
-      };
+      helper -> helper == null ? null : helper.getClazz();
 
   private final BeanDescriptor beanDescriptor;
 

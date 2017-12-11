@@ -36,7 +36,7 @@ import javax.validation.ValidationException;
 public class GroupChainGenerator {
   private final ValidationGroupsMetadata validationGroupsMetadata;
 
-  private final Map<Class<?>, List<Group>> resolvedSequences = new HashMap<Class<?>, List<Group>>();
+  private final Map<Class<?>, List<Group>> resolvedSequences = new HashMap<>();
 
   public GroupChainGenerator(final ValidationGroupsMetadata validationGroupsMetadata) {
     this.validationGroupsMetadata = validationGroupsMetadata;
@@ -111,7 +111,7 @@ public class GroupChainGenerator {
   }
 
   private List<Group> expandInhertitedGroups(final List<Group> sequence) {
-    final List<Group> expandedGroup = new ArrayList<Group>();
+    final List<Group> expandedGroup = new ArrayList<>();
     for (final Group group : sequence) {
       expandedGroup.add(group);
       this.addInheritedGroups(group, expandedGroup);
@@ -156,14 +156,14 @@ public class GroupChainGenerator {
     } else {
       processedSequences.add(group);
     }
-    final List<Group> resolvedGroupSequence = new ArrayList<Group>();
+    final List<Group> resolvedGroupSequence = new ArrayList<>();
     final List<Class<?>> sequenceList = this.validationGroupsMetadata.getSequenceList(group);
     for (final Class<?> clazz : sequenceList) {
       if (this.isGroupSequence(clazz)) {
         final List<Group> tmpSequence = this.resolveSequence(clazz, processedSequences);
         this.addGroups(resolvedGroupSequence, tmpSequence);
       } else {
-        final List<Group> list = new ArrayList<Group>();
+        final List<Group> list = new ArrayList<>();
         list.add(new Group(clazz, group));
         this.addGroups(resolvedGroupSequence, list);
       }

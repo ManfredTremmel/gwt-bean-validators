@@ -48,18 +48,14 @@ final class Util {
    */
   static <T> Predicate<T> createMostSpecificMatchPredicate(final Iterable<T> source,
       final Function<T, Class<?>> toClass) {
-    return new Predicate<T>() {
-
-      @Override
-      public boolean apply(final T input) {
-        final Class<?> inputClass = toClass.apply(input);
-        for (final Class<?> match : Iterables.transform(source, toClass)) {
-          if (!inputClass.equals(match) && inputClass.isAssignableFrom(match)) {
-            return false;
-          }
+    return input -> {
+      final Class<?> inputClass = toClass.apply(input);
+      for (final Class<?> match : Iterables.transform(source, toClass)) {
+        if (!inputClass.equals(match) && inputClass.isAssignableFrom(match)) {
+          return false;
         }
-        return true;
       }
+      return true;
     };
   }
 

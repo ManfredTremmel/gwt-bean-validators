@@ -30,7 +30,7 @@ public class BeanMetadata {
 
   /**
    * constructor.
-   * 
+   *
    * @param beanClass bean class to validate
    * @param defaultGroupSequence group class
    */

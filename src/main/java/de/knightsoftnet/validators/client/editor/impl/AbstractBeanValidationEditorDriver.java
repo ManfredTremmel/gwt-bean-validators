@@ -24,13 +24,9 @@ import de.knightsoftnet.validators.client.impl.Validation;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorVisitor;
 import com.google.gwt.editor.client.impl.BaseEditorDriver;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -120,35 +116,19 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
    */
   public AbstractBeanValidationEditorDriver() {
     super();
-    this.commitOnReturnHandler = new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent pevent) {
-        if (pevent.getCharCode() == KeyCodes.KEY_ENTER
-            || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-          AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
-        }
+    this.commitOnReturnHandler = pevent -> {
+      if (pevent.getCharCode() == KeyCodes.KEY_ENTER
+          || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+        AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
       }
     };
-    this.validateOnKeyUpHandler = new KeyUpHandler() {
-      @Override
-      public void onKeyUp(final KeyUpEvent pevent) {
-        AbstractBeanValidationEditorDriver.this.validate();
-      }
-    };
-    this.validateOnVueChangeHandler = new ValueChangeHandler<Object>() {
-      @Override
-      public void onValueChange(final ValueChangeEvent<Object> pevent) {
-        AbstractBeanValidationEditorDriver.this.validate();
-      }
-    };
-    this.valueChangeHandler = new ValueChangeHandler<Object>() {
-      @Override
-      public void onValueChange(final ValueChangeEvent<Object> pevent) {
-        ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
-            AbstractBeanValidationEditorDriver.this.getObject());
-        if (AbstractBeanValidationEditorDriver.this.submitOnValueChange) {
-          AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
-        }
+    this.validateOnKeyUpHandler = pevent -> AbstractBeanValidationEditorDriver.this.validate();
+    this.validateOnVueChangeHandler = pevent -> AbstractBeanValidationEditorDriver.this.validate();
+    this.valueChangeHandler = pevent -> {
+      ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
+          AbstractBeanValidationEditorDriver.this.getObject());
+      if (AbstractBeanValidationEditorDriver.this.submitOnValueChange) {
+        AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
       }
     };
   }
@@ -313,12 +293,8 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   public final void setSubmitButton(final Widget psubmitButton) {
     this.submitButton = psubmitButton;
     if (this.submitButton instanceof HasClickHandlers) {
-      ((HasClickHandlers) this.submitButton).addClickHandler(new ClickHandler() {
-        @Override
-        public void onClick(final ClickEvent pevent) {
-          AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
-        }
-      });
+      ((HasClickHandlers) this.submitButton)
+          .addClickHandler(pevent -> AbstractBeanValidationEditorDriver.this.tryToSubmitFrom());
     }
   }
 

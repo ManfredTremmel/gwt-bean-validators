@@ -48,7 +48,7 @@ public final class ValidatorGenerator extends Generator {
 
   /**
    * constructor called from tests.
-   * 
+   *
    * @param cache bean helper cache
    * @param validGroups validation groups
    */

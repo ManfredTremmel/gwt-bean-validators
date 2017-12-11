@@ -43,7 +43,15 @@ public class HibernatePeselTestCases {
    */
   public static final List<HibernatePeselTestBean> getCorrectTestBeans() {
     final List<HibernatePeselTestBean> correctCases = new ArrayList<>();
+    correctCases.add(new HibernatePeselTestBean("92041903790"));
     correctCases.add(new HibernatePeselTestBean("44051401359"));
+    correctCases.add(new HibernatePeselTestBean("70100619901"));
+    correctCases.add(new HibernatePeselTestBean("80082107231"));
+    correctCases.add(new HibernatePeselTestBean("00301202868"));
+    correctCases.add(new HibernatePeselTestBean("00271100559"));
+    correctCases.add(new HibernatePeselTestBean("12241301417"));
+    correctCases.add(new HibernatePeselTestBean("12252918020"));
+    correctCases.add(new HibernatePeselTestBean("12262911406"));
     return correctCases;
   }
 
@@ -55,6 +63,14 @@ public class HibernatePeselTestCases {
   public static final List<HibernatePeselTestBean> getWrongTestBeans() {
     final List<HibernatePeselTestBean> wrongCases = new ArrayList<>();
     wrongCases.add(new HibernatePeselTestBean("44051401358"));
+    wrongCases.add(new HibernatePeselTestBean("92041903791"));
+    wrongCases.add(new HibernatePeselTestBean("80082107232"));
+    wrongCases.add(new HibernatePeselTestBean("80062210349"));
+    wrongCases.add(new HibernatePeselTestBean("00301202866"));
+    wrongCases.add(new HibernatePeselTestBean("00271100557"));
+    wrongCases.add(new HibernatePeselTestBean("12241301418"));
+    wrongCases.add(new HibernatePeselTestBean("12252918029"));
+    wrongCases.add(new HibernatePeselTestBean("12262911402"));
     return wrongCases;
   }
 }

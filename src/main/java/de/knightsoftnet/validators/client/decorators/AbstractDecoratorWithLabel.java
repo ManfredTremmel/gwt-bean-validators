@@ -2,10 +2,6 @@ package de.knightsoftnet.validators.client.decorators;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.editor.client.IsEditor;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.dom.client.HasFocusHandlers;
 import com.google.gwt.uibinder.client.UiChild;
@@ -94,27 +90,18 @@ public abstract class AbstractDecoratorWithLabel<T> extends AbstractDecorator<T>
     this.contents.add(this.widget);
     this.setEditor(new ExtendedValueBoxEditor<>(pwidget, this));
     if (pwidget instanceof HasFocusHandlers) {
-      ((HasFocusHandlers) pwidget).addFocusHandler(new FocusHandler() {
-
-        @Override
-        public void onFocus(final FocusEvent pevent) {
-          AbstractDecoratorWithLabel.this.addStyleToLabel();
-        }
-      });
+      ((HasFocusHandlers) pwidget)
+          .addFocusHandler(pevent -> AbstractDecoratorWithLabel.this.addStyleToLabel());
     }
     if (pwidget instanceof HasBlurHandlers) {
-      ((HasBlurHandlers) pwidget).addBlurHandler(new BlurHandler() {
-
-        @Override
-        public void onBlur(final BlurEvent pevent) {
-          boolean hide = true;
-          if (AbstractDecoratorWithLabel.this.widget instanceof TakesValue<?>) {
-            hide = StringUtils.isEmpty(Objects.toString(
-                ((TakesValue<?>) AbstractDecoratorWithLabel.this.widget).getValue(), null));
-          }
-          if (hide) {
-            AbstractDecoratorWithLabel.this.removeStyleFromLabel();
-          }
+      ((HasBlurHandlers) pwidget).addBlurHandler(pevent -> {
+        boolean hide = true;
+        if (AbstractDecoratorWithLabel.this.widget instanceof TakesValue<?>) {
+          hide = StringUtils.isEmpty(Objects
+              .toString(((TakesValue<?>) AbstractDecoratorWithLabel.this.widget).getValue(), null));
+        }
+        if (hide) {
+          AbstractDecoratorWithLabel.this.removeStyleFromLabel();
         }
       });
     }

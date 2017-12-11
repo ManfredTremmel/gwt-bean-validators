@@ -48,10 +48,8 @@ public class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
   public static final class Builder<T> {
 
     private final Class<T> clazz;
-    private final Map<String, PropertyDescriptorImpl> descriptorMap =
-        new HashMap<>();
-    private final Set<ConstraintDescriptorImpl<? extends Annotation>> constraints =
-        new HashSet<>();
+    private final Map<String, PropertyDescriptorImpl> descriptorMap = new HashMap<>();
+    private final Set<ConstraintDescriptorImpl<? extends Annotation>> constraints = new HashSet<>();
     private boolean isConstrained;
     private BeanMetadata beanMetadata;
 
@@ -91,11 +89,9 @@ public class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
   }
 
   private final Class<T> clazz;
-  private final Set<ConstraintDescriptorImpl<?>> constraints =
-      new HashSet<>();
+  private final Set<ConstraintDescriptorImpl<?>> constraints = new HashSet<>();
 
-  private final Map<String, PropertyDescriptorImpl> descriptorMap =
-      new HashMap<>();
+  private final Map<String, PropertyDescriptorImpl> descriptorMap = new HashMap<>();
   private final boolean isConstrained;
 
   private final BeanMetadata beanMetadata;
@@ -124,7 +120,7 @@ public class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
     for (final PropertyDescriptorImpl prop : props) {
       prop.setValidationGroupsMetadata(this.validationGroupsMetadata);
     }
-    return new HashSet<PropertyDescriptor>(props);
+    return new HashSet<>(props);
   }
 
   @Override

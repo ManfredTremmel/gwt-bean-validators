@@ -28,12 +28,12 @@ package de.knightsoftnet.validators.client;
  *   &#064;GwtValidation(value = {Pojo.class, Other.class})
  *   public static interface GwtReflectGetters extends GwtReflectGetterInterface {
  *   }
- * 
+ *
  *   public GwtReflectGetterInterface createGwtReflectGetter() {
  *     return GWT.create(GwtReflectGetters.class));
  *   }
  * }
- * 
+ *
  *
  *
  *

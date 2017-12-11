@@ -35,17 +35,17 @@ public final class GroupChain {
   /**
    * The list of single groups to be used this validation.
    */
-  private final List<Group> groupList = new ArrayList<Group>();
+  private final List<Group> groupList = new ArrayList<>();
 
   /**
    * The different sequences for this validation. The map contains the list of groups mapped to
    * their sequence name.
    */
-  private final Map<Class<?>, List<Group>> sequenceMap = new HashMap<Class<?>, List<Group>>();
+  private final Map<Class<?>, List<Group>> sequenceMap = new HashMap<>();
 
   /**
    * check if default group sequence is expandable.
-   * 
+   *
    * @param defaultGroupSequence list of group classes
    * @throws GroupDefinitionException if it's no default group
    */
@@ -106,7 +106,7 @@ public final class GroupChain {
 
   private List<Group> buildTempGroupList(final List<Class<?>> defaultGroupSequence,
       final Class<?> sequence) {
-    final List<Group> groups = new ArrayList<Group>();
+    final List<Group> groups = new ArrayList<>();
     for (final Class<?> clazz : defaultGroupSequence) {
       final Group g = new Group(clazz, sequence);
       groups.add(g);

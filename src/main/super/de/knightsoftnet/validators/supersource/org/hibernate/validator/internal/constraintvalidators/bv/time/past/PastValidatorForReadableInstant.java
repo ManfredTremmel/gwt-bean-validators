@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
 
-import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 
 /**
  * Check if Joda Time type who implements {@code org.joda.time.ReadableInstant} is in the past.
@@ -18,5 +18,5 @@ import javax.validation.constraints.Future;
  * @author Manfred Tremmel - disabled for GWT, no ReadableInstant available
  */
 public class PastValidatorForReadableInstant
-    extends AbstractNotGwtCompatibleValidator<Future, Object> {
+    extends AbstractNotGwtCompatibleValidator<Past, Object> {
 }

@@ -92,7 +92,7 @@ public abstract class AbstractGwtValidator implements Validator {
 
   protected void checkGroups(final Class<?>... groups) {
     if (!this.validGroups.containsAll(Arrays.asList(groups))) {
-      final HashSet<Class<?>> unknown = new HashSet<Class<?>>();
+      final HashSet<Class<?>> unknown = new HashSet<>();
       unknown.addAll(Arrays.asList(groups));
       unknown.removeAll(this.validGroups);
       throw new IllegalArgumentException(this.getClass() + " only processes the following groups "

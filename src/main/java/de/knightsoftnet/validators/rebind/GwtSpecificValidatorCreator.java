@@ -114,20 +114,10 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   private static final Annotation[] NO_ANNOTATIONS = new Annotation[] {};
 
   private static final Function<java.beans.PropertyDescriptor, String> PROPERTY_DESCRIPTOR_TO_NAME =
-      new Function<java.beans.PropertyDescriptor, String>() {
-        @Override
-        public String apply(final java.beans.PropertyDescriptor pd) {
-          return pd == null ? null : pd.getName();
-        }
-      };
+      pd -> pd == null ? null : pd.getName();
 
-  private static final Function<Object, String> TO_LITERAL = new Function<Object, String>() {
-
-    @Override
-    public String apply(final Object input) {
-      return input == null ? null : asLiteral(input);
-    }
-  };
+  private static final Function<Object, String> TO_LITERAL =
+      input -> input == null ? null : asLiteral(input);
 
   public static String asGetter(final PropertyDescriptor propertyDescriptor) {
     return "get" + StringUtils.capitalize(propertyDescriptor.getPropertyName());
@@ -264,13 +254,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
     final Set<Class<?>> best = Util.findBestMatches(type, map.keySet());
 
-    final Predicate<Class<?>> inBest = new Predicate<Class<?>>() {
-
-      @Override
-      public boolean apply(final Class<?> key) {
-        return best.contains(key);
-      }
-    };
+    final Predicate<Class<?>> inBest = key -> best.contains(key);
     return ImmutableSet.copyOf(Maps.filterKeys(map, inBest).values());
   }
 
@@ -582,12 +566,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   private Predicate<PropertyDescriptor> newPropertyNameMatches(
       final PropertyDescriptor ppropertyDescription) {
-    return new Predicate<PropertyDescriptor>() {
-      @Override
-      public boolean apply(final PropertyDescriptor input) {
-        return input.getPropertyName().equals(ppropertyDescription.getPropertyName());
-      }
-    };
+    return input -> input.getPropertyName().equals(ppropertyDescription.getPropertyName());
   }
 
   private String toWrapperName(final JField field) {

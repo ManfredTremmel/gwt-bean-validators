@@ -21,6 +21,6 @@ package de.knightsoftnet.validators.client;
  * @author Manfred Tremmel
  */
 public interface GwtReflectGetterInterface {
-  Object getProperty(final Object pbean, final String pname) throws NoSuchMethodException,
-      ReflectiveOperationException;
+  Object getProperty(final Object pbean, final String pname)
+      throws NoSuchMethodException, ReflectiveOperationException;
 }

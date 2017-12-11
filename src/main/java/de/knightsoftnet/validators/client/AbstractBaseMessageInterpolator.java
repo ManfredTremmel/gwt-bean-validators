@@ -41,24 +41,17 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
 
   // Visible for testing
   static Function<String, String> createAnnotationReplacer(final Map<String, Object> map) {
-    return new Function<String, String>() {
-
-      @Override
-      public String apply(final String from) {
-        final Object object = map.get(from);
-        return object == null ? null : object.toString();
-      }
+    return from -> {
+      final Object object = map.get(from);
+      return object == null ? null : object.toString();
     };
   }
 
   private static Function<String, String> createReplacer(
       final ValidationMessageResolver messageResolver) {
-    return new Function<String, String>() {
-      @Override
-      public String apply(final String from) {
-        final Object object = messageResolver.get(from);
-        return object == null ? null : object.toString();
-      }
+    return from -> {
+      final Object object = messageResolver.get(from);
+      return object == null ? null : object.toString();
     };
   }
 

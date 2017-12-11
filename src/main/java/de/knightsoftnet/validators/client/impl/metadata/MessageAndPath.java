@@ -29,7 +29,7 @@ public final class MessageAndPath {
 
   /**
    * constructor.
-   * 
+   *
    * @param path path of field
    * @param message error message
    */

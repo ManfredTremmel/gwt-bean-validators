@@ -27,7 +27,6 @@ import java.util.Stack;
 
 import javax.validation.groups.Default;
 
-
 /**
  * Contains all the information known about the inheritance information for validation groups.
  */
@@ -41,8 +40,8 @@ public class ValidationGroupsMetadata {
     private final Map<Class<?>, List<Class<?>>> sequenceMap;
 
     private Builder() {
-      this.inheritanceinheritanceMap = new HashMap<Class<?>, Set<Class<?>>>();
-      this.sequenceMap = new HashMap<Class<?>, List<Class<?>>>();
+      this.inheritanceinheritanceMap = new HashMap<>();
+      this.sequenceMap = new HashMap<>();
       this.addGroup(Default.class);
     }
 
@@ -54,7 +53,7 @@ public class ValidationGroupsMetadata {
      *        group contains no parents.
      */
     public Builder addGroup(final Class<?> group, final Class<?>... parents) {
-      this.inheritanceinheritanceMap.put(group, new HashSet<Class<?>>(Arrays.asList(parents)));
+      this.inheritanceinheritanceMap.put(group, new HashSet<>(Arrays.asList(parents)));
       return this;
     }
 
@@ -122,8 +121,8 @@ public class ValidationGroupsMetadata {
    */
   public Set<Class<?>> findAllExtendedGroups(final Collection<Class<?>> baseGroups)
       throws IllegalArgumentException {
-    final Set<Class<?>> found = new HashSet<Class<?>>();
-    final Stack<Class<?>> remaining = new Stack<Class<?>>();
+    final Set<Class<?>> found = new HashSet<>();
+    final Stack<Class<?>> remaining = new Stack<>();
     // initialize
     for (final Class<?> group : baseGroups) {
       if (!this.inheritanceMapping.containsKey(group)) {
@@ -153,7 +152,7 @@ public class ValidationGroupsMetadata {
    * in one flat set.
    */
   public Set<Class<?>> getAllGroupsAndSequences() {
-    final Set<Class<?>> allGroups = new HashSet<Class<?>>();
+    final Set<Class<?>> allGroups = new HashSet<>();
     for (final Map.Entry<Class<?>, Set<Class<?>>> entry : this.inheritanceMapping.entrySet()) {
       allGroups.add(entry.getKey());
       allGroups.addAll(entry.getValue());

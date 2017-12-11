@@ -54,7 +54,7 @@ public class FormSubmitEvent<T> extends GwtEvent<FormSubmitHandler<T>> {
    */
   public static <T> void fire(final HasFormSubmitHandlers<T> source, final T value) {
     if (type != null) {
-      final FormSubmitEvent<T> event = new FormSubmitEvent<T>(value);
+      final FormSubmitEvent<T> event = new FormSubmitEvent<>(value);
       source.fireEvent(event);
     }
   }
@@ -68,7 +68,7 @@ public class FormSubmitEvent<T> extends GwtEvent<FormSubmitHandler<T>> {
     if (type == null) { // NOPMD it's thread save!
       synchronized (FormSubmitHandler.class) {
         if (type == null) {
-          type = new Type<FormSubmitHandler<?>>();
+          type = new Type<>();
         }
       }
     }

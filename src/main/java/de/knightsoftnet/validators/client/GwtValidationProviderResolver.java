@@ -33,7 +33,7 @@ public final class GwtValidationProviderResolver implements ValidationProviderRe
       Collections.unmodifiableList(createValidationProviderList());
 
   private static ArrayList<ValidationProvider<?>> createValidationProviderList() {
-    final ArrayList<ValidationProvider<?>> temp = new ArrayList<ValidationProvider<?>>();
+    final ArrayList<ValidationProvider<?>> temp = new ArrayList<>();
     final ValidationProvider<?> provider = GWT.create(ValidationProvider.class);
     temp.add(provider);
     return temp;

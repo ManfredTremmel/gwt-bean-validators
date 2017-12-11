@@ -34,7 +34,7 @@ public class PathImpl_CustomFieldSerializer extends CustomFieldSerializer<PathIm
 
   /**
    * instantiate a path implementation.
-   * 
+   *
    * @param streamReader serialization stream reader
    * @return path implementation
    * @throws SerializationException when deserialization fails

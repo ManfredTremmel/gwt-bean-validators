@@ -50,7 +50,7 @@ public class BeanHelperCache { // public for testing
    * Creates a cache. There should be one cache per compiler run. (public for tests.)
    */
   public BeanHelperCache() {
-    this.cache = new HashMap<JClassType, BeanHelper>();
+    this.cache = new HashMap<>();
     this.serverSideValidator = Validation.buildDefaultValidatorFactory().getValidator();
   }
 

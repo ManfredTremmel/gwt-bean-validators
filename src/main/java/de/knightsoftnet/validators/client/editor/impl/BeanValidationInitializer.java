@@ -76,7 +76,8 @@ public class BeanValidationInitializer extends Initializer {
         pcheckTime == CheckTimeEnum.ON_KEY_UP ? pvalidateOnKeyUpHandler : null;
     this.validateOnVueChangeHandler =
         pcheckTime == CheckTimeEnum.ON_CHANGE || pcheckTime == CheckTimeEnum.ON_KEY_UP
-            ? pvalidateOnVueChangeHandler : null;
+            ? pvalidateOnVueChangeHandler
+            : null;
     this.valueChangeHandler = pvalueChangeHandler;
     this.checkTime = pcheckTime;
   }

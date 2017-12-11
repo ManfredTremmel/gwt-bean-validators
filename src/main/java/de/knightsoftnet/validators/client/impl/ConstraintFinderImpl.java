@@ -44,7 +44,7 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
 
   /**
    * constructor.
-   * 
+   *
    * @param beanMetadata bean meta data to set
    * @param validationGroupsMetadata validation groups meta data
    * @param constraintDescriptors constraint descriptors
@@ -55,11 +55,11 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
     this.validationGroupsMetadata = validationGroupsMetadata;
     this.constraintDescriptors = constraintDescriptors;
     this.beanMetadata = beanMetadata;
-    this.elementTypes = new HashSet<ElementType>();
+    this.elementTypes = new HashSet<>();
     this.elementTypes.add(ElementType.TYPE);
     this.elementTypes.add(ElementType.METHOD);
     this.elementTypes.add(ElementType.FIELD);
-    this.definedInSet = new HashSet<ConstraintOrigin>();
+    this.definedInSet = new HashSet<>();
     this.definedInSet.add(ConstraintOrigin.DEFINED_LOCALLY);
     this.definedInSet.add(ConstraintOrigin.DEFINED_IN_HIERARCHY);
     this.groups = Collections.emptyList();
@@ -80,7 +80,7 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
           + "ValidationGroupsMetadata object is required by GWT to properly find all constraint "
           + "descriptors.");
     }
-    final Set<ConstraintDescriptor<?>> matchingDescriptors = new HashSet<ConstraintDescriptor<?>>();
+    final Set<ConstraintDescriptor<?>> matchingDescriptors = new HashSet<>();
     this.findMatchingDescriptors(matchingDescriptors);
     return Collections.unmodifiableSet(matchingDescriptors);
   }
@@ -100,7 +100,7 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
 
   @Override
   public ConstraintFinder unorderedAndMatchingGroups(final Class<?>... groups) {
-    this.groups = new ArrayList<Class<?>>();
+    this.groups = new ArrayList<>();
     for (final Class<?> clazz : groups) {
       if (Default.class.equals(clazz) && this.beanMetadata.defaultGroupSequenceIsRedefined()) {
         this.groups.addAll(this.beanMetadata.getDefaultGroupSequence());

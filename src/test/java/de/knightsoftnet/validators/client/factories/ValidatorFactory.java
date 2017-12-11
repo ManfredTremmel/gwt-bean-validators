@@ -40,6 +40,7 @@ import de.knightsoftnet.validators.shared.beans.GtinTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertFalseTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateAssertTrueTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateCnpjTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateCodePointLengthTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateCpfTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateCreditCardNumberTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateDecimalMinMaxTestBean;
@@ -47,21 +48,33 @@ import de.knightsoftnet.validators.shared.beans.HibernateDigitsTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEan13TestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEan8TestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateFutureOrPresentTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateFutureTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateLengthTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateLuhnCheckTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateMod10CheckTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateMod11CheckTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNegativeOrZeroTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateNegativeTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNipTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotBlankTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotEmptyTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNotNullTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateNullTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePastOrPresentTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePastTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePatternTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernatePeselTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePositiveOrZeroTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernatePositiveTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateRangeTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateRegonTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeArrayTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeCollectionTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateSizeTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateTituloEleitoralTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateUniqueElementsTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateUrlTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanFormatedTestBean;
 import de.knightsoftnet.validators.shared.beans.IbanTestBean;
@@ -150,15 +163,22 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
 
       // test beans for hibernate validators
       HibernateAssertFalseTestBean.class, HibernateAssertTrueTestBean.class,
-      HibernateDecimalMinMaxTestBean.class, HibernateDigitsTestBean.class,
-      HibernateEmailTestBean.class, HibernateNotNullTestBean.class, HibernateNullTestBean.class,
-      HibernatePatternTestBean.class, HibernateMinMaxTestBean.class, HibernateSizeTestBean.class,
-      HibernateSizeArrayTestBean.class, HibernateSizeCollectionTestBean.class,
-      HibernateFutureTestBean.class, HibernatePastTestBean.class, HibernateNotBlankTestBean.class,
-      HibernateNotEmptyTestBean.class, HibernateEan8TestBean.class, HibernateEan13TestBean.class,
-      HibernateLengthTestBean.class, HibernateCreditCardNumberTestBean.class,
-      HibernateUrlTestBean.class, HibernateCnpjTestBean.class, HibernateCpfTestBean.class,
-      HibernateNipTestBean.class, HibernatePeselTestBean.class, HibernateRegonTestBean.class,
+      HibernateCodePointLengthTestBean.class, HibernateDecimalMinMaxTestBean.class,
+      HibernateDigitsTestBean.class, HibernateEmailTestBean.class, HibernateLuhnCheckTestBean.class,
+      HibernateNegativeTestBean.class, HibernateNegativeOrZeroTestBean.class,
+      HibernateNotNullTestBean.class, HibernateNullTestBean.class, HibernatePatternTestBean.class,
+      HibernateMinMaxTestBean.class, HibernateSizeTestBean.class, HibernateSizeArrayTestBean.class,
+      HibernateSizeCollectionTestBean.class, HibernateFutureTestBean.class,
+      HibernateFutureOrPresentTestBean.class, HibernatePastTestBean.class,
+      HibernateNotBlankTestBean.class, HibernateNotEmptyTestBean.class,
+      HibernatePastOrPresentTestBean.class, HibernatePositiveTestBean.class,
+      HibernatePositiveOrZeroTestBean.class, HibernateEan8TestBean.class,
+      HibernateEan13TestBean.class, HibernateLengthTestBean.class,
+      HibernateCreditCardNumberTestBean.class, HibernateUrlTestBean.class,
+      HibernateCnpjTestBean.class, HibernateCpfTestBean.class, HibernateNipTestBean.class,
+      HibernatePeselTestBean.class, HibernateRegonTestBean.class, HibernateMod10CheckTestBean.class,
+      HibernateMod11CheckTestBean.class, HibernateRangeTestBean.class,
+      HibernateUniqueElementsTestBean.class, HibernateTituloEleitoralTestBean.class,
 
       // test beans from https://github.com/gwtproject/gwt/issues/7263
       IdType.class, Foo.class, Bar.class, FooFoo.class, BarBar.class})

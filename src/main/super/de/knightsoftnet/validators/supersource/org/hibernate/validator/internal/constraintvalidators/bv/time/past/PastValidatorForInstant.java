@@ -9,7 +9,7 @@ package org.hibernate.validator.internal.constraintvalidators.bv.time.past;
 
 import de.knightsoftnet.validators.client.constraints.AbstractNotGwtCompatibleValidator;
 
-import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 
 /**
  * Check that the {@code java.time.Instant} passed is in the past.
@@ -18,5 +18,5 @@ import javax.validation.constraints.Future;
  * @author Guillaume Smet
  * @author Manfred Tremmel - disabled for GWT, no Instant available
  */
-public class PastValidatorForInstant extends AbstractNotGwtCompatibleValidator<Future, Object> {
+public class PastValidatorForInstant extends AbstractNotGwtCompatibleValidator<Past, Object> {
 }
