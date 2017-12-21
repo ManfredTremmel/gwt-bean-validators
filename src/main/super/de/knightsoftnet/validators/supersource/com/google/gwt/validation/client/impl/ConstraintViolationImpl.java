@@ -29,6 +29,8 @@ import javax.validation.metadata.ConstraintDescriptor;
 public class ConstraintViolationImpl<T>
     extends de.knightsoftnet.validators.client.impl.ConstraintViolationImpl<T> {
 
+  private static final long serialVersionUID = 4457071990894400119L;
+
   protected ConstraintViolationImpl(final String pmessage, final String pmessageTemplate,
       final T prootBean, final Class<T> prootBeanClass, final Object pleafBean,
       final Path ppropertyPath, final Object pinvalidValue, final ElementType pelementType,

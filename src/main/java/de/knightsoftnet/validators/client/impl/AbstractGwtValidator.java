@@ -54,6 +54,8 @@ public abstract class AbstractGwtValidator implements Validator {
   }
 
   /**
+   * constructor.
+   * 
    * @param validationGroupsMetadata Validation group metadata.
    */
   public AbstractGwtValidator(final ValidationGroupsMetadata validationGroupsMetadata) {

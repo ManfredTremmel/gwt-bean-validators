@@ -189,14 +189,15 @@ public final class ConstraintViolationImpl<T>
     return this.executableReturnValue;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public <C> C getDynamicPayload(final Class<C> type) {
-    throw new UnsupportedOperationException("GWT Validation does not support getDynamicPayload()");
+    return (C) this.dynamicPayload;
   }
 
   /**
    * IMPORTANT - some behaviour of Validator depends on the correct implementation of this equals
-   * method! (HF)
+   * method. (HF)
    *
    * <p>
    * {@code messageParameters}, {@code expressionVariables} and {@code dynamicPayload} are not taken
@@ -218,15 +219,13 @@ public final class ConstraintViolationImpl<T>
     final ConstraintViolationImpl<?> that = (ConstraintViolationImpl<?>) pobject;
 
     return Objects.equals(this.interpolatedMessage, that.interpolatedMessage)
+        && Objects.equals(this.messageTemplate, that.messageTemplate)
         && Objects.equals(this.propertyPath, that.propertyPath)
         && Objects.equals(this.rootBean, that.rootBean)
         && Objects.equals(this.leafBeanInstance, that.leafBeanInstance)
-        && Objects.equals(this.constraintDescriptor, that.constraintDescriptor)
-        && Objects.equals(this.elementType, that.elementType)
-        && Objects.equals(this.messageTemplate, that.messageTemplate)
-        && Objects.equals(this.rootBeanClass, that.rootBeanClass)
         && Objects.equals(this.value, that.value)
-        && Objects.equals(this.dynamicPayload, that.dynamicPayload);
+        && Objects.equals(this.constraintDescriptor, that.constraintDescriptor)
+        && Objects.equals(this.elementType, that.elementType);
   }
 
   @Override
@@ -247,11 +246,13 @@ public final class ConstraintViolationImpl<T>
   }
 
   /**
+   * create hash code.
+   *
    * @see #equals(Object) on which fields are taken into account.
    */
   private int createHashCode() {
     return Objects.hash(this.interpolatedMessage, this.propertyPath, this.rootBean,
         this.leafBeanInstance, this.value, this.constraintDescriptor, this.messageTemplate,
-        this.rootBeanClass, this.elementType);
+        this.elementType);
   }
 }

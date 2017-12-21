@@ -8,6 +8,8 @@
 package org.hibernate.validator.internal.util;
 
 /**
+ * Contracts.
+ * 
  * @author Gunnar Morling
  * @author Hardy Ferentschik
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2012 SERLI
@@ -42,9 +44,9 @@ public final class Contracts {
    * Asserts that the given object is not {@code null}.
    *
    * @param pobject The object to check.
-   * @param pname The name of the value to check. A message of the form
-   *        "&lt;name&gt; must not be null" will be used as message of the resulting exception if
-   *        the given object is {@code null}.
+   * @param pname The name of the value to check. A message of the form "&lt;name&gt; must not be
+   *        null" will be used as message of the resulting exception if the given object is
+   *        {@code null}.
    *
    * @throws IllegalArgumentException In case the given object is {@code null}.
    */

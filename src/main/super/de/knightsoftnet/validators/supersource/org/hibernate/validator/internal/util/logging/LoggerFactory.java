@@ -10,6 +10,8 @@ package org.hibernate.validator.internal.util.logging;
 import java.lang.invoke.MethodHandles.Lookup;
 
 /**
+ * Logger factory.
+ * 
  * @author Hardy Ferentschik
  * @author Kevin Pollet &lt;kevin.pollet@serli.com&gt; (C) 2012 SERLI
  * @author Manfred Tremmel - GWT port

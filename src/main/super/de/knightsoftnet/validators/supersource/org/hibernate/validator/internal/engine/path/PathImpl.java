@@ -11,11 +11,8 @@ import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
 import org.hibernate.validator.internal.util.Contracts;
-import org.hibernate.validator.internal.util.logging.Log;
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
 
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -36,7 +33,6 @@ import javax.validation.Path;
 @SuppressWarnings("checkstyle:javadocmethod")
 public class PathImpl implements Path, Serializable {
   private static final long serialVersionUID = 7564511574909882392L;
-  private static final Log LOG = LoggerFactory.make(MethodHandles.lookup()); // NOPMD
 
   private static final String PROPERTY_PATH_SEPARATOR = ".";
   private static final int[] A = new int[256];
@@ -418,7 +414,7 @@ public class PathImpl implements Path, Serializable {
   }
 
   /**
-   * Validate that the given identifier is a valid Java identifier according to the Java Language
+   * Validate that the given identifier is a valid Java identifier according to the Java Language.
    * Specification,
    * <a href="http://docs.oracle.com/javase/specs/jls/se6/html/lexical.html#3.8">chapter 3.8</a>
    *

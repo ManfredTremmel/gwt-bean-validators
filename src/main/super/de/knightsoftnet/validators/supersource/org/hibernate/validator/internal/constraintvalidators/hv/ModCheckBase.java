@@ -99,7 +99,7 @@ public abstract class ModCheckBase { // NOPMD
   }
 
   /**
-   * Returns the numeric {@code int} value of a {@code char}
+   * Returns the numeric {@code int} value of a {@code char}.
    *
    * @param value the input {@code char} to be parsed
    *
@@ -116,7 +116,7 @@ public abstract class ModCheckBase { // NOPMD
   }
 
   /**
-   * Parses the {@link String} value as a {@link List} of {@link Integer} objects
+   * Parses the {@link String} value as a {@link List} of {@link Integer} objects.
    *
    * @param value the input string to be parsed
    *

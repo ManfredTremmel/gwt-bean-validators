@@ -35,7 +35,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author Guillaume Smet
  * @author Manfred Tremmel - GWT port
  */
-@SuppressWarnings("checkstyle:avoidEscapedUnicodeCharacters")
+@SuppressWarnings({"checkstyle:avoidEscapedUnicodeCharacters", "deprecation"})
 public class EmailValidator implements ConstraintValidator<Email, CharSequence> {
   private static final String LOCAL_PART_ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~\u0080-\uFFFF-]";
   private static final String LOCAL_PART_INSIDE_QUOTES_ATOM =

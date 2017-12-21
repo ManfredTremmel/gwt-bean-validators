@@ -56,7 +56,7 @@ package java.io;
 public abstract class InputStream extends Object implements Closeable { // NOPMD
 
   /**
-   * Size of the temporary buffer used when skipping bytes with {@link skip(long)}.
+   * Size of the temporary buffer used when skipping bytes with skip(long).
    */
   private static final int MAX_SKIP_BUFFER_SIZE = 4096;
 

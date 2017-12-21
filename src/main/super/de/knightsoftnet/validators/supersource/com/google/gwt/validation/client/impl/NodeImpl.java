@@ -25,6 +25,8 @@ import javax.validation.ElementKind;
  */
 public class NodeImpl extends org.hibernate.validator.internal.engine.path.NodeImpl {
 
+  private static final long serialVersionUID = -7481234506359509905L;
+
   protected NodeImpl(final String pname,
       final org.hibernate.validator.internal.engine.path.NodeImpl pparent, final boolean pindexable,
       final Integer pindex, final Object pkey, final ElementKind pkind,

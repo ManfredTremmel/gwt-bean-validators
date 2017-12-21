@@ -9,7 +9,7 @@ public class ClassNotFoundException extends Exception {
 
   /**
    * This field holds the exception ex if the ClassNotFoundException(String s, Throwable ex)
-   * constructor was used to instantiate the object
+   * constructor was used to instantiate the object.
    *
    * @serial
    * @since 1.2

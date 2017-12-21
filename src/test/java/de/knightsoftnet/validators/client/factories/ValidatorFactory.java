@@ -50,6 +50,8 @@ import de.knightsoftnet.validators.shared.beans.HibernateEan8TestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateEmailTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateFutureOrPresentTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateFutureTestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateIsbn10TestBean;
+import de.knightsoftnet.validators.shared.beans.HibernateIsbn13TestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateLengthTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateLuhnCheckTestBean;
 import de.knightsoftnet.validators.shared.beans.HibernateMinMaxTestBean;
@@ -179,6 +181,7 @@ public class ValidatorFactory extends AbstractGwtValidatorFactory {
       HibernatePeselTestBean.class, HibernateRegonTestBean.class, HibernateMod10CheckTestBean.class,
       HibernateMod11CheckTestBean.class, HibernateRangeTestBean.class,
       HibernateUniqueElementsTestBean.class, HibernateTituloEleitoralTestBean.class,
+      HibernateIsbn10TestBean.class, HibernateIsbn13TestBean.class,
 
       // test beans from https://github.com/gwtproject/gwt/issues/7263
       IdType.class, Foo.class, Bar.class, FooFoo.class, BarBar.class})

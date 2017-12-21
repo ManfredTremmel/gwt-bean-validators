@@ -462,6 +462,7 @@ public class NodeImpl implements Path.PropertyNode, Path.MethodNode, Path.Constr
     return this.kind;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public <T extends Path.Node> T as(final Class<T> nodeType) throws ClassCastException { // NOPMD
     if (this.kind == ElementKind.BEAN && nodeType == BeanNode.class

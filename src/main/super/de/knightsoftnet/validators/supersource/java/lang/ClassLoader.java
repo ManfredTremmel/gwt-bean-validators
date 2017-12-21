@@ -112,7 +112,7 @@ public class ClassLoader {
   protected Class<?> loadClass(final String name, final boolean resolve)
       throws ClassNotFoundException {
     // First, check if the class has already been loaded
-    Class clazz = null; // TODO: reimplement this goodness findLoadedClass(name);
+    Class<?> clazz = null; // TODO: reimplement this goodness findLoadedClass(name);
     if (clazz == null) {
       try {
         if (this.parent == null) {
@@ -137,7 +137,7 @@ public class ClassLoader {
   }
 
   // This method is invoked by the virtual machine to load a class.
-  private Class loadClassInternal(final String name) throws ClassNotFoundException {
+  private Class<?> loadClassInternal(final String name) throws ClassNotFoundException {
     return this.loadClass(name);
   }
 
@@ -284,5 +284,5 @@ public class ClassLoader {
   }
 
   // Invoked in the java.lang.Runtime class to implement load and loadLibrary.
-  static void loadLibrary(final Class fromClass, final String name, final boolean isAbsolute) {}
+  static void loadLibrary(final Class<?> fromClass, final String name, final boolean isAbsolute) {}
 }

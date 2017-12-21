@@ -29,6 +29,7 @@ gwt clients.
     <include name="constraintvalidators/hv/Mod11CheckValidator.java"/>
     <include name="constraintvalidators/hv/CodePointLengthValidator.java"/>
     <include name="constraintvalidators/hv/EANValidator.java"/>
+    <include name="constraintvalidators/hv/ISBNValidator.java"/>
     <include name="constraintvalidators/hv/ScriptAssertValidator.java"/>
     <include name="constraintvalidators/hv/ModCheckValidator.java"/>
     <include name="constraintvalidators/hv/Mod10CheckValidator.java"/>

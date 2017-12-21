@@ -123,6 +123,8 @@ public abstract class URLConnection { // NOPMD
   protected boolean connected = false;
 
   /**
+   * connection timeout.
+   * 
    * @since 1.5
    */
   private int connectTimeout;
@@ -664,11 +666,11 @@ public abstract class URLConnection { // NOPMD
    * value.
    *
    * <p>
-   * Some protocols do caching of documents. Occasionally, it is important to be able to
-   * "tunnel through" and ignore the caches (e.g., the "reload" button in a browser). If the
-   * UseCaches flag on a connection is true, the connection is allowed to use whatever caches it
-   * can. If false, caches are to be ignored. The default value comes from DefaultUseCaches, which
-   * defaults to true.
+   * Some protocols do caching of documents. Occasionally, it is important to be able to "tunnel
+   * through" and ignore the caches (e.g., the "reload" button in a browser). If the UseCaches flag
+   * on a connection is true, the connection is allowed to use whatever caches it can. If false,
+   * caches are to be ignored. The default value comes from DefaultUseCaches, which defaults to
+   * true.
    * </p>
    *
    * @param usecaches a {@code boolean} indicating whether or not to allow caching

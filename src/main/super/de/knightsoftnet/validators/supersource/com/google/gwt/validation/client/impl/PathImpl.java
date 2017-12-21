@@ -23,4 +23,6 @@ package com.google.gwt.validation.client.impl;
  */
 public class PathImpl extends org.hibernate.validator.internal.engine.path.PathImpl {
 
+  private static final long serialVersionUID = -4229493867636521328L;
+
 }

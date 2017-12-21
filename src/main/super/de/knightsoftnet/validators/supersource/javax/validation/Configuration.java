@@ -176,7 +176,7 @@ public interface Configuration<T extends Configuration<T>> {
 
   /**
    * Returns an implementation of the {@link MessageInterpolator} interface following the default
-   * {@code MessageInterpolator} defined in the specification:
+   * {@code MessageInterpolator} defined in the specification.:
    * <ul>
    * <li>use the {@code ValidationMessages} resource bundle to load keys</li>
    * <li>use {@code Locale.getDefault()}</li>
@@ -188,7 +188,7 @@ public interface Configuration<T extends Configuration<T>> {
 
   /**
    * Returns an implementation of the {@link TraversableResolver} interface following the default
-   * {@code TraversableResolver} defined in the specification:
+   * {@code TraversableResolver} defined in the specification.:
    * <ul>
    * <li>if Java Persistence is available in the runtime environment, a property is considered
    * reachable if Java Persistence considers the property as loaded</li>
@@ -215,7 +215,7 @@ public interface Configuration<T extends Configuration<T>> {
 
   /**
    * Returns an implementation of the {@link ParameterNameProvider} interface following the default
-   * {@code ParameterNameProvider} defined in the specification:
+   * {@code ParameterNameProvider} defined in the specification.:
    * <ul>
    * <li>returns names in the form {@code arg&lt;PARAMETER_INDEX&gt;} where {@code PARAMETER_INDEX}
    * starts at 0 for the first parameter, e.g. {@code arg0}, {@code arg1} etc.</li>
@@ -249,7 +249,7 @@ public interface Configuration<T extends Configuration<T>> {
 
   /**
    * Returns an implementation of the {@link ClockProvider} interface following the default
-   * {@code ClockProvider} defined in the specification:
+   * {@code ClockProvider} defined in the specification.:
    * <ul>
    * <li>returns a clock representing the current system time and default time zone.</li>
    * </ul>

@@ -23,7 +23,7 @@ import com.google.gwt.i18n.client.ConstantsWithLookup;
  * @author Manfred Tremmel
  *
  */
-@SuppressWarnings("checkstyle:abbreviationaswordinname")
+@SuppressWarnings({"checkstyle:abbreviationaswordinname", "PMD.MethodNamingConventions"})
 public interface ValidationMessages extends ConstantsWithLookup {
 
   /**
@@ -33,7 +33,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be false")
   @Key("javax.validation.constraints.AssertFalse.message")
-  String javax_validation_constraints_AssertFalse_message(); // NOPMD
+  String javax_validation_constraints_AssertFalse_message();
 
   /**
    * Translated "must be true".
@@ -42,7 +42,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be true")
   @Key("javax.validation.constraints.AssertTrue.message")
-  String javax_validation_constraints_AssertTrue_message(); // NOPMD
+  String javax_validation_constraints_AssertTrue_message();
 
   /**
    * Translated "must be less than or equal to {value}".
@@ -51,7 +51,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be less than or equal to {value}")
   @Key("javax.validation.constraints.DecimalMax.message")
-  String javax_validation_constraints_DecimalMax_message(); // NOPMD
+  String javax_validation_constraints_DecimalMax_message();
 
   /**
    * Translated "must be greater than or equal to {value}".
@@ -60,7 +60,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be greater than or equal to {value}")
   @Key("javax.validation.constraints.DecimalMin.message")
-  String javax_validation_constraints_DecimalMin_message(); // NOPMD
+  String javax_validation_constraints_DecimalMin_message();
 
   /**
    * Translated "numeric value out of bounds (<{integer} digits>.<{fraction} digits> expected)".
@@ -71,7 +71,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
   @DefaultStringValue("numeric value out of bounds "
       + "(<{integer} digits>.<{fraction} digits> expected)")
   @Key("javax.validation.constraints.Digits.message")
-  String javax_validation_constraints_Digits_message(); // NOPMD
+  String javax_validation_constraints_Digits_message();
 
   /**
    * Translated "must be in the future".
@@ -80,7 +80,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be in the future")
   @Key("javax.validation.constraints.Future.message")
-  String javax_validation_constraints_Future_message(); // NOPMD
+  String javax_validation_constraints_Future_message();
 
   /**
    * Translated "must be less than or equal to {value}".
@@ -89,7 +89,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be less than or equal to {value}")
   @Key("javax.validation.constraints.Max.message")
-  String javax_validation_constraints_Max_message(); // NOPMD
+  String javax_validation_constraints_Max_message();
 
   /**
    * Translated "must be greater than or equal to {value}".
@@ -98,7 +98,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be greater than or equal to {value}")
   @Key("javax.validation.constraints.Min.message")
-  String javax_validation_constraints_Min_message(); // NOPMD
+  String javax_validation_constraints_Min_message();
 
   /**
    * Translated "must not be null".
@@ -107,7 +107,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must not be null")
   @Key("javax.validation.constraints.NotNull.message")
-  String javax_validation_constraints_NotNull_message(); // NOPMD
+  String javax_validation_constraints_NotNull_message();
 
   /**
    * Translated "must be null".
@@ -116,7 +116,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be null")
   @Key("javax.validation.constraints.Null.message")
-  String javax_validation_constraints_Null_message(); // NOPMD
+  String javax_validation_constraints_Null_message();
 
   /**
    * Translated "must be in the past".
@@ -125,7 +125,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be in the past")
   @Key("javax.validation.constraints.Past.message")
-  String javax_validation_constraints_Past_message(); // NOPMD
+  String javax_validation_constraints_Past_message();
 
   /**
    * Translated "must match \"{regexp}\"".
@@ -134,7 +134,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must match \"{regexp}\"")
   @Key("javax.validation.constraints.Pattern.message")
-  String javax_validation_constraints_Pattern_message(); // NOPMD
+  String javax_validation_constraints_Pattern_message();
 
   /**
    * Translated "size must be between {min} and {max}".
@@ -143,7 +143,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("size must be between {min} and {max}")
   @Key("javax.validation.constraints.Size.message")
-  String javax_validation_constraints_Size_message(); // NOPMD
+  String javax_validation_constraints_Size_message();
 
   /**
    * Translated "invalid credit card number".
@@ -152,7 +152,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid credit card number")
   @Key("org.hibernate.validator.constraints.CreditCardNumber.message")
-  String org_hibernate_validator_constraints_CreditCardNumber_message(); // NOPMD
+  String org_hibernate_validator_constraints_CreditCardNumber_message();
 
   /**
    * Translated "invalid currency (must be one of {value})".
@@ -161,7 +161,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid currency (must be one of {value})")
   @Key("org.hibernate.validator.constraints.Currency.message")
-  String org_hibernate_validator_constraints_Currency_message(); // NOPMD
+  String org_hibernate_validator_constraints_Currency_message();
 
   /**
    * Translated "invalid {type} barcode".
@@ -170,7 +170,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid {type} barcode")
   @Key("org.hibernate.validator.constraints.EAN.message")
-  String org_hibernate_validator_constraints_EAN_message(); // NOPMD
+  String org_hibernate_validator_constraints_EAN_message();
 
   /**
    * Translated "not a well-formed email address".
@@ -179,7 +179,16 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("not a well-formed email address")
   @Key("org.hibernate.validator.constraints.Email.message")
-  String org_hibernate_validator_constraints_Email_message(); // NOPMD
+  String org_hibernate_validator_constraints_Email_message();
+
+  /**
+   * Translated "invalid ISBN".
+   *
+   * @return translated "invalid ISBN"
+   */
+  @DefaultStringValue("invalid ISBN")
+  @Key("org.hibernate.validator.constraints.ISBN.message")
+  String org_hibernate_validator_constraints_ISBN_message();
 
   /**
    * Translated "length must be between {min} and {max}".
@@ -188,7 +197,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("length must be between {min} and {max}")
   @Key("org.hibernate.validator.constraints.Length.message")
-  String org_hibernate_validator_constraints_Length_message(); // NOPMD
+  String org_hibernate_validator_constraints_Length_message();
 
   /**
    * Translated "The check digit for {value} is invalid, Luhn Modulo 10 checksum failed".
@@ -197,7 +206,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("The check digit for {value} is invalid, " + "Luhn Modulo 10 checksum failed")
   @Key("org.hibernate.validator.constraints.LuhnCheck.message")
-  String org_hibernate_validator_constraints_LuhnCheck_message(); // NOPMD
+  String org_hibernate_validator_constraints_LuhnCheck_message();
 
   /**
    * Translated "The check digit for {value} is invalid, Modulo 10 checksum failed".
@@ -206,7 +215,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("The check digit for {value} is invalid, Modulo 10 checksum failed")
   @Key("org.hibernate.validator.constraints.Mod10Check.message")
-  String org_hibernate_validator_constraints_Mod10Check_message(); // NOPMD
+  String org_hibernate_validator_constraints_Mod10Check_message();
 
   /**
    * Translated "The check digit for {value} is invalid, Modulo 11 checksum failed".
@@ -215,7 +224,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("The check digit for {value} is invalid, Modulo 11 checksum failed")
   @Key("org.hibernate.validator.constraints.Mod11Check.message")
-  String org_hibernate_validator_constraints_Mod11Check_message(); // NOPMD
+  String org_hibernate_validator_constraints_Mod11Check_message();
 
   /**
    * Translated "The check digit for {value} is invalid, {modType} checksum failed".
@@ -224,7 +233,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("The check digit for {value} is invalid, {modType} " + "checksum failed")
   @Key("org.hibernate.validator.constraints.ModCheck.message")
-  String org_hibernate_validator_constraints_ModCheck_message(); // NOPMD
+  String org_hibernate_validator_constraints_ModCheck_message();
 
   /**
    * Translated "must not be empty".
@@ -233,7 +242,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must not be empty")
   @Key("javax.validation.constraints.NotBlank.message")
-  String javax_validation_constraints_NotBlank_message(); // NOPMD
+  String javax_validation_constraints_NotBlank_message();
 
   /**
    * Translated "must not be empty".
@@ -242,7 +251,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must not be empty")
   @Key("javax.validation.constraints.NotEmpty.message")
-  String javax_validation_constraints_NotEmpty_message(); // NOPMD
+  String javax_validation_constraints_NotEmpty_message();
 
   /**
    * Translated "script expression "{script}" didn't evaluate to true".
@@ -251,7 +260,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("script expression \"{script}\" didn't evaluate to true")
   @Key("org.hibernate.validator.constraints.ParametersScriptAssert.message")
-  String org_hibernate_validator_constraints_ParametersScriptAssert_message(); // NOPMD
+  String org_hibernate_validator_constraints_ParametersScriptAssert_message();
 
   /**
    * Translated "must be between {min} and {max}".
@@ -260,7 +269,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be between {min} and {max}")
   @Key("org.hibernate.validator.constraints.Range.message")
-  String org_hibernate_validator_constraints_Range_message(); // NOPMD
+  String org_hibernate_validator_constraints_Range_message();
 
   /**
    * Translated "may have unsafe html content".
@@ -269,7 +278,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("may have unsafe html content")
   @Key("org.hibernate.validator.constraints.SafeHtml.message")
-  String org_hibernate_validator_constraints_SafeHtml_message(); // NOPMD
+  String org_hibernate_validator_constraints_SafeHtml_message();
 
   /**
    * Translated "script expression \"{script}\" didn't evaluate to true".
@@ -278,7 +287,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("script expression \"{script}\" didn't evaluate to true")
   @Key("org.hibernate.validator.constraints.ScriptAssert.message")
-  String org_hibernate_validator_constraints_ScriptAssert_message(); // NOPMD
+  String org_hibernate_validator_constraints_ScriptAssert_message();
 
   /**
    * Translated "must be a valid URL".
@@ -287,7 +296,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("must be a valid URL")
   @Key("org.hibernate.validator.constraints.URL.message")
-  String org_hibernate_validator_constraints_URL_message(); // NOPMD
+  String org_hibernate_validator_constraints_URL_message();
 
   /**
    * Translated "invalid Brazilian corporate taxpayer registry number (CNPJ)".
@@ -296,7 +305,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid Brazilian corporate taxpayer registry number (CNPJ)")
   @Key("org.hibernate.validator.constraints.br.CNPJ.message")
-  String org_hibernate_validator_constraints_br_CNPJ_message(); // NOPMD
+  String org_hibernate_validator_constraints_br_CNPJ_message();
 
   /**
    * Translated "invalid Brazilian individual taxpayer registry number (CPF)".
@@ -305,7 +314,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid Brazilian individual taxpayer registry number (CPF)")
   @Key("org.hibernate.validator.constraints.br.CPF.message")
-  String org_hibernate_validator_constraints_br_CPF_message(); // NOPMD
+  String org_hibernate_validator_constraints_br_CPF_message();
 
   /**
    * Translated "invalid Brazilian Voter ID card number".
@@ -314,7 +323,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("invalid Brazilian Voter ID card number")
   @Key("org.hibernate.validator.constraints.br.TituloEleitoral.message")
-  String org_hibernate_validator_constraints_br_TituloEleitoral_message(); // NOPMD
+  String org_hibernate_validator_constraints_br_TituloEleitoral_message();
 
   /**
    * Translated "Invalid Polish Taxpayer Identification Number (REGON)".
@@ -323,7 +332,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("Invalid Polish Taxpayer Identification Number (REGON)")
   @Key("org.hibernate.validator.constraints.pl.REGON.message")
-  String org_hibernate_validator_constraints_pl_REGON_message(); // NOPMD
+  String org_hibernate_validator_constraints_pl_REGON_message();
 
   /**
    * Translated "Invalid VAT Identification Number (NIP)".
@@ -332,7 +341,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("Invalid VAT Identification Number (NIP)")
   @Key("org.hibernate.validator.constraints.pl.NIP.message")
-  String org_hibernate_validator_constraints_pl_NIP_message(); // NOPMD
+  String org_hibernate_validator_constraints_pl_NIP_message();
 
   /**
    * Translated "Invalid Polish National Identification Number (PESEL)".
@@ -341,7 +350,7 @@ public interface ValidationMessages extends ConstantsWithLookup {
    */
   @DefaultStringValue("Invalid Polish National Identification Number (PESEL)")
   @Key("org.hibernate.validator.constraints.pl.PESEL.message")
-  String org_hibernate_validator_constraints_pl_PESEL_message(); // NOPMD
+  String org_hibernate_validator_constraints_pl_PESEL_message();
 
   /**
    * message used for age limit check.

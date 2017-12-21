@@ -49,7 +49,7 @@ public final class DomainNameUtil {
   private static final String CASE_INSENSITIVE = "i";
 
   /**
-   * Regular expression for the domain part of an URL
+   * Regular expression for the domain part of an URL.
    * <p>
    * A host string must be a domain string, an IPv4 address string, or "[", followed by an IPv6
    * address string, followed by "]".

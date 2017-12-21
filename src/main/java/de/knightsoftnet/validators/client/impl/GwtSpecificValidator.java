@@ -70,6 +70,8 @@ public interface GwtSpecificValidator<G> {
       String propertyName, Object value, Set<ConstraintViolation<T>> violations, Group... groups);
 
   /**
+   * Getter for bean metadata.
+   * 
    * @return The metadata for the bean class associated with this valdiator.
    */
   BeanMetadata getBeanMetadata();

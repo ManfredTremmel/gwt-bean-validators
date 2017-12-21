@@ -13,16 +13,26 @@
  * the License.
  */
 
-package org.hibernate.validator.engine;
+package de.knightsoftnet.validators.shared.beans;
 
-/**
- * Dummy to fix compile problems as long validation-api 1.0 implementation is part of gwt.
- *
- * @author Manfred Tremmel
- *
- */
-public class PathImpl extends org.hibernate.validator.internal.engine.path.PathImpl {
+import org.hibernate.validator.constraints.ISBN;
 
-  private static final long serialVersionUID = -8785765771050764924L;
+public class HibernateIsbn10TestBean {
 
+  @ISBN(type = ISBN.Type.ISBN_10)
+  private final String isbn;
+
+  public HibernateIsbn10TestBean(final String pisbn) {
+    super();
+    this.isbn = pisbn;
+  }
+
+  public String getIsbn() {
+    return this.isbn;
+  }
+
+  @Override
+  public String toString() {
+    return "HibernateIsbn10TestBean [isbn=" + this.isbn + "]";
+  }
 }
