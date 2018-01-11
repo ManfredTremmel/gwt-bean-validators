@@ -21,6 +21,8 @@
   <!-- I18N support is required for localized validation messages. -->
   <inherits name='com.google.gwt.i18n.I18N'/>
 
+  <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
+
   <!-- Specify the app entry point class, in this case a dummy class. -->
   <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidators' />
 
