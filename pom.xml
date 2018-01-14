@@ -20,9 +20,10 @@
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
-     The GWT Bean Validators is a collection of JSR-303/JSR-349 bean validators. It can be used on server
-     and with the help of GWT even on client side. It also contains a lot of improvements in the
-     validation handling in GWT, in displaying validation errors and in input handling.
+     The GWT Bean Validators is a collection of JSR-303/JSR-349/JSR 380 bean validators. It can
+     be used on server and with the help of GWT even on client side. It also contains a lot of
+     improvements in the validation handling in GWT, in displaying validation errors and in
+     input handling.
     </description>
 	<url>https://github.com/ManfredTremmel/gwt-bean-validators</url>
 

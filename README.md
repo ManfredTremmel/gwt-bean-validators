@@ -112,7 +112,7 @@ GWT Integration
 
 The basics of Bean Validation in GWT you can find on the [GWT-Project Page](http://www.gwtproject.org/doc/latest/DevGuideValidation.html), the gwt-bean-validators implementation works nearly the same, just replace all `com.google.gwt.validation` classes with `de.knightsoftnet.validators` version (in existing projects you can search and replace it in the complete project). All depending libs are provided by maven (if you use it) and a message resolver with localized texts ([English](https://github.com/ManfredTremmel/mt-bean-validators/blob/master/src/main/resources/de/knightsoftnet/validators/client/ValidationMessages.properties) and [German](https://github.com/ManfredTremmel/mt-bean-validators/blob/master/src/main/resources/de/knightsoftnet/validators/client/ValidationMessages_de.properties) at the moment, more translations are welcome, just translate the property file) is already activated, but you can override it in your project .gwt.xml file.
 
-What you still have to do, inherit GwtBeanValidators into your project .gwt.xml file and remove (if exists) the inherits entries for `org.hibernate.validator.NewHibernateValidator`, `javax.validation.Validation` and `com.google.gwt.validation.Validation`, they all conflict with the gwt-bean-validators validation implementation:
+What you still have to do, inherit GwtBeanValidators into your project .gwt.xml file and remove (if exists) the inherits entries for `org.hibernate.validator.validator.NewHibernateValidator`, `javax.validation.Validation` and `com.google.gwt.validation.Validation`, they all conflict with the gwt-bean-validators validation implementation:
 
 ```
 <inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
