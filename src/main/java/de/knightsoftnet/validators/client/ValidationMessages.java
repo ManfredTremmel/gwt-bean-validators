@@ -146,6 +146,24 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String javax_validation_constraints_Size_message();
 
   /**
+   * Translated "must not be empty".
+   *
+   * @return translated "must not be empty"
+   */
+  @DefaultStringValue("must not be empty")
+  @Key("javax.validation.constraints.NotBlank.message")
+  String javax_validation_constraints_NotBlank_message();
+
+  /**
+   * Translated "must not be empty".
+   *
+   * @return translated "must not be empty"
+   */
+  @DefaultStringValue("must not be empty")
+  @Key("javax.validation.constraints.NotEmpty.message")
+  String javax_validation_constraints_NotEmpty_message();
+
+  /**
    * Translated "invalid credit card number".
    *
    * @return translated "invalid credit card number"
@@ -236,22 +254,22 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String org_hibernate_validator_constraints_ModCheck_message();
 
   /**
-   * Translated "must not be empty".
+   * Translated "may not be empty".
    *
-   * @return translated "must not be empty"
+   * @return translated "may not be empty"
    */
-  @DefaultStringValue("must not be empty")
-  @Key("javax.validation.constraints.NotBlank.message")
-  String javax_validation_constraints_NotBlank_message();
+  @DefaultStringValue("may not be empty")
+  @Key("org.hibernate.validator.constraints.NotBlank.message")
+  String org_hibernate_validator_constraints_NotBlank_message();
 
   /**
-   * Translated "must not be empty".
+   * Translated "may not be empty".
    *
-   * @return translated "must not be empty"
+   * @return translated "may not be empty"
    */
-  @DefaultStringValue("must not be empty")
-  @Key("javax.validation.constraints.NotEmpty.message")
-  String javax_validation_constraints_NotEmpty_message();
+  @DefaultStringValue("may not be empty")
+  @Key("org.hibernate.validator.constraints.NotEmpty.message")
+  String org_hibernate_validator_constraints_NotEmpty_message();
 
   /**
    * Translated "script expression "{script}" didn't evaluate to true".
