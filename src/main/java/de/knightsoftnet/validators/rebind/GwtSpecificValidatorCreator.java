@@ -1607,12 +1607,12 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private void writeValidateIterable(final SourceWriter sw,
-      final PropertyDescriptor ppropertyDescription) {
+      final PropertyDescriptor ppropertyDescription, final BeanHelper pbeanHelper) {
     // int i = 0;
     sw.println("int i = 0;");
 
     // for (Object instance : value) {
-    sw.println("for(Object instance : value) {");
+    sw.println("for(final " + pbeanHelper.getTypeCanonicalName() + " instance : value) {");
     sw.indent();
 
     // if(instance != null && !context.alreadyValidated(instance)) {
@@ -1625,7 +1625,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
 
     // context.getValidator().validate(
-    sw.println("context.getValidator().validate(");
+    sw.println(pbeanHelper.getValidatorInstanceName() + ".validate(");
     sw.indent();
     sw.indent();
 
@@ -1643,7 +1643,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     }
 
     // instance, groups));
-    sw.println("instance, groups));");
+    sw.println(" (" + pbeanHelper.getTypeCanonicalName() + ") instance, groups));");
     sw.outdent();
     sw.outdent();
     sw.outdent();
@@ -1662,7 +1662,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private void writeValidateMap(final SourceWriter sw,
-      final PropertyDescriptor ppropertyDescription) {
+      final PropertyDescriptor ppropertyDescription, final BeanHelper pbeanHelper) {
     // for (Entry<?, Type> entry : value.entrySet()) {
     sw.print("for(");
     sw.print(Entry.class.getCanonicalName());
@@ -1680,7 +1680,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
 
     // context.getValidator().validate(
-    sw.println("context.getValidator().validate(");
+    sw.println(pbeanHelper.getValidatorInstanceName() + ".validate(");
     sw.indent();
     sw.indent();
 
@@ -1690,7 +1690,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.println("\",entry.getKey()),");
 
     // entry.getValue(), groups));
-    sw.println("entry.getValue(), groups));");
+    sw.println(" (" + pbeanHelper.getTypeCanonicalName() + ") entry.getValue(), groups));");
     sw.outdent();
     sw.outdent();
     sw.outdent();
@@ -1917,14 +1917,14 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         if (isIterableOrMap(elementClass)) {
           final JClassType associationType =
               this.beanHelper.getAssociationType(ppropertyDescription, useField);
-          this.createBeanHelper(associationType);
+          final BeanHelper beanHelper = this.createBeanHelper(associationType);
           if (Map.class.isAssignableFrom(elementClass)) {
-            this.writeValidateMap(sw, ppropertyDescription);
+            this.writeValidateMap(sw, ppropertyDescription, beanHelper);
           } else {
-            this.writeValidateIterable(sw, ppropertyDescription);
+            this.writeValidateIterable(sw, ppropertyDescription, beanHelper);
           }
         } else {
-          this.createBeanHelper(elementClass);
+          final BeanHelper beanHelper = this.createBeanHelper(elementClass);
 
           // if (!context.alreadyValidated(value)) {
           sw.println(" if (!context.alreadyValidated(value)) {");
@@ -1933,7 +1933,8 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
           // violations.addAll(myContext.getValidator().validate(context, value,
           // groups));
           sw.print("violations.addAll(");
-          sw.println("myContext.getValidator().validate(myContext, value, groups));");
+          sw.println(beanHelper.getValidatorInstanceName() + ".validate(myContext, ("
+              + beanHelper.getTypeCanonicalName() + ") value, groups));");
 
           // }
           sw.outdent();
@@ -2039,7 +2040,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   /**
    * write validator call.
-   * 
+   *
    * @param ppropertyDescription Only used if writing a call to validate a property - otherwise can
    *        be null.
    * @param expandDefaultGroupSequence Only used if writing a call to validate a bean.
