@@ -235,7 +235,7 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("checkNotNull(groups, \"groups\");");
     sw.println("checkGroups(groups);");
 
-    for (final BeanHelper bean : this.cache.getAllBeans()) {
+    for (final BeanHelper bean : this.beansToValidate) {
       this.writeGwtValidate(sw, bean);
     }
 

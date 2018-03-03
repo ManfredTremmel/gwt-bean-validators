@@ -19,6 +19,7 @@ import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
 import de.knightsoftnet.validators.client.editor.CheckTimeEnum;
 import de.knightsoftnet.validators.client.event.FormSubmitEvent;
 import de.knightsoftnet.validators.client.event.FormSubmitHandler;
+import de.knightsoftnet.validators.client.impl.AbstractGwtValidator;
 import de.knightsoftnet.validators.client.impl.Validation;
 
 import com.google.gwt.editor.client.Editor;
@@ -36,7 +37,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -89,7 +91,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   /**
    * validation groups to limit validation.
    */
-  private Class<?>[] validationGroups;
+  protected Class<?>[] validationGroups;
 
   /**
    * handler which commits when return is pressed.
@@ -131,6 +133,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
         AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
       }
     };
+    this.setValidationGroups();
   }
 
   @Override
@@ -168,14 +171,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
     boolean valid = false;
     final T object = this.flush();
     if (!this.hasErrors()) {
-      final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-      final Set<ConstraintViolation<T>> violations;
-      if (this.validationGroups == null) {
-        violations = validator.validate(object);
-      } else {
-        violations = validator.validate(object, this.validationGroups);
-      }
-      this.setConstraintViolations(new ArrayList<ConstraintViolation<?>>(violations));
+      this.setConstraintViolations(this.validateContent(object));
       valid = !this.hasErrors();
     }
     if (this.submitButton instanceof HasEnabled && this.checkTime != CheckTimeEnum.ON_SUBMIT) {
@@ -184,6 +180,20 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
     }
     return valid;
   }
+
+  protected Set<ConstraintViolation<?>> validateContent(final T pobject) {
+    final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    final Set<ConstraintViolation<T>> validationResult =
+        this.validateContent(pobject, (AbstractGwtValidator) validator);
+    return new HashSet<>(validationResult == null ? Collections.emptySet() : validationResult);
+  }
+
+  // protected Set<ConstraintViolation<T>> validateContent(final T pobject,
+  // final AbstractGwtValidator pvalidator) throws IllegalArgumentException {
+  // return pvalidator.validateInternal(pobject, this.validationGroups);
+  // }
+  protected abstract Set<ConstraintViolation<T>> validateContent(final T pobject,
+      final AbstractGwtValidator pvalidator) throws IllegalArgumentException;
 
   @Override
   public final HandlerRegistration addFormSubmitHandler(final FormSubmitHandler<T> phandler) {

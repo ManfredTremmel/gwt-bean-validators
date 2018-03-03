@@ -55,7 +55,7 @@ public abstract class AbstractGwtValidator implements Validator {
 
   /**
    * constructor.
-   * 
+   *
    * @param validationGroupsMetadata Validation group metadata.
    */
   public AbstractGwtValidator(final ValidationGroupsMetadata validationGroupsMetadata) {
@@ -113,11 +113,11 @@ public abstract class AbstractGwtValidator implements Validator {
     return this.contraintValidatorFactory;
   }
 
-  protected MessageInterpolator getMessageInterpolator() {
+  public MessageInterpolator getMessageInterpolator() {
     return this.messageInterpolator;
   }
 
-  protected TraversableResolver getTraversableResolver() {
+  public TraversableResolver getTraversableResolver() {
     return this.traversableResolver;
   }
 
