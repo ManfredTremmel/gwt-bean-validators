@@ -155,8 +155,8 @@ public class BeanHelperCache { // public for testing
 
   /**
    * Write an Empty Interface implementing
-   * {@link de.knightsoftnet.validators.client.impl.GwtSpecificValidator} with Generic parameter of
-   * the bean type.
+   * {@link de.knightsoftnet.validators.client.impl.AbstractGwtSpecificValidator} with Generic
+   * parameter of the bean type.
    */
   private void writeInterface(final GeneratorContext context, final TreeLogger logger,
       final BeanHelper bean) {

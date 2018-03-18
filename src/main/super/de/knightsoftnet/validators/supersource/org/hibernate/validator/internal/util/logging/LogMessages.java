@@ -644,6 +644,9 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
 
   @DefaultMessage("Unable to convert the Type {0} to a Class.")
   String getUnableToConvertTypeToClassException(String type);
+
+  @DefaultMessage("Constraint validator payload set to {0}.")
+  String logConstraintValidatorPayload(Object payload);
 }
 
 

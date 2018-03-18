@@ -41,9 +41,7 @@ public final class ValidatorGenerator extends Generator {
    * constructor called by the compiler via reflection.
    */
   public ValidatorGenerator() {
-    super();
-    this.cache = new BeanHelperCache();
-    this.validGroups = new Class<?>[] {};
+    this(new BeanHelperCache(), new Class<?>[] {});
   }
 
   /**
@@ -101,12 +99,6 @@ public final class ValidatorGenerator extends Generator {
     if (gwtValidation == null) {
       logger.log(TreeLogger.ERROR,
           typeName + " must be anntotated with " + GwtValidation.class.getCanonicalName(), null);
-      throw new UnableToCompleteException();
-    }
-
-    if (gwtValidation.value().length == 0) {
-      logger.log(TreeLogger.ERROR, "The @" + GwtValidation.class.getSimpleName() + "  of "
-          + typeName + "must specify at least one bean type to validate.", null);
       throw new UnableToCompleteException();
     }
 

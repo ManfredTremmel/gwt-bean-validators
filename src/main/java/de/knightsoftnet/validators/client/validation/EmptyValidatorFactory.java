@@ -13,27 +13,33 @@
  * the License.
  */
 
-package de.knightsoftnet.validators.client;
+package de.knightsoftnet.validators.client.validation;
+
+import de.knightsoftnet.validators.client.AbstractGwtValidatorFactory;
+import de.knightsoftnet.validators.client.GwtValidation;
+import de.knightsoftnet.validators.client.impl.AbstractGwtValidator;
+
+import com.google.gwt.core.shared.GWT;
+
+import javax.validation.Validator;
 
 /**
- * abstract getter reflector interface.
+ * The <code>EmptyValidatorFactory</code> class can be used when no groups are used and all
+ * validation is done by BeanValidatonEditorDriver.
  *
  * @author Manfred Tremmel
  */
-public interface GwtReflectGetterFactoryInterface {
+public class EmptyValidatorFactory extends AbstractGwtValidatorFactory {
 
   /**
-   * create a gwt reflect getter implementation.
-   *
-   * @return gwt reflect getter
+   * Validator without entries.
    */
-  GwtReflectGetterInterface createGwtReflectGetter();
+  @GwtValidation(value = {})
+  public interface GwtValidator extends Validator {
+  }
 
-  /**
-   * get gwt reflect getter implementation, it's reused if you call it more then once.
-   *
-   * @return gwt reflect getter
-   */
-  GwtReflectGetterInterface getGwtReflectGetter();
-
+  @Override
+  public final AbstractGwtValidator createValidator() {
+    return GWT.create(GwtValidator.class);
+  }
 }

@@ -130,4 +130,16 @@ public abstract class AbstractGwtValidator implements Validator {
     // TODO Auto-generated method stub
     return null;
   }
+
+  /**
+   * reflection replacement to get property of an object.
+   * 
+   * @param object object to get property from
+   * @param propertyName property name
+   * @return object value
+   * @throws NoSuchMethodException if there is no getter for this property name
+   * @throws ReflectiveOperationException if no reflection for this class is available
+   */
+  public abstract Object getProperty(final Object object, final String propertyName)
+      throws NoSuchMethodException, ReflectiveOperationException;
 }

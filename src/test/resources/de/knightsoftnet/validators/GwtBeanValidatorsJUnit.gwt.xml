@@ -17,12 +17,6 @@
     <when-type-is class="javax.validation.ValidatorFactory" />
   </replace-with>
 
-  <!-- our own reflection factory implementation with @GwtValidation entries for each bean we
-       need getter access by reflection -->
-  <replace-with class="de.knightsoftnet.validators.client.factories.ReflectGetterFactory">
-    <when-type-is class="de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface" />
-  </replace-with>
-
   <!-- Specify the paths for translatable code -->
   <source path='client' />
   <source path='shared' />

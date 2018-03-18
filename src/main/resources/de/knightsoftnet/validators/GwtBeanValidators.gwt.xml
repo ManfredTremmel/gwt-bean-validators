@@ -36,15 +36,15 @@
     <when-type-is class="de.knightsoftnet.validators.server.data.BicMapGenerator" />
   </replace-with>
 
-  <!-- reflection replacement to get properties from validated beans by name. -->
-  <generate-with class="de.knightsoftnet.validators.rebind.GwtReflectGetterGenerator">
-    <when-type-assignable class="de.knightsoftnet.validators.client.GwtReflectGetterInterface" />
-  </generate-with>
-
   <!-- validation editor driver. -->
   <generate-with class="de.knightsoftnet.validators.rebind.BeanValidationEditorDriverGenerator">
     <when-type-assignable class="de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver" />
   </generate-with>
+
+  <!-- empty validator factory, redefine, if you need your own -->
+  <replace-with class="de.knightsoftnet.validators.client.validation.EmptyValidatorFactory">
+    <when-type-is class="javax.validation.ValidatorFactory" />
+  </replace-with>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />

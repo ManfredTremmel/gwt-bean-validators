@@ -15,14 +15,14 @@
 
 package org.apache.commons.beanutils;
 
-import de.knightsoftnet.validators.client.GwtReflectGetterFactoryInterface;
-import de.knightsoftnet.validators.client.GwtReflectGetterInterface;
+import de.knightsoftnet.validators.client.impl.AbstractGwtValidator;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.core.shared.GwtIncompatible;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+
+import javax.validation.Validation;
 
 /**
  * client side replacement of PropertyUtils (poor man edition), it only implements getProperty.
@@ -62,21 +62,19 @@ public class PropertyUtils {
       throw new NoSuchMethodException("No method to get property for null");
     }
 
-    final GwtReflectGetterFactoryInterface reflectGetterFactory =
-        GWT.create(GwtReflectGetterFactoryInterface.class);
-    final GwtReflectGetterInterface reflectGetter = reflectGetterFactory.getGwtReflectGetter();
-
     final int posPoint = pname.indexOf('.');
     try {
+      final AbstractGwtValidator validator =
+          (AbstractGwtValidator) Validation.buildDefaultValidatorFactory().getValidator();
       if (posPoint >= 0) {
-        final Object subObject = reflectGetter.getProperty(pbean, pname.substring(0, posPoint));
+        final Object subObject = validator.getProperty(pbean, pname.substring(0, posPoint));
         if (subObject == null) {
           throw new NestedNullException(
               "Null property value for '" + pname + "' on bean class '" + pbean.getClass() + "'");
         }
         return getProperty(subObject, pname.substring(posPoint + 1));
       }
-      return reflectGetter.getProperty(pbean, pname);
+      return validator.getProperty(pbean, pname);
     } catch (final ReflectiveOperationException e) {
       throw new InvocationTargetException(e);
     }
@@ -99,8 +97,6 @@ public class PropertyUtils {
    */
   @GwtIncompatible("incompatible method")
   public static PropertyDescriptor[] getPropertyDescriptors(final Class<?> beanClass) {
-
     return PropertyUtilsBean.getInstance().getPropertyDescriptors(beanClass);
-
   }
 }

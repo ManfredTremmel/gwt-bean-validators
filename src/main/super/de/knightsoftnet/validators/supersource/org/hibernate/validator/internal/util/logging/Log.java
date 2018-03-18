@@ -1029,6 +1029,10 @@ public class Log {
         MESSAGE.getUnableToConvertTypeToClassException(Objects.toString(type)));
   }
 
+  public void logConstraintValidatorPayload(final Object type) {
+    MESSAGE.logConstraintValidatorPayload(type);
+  }
+
   public void debugf(final String pstring, final Object pdescriptor) {
     GWT.log(StringUtils.replace(pstring, "%s", Objects.toString(pdescriptor)));
   }

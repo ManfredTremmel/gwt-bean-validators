@@ -31,6 +31,8 @@ import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
 
+import org.apache.commons.beanutils.PropertyUtils;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -96,6 +98,8 @@ public final class ValidatorCreator extends AbstractCreator {
     this.writeGetConstraintsForClass(sourceWriter);
     sourceWriter.println();
     this.writeGwtValidate(sourceWriter);
+    sourceWriter.println();
+    this.writeGetProperty(sourceWriter);
   }
 
   private void writeConstructor(final SourceWriter sw) {
@@ -127,8 +131,8 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println(objectName + ", ");
 
     // MyBeanValidator.INSTANCE.getConstraints(getValidationGroupsMetadata()),
-    sw.print(bean.getFullyQualifiedValidatorName());
-    sw.println(".INSTANCE.getConstraints(getValidationGroupsMetadata()), ");
+    sw.print(bean.getValidatorInstanceName());
+    sw.println(".getConstraints(getValidationGroupsMetadata()), ");
 
     // getMessageInterpolator(),
     sw.println("getMessageInterpolator(), ");
@@ -210,8 +214,8 @@ public final class ValidatorCreator extends AbstractCreator {
 
     // return MyBeanValidator.INSTANCE.getConstraints(getValidationGroupsMetadata());
     sw.print("return ");
-    sw.print(bean.getFullyQualifiedValidatorName());
-    sw.println(".INSTANCE.getConstraints(getValidationGroupsMetadata());");
+    sw.print(bean.getValidatorInstanceName());
+    sw.println(".getConstraints(getValidationGroupsMetadata());");
 
     // }
     sw.outdent();
@@ -253,7 +257,7 @@ public final class ValidatorCreator extends AbstractCreator {
     // return PersonValidator.INSTANCE
 
     sw.print("return ");
-    sw.println(bean.getFullyQualifiedValidatorName() + ".INSTANCE");
+    sw.println(bean.getValidatorInstanceName());
     sw.indent();
     sw.indent();
     // .validate(context, (<<MyBean>>) object, groups);
@@ -324,7 +328,7 @@ public final class ValidatorCreator extends AbstractCreator {
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
-    sw.println(bean.getFullyQualifiedValidatorName() + ".INSTANCE");
+    sw.println(bean.getValidatorInstanceName());
     sw.indent();
     sw.indent();
 
@@ -367,7 +371,7 @@ public final class ValidatorCreator extends AbstractCreator {
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
-    sw.println(bean.getFullyQualifiedValidatorName() + ".INSTANCE");
+    sw.println(bean.getValidatorInstanceName());
     sw.indent();
     sw.indent();
 
@@ -411,7 +415,7 @@ public final class ValidatorCreator extends AbstractCreator {
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
-    sw.println(bean.getFullyQualifiedValidatorName() + ".INSTANCE");
+    sw.println(bean.getValidatorInstanceName());
     sw.indent();
     sw.indent();
 
@@ -422,6 +426,72 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println(">)beanType, propertyName, value, groups);");
     sw.outdent();
     sw.outdent();
+
+    // }
+    sw.outdent();
+    sw.println("}");
+  }
+
+  private void writeGetProperty(final SourceWriter sw) {
+    // public Object getProperty(final Object object, final String propertyName)
+    // throws NoSuchMethodException, ReflectiveOperationException {
+    sw.println("public Object getProperty(final Object object, final String propertyName) ");
+    sw.indent();
+    sw.indent();
+    sw.println("throws NoSuchMethodException, ReflectiveOperationException {");
+    sw.outdent();
+
+    for (final BeanHelper bean : this.cache.getAllBeans()) {
+      this.writeGetProperty(sw, bean);
+    }
+
+    sw.println("throw new ReflectiveOperationException(\"Class \" + object.getClass().getName() "
+        + "+ \" is not reflected\");");
+
+    sw.outdent();
+    sw.println("}");
+  }
+
+  private void writeGetProperty(final SourceWriter sw, final BeanHelper bean) {
+    // if (object.getClass() == class) {
+    sw.print("if (object.getClass() == ");
+    sw.print(bean.getTypeCanonicalName());
+    sw.println(".class) {");
+    sw.indent();
+
+    // switch (propertyName) {
+    sw.println("switch (propertyName) {");
+    sw.indent();
+
+    for (final java.beans.PropertyDescriptor property : PropertyUtils
+        .getPropertyDescriptors(bean.getClazz())) {
+      // case "myPropety": {
+      sw.print("case \"");
+      sw.print(property.getName());
+      sw.println("\":");
+      sw.indent();
+
+      // return object.getter();
+      sw.print("return ((");
+      sw.print(bean.getTypeCanonicalName());
+      sw.print(") object).");
+      sw.print(property.getReadMethod().getName());
+      sw.println("();");
+
+      sw.outdent();
+    }
+    // default:
+    sw.println("default:");
+    sw.indent();
+    // throw new NoSuchMethodException("Class BeanType has no getter for porperty " + propertyName);
+    sw.print("throw new NoSuchMethodException(\"");
+    sw.print(bean.getTypeCanonicalName());
+    sw.println(" has no getter for porperty \" + propertyName);");
+    sw.outdent();
+
+    // }
+    sw.outdent();
+    sw.println("}");
 
     // }
     sw.outdent();

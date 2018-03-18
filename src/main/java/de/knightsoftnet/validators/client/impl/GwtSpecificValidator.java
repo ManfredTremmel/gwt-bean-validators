@@ -71,7 +71,7 @@ public interface GwtSpecificValidator<G> {
 
   /**
    * Getter for bean metadata.
-   * 
+   *
    * @return The metadata for the bean class associated with this valdiator.
    */
   BeanMetadata getBeanMetadata();
