@@ -465,20 +465,22 @@ public final class ValidatorCreator extends AbstractCreator {
 
     for (final java.beans.PropertyDescriptor property : PropertyUtils
         .getPropertyDescriptors(bean.getClazz())) {
-      // case "myPropety": {
-      sw.print("case \"");
-      sw.print(property.getName());
-      sw.println("\":");
-      sw.indent();
+      if (property.getReadMethod() != null) {
+        // case "myPropety": {
+        sw.print("case \"");
+        sw.print(property.getName());
+        sw.println("\":");
+        sw.indent();
 
-      // return object.getter();
-      sw.print("return ((");
-      sw.print(bean.getTypeCanonicalName());
-      sw.print(") object).");
-      sw.print(property.getReadMethod().getName());
-      sw.println("();");
+        // return object.getter();
+        sw.print("return ((");
+        sw.print(bean.getTypeCanonicalName());
+        sw.print(") object).");
+        sw.print(property.getReadMethod().getName());
+        sw.println("();");
 
-      sw.outdent();
+        sw.outdent();
+      }
     }
     // default:
     sw.println("default:");
