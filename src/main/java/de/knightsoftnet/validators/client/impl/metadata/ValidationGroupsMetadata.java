@@ -51,6 +51,7 @@ public class ValidationGroupsMetadata {
      * @param group The validation group to add.
      * @param parents A list of validation groups which {@code group} extends. Can be empty if the
      *        group contains no parents.
+     * @return Builder
      */
     public Builder addGroup(final Class<?> group, final Class<?>... parents) {
       this.inheritanceinheritanceMap.put(group, new HashSet<>(Arrays.asList(parents)));
@@ -62,6 +63,7 @@ public class ValidationGroupsMetadata {
      *
      * @param groupSequence The class representing the sequence (annotated with &#064;GroupSequence)
      * @param sequenceGroups The groups in the sequence.
+     * @return Builder
      */
     public Builder addSequence(final Class<?> groupSequence, final Class<?>... sequenceGroups) {
       this.sequenceMap.put(groupSequence, Arrays.asList(sequenceGroups));
@@ -76,6 +78,8 @@ public class ValidationGroupsMetadata {
 
   /**
    * Creates a builder populated only with the {@link Default} group.
+   *
+   * @return group builder
    */
   public static Builder builder() {
     return new Builder(); // NOPMD
@@ -92,6 +96,9 @@ public class ValidationGroupsMetadata {
 
   /**
    * Checks if a given group has been added to the inheritance map.
+   *
+   * @param group group to check
+   * @return true if group is contained in keys
    */
   public boolean containsGroup(final Class<?> group) {
     return this.inheritanceMapping.containsKey(group);
@@ -150,6 +157,8 @@ public class ValidationGroupsMetadata {
   /**
    * Recursively gets all of the groups and sequence groups in the map (children and parents alike)
    * in one flat set.
+   *
+   * @return set of groups
    */
   public Set<Class<?>> getAllGroupsAndSequences() {
     final Set<Class<?>> allGroups = new HashSet<>();
@@ -163,6 +172,8 @@ public class ValidationGroupsMetadata {
 
   /**
    * Returns all the known group sequence classes.
+   *
+   * @return set of groups
    */
   public Set<Class<?>> getGroupSequences() {
     return this.sequenceMapping.keySet();
@@ -171,6 +182,9 @@ public class ValidationGroupsMetadata {
   /**
    * If the group has been added to the map then its parent groups (of one level above) are
    * retrieved. Otherwise null is returned.
+   *
+   * @param group validation group class
+   * @return set of groups
    *
    * @see #containsGroup(Class)
    * @see #findAllExtendedGroups(Collection)
@@ -181,6 +195,8 @@ public class ValidationGroupsMetadata {
 
   /**
    * Returns all of the groups added to the map (but not their parents).
+   *
+   * @return set of groups
    */
   public Set<Class<?>> getRootGroups() {
     return this.inheritanceMapping.keySet();
@@ -189,6 +205,9 @@ public class ValidationGroupsMetadata {
   /**
    * If the sequence class has been added to the map then the actual sequence list is retrieved.
    * Otherwise null is returned.
+   *
+   * @param sequence class
+   * @return list of classes
    */
   public List<Class<?>> getSequenceList(final Class<?> sequence) {
     return this.sequenceMapping.get(sequence);
@@ -201,6 +220,9 @@ public class ValidationGroupsMetadata {
 
   /**
    * Checks if a group extends other groups (has parents).
+   *
+   * @param group group to check
+   * @return true if group has parents
    */
   public boolean hasParents(final Class<?> group) {
     final Set<Class<?>> possibleParents = this.getParentsOfGroup(group);
@@ -213,6 +235,9 @@ public class ValidationGroupsMetadata {
 
   /**
    * Checks if a given class is a group sequence map.
+   *
+   * @param sequence class to check
+   * @return true if class is a sequence
    */
   public boolean isSeqeuence(final Class<?> sequence) {
     return this.sequenceMapping.containsKey(sequence);

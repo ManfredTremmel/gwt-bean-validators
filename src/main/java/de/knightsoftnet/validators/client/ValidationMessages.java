@@ -63,10 +63,11 @@ public interface ValidationMessages extends ConstantsWithLookup {
   String javax_validation_constraints_DecimalMin_message();
 
   /**
-   * Translated "numeric value out of bounds (<{integer} digits>.<{fraction} digits> expected)".
+   * Translated "numeric value out of bounds (&lt;{integer} digits&gt;.&lt;{fraction} digits&gt;
+   * expected)".
    *
-   * @return translated "numeric value out of bounds (<{integer} digits>.<{fraction} digits>
-   *         expected)"
+   * @return translated "numeric value out of bounds (&lt;{integer} digits&gt;.&lt;{fraction}
+   *         digits&gt; expected)"
    */
   @DefaultStringValue("numeric value out of bounds "
       + "(<{integer} digits>.<{fraction} digits> expected)")

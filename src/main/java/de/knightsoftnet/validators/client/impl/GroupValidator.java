@@ -29,6 +29,12 @@ public interface GroupValidator {
   /**
    * Validates the given group(s) (may not include group sequences) and adds any violations to the
    * set.
+   *
+   * @param <T> the type of the RootBean for this validation context
+   *
+   * @param context validation context
+   * @param violations set of violations
+   * @param groups array of validation groups
    */
   <T> void validateGroups(GwtValidationContext<T> context, //
       Set<ConstraintViolation<T>> violations, Group... groups);

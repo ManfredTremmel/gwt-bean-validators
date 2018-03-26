@@ -48,6 +48,13 @@ public class PropertyDescriptorImpl implements PropertyDescriptor {
 
   /**
    * constructor.
+   *
+   * @param name name of the property
+   * @param elementClass class type
+   * @param cascaded true if should be cascaded
+   * @param parentBeanMetadata meta data of parent bean
+   * @param validationGroupsMetadata meta data of validation groups
+   * @param descriptors array of constraint discriptors
    */
   public PropertyDescriptorImpl(final String name, final Class<?> elementClass,
       final boolean cascaded, final BeanMetadata parentBeanMetadata,

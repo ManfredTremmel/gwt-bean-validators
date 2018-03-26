@@ -111,6 +111,16 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
    * As a side effect {@link ConstraintViolation}s may be added to {@code violations}.
    * </p>
    *
+   * @param context validation context
+   * @param violations set of violations
+   * @param object object
+   * @param value value to validate
+   * @param validator validator to use
+   * @param constraintDescriptor constraint descriptor
+   * @param groups validation groups to take care of
+   * @param <A> the type of the annotation
+   * @param <T> the type of the class to validate
+   * @param <V> the type of the value to validate
    * @return true if there was any constraint violations
    */
   protected <A extends Annotation, T, V> boolean validate(final GwtValidationContext<T> context,

@@ -33,6 +33,7 @@ import javax.validation.spi.ConfigurationState;
  * Abstract {@link ValidatorFactory} that delegates to a GWT generated {@link Validator}.
  * <p>
  * Extend this class create and implement createValidator
+ * </p>
  *
  * <pre>
  * public class MyValidatorFactory extends AbstractGwtValidatorFactory {
@@ -45,15 +46,14 @@ import javax.validation.spi.ConfigurationState;
  *   }
  * }
  * </pre>
- * </p>
  * <p>
  * Then add a line like this to your Gwt Module config (gwt.xml) file.
  * </p>
  *
  * <pre>
- * &lt;replace-with class="com.example.MyValidatorFactory">
- *   &lt;when-type-is class="javax.validation.ValidatorFactory"/>
- * &lt;/replace-with>
+ * &lt;replace-with class="com.example.MyValidatorFactory"&gt;
+ *   &lt;when-type-is class="javax.validation.ValidatorFactory"/&gt;
+ * &lt;/replace-with&gt;
  * </pre>
  */
 public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {

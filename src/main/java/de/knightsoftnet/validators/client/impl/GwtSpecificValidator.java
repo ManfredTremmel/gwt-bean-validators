@@ -34,6 +34,8 @@ public interface GwtSpecificValidator<G> {
    * Helper method used to first expand the Default group sequence and then perform validation of a
    * bean using the specific group(s).
    *
+   * @param <T> the type of the RootBean for this validation context
+   *
    * @param context GWT validation context.
    * @param object Object being validated.
    * @param violations Set of violations to add to.
@@ -45,6 +47,8 @@ public interface GwtSpecificValidator<G> {
   /**
    * Helper method used to first expand the Default group sequence and then perform validation of a
    * bean using the specific group(s).
+   *
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context GWT validation context.
    * @param object Object being validated.
@@ -58,6 +62,8 @@ public interface GwtSpecificValidator<G> {
   /**
    * Helper method used to first expand the Default group sequence and then perform validation of a
    * bean using the specific group(s).
+   *
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context GWT validation context.
    * @param beanType Class being validated.
@@ -112,6 +118,8 @@ public interface GwtSpecificValidator<G> {
    * Helper method used to perform validation of a bean using specific group(s). Does not expand the
    * Default group seqeunce if it is redefined.
    *
+   * @param <T> the type of the RootBean for this validation context
+   *
    * @param context GWT validation context.
    * @param object Object being validated.
    * @param violations Set of violations to add to.
@@ -144,6 +152,8 @@ public interface GwtSpecificValidator<G> {
   /**
    * Helper method used to perform validation of a bean property using specific group(s).
    *
+   * @param <T> the type of the RootBean for this validation context
+   *
    * @param context GWT validation context.
    * @param object Object with property being validated.
    * @param propertyName Name of property to validate.
@@ -156,9 +166,10 @@ public interface GwtSpecificValidator<G> {
   /**
    * Validates all constraints placed on the property named <code>propertyName</code> of the class
    * <code>beanType</code> where the property value is <code>value</code>.
-   * <p/>
+   * <p>
    * <code>ConstraintViolation</code> objects return null for
    * {@link ConstraintViolation#getRootBean()} and {@link ConstraintViolation#getLeafBean()}
+   * </p>
    *
    * @param <T> the type of the RootBean for this validation context
    *
@@ -181,6 +192,8 @@ public interface GwtSpecificValidator<G> {
   /**
    * Helper method used to perform validation of a class property with a specified value using
    * specific group(s).
+   *
+   * @param <T> the type of the RootBean for this validation context
    *
    * @param context GWT validation context.
    * @param beanType Class with property being validated.

@@ -44,7 +44,7 @@ import javax.validation.spi.ValidationProvider;
  * <pre>
  * {
  *   &#64;code
- *   Configuration<?> configuration = Validation.byDefaultProvider().configure();
+ *   Configuration&lt;?&gt; configuration = Validation.byDefaultProvider().configure();
  *   ValidatorFactory factory = configuration.buildValidatorFactory();
  * }
  * </pre>
@@ -120,9 +120,9 @@ public class Validation {
   /**
    * Build and return a <code>ValidatorFactory</code> instance based on the default Bean Validation
    * provider.
-   * <p/>
+   * <p>
    * The provider list is resolved using the default validation provider resolver logic.
-   * <p/>
+   * </p>
    * The code is semantically equivalent to
    * <code>Validation.byDefaultProvider().configure().buildValidatorFactory()</code>
    *
@@ -138,9 +138,7 @@ public class Validation {
    * Build a <code>Configuration</code>.
    *
    * <pre>
-   * Configuration&lt?&gt; configuration = Validation
-   *    .byDefaultProvider()
-   *    .configure();
+   * Configuration&lt;?&gt; configuration = Validation.byDefaultProvider().configure();
    * ValidatorFactory factory = configuration.buildValidatorFactory();
    * </pre>
    *
@@ -158,7 +156,11 @@ public class Validation {
   /**
    * Unsupported. Always throws an {@link UnsupportedOperationException}.
    *
-   * @param providerType
+   * @param <T> configuration type
+   * @param <U> validation provider type
+   *
+   * @param providerType class of the provider type
+   * @return provider specific bootstrap
    *
    * @throws UnsupportedOperationException not supported
    */

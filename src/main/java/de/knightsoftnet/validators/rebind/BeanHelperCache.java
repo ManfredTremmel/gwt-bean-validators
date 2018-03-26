@@ -64,6 +64,12 @@ public class BeanHelperCache { // public for testing
   /**
    * Creates a BeanHelper and writes an interface containing its instance. Also, recursively creates
    * any BeanHelpers on its constrained properties. (Public for testing.)
+   *
+   * @param clazz class type
+   * @param logger tree logger to use
+   * @param context generator context
+   * @return bean helper instance
+   * @throws UnableToCompleteException if generation can not be done
    */
   public BeanHelper createHelper(final Class<?> clazz, final TreeLogger logger,
       final GeneratorContext context) throws UnableToCompleteException {

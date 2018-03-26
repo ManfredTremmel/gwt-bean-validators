@@ -31,7 +31,7 @@ import javax.validation.groups.Default;
  * </p>
  *
  * <pre>
- * &#064;GwtValidation(value = {MyBean.class, MyOther.class}, <br/>
+ * &#064;GwtValidation(value = {MyBean.class, MyOther.class}, <br>
  * groups = {Default.class, OtherGroup.class})
  * public interface MyValidator extends javax.validation.Validator {
  * }
@@ -45,7 +45,7 @@ import javax.validation.groups.Default;
  * MyValidator validator = GWT.create(MyValidator.class);
  * MyBean bean = new MyBean();
  * ...
- * Set&lt;ConstraintViolation&lt;MyBean>> violations = validator.validate(bean);
+ * Set&lt;ConstraintViolation&lt;MyBean&gt;&gt; violations = validator.validate(bean);
  * </pre>
  *
  * <p>
@@ -90,7 +90,7 @@ import javax.validation.groups.Default;
  *
  * <pre>
  * MySubBean bean = new MySubBean();
- * Set&lt;ConstraintViolation&lt;MyBean>> violations = validator.validate(bean);
+ * Set&lt;ConstraintViolation&lt;MyBean&gt;&gt; violations = validator.validate(bean);
  * </pre>
  *
  * <p>
@@ -112,11 +112,22 @@ public @interface GwtValidation {
   /**
    * The list of Groups which can be processed by the annotated {@code Validator}. The default value
    * is {@link Default}. An empty array is illegal.
+   *
+   * @return array of classes
    */
   Class<?>[] groups() default {Default.class};
 
   /**
    * The list of Classes which can be validated by the annotated {@code Validator}.
+   *
+   * @return array of classes
    */
   Class<?>[] value();
+
+  /**
+   * The list of Classes which can be used a reflection getter, if empty all values are taken.
+   *
+   * @return array of classes
+   */
+  Class<?>[] reflect() default {};
 }

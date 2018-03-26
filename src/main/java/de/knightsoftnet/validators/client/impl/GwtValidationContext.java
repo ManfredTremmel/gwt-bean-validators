@@ -86,6 +86,7 @@ public class GwtValidationContext<T> {
   /**
    * Append a node named name to the path..
    *
+   * @param name path name to append
    * @return the new GwtValidationContext.
    */
   public GwtValidationContext<T> append(final String name) {
@@ -100,6 +101,8 @@ public class GwtValidationContext<T> {
   /**
    * Append an indexed node to the path.
    *
+   * @param name path name to append
+   * @param index position where to add the path
    * @return the new GwtValidationContext.
    */
   public GwtValidationContext<T> appendIndex(final String name, final int index) {
@@ -116,6 +119,7 @@ public class GwtValidationContext<T> {
   /**
    * Append an iterable node to the path.
    *
+   * @param name path name to append
    * @return the new GwtValidationContext.
    */
   public GwtValidationContext<T> appendIterable(final String name) {
@@ -131,6 +135,8 @@ public class GwtValidationContext<T> {
   /**
    * Append a keyed node to the path.
    *
+   * @param name path name to append
+   * @param key key of the map
    * @return the new GwtValidationContext.
    */
   public GwtValidationContext<T> appendKey(final String name, final Object key) {
@@ -145,6 +151,9 @@ public class GwtValidationContext<T> {
 
   /**
    * create constraint validator context.
+   *
+   * @param <A> type of the annotation
+   * @param <V> type of object to be validated
    *
    * @param descriptor constraint descriptor
    * @return constraint validator context implementation

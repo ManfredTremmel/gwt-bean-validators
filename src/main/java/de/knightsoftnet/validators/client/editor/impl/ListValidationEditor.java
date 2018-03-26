@@ -121,7 +121,7 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    * </p>
    *
    * <pre>
-   * ListEditor&lt;Foo, MyFooEditor> listEditor = ListEditor.of(...);
+   * ListEditor&lt;Foo, MyFooEditor&gt; listEditor = ListEditor.of(...);
    * listEditor.setValue(listOfFoo); // Usually called by EditorDriver
    * listEditor.getList().set(1, new Foo());
    * listEditor.getEditors().get(1).getFooFieldEditor().setValue(....);

@@ -68,16 +68,20 @@ public class ConstraintViolationImpl_CustomFieldSerializer
 
   /**
    * Only a subset of fields are actually serialized.
-   * <p/>
+   * <p>
    * There is no guarantee that the root bean is GWT-serializable or that it's appropriate for it to
    * be exposed on the client. Even if the root bean could be sent back, the lack of reflection on
    * the client makes it troublesome to interpret the path as a sequence of property accesses.
-   * <p/>
+   * </p>
    * The current implementation is the simplest-to-implement properties.
    * <ol>
    * <li>Message</li>
    * <li>Property Path</li>
    * </ol>
+   *
+   * @param streamWriter serialization stream writer
+   * @param instance constraint violation
+   * @throws SerializationException when serialization fails
    */
   public static void serialize(final SerializationStreamWriter streamWriter,
       final ConstraintViolationImpl instance) throws SerializationException {

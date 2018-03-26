@@ -20,9 +20,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
 /**
  * This is a Decorator which in changes style sheets and shows error messages when validation fails.
  *
- * <p>
  * <h3>Use in UiBinder Templates</h3>
- * </p>
  * <p>
  * The decorator may have exactly one Widget added though an <code>&lt;e:widget&gt;</code> child
  * tag.

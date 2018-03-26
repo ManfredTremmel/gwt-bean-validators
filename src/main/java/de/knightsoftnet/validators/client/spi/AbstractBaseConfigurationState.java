@@ -34,6 +34,11 @@ public abstract class AbstractBaseConfigurationState implements ConfigurationSta
 
   /**
    * constructor.
+   *
+   * @param constraintValidatorFactory constraint validator factory
+   * @param messageInterpolator message interpolator
+   * @param properties map with properties
+   * @param traversableResolver traversable resolver
    */
   public AbstractBaseConfigurationState(final ConstraintValidatorFactory constraintValidatorFactory,
       final MessageInterpolator messageInterpolator, final Map<String, String> properties,

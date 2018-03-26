@@ -86,6 +86,7 @@ public class ValidationException extends Exception implements Serializable {
   /**
    * get validation error set.
    *
+   * @param pclass class to get data from
    * @return the validationErrorSet
    */
   @SuppressWarnings({"unchecked"})

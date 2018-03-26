@@ -130,7 +130,8 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
    * Supports all types that {@link Annotation} value can have.
    * </p>
    *
-   *
+   * @param value the object to handle
+   * @return string of the literal
    * @throws IllegalArgumentException if the type of the object does not have a java literal form.
    */
   public static String asLiteral(final Object value) throws IllegalArgumentException {
@@ -326,6 +327,14 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   /**
    * constructor.
+   *
+   * @param validatorType jclass type of the validator
+   * @param beanType jclass type of the bean
+   * @param beanHelper bean helper
+   * @param logger tree logger
+   * @param context generator context
+   * @param cache bean helper cache
+   * @param validGroupsFromAnnotation arrray of validation groups
    */
   public GwtSpecificValidatorCreator(final JClassType validatorType, final JClassType beanType,
       final BeanHelper beanHelper, final TreeLogger logger, final GeneratorContext context,

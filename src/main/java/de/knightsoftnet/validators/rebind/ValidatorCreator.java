@@ -57,6 +57,13 @@ public final class ValidatorCreator extends AbstractCreator {
 
   /**
    * constructor.
+   *
+   * @param validatorType jclass type of the validator
+   * @param gwtValidation gwt specific validator
+   * @param logger tree logger
+   * @param context generator context
+   * @param cache bean helper cache
+   * @throws UnableToCompleteException when cration can not be finishe
    */
   public ValidatorCreator(final JClassType validatorType, //
       final GwtValidation gwtValidation, //
@@ -441,8 +448,19 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("throws NoSuchMethodException, ReflectiveOperationException {");
     sw.outdent();
 
-    for (final BeanHelper bean : this.cache.getAllBeans()) {
-      this.writeGetProperty(sw, bean);
+    if (this.gwtValidation.reflect().length == 0) {
+      for (final BeanHelper bean : this.cache.getAllBeans()) {
+        this.writeGetProperty(sw, bean);
+      }
+    } else {
+      for (final Class<?> clazz : this.gwtValidation.reflect()) {
+        try {
+          final BeanHelper helper = this.createBeanHelper(clazz);
+          this.writeGetProperty(sw, helper);
+        } catch (final UnableToCompleteException e) {
+          e.printStackTrace();
+        }
+      }
     }
 
     sw.println("throw new ReflectiveOperationException(\"Class \" + object.getClass().getName() "
