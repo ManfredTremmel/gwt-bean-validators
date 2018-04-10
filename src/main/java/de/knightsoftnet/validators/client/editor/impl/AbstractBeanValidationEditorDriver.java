@@ -116,6 +116,7 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   /**
    * default constructor.
    */
+  @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
   public AbstractBeanValidationEditorDriver() {
     super();
     this.commitOnReturnHandler = pevent -> {
