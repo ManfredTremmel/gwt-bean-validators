@@ -2,6 +2,7 @@
 /.settings/
 /.classpath
 /.project
+/.checkstyle
 /*.log*
 /war/
 /www-test/
@@ -9,3 +10,4 @@
 /.gwt/
 .idea/*
 *.iml
+/.fbExcludeFilterFile

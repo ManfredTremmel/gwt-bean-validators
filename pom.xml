@@ -16,7 +16,7 @@
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
-	<version>0.53.2</version>
+	<version>0.53.3</version>
 	<name>GWT Bean Validators</name>
 	<inceptionYear>2015</inceptionYear>
 	<description>
@@ -95,12 +95,12 @@
 		<gwt.version>2.8.2</gwt.version>
 <!-- 		<gwt-maven-plugin.version>1.0-rc-8</gwt-maven-plugin.version> -->
 		<validation-api.version>2.0.1.Final</validation-api.version>
-		<hibernate-validator.version>6.0.8.Final</hibernate-validator.version>
+		<hibernate-validator.version>6.0.9.Final</hibernate-validator.version>
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<gwt-commons-lang3.version>3.7-0</gwt-commons-lang3.version>
 		<gwt-commons-validator.version>1.6-0</gwt-commons-validator.version>
-		<mt-bean-validators.version>0.53.2</mt-bean-validators.version>
+		<mt-bean-validators.version>0.53.3</mt-bean-validators.version>
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
@@ -108,7 +108,7 @@
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
 		<maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
 		<maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-		<checkstyle.version>8.8</checkstyle.version>
+		<checkstyle.version>8.9</checkstyle.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
@@ -376,6 +376,15 @@
 					<configLocation>checkstyle.xml</configLocation>
 					<encoding>UTF-8</encoding>
 				</configuration>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -386,6 +395,15 @@
 						<ruleset>.ruleset</ruleset>
 					</rulesets>
 				</configuration>
+				<executions>
+					<execution>
+						<id>analyze-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -394,6 +412,15 @@
 				<configuration>
 					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
 				</configuration>
+				<executions>
+					<execution>
+						<id>findbugs-check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- must be disabled, dosn't work with try-with-resource at the moment 
 				<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
