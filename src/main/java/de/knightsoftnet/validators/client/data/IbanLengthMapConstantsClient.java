@@ -18,9 +18,8 @@ package de.knightsoftnet.validators.client.data;
 import de.knightsoftnet.validators.shared.data.IbanLengthDefinition;
 import de.knightsoftnet.validators.shared.data.IbanLengthMapSharedConstants;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class IbanLengthMapConstantsClient implements IbanLengthMapSharedConstants {
   private final Map<String, IbanLengthDefinition> ibanLengthMap;
@@ -31,13 +30,9 @@ public class IbanLengthMapConstantsClient implements IbanLengthMapSharedConstant
    * @param pmap map to put
    */
   public IbanLengthMapConstantsClient(final Map<String, String> pmap) {
-    // this.ibanLengthMap = pmap.entrySet().stream().collect(Collectors.toMap( //
-    // entry -> entry.getKey(), //
-    // entry -> new IbanLengthDefinition(entry.getValue())));
-    this.ibanLengthMap = new HashMap<>(pmap.size());
-    for (final Entry<String, String> entry : pmap.entrySet()) {
-      this.ibanLengthMap.put(entry.getKey(), new IbanLengthDefinition(entry.getValue()));
-    }
+    this.ibanLengthMap = pmap.entrySet().stream().collect(Collectors.toMap( //
+        entry -> entry.getKey(), //
+        entry -> new IbanLengthDefinition(entry.getValue())));
   }
 
   @Override

@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.groups.Default;
 import javax.validation.metadata.ConstraintDescriptor;
@@ -113,13 +114,11 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
 
   private void addMatchingDescriptorsForGroup(final Class<?> group,
       final Set<ConstraintDescriptor<?>> matchingDescriptors) {
-    for (final ConstraintDescriptorImpl<?> descriptor : this.constraintDescriptors) {
-      if (this.definedInSet.contains(descriptor.getDefinedOn())
-          && this.elementTypes.contains(descriptor.getElementType())
-          && descriptor.getGroups().contains(group)) {
-        matchingDescriptors.add(descriptor);
-      }
-    }
+    matchingDescriptors.addAll(this.constraintDescriptors.stream()
+        .filter(descriptor -> this.definedInSet.contains(descriptor.getDefinedOn())
+            && this.elementTypes.contains(descriptor.getElementType())
+            && descriptor.getGroups().contains(group))
+        .collect(Collectors.toSet()));
   }
 
   private void findMatchingDescriptors(final Set<ConstraintDescriptor<?>> matchingDescriptors) {

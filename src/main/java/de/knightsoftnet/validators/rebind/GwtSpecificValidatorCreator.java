@@ -418,12 +418,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private boolean checkGroups(final Set<Class<?>> groups) {
-    for (final Class<?> group : groups) {
-      if (this.validGroups.contains(group)) {
-        return true;
-      }
-    }
-    return false;
+    return groups.stream().anyMatch(group -> this.validGroups.contains(group));
   }
 
   private String constraintDescriptorVar(final String name, final int count) {

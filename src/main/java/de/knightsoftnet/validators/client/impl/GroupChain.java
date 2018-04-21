@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.GroupDefinitionException;
 import javax.validation.groups.Default;
@@ -106,12 +107,8 @@ public final class GroupChain {
 
   private List<Group> buildTempGroupList(final List<Class<?>> defaultGroupSequence,
       final Class<?> sequence) {
-    final List<Group> groups = new ArrayList<>();
-    for (final Class<?> clazz : defaultGroupSequence) {
-      final Group g = new Group(clazz, sequence);
-      groups.add(g);
-    }
-    return groups;
+    return defaultGroupSequence.stream().map(clazz -> new Group(clazz, sequence))
+        .collect(Collectors.toList());
   }
 
   private int containsDefaultGroupAtIndex(final Class<?> sequence, final List<Group> groupList) {

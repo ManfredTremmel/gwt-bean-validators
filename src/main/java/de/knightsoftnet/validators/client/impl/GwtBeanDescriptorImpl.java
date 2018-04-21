@@ -117,9 +117,7 @@ public class GwtBeanDescriptorImpl<T> implements GwtBeanDescriptor<T> {
   @Override
   public Set<PropertyDescriptor> getConstrainedProperties() {
     final Collection<PropertyDescriptorImpl> props = this.descriptorMap.values();
-    for (final PropertyDescriptorImpl prop : props) {
-      prop.setValidationGroupsMetadata(this.validationGroupsMetadata);
-    }
+    props.forEach(prop -> prop.setValidationGroupsMetadata(this.validationGroupsMetadata));
     return new HashSet<>(props);
   }
 

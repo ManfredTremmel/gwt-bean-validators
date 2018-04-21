@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintViolation;
@@ -74,12 +75,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
   }
 
   protected static Class<?>[] groupsToClasses(final Group... groups) {
-    final int numGroups = groups.length;
-    final Class<?>[] array = new Class<?>[numGroups];
-    for (int i = 0; i < numGroups; i++) {
-      array[i] = groups[i].getGroup();
-    }
-    return array;
+    return (Class<?>[]) Arrays.asList(groups).stream().map(group -> group.getGroup()).toArray();
   }
 
   @Override
@@ -216,25 +212,18 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
       final Set<ConstraintViolation<T>> violations, final G object, final V value,
       final ConstraintDescriptorImpl<A> constraintDescriptor,
       final ConstraintValidatorContextImpl<A, V> constraintValidatorContext) {
-    final Set<MessageAndPath> mps = constraintValidatorContext.getMessageAndPaths();
-    for (final MessageAndPath messageAndPath : mps) {
-      final ConstraintViolation<T> violation = this.createConstraintViolation(//
-          context, //
-          object, //
-          value, //
-          constraintDescriptor, //
-          messageAndPath);
-      violations.add(violation);
-    }
+    violations.addAll(constraintValidatorContext.getMessageAndPaths().stream()
+        .map(messageAndPath -> this.createConstraintViolation(//
+            context, //
+            object, //
+            value, //
+            constraintDescriptor, //
+            messageAndPath))
+        .collect(Collectors.toSet()));
   }
 
   private <T> boolean containsAny(final Collection<T> left, final Collection<T> right) {
-    for (final T t : left) {
-      if (right.contains(t)) {
-        return true;
-      }
-    }
-    return false;
+    return left.stream().anyMatch(entry -> right.contains(entry));
   }
 
   private <T, V, A extends Annotation> ConstraintViolation<T> createConstraintViolation(

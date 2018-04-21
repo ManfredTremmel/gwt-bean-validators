@@ -19,10 +19,10 @@ import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 
@@ -91,26 +91,21 @@ public class ValidationException extends Exception implements Serializable {
    */
   @SuppressWarnings({"unchecked"})
   public final ArrayList<ConstraintViolation<?>> getValidationErrorSet(final Object pclass) {
-    final ArrayList<ConstraintViolation<?>> violations =
-        new ArrayList<>(this.validationErrorSet.size());
-    for (final SerializeableConstraintValidationImpl<?> violation : this.validationErrorSet) {
-      final Map<String, Object> messageParameters = new HashMap<>();
-      final Map<String, Object> expressionVariables = new HashMap<>();
-      violations.add(ConstraintViolationImpl.forBeanValidation( //
-          violation.getMessageTemplate(), //
-          messageParameters, //
-          expressionVariables, //
-          violation.getMessage(), //
-          ((SerializeableConstraintValidationImpl<Object>) violation).getRootBeanClass(), //
-          pclass, //
-          violation.getLeafBean(), //
-          null, //
-          violation.getPropertyPath(), //
-          violation.getConstraintDescriptor(), //
-          null, //
-          null));
-    }
-    return violations;
+    return new ArrayList<>(this.validationErrorSet.stream()
+        .map(violation -> ConstraintViolationImpl.forBeanValidation( //
+            violation.getMessageTemplate(), //
+            Collections.emptyMap(), //
+            Collections.emptyMap(), //
+            violation.getMessage(), //
+            ((SerializeableConstraintValidationImpl<Object>) violation).getRootBeanClass(), //
+            pclass, //
+            violation.getLeafBean(), //
+            null, //
+            violation.getPropertyPath(), //
+            violation.getConstraintDescriptor(), //
+            null, //
+            null))
+        .collect(Collectors.toList()));
   }
 
   /**
@@ -120,12 +115,11 @@ public class ValidationException extends Exception implements Serializable {
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(final Set pvalidationErrorSet) {
-    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.size());
-    final Iterator iterator = pvalidationErrorSet.iterator();
-    while (iterator.hasNext()) {
-      final ConstraintViolation<?> violation = (ConstraintViolation<?>) iterator.next();
-      this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
-    }
+    this.validationErrorSet =
+        new ArrayList<>((List<SerializeableConstraintValidationImpl<?>>) pvalidationErrorSet
+            .stream().map(violation -> new SerializeableConstraintValidationImpl(
+                (ConstraintViolation<?>) violation))
+            .collect(Collectors.toList()));
   }
 
   /**
@@ -136,9 +130,9 @@ public class ValidationException extends Exception implements Serializable {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(
       final ArrayList<ConstraintViolation<?>> pvalidationErrorSet) {
-    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.size());
-    for (final ConstraintViolation<?> violation : pvalidationErrorSet) {
-      this.validationErrorSet.add(new SerializeableConstraintValidationImpl(violation));
-    }
+    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.stream().map(
+        violation -> (SerializeableConstraintValidationImpl<?>) new SerializeableConstraintValidationImpl(
+            violation))
+        .collect(Collectors.toList()));
   }
 }

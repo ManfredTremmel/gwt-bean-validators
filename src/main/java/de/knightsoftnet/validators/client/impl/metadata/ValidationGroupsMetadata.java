@@ -131,25 +131,22 @@ public class ValidationGroupsMetadata {
     final Set<Class<?>> found = new HashSet<>();
     final Stack<Class<?>> remaining = new Stack<>();
     // initialize
-    for (final Class<?> group : baseGroups) {
+    baseGroups.forEach(group -> {
       if (!this.inheritanceMapping.containsKey(group)) {
         throw new IllegalArgumentException("The collection of groups contains a group which"
             + " was not added to the map. Be sure to call addGroup() for all groups first.");
       }
       remaining.push(group);
-    }
+    });
     // traverse
-    Class<?> current;
-    Set<Class<?>> superInterfaces;
     while (!remaining.isEmpty()) {
-      current = remaining.pop();
+      final Class<?> current = remaining.pop();
       found.add(current);
-      superInterfaces = this.inheritanceMapping.get(current);
-      for (final Class<?> parent : superInterfaces) {
+      this.inheritanceMapping.get(current).forEach(parent -> {
         if (!found.contains(parent)) {
           remaining.push(parent);
         }
-      }
+      });
     }
     return found;
   }

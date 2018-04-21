@@ -44,9 +44,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This abstract class combines some methods which are used by decorators.
@@ -246,9 +246,8 @@ public abstract class AbstractDecorator<T> extends Composite
     if (this.contents.getWidget() instanceof HasValueChangeHandlers<?>) {
       return ((HasValueChangeHandlers<T>) this.contents.getWidget())
           .addValueChangeHandler(phandler);
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -281,12 +280,9 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @Override
   public void showErrors(final List<EditorError> errors) {
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+    final Set<String> messages = errors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).distinct().collect(Collectors.toSet());
+
     if (messages.isEmpty()) {
       this.errorLabel.setText(StringUtils.EMPTY);
       this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
@@ -303,10 +299,10 @@ public abstract class AbstractDecorator<T> extends Composite
         }
       }
       final SafeHtmlBuilder sb = new SafeHtmlBuilder();
-      for (final String message : messages) {
+      messages.forEach(message -> {
         sb.appendEscaped(message);
         sb.appendHtmlConstant("<br />");
-      }
+      });
       this.errorLabel.setHTML(sb.toSafeHtml());
       this.errorLabel.getElement().getStyle().setDisplay(Display.TABLE);
     }
@@ -328,9 +324,8 @@ public abstract class AbstractDecorator<T> extends Composite
   public final T getValue() {
     if (this.contents.getWidget() instanceof TakesValue<?>) {
       return ((TakesValue<T>) this.contents.getWidget()).getValue();
-    } else {
-      return null;
     }
+    return null;
   }
 
   @Override
@@ -448,17 +443,15 @@ public abstract class AbstractDecorator<T> extends Composite
   public final HandlerRegistration addKeyPressHandler(final KeyPressHandler phandler) {
     if (this.contents.getWidget() instanceof HasKeyPressHandlers) {
       return ((HasKeyPressHandlers) this.contents.getWidget()).addKeyPressHandler(phandler);
-    } else {
-      return null;
     }
+    return null;
   }
 
   @Override
   public HandlerRegistration addKeyUpHandler(final KeyUpHandler pkeyUpHandler) {
     if (this.contents.getWidget() instanceof HasKeyUpHandlers) {
       return ((HasKeyUpHandlers) this.contents.getWidget()).addKeyUpHandler(pkeyUpHandler);
-    } else {
-      return null;
     }
+    return null;
   }
 }
