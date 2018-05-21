@@ -1033,6 +1033,21 @@ public class Log {
     MESSAGE.logConstraintValidatorPayload(type);
   }
 
+  void logUnableToLoadOrInstantiateJPAAwareResolver(final String traversableResolverClassName) {
+    MESSAGE.logUnableToLoadOrInstantiateJPAAwareResolver(traversableResolverClassName);
+  }
+
+  ConstraintDefinitionException getConstraintValidatorDefinitionConstraintMismatchException(
+      final Object constraintValidatorImplementationType,
+      final Object registeredConstraintAnnotationType,
+      final Object declaredConstraintAnnotationType) {
+    return new ConstraintDefinitionException(
+        MESSAGE.getConstraintValidatorDefinitionConstraintMismatchException(
+            Objects.toString(constraintValidatorImplementationType),
+            Objects.toString(registeredConstraintAnnotationType),
+            Objects.toString(declaredConstraintAnnotationType)));
+  }
+
   public void debugf(final String pstring, final Object pdescriptor) {
     GWT.log(StringUtils.replace(pstring, "%s", Objects.toString(pdescriptor)));
   }

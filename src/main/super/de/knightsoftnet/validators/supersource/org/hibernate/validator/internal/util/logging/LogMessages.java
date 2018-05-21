@@ -647,6 +647,14 @@ public interface LogMessages extends com.google.gwt.i18n.client.Messages {
 
   @DefaultMessage("Constraint validator payload set to {0}.")
   String logConstraintValidatorPayload(Object payload);
+
+  @DefaultMessage("Unable to load or instantiate JPA aware resolver {0}. All properties will per default be traversable.")
+  String logUnableToLoadOrInstantiateJPAAwareResolver(String traversableResolverClassName);
+
+  @DefaultMessage("Constraint {1} references constraint validator type {0}, but this validator is defined for constraint type {2}.")
+  String getConstraintValidatorDefinitionConstraintMismatchException(
+      String constraintValidatorImplementationType, String registeredConstraintAnnotationType,
+      String declaredConstraintAnnotationType);
 }
 
 
