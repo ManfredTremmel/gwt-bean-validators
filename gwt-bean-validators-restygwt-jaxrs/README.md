@@ -1,7 +1,7 @@
 gwt-bean-validators-restygwt-jaxrs
 ==================================
 
-This package contains the rest service based on jaxrs and restygwt for phone number services and the PhoneNumberValueRest validation routine which use it to keep client side code small. It includes [gwt-bean-validators](https://github.com/ManfredTremmel/gwt-bean-validators) which provides all the other stuff. 
+This package contains the rest service based on jaxrs and restygwt for phone number services and the PhoneNumberValueRest validation routine which use it to keep client side code small. It includes [gwt-bean-validators](https://github.com/ManfredTremmel/gwt-bean-validators/gwt-bean-validators) which provides all the other stuff. 
 
 Included Validators - multi fields
 ----------------------------------
