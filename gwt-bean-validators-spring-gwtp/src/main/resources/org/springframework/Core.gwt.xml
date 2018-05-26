@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtSpringCoreGwtp'>
+  <source path="core">
+    <include name="convert/converter/Converter.java"/>
+  </source>
+  <source path="lang">
+    <include name="NonNull.java"/>
+    <include name="NonNullApi.java"/>
+    <include name="Nullable.java"/>
+  </source>
+</module>

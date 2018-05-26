@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtpDynamicNavigationBasic'>
+  <!-- gwt version of apache commons lang3. -->
+  <inherits name="org.apache.commons.GWTCommonsLang3" />
+
+  <generate-with class="de.knightsoftnet.navigation.rebind.VersionInfoGenerator">
+    <when-type-assignable class="de.knightsoftnet.navigation.client.version.AbstractVersionInfo" />
+  </generate-with>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client/version' />
+  <source path='shared' />
+</module>

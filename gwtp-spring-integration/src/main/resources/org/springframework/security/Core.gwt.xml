@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtSpringSecurityCoreGwtp'>
+  <source path="core">
+    <include name="AuthenticatedPrincipal.java"/>
+    <include name="AuthenticationException.java"/>
+    <include name="CredentialsContainer.java"/>
+    <include name="GrantedAuthority.java"/>
+    <include name="annotation/AuthenticationPrincipal.java"/>
+  </source>
+</module>

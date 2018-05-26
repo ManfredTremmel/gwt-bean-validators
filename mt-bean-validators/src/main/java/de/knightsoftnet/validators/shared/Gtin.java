@@ -1,0 +1,86 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for additional information regarding
+ * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+package de.knightsoftnet.validators.shared;
+
+import de.knightsoftnet.validators.shared.impl.Gtin13Validator;
+import de.knightsoftnet.validators.shared.impl.Gtin8Validator;
+import de.knightsoftnet.validators.shared.impl.GtinValidator;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import javax.validation.constraints.Digits;
+
+/**
+ * The annotated element must be a valid Global Trade Item Number (until 2009 known as European
+ * Article Number) in the long (13 digits) or short (8 digits) format.<br>
+ * Supported types are Strings, other Objects are transfered to Strings, <code>null</code> elements
+ * are considered valid.<br>
+ * There are numeric, size and checksum tests by apache commons validation routines.<br>
+ *
+ * @author Manfred Tremmel
+ *
+ */
+@Documented
+@Constraint(validatedBy = GtinValidator.class)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
+    ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@AlternateSize(size1 = Gtin8Validator.GTIN8_LENGTH, size2 = Gtin13Validator.GTIN13_LENGTH)
+@Digits(integer = Gtin13Validator.GTIN13_LENGTH, fraction = 0)
+public @interface Gtin {
+  /**
+   * localized message.
+   *
+   * @return localized validation message
+   */
+  String message() default "{deKnightsoftnetValidatorsSharedValidationGtinMessage}";
+
+  /**
+   * groups to use.
+   *
+   * @return array of validation groups
+   */
+  Class<?>[] groups() default {};
+
+  /**
+   * payload whatever.
+   *
+   * @return payload class
+   */
+  Class<? extends Payload>[] payload() default {};
+
+  /**
+   * Defines several {@code @Gtin} annotations on the same element.
+   */
+  @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
+      ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+  @Retention(RetentionPolicy.RUNTIME)
+  @Documented
+  @interface List {
+    /**
+     * gtin value.
+     *
+     * @return value
+     */
+    Gtin[] value();
+  }
+}

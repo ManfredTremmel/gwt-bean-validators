@@ -1,0 +1,41 @@
+.ratingArea {
+  float: left;
+  border-style: none;
+}
+
+.ratingArea:not(:checked) > input {
+  display: none;
+}
+
+.ratingArea:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  line-height: 1.2;
+  color: lightgrey;
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+
+.ratingArea:not(:checked) > label:before {
+  content: '\2605 ';
+}
+
+.ratingArea > input:checked ~ label,
+.ratingArea:not(:checked) > label:hover,
+.ratingArea:not(:checked) > label:hover ~ label,
+.ratingArea > input:checked + label:hover,
+.ratingArea > input:checked + label:hover ~ label,
+.ratingArea > input:checked ~ label:hover,
+.ratingArea > input:checked ~ label:hover ~ label,
+.ratingArea > label:hover ~ input:checked ~ label {
+  color: #FDE16D;
+}
+
+.ratingArea > label:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+}

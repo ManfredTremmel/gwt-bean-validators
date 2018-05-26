@@ -1,0 +1,9 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/sample.log*
+/war/
+/www-test/
+/gwt-unitCache/
+/.gwt/

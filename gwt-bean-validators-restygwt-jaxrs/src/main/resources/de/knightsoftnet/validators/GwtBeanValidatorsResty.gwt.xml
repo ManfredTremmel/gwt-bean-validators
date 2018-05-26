@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtBeanValidatorsResty'>
+
+  <!-- gwt bean validator. -->
+  <inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
+
+  <!-- guave support -->
+  <inherits name="com.google.common.util.concurrent.Concurrent" />
+
+  <!-- rest service -->
+  <inherits name="org.fusesource.restygwt.RestyGWT"/>
+
+  <!-- guave support -->
+  <inherits name="com.google.common.cache.Cache" />
+
+  <!-- elemental support -->
+  <inherits name="elemental.Elemental" />
+
+  <replace-with class="de.knightsoftnet.validators.client.rest.path.PathDefinitionImpl">
+    <when-type-is class="de.knightsoftnet.validators.client.rest.path.PathDefinitionInterface" />
+  </replace-with>
+
+  <!-- Specify the app entry point class, in this case a dummy class. -->
+  <entry-point class='de.knightsoftnet.validators.client.GwtBeanValidatorsResty' />
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client' />
+  <source path='shared' />
+
+  <super-source path="supersource" />
+</module>

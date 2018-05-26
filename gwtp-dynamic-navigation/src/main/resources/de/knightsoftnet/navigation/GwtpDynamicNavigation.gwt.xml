@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtpDynamicNavigation'>
+
+  <!-- basic functionality without gwtp or gin dependencies -->
+  <inherits name='de.knightsoftnet.navigation.GwtpDynamicNavigationBasic'/>
+
+  <!-- gwt bean validator. -->
+  <inherits name="de.knightsoftnet.validators.GwtBeanValidators" />
+
+  <!-- DOM replacement with non blocking listener -->
+  <inherits name='com.google.gwt.user.DOMReplacement'/>
+
+  <!-- gwt injection support -->
+  <inherits name="com.google.gwt.inject.Inject"/>
+
+  <!-- gwtp spring integration -->
+  <inherits name="de.knightsoftnet.gwtp.spring.GwtpSpringIntegrationUser" />
+
+  <!-- gwtp mvp support -->
+  <inherits name='com.gwtplatform.mvp.MvpWithEntryPoint'/>
+  <inherits name='com.gwtplatform.mvp.GwtpMvpReplacement'/>
+
+  <!-- fallback for unknown browsers -->
+  <set-property-fallback name="user.agent" value="safari" />
+
+  <generate-with class="com.google.gwt.useragent.rebind.LocaleUserAgentGenerator">
+    <when-type-assignable class="com.google.gwt.useragent.client.UserAgent" />
+  </generate-with>
+
+  <replace-with class="com.google.gwt.user.client.impl.DOMImplWebkitNew">
+    <when-type-is class="com.google.gwt.user.client.impl.DOMImpl"/>
+    <when-property-is name="user.agent" value="safari"/>
+  </replace-with>
+
+  <!-- Specify the app entry point class, in this case a dummy class. -->
+  <set-configuration-property name="gin.ginjector.modules"
+                              value="de.knightsoftnet.navigation.client.gin.ClientModule"/>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client' />
+  <source path='shared' />
+
+</module>

@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  ui:generateFormat="com.google.gwt.i18n.rebind.format.PropertiesFormat"
+  ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+  ui:generateLocales="default,de"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+  <ui:with field='res' type='de.knightsoftnet.navigation.client.ui.navigation.TreeNavigationView.Resources'/>
+
+  <g:Tree ui:field="navTree">
+    <g:HTMLPanel ui:field="navigationMainPoint" styleName="{res.navigationStyle.link}"><ui:msg description="navigationMainPoint">Navigation</ui:msg></g:HTMLPanel>
+    <g:TreeItem widget="{navigationMainPoint}" state="true" ui:field="firstItem" />
+  </g:Tree>
+</ui:UiBinder>

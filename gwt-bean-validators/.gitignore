@@ -1,0 +1,13 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/.checkstyle
+/*.log*
+/war/
+/www-test/
+/gwt-unitCache/
+/.gwt/
+.idea/*
+*.iml
+/.fbExcludeFilterFile
