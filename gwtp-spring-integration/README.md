@@ -18,7 +18,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwtp-spring-integration</artifactId>
-      <version>0.55.0</version>
+      <version>0.55.1</version>
     </dependency>
 ```
 

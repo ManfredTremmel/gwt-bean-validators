@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>de.knightsoft-net</groupId>
 		<artifactId>gwt-bean-validators-parent</artifactId>
-		<version>0.55.0</version>
+		<version>0.55.1</version>
 	</parent>
 	<artifactId>gwtp-dynamic-navigation</artifactId>
 	<packaging>jar</packaging>

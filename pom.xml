@@ -20,7 +20,7 @@
 	</parent>
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators-parent</artifactId>
-	<version>0.55.0</version>
+	<version>0.55.1</version>
 	<packaging>pom</packaging>
 	<name>GWT Bean Validators Parent project</name>
 	<inceptionYear>2015</inceptionYear>
@@ -370,5 +370,33 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>${nexus-staging-maven-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- The Base URL of Nexus instance where we want to stage -->
+					<serverId>sonatype-nexus-staging</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
