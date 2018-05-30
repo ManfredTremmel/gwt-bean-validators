@@ -73,7 +73,6 @@
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-client</artifactId>
-			<version>${websocket-client.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

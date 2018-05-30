@@ -77,7 +77,6 @@
 		<dependency>
 			<groupId>com.gwtplatform</groupId>
 			<artifactId>gwtp-dispatch-rest</artifactId>
-			<version>${gwtp.version}</version>
 		</dependency>
 	</dependencies>
 
