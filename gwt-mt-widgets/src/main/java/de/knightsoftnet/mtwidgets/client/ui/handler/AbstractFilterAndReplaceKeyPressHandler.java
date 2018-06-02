@@ -46,8 +46,8 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
    */
   public AbstractFilterAndReplaceKeyPressHandler(final boolean pallowCopyAndPast) {
     super();
-    this.allowCopyAndPast = pallowCopyAndPast;
-    this.navigationKeys = new NavigationKeys();
+    allowCopyAndPast = pallowCopyAndPast;
+    navigationKeys = new NavigationKeys();
   }
 
 
@@ -60,20 +60,20 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
     final int charCode = pevent.getCharCode();
 
     // accept navigation keys like cursor right, left, ...
-    if (this.navigationKeys.isNavigationKey(keyCode)) {
+    if (navigationKeys.isNavigationKey(keyCode)) {
       return;
     }
     // Copy, Cut or Paste allowed?
-    if (this.allowCopyAndPast && pevent.isControlKeyDown()
+    if (allowCopyAndPast && pevent.isControlKeyDown()
         && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
       return;
     }
     // check for allowed characters
-    if (this.isAllowedCharacter((char) charCode)) {
+    if (isAllowedCharacter((char) charCode)) {
       return;
     }
     // convert the character
-    if (this.isCharacterToReplace((char) charCode)) {
+    if (isCharacterToReplace((char) charCode)) {
       final ValueBoxBase<?> textBox;
       if (pevent.getSource() instanceof SuggestBox) {
         textBox = ((SuggestBox) pevent.getSource()).getValueBox();
@@ -96,7 +96,7 @@ public abstract class AbstractFilterAndReplaceKeyPressHandler implements KeyPres
 
       final String oldValue = textBox.getText();
       final String newValue = StringUtils.substring(oldValue, 0, cursorPos + startDiff)
-          + this.replaceCharacter((char) charCode)
+          + replaceCharacter((char) charCode)
           + StringUtils.substring(oldValue, cursorPos + endDiff);
 
       textBox.setText(newValue);

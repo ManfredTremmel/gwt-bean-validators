@@ -29,12 +29,12 @@ public class ValidationResultData implements ValidationResultInterface {
 
   @Override
   public final List<ValidationValueInterface> getValidationErrorSet() {
-    return this.validationErrorSet;
+    return validationErrorSet;
   }
 
   @Override
   public final void setValidationErrorSet(
       final List<ValidationValueInterface> pvalidationErrorSet) {
-    this.validationErrorSet = pvalidationErrorSet;
+    validationErrorSet = pvalidationErrorSet;
   }
 }

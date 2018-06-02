@@ -91,11 +91,11 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, Ob
    */
   @Override
   public final void initialize(final PhoneNumber pconstraintAnnotation) {
-    this.allowDin5008 = pconstraintAnnotation.allowDin5008();
-    this.allowE123 = pconstraintAnnotation.allowE123();
-    this.allowUri = pconstraintAnnotation.allowUri();
-    this.allowMs = pconstraintAnnotation.allowMs();
-    this.allowCommon = pconstraintAnnotation.allowCommon();
+    allowDin5008 = pconstraintAnnotation.allowDin5008();
+    allowE123 = pconstraintAnnotation.allowE123();
+    allowUri = pconstraintAnnotation.allowUri();
+    allowMs = pconstraintAnnotation.allowMs();
+    allowCommon = pconstraintAnnotation.allowCommon();
   }
 
   /**
@@ -112,10 +112,10 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, Ob
       // empty field is ok
       return true;
     }
-    return this.allowDin5008 && valueAsString.matches(PHONE_NUMBER_DIN5008) //
-        || this.allowE123 && valueAsString.matches(PHONE_NUMBER_E123) //
-        || this.allowUri && valueAsString.matches(PHONE_NUMBER_URI) //
-        || this.allowMs && valueAsString.matches(PHONE_NUMBER_MS) //
-        || this.allowCommon && valueAsString.matches(PHONE_NUMBER_COMMON);
+    return allowDin5008 && valueAsString.matches(PHONE_NUMBER_DIN5008) //
+        || allowE123 && valueAsString.matches(PHONE_NUMBER_E123) //
+        || allowUri && valueAsString.matches(PHONE_NUMBER_URI) //
+        || allowMs && valueAsString.matches(PHONE_NUMBER_MS) //
+        || allowCommon && valueAsString.matches(PHONE_NUMBER_COMMON);
   }
 }

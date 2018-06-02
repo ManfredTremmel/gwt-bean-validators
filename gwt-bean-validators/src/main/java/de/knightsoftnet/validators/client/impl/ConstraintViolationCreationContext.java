@@ -36,52 +36,52 @@ public class ConstraintViolationCreationContext {
 
   /**
    * constructor.
-   * 
+   *
    * @param message validation message
    * @param property path of the field
    * @param messageParameters map of message parameters
    * @param expressionVariables map of expression variables
-   * @param dynamicPayload object of the payload 
+   * @param dynamicPayload object of the payload
    */
   public ConstraintViolationCreationContext(final String message, final PathImpl property,
       final Map<String, Object> messageParameters, final Map<String, Object> expressionVariables,
       final Object dynamicPayload) {
     this.message = message;
-    this.propertyPath = property;
+    propertyPath = property;
     this.messageParameters = toImmutableMap(messageParameters);
     this.expressionVariables = toImmutableMap(expressionVariables);
     this.dynamicPayload = dynamicPayload;
   }
 
   public final String getMessage() {
-    return this.message;
+    return message;
   }
 
   public final PathImpl getPath() {
-    return this.propertyPath;
+    return propertyPath;
   }
 
   public Map<String, Object> getExpressionVariables() {
-    return this.expressionVariables;
+    return expressionVariables;
   }
 
   public Map<String, Object> getMessageParameters() {
-    return this.messageParameters;
+    return messageParameters;
   }
 
   public Object getDynamicPayload() {
-    return this.dynamicPayload;
+    return dynamicPayload;
   }
 
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder(128);
     sb.append("ConstraintViolationCreationContext{");
-    sb.append("message='").append(this.message).append('\'');
-    sb.append(", propertyPath=").append(this.propertyPath);
-    sb.append(", messageParameters=").append(this.messageParameters);
-    sb.append(", expressionVariables=").append(this.expressionVariables);
-    sb.append(", dynamicPayload=").append(this.dynamicPayload);
+    sb.append("message='").append(message).append('\'');
+    sb.append(", propertyPath=").append(propertyPath);
+    sb.append(", messageParameters=").append(messageParameters);
+    sb.append(", expressionVariables=").append(expressionVariables);
+    sb.append(", dynamicPayload=").append(dynamicPayload);
     sb.append('}');
     return sb.toString();
   }

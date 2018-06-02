@@ -42,8 +42,8 @@ public class MonthBox extends AbstractMinMaxTextBox<Date> {
 
   @Override
   public void setValue(final Date value, final boolean fireEvents) {
-    final Date oldValue = this.getValue();
-    this.getInputElement().setValue(MonthRenderer.instance().render(value));
+    final Date oldValue = getValue();
+    getInputElement().setValue(MonthRenderer.instance().render(value));
     if (fireEvents) {
       ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
     }

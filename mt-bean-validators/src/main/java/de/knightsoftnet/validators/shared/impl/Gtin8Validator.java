@@ -30,7 +30,6 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author Manfred Tremmel
  *
- *
  */
 public class Gtin8Validator implements ConstraintValidator<Gtin8, Object> {
   /**

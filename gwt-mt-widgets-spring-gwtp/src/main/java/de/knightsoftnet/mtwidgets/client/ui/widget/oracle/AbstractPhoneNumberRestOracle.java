@@ -31,11 +31,13 @@ import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.gwtplatform.dispatch.rest.client.RestDispatch;
 
-import java.util.ArrayList;
+import org.springframework.util.CollectionUtils;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * suggest oracle of phone number suggest widget.
@@ -87,7 +89,7 @@ public abstract class AbstractPhoneNumberRestOracle<T extends AbstractPhoneNumbe
   @Override
   public final void requestSuggestions(final Request prequest, final Callback pcallback) {
     final SuggestOracle.Response response = new SuggestOracle.Response();
-    if (prequest != null && this.needSuggest(prequest.getQuery())) {
+    if (prequest != null && needSuggest(prequest.getQuery())) {
       try {
         final FutureResult<List<PhoneNumberData>> result =
             this.cache.get(this.cleanRequest(prequest));
@@ -117,13 +119,11 @@ public abstract class AbstractPhoneNumberRestOracle<T extends AbstractPhoneNumbe
 
   private List<T> convertListToSuggestions(final List<PhoneNumberData> presponse) {
     final List<T> suggestions;
-    if (presponse.isEmpty()) {
+    if (CollectionUtils.isEmpty(presponse)) {
       suggestions = Collections.emptyList();
     } else {
-      suggestions = new ArrayList<>(presponse.size());
-      for (final PhoneNumberData entry : presponse) {
-        suggestions.add(AbstractPhoneNumberRestOracle.this.createInstance(entry));
-      }
+      suggestions =
+          presponse.stream().map(entry -> createInstance(entry)).collect(Collectors.toList());
     }
     return suggestions;
   }

@@ -69,73 +69,73 @@ public class PhoneNumberDataWithFormats extends PhoneNumberData {
   }
 
   public final String getDin5008National() {
-    return this.din5008National;
+    return din5008National;
   }
 
   public final void setDin5008National(final String pdin5008National) {
-    this.din5008National = pdin5008National;
+    din5008National = pdin5008National;
   }
 
   public final String getDin5008International() {
-    return this.din5008International;
+    return din5008International;
   }
 
   public final void setDin5008International(final String pdin5008International) {
-    this.din5008International = pdin5008International;
+    din5008International = pdin5008International;
   }
 
   public final String getE123National() {
-    return this.e123National;
+    return e123National;
   }
 
   public final void setE123National(final String pe123National) {
-    this.e123National = pe123National;
+    e123National = pe123National;
   }
 
   public final String getE123International() {
-    return this.e123International;
+    return e123International;
   }
 
   public final void setE123International(final String pe123International) {
-    this.e123International = pe123International;
+    e123International = pe123International;
   }
 
   public final String getUrl() {
-    return this.url;
+    return url;
   }
 
   public final void setUrl(final String purl) {
-    this.url = purl;
+    url = purl;
   }
 
   public final String getMs() {
-    return this.ms;
+    return ms;
   }
 
   public final void setMs(final String pms) {
-    this.ms = pms;
+    ms = pms;
   }
 
   public final String getCommonNational() {
-    return this.commonNational;
+    return commonNational;
   }
 
   public final void setCommonNational(final String pcommonNational) {
-    this.commonNational = pcommonNational;
+    commonNational = pcommonNational;
   }
 
   public final String getCommonInternational() {
-    return this.commonInternational;
+    return commonInternational;
   }
 
   public final void setCommonInternational(final String pcommonInternational) {
-    this.commonInternational = pcommonInternational;
+    commonInternational = pcommonInternational;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.commonInternational, this.commonNational, this.din5008International,
-        this.din5008National, this.e123International, this.e123National, this.ms, this.url);
+    return Objects.hash(commonInternational, commonNational, din5008International, din5008National,
+        e123International, e123National, ms, url);
   }
 
   @Override
@@ -150,12 +150,12 @@ public class PhoneNumberDataWithFormats extends PhoneNumberData {
       return false;
     }
     final PhoneNumberDataWithFormats other = (PhoneNumberDataWithFormats) pobj;
-    return StringUtils.equals(this.commonInternational, other.commonInternational)
-        && StringUtils.equals(this.commonNational, other.commonNational)
-        && StringUtils.equals(this.din5008International, other.din5008International)
-        && StringUtils.equals(this.din5008National, other.din5008National)
-        && StringUtils.equals(this.e123International, other.e123International)
-        && StringUtils.equals(this.e123National, other.e123National)
-        && StringUtils.equals(this.ms, other.ms) && StringUtils.equals(this.url, other.url);
+    return StringUtils.equals(commonInternational, other.commonInternational)
+        && StringUtils.equals(commonNational, other.commonNational)
+        && StringUtils.equals(din5008International, other.din5008International)
+        && StringUtils.equals(din5008National, other.din5008National)
+        && StringUtils.equals(e123International, other.e123International)
+        && StringUtils.equals(e123National, other.e123National) && StringUtils.equals(ms, other.ms)
+        && StringUtils.equals(url, other.url);
   }
 }

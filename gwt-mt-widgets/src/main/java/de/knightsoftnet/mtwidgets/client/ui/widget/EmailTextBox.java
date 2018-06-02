@@ -40,11 +40,11 @@ public class EmailTextBox extends ValueBox<String> implements HasMultiple {
 
   @Override
   public boolean isMultiple() {
-    return this.getInputElement().isMultiple();
+    return getInputElement().isMultiple();
   }
 
   @Override
   public void setMultiple(final boolean arg) {
-    this.getInputElement().setMultiple(arg);
+    getInputElement().setMultiple(arg);
   }
 }

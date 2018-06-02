@@ -86,21 +86,21 @@ public abstract class AbstractNavigationStructure
    */
   public AbstractNavigationStructure(final EventBus peventBus, final String ploginToken) {
     super();
-    this.placeMap = new HashMap<>();
+    placeMap = new HashMap<>();
     peventBus.addHandler(ChangePlaceEvent.getType(), this);
-    this.loginToken = ploginToken;
+    loginToken = ploginToken;
   }
 
   @Inject
   public void init(final Session psession) {
-    this.buildVisibleNavigation(psession == null ? null : psession.getUser());
+    buildVisibleNavigation(psession == null ? null : psession.getUser());
   }
 
   @Override
   public final void buildVisibleNavigation(final User puser) {
-    this.fullNavigationList = this.recursiveGetEntries(this.buildNavigation());
-    this.generateMapRecursive(this.fullNavigationList);
-    this.navigationList = this.fullNavigationList;
+    fullNavigationList = recursiveGetEntries(buildNavigation());
+    generateMapRecursive(fullNavigationList);
+    navigationList = fullNavigationList;
   }
 
   /**
@@ -119,15 +119,15 @@ public abstract class AbstractNavigationStructure
     for (final NavigationEntryInterface entryToAdd : pnavigationEntries) {
       String token = entryToAdd.getToken();
       if (entryToAdd.getMenuValue() != null && token != null) {
-        if (token.endsWith("/" + StringUtils.removeStart(this.loginToken, "/"))) {
-          token = this.loginToken;
+        if (token.endsWith("/" + StringUtils.removeStart(loginToken, "/"))) {
+          token = loginToken;
         }
-        if (!this.placeMap.containsKey(token)) {
-          this.placeMap.put(token, entryToAdd);
+        if (!placeMap.containsKey(token)) {
+          placeMap.put(token, entryToAdd);
         }
       }
       if (entryToAdd instanceof NavigationEntryFolder) {
-        this.generateMapRecursive(((NavigationEntryFolder) entryToAdd).getSubEntries());
+        generateMapRecursive(((NavigationEntryFolder) entryToAdd).getSubEntries());
       }
     }
   }
@@ -147,7 +147,7 @@ public abstract class AbstractNavigationStructure
     return pnavigationEntries.stream().filter(entry -> entry.canReveal()).map(entry -> {
       if (entry instanceof NavigationEntryFolder) {
         return new NavigationEntryFolder(entry.getMenuValue(), entry.isOpenOnStartup(),
-            this.recursiveGetEntries(((NavigationEntryFolder) entry).getSubEntries()));
+            recursiveGetEntries(((NavigationEntryFolder) entry).getSubEntries()));
       } else {
         return entry;
       }
@@ -156,43 +156,43 @@ public abstract class AbstractNavigationStructure
 
   @Override
   public final List<NavigationEntryInterface> getFullNavigationList() {
-    return this.fullNavigationList;
+    return fullNavigationList;
   }
 
   @Override
   public final List<NavigationEntryInterface> getNavigationList() {
-    return this.navigationList;
+    return navigationList;
   }
 
   @Override
   public final void setNavigationList(final List<NavigationEntryInterface> pnavigationList) {
-    this.navigationList = pnavigationList;
+    navigationList = pnavigationList;
   }
 
   @Override
   public final NavigationEntryInterface getActiveNavigationEntryInterface() {
-    return this.getNavigationForToken(this.activeToken);
+    return getNavigationForToken(activeToken);
   }
 
   @Override
   public final void setActiveNavigationEntryInterface(
       final NavigationEntryInterface pactiveNavigationEntryInterface) {
-    this.activeToken =
+    activeToken =
         pactiveNavigationEntryInterface == null ? null : pactiveNavigationEntryInterface.getToken();
   }
 
   @Override
   public final void setActiveNavigationEntryInterface(final String ptoken) {
-    this.activeToken = ptoken;
+    activeToken = ptoken;
   }
 
   @Override
   public final NavigationEntryInterface getNavigationForToken(final String ptoken) {
-    NavigationEntryInterface entry = this.placeMap.get(ptoken);
+    NavigationEntryInterface entry = placeMap.get(ptoken);
     if (entry == null && StringUtils.contains(ptoken, '?')) {
       final int posSeparator = ptoken.indexOf('?');
       if (posSeparator > 0) {
-        entry = this.placeMap.get(ptoken.substring(0, posSeparator));
+        entry = placeMap.get(ptoken.substring(0, posSeparator));
       }
     }
     return entry;
@@ -205,12 +205,12 @@ public abstract class AbstractNavigationStructure
 
   @Override
   public final String getLoginToken() {
-    return this.loginToken;
+    return loginToken;
   }
 
   @Override
   public final void setLoginToken(final String ploginToken) {
-    this.loginToken = ploginToken;
+    loginToken = ploginToken;
   }
 
   protected SafeHtml createMenuEntry(final ImageResource pimage, final String ptext) {

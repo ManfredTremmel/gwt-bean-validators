@@ -15,18 +15,18 @@
 
 package de.knightsoftnet.gwtp.spring.client;
 
+import com.google.gwt.core.client.GWT;
+import com.google.web.bindery.event.shared.EventBus;
+import com.gwtplatform.dispatch.rest.client.RestDispatch;
+
+import org.apache.commons.lang3.BooleanUtils;
+
 import de.knightsoftnet.gwtp.spring.client.rest.helper.AbstractSimpleRestCallback;
 import de.knightsoftnet.gwtp.spring.client.rest.helper.HasShowMessage;
 import de.knightsoftnet.gwtp.spring.client.rest.helper.HttpMessages;
 import de.knightsoftnet.gwtp.spring.client.services.UserRestServiceTemplate;
 import de.knightsoftnet.gwtp.spring.client.session.AbstractSession;
 import de.knightsoftnet.gwtp.spring.shared.models.User;
-
-import com.google.gwt.core.client.GWT;
-import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.dispatch.rest.client.RestDispatch;
-
-import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * Session handler using spring rest service.

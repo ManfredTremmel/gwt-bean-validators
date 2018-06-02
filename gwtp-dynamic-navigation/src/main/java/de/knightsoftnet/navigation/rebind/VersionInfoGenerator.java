@@ -42,7 +42,7 @@ public class VersionInfoGenerator extends Generator {
       final JClassType classType = pcontext.getTypeOracle().getType(ptypeName);
 
       // Here you would retrieve the metadata based on typeName for this class
-      final SourceWriter src = this.getSourceWriter(classType, pcontext, plogger);
+      final SourceWriter src = getSourceWriter(classType, pcontext, plogger);
 
       if (src != null) {
         final ResourceBundle bundle = ResourceBundle.getBundle("Version");

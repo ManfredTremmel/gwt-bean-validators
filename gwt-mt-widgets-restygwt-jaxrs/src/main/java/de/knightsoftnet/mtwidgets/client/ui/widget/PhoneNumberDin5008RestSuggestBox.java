@@ -40,7 +40,7 @@ public class PhoneNumberDin5008RestSuggestBox extends AbstractPhoneNumberRestSug
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.service.formatDin5008WithPos(pkey, presult);
+    service.formatDin5008WithPos(pkey, presult);
   }
 
   @Override

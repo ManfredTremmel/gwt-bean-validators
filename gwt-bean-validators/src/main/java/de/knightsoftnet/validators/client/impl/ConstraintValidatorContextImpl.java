@@ -67,22 +67,20 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public ConstraintValidatorContext addConstraintViolation() {
-      ConstraintValidatorContextImpl.this.messages
-          .add(new MessageAndPath(this.context.basePath, this.messageTemplate));
-      return this.context;
+      messages.add(new MessageAndPath(context.basePath, messageTemplate));
+      return context;
     }
 
     @Override
     public NodeBuilderDefinedContext addNode(final String name) {
-      this.context.basePath.addPropertyNode(name);
-      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate, this.context.basePath);
+      context.basePath.addPropertyNode(name);
+      return new NodeBuilderDefinedContextImpl(this, messageTemplate, context.basePath);
     }
 
     @Override
     public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
-      this.context.basePath.addPropertyNode(pname);
-      return new NodeBuilderCustomizableContextImpl(this, this.messageTemplate,
-          this.context.basePath);
+      context.basePath.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(this, messageTemplate, context.basePath);
     }
 
     @Override
@@ -99,8 +97,8 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public NodeBuilderDefinedContext addParameterNode(final int pindex) {
-      this.context.basePath.addParameterNode(null, pindex);
-      return new NodeBuilderDefinedContextImpl(this, this.messageTemplate, this.context.basePath);
+      context.basePath.addParameterNode(null, pindex);
+      return new NodeBuilderDefinedContextImpl(this, messageTemplate, context.basePath);
     }
   }
 
@@ -129,26 +127,25 @@ public class ConstraintValidatorContextImpl<A extends Annotation, T>
 
     @Override
     public ConstraintValidatorContext addConstraintViolation() {
-      ConstraintValidatorContextImpl.this.messages
-          .add(new MessageAndPath(this.path, this.messageTemplate));
-      return this.parent.context;
+      messages.add(new MessageAndPath(path, messageTemplate));
+      return parent.context;
     }
 
     @Override
     public NodeBuilderCustomizableContext addNode(final String name) {
-      this.path.addPropertyNode(name);
-      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+      path.addPropertyNode(name);
+      return new NodeBuilderCustomizableContextImpl(parent, messageTemplate, path);
     }
 
     @Override
     public NodeBuilderCustomizableContext addPropertyNode(final String pname) {
-      this.path.addPropertyNode(pname);
-      return new NodeBuilderCustomizableContextImpl(this.parent, this.messageTemplate, this.path);
+      path.addPropertyNode(pname);
+      return new NodeBuilderCustomizableContextImpl(parent, messageTemplate, path);
     }
 
     @Override
     public NodeContextBuilder inIterable() {
-      return new NodeContextBuilderImpl(this.path, this.messageTemplate, this.parent);
+      return new NodeContextBuilderImpl(path, messageTemplate, parent);
     }
 
     @Override

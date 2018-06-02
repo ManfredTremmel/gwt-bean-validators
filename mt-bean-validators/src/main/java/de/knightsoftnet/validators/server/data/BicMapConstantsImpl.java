@@ -23,11 +23,11 @@ public class BicMapConstantsImpl implements BicMapSharedConstants {
   private final Map<String, String> bicMap;
 
   public BicMapConstantsImpl(final Map<String, String> pmap) {
-    this.bicMap = pmap;
+    bicMap = pmap;
   }
 
   @Override
   public Map<String, String> bics() {
-    return this.bicMap;
+    return bicMap;
   }
 }

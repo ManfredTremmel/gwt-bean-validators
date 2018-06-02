@@ -58,19 +58,18 @@ public class VatIdKeyPressHandler extends SimpleFilterAndReplaceKeyPressHandler 
    */
   public VatIdKeyPressHandler(final TakesValue<?> pcountryCodeField) {
     super(Collections.<Character>emptySet(), true);
-    this.countryCodeField = pcountryCodeField;
+    countryCodeField = pcountryCodeField;
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    final String countryCode =
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()));
+    final String countryCode = StringUtils.upperCase(Objects.toString(countryCodeField.getValue()));
     final Set<Character> currentCharacterSet =
         VatIdKeyPressHandler.ALLOWED_CHRACTERS.get(countryCode);
     if (currentCharacterSet == null) {
       this.setAllowedCharacters(RegExUtil
           .getAllowedCharactersForRegEx(VatIdKeyPressHandler.VATID_MAP.vatIds().get(countryCode)));
-      VatIdKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, this.getAllowedCharacters());
+      VatIdKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, getAllowedCharacters());
     } else {
       this.setAllowedCharacters(currentCharacterSet);
     }

@@ -44,7 +44,6 @@ public abstract class AbstractPresenterWithErrorHandling<P extends Proxy<?>, //
   @Override
   protected void onReveal() {
     super.onReveal();
-    Scheduler.get().scheduleDeferred(
-        () -> AbstractPresenterWithErrorHandling.this.getView().setFocusOnFirstWidget());
+    Scheduler.get().scheduleDeferred(() -> getView().setFocusOnFirstWidget());
   }
 }

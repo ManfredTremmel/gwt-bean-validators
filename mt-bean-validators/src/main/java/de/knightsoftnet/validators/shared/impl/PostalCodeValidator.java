@@ -66,10 +66,10 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
    */
   @Override
   public final void initialize(final PostalCode pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
-    this.fieldPostalCode = pconstraintAnnotation.fieldPostalCode();
+    message = pconstraintAnnotation.message();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
+    fieldPostalCode = pconstraintAnnotation.fieldPostalCode();
   }
 
   /**
@@ -85,14 +85,14 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
     }
     try {
       String countryCode =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCountryCode);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCountryCode);
       final String postalCode =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldPostalCode);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldPostalCode);
       if (StringUtils.isEmpty(postalCode)) {
         return true;
       }
 
-      if (this.allowLowerCaseCountryCode) {
+      if (allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
 
@@ -103,17 +103,17 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Obje
       if (postalCode.matches(regExCheck)) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message)
-        .addPropertyNode(this.fieldPostalCode).addConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldPostalCode)
+        .addConstraintViolation();
   }
 }

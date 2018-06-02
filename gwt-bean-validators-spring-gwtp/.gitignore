@@ -8,4 +8,8 @@
 /www-test/
 /gwt-unitCache/
 /.gwt/
+.idea/*
+*.iml
 /.fbExcludeFilterFile
+/.pmdruleset.xml
+/.pmd

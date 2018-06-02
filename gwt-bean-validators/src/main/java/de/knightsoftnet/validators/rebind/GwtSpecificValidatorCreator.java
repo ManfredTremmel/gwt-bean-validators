@@ -345,48 +345,48 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
     final Set<Class<?>> tempValidGroups = Sets.newHashSet(validGroupsFromAnnotation);
     tempValidGroups.add(Default.class);
-    this.validGroups = Collections.unmodifiableSet(tempValidGroups);
+    validGroups = Collections.unmodifiableSet(tempValidGroups);
   }
 
   @Override
   protected void compose(final ClassSourceFileComposerFactory composerFactory) {
-    this.addImports(composerFactory, Annotation.class, ConstraintViolation.class, GWT.class,
+    addImports(composerFactory, Annotation.class, ConstraintViolation.class, GWT.class,
         ValidationGroupsMetadata.class, Group.class, GroupChain.class, PathImpl.class, Node.class,
         GroupChainGenerator.class, GwtBeanDescriptor.class, BeanMetadata.class,
         GwtValidationContext.class, ArrayList.class, HashSet.class, IllegalArgumentException.class,
         Set.class, Collection.class, Iterator.class, List.class, ValidationException.class);
     composerFactory.setSuperclass(AbstractGwtSpecificValidator.class.getCanonicalName() + "<"
-        + this.beanType.getQualifiedSourceName() + ">");
-    composerFactory.addImplementedInterface(this.validatorType.getName());
+        + beanType.getQualifiedSourceName() + ">");
+    composerFactory.addImplementedInterface(validatorType.getName());
   }
 
   @Override
   protected void writeClassBody(final SourceWriter sw) throws UnableToCompleteException {
-    this.writeFields(sw);
+    writeFields(sw);
     sw.println();
-    this.writeValidateClassGroups(sw);
+    writeValidateClassGroups(sw);
     sw.println();
-    this.writeExpandDefaultAndValidateClassGroups(sw);
+    writeExpandDefaultAndValidateClassGroups(sw);
     sw.println();
-    this.writeExpandDefaultAndValidatePropertyGroups(sw);
+    writeExpandDefaultAndValidatePropertyGroups(sw);
     sw.println();
-    this.writeExpandDefaultAndValidateValueGroups(sw);
+    writeExpandDefaultAndValidateValueGroups(sw);
     sw.println();
-    this.writeValidatePropertyGroups(sw);
+    writeValidatePropertyGroups(sw);
     sw.println();
-    this.writeValidateValueGroups(sw);
+    writeValidateValueGroups(sw);
     sw.println();
-    this.writeGetBeanMetadata(sw);
+    writeGetBeanMetadata(sw);
     sw.println();
-    this.writeGetDescriptor(sw);
+    writeGetDescriptor(sw);
     sw.println();
-    this.writePropertyValidators(sw);
+    writePropertyValidators(sw);
     sw.println();
-    this.writeValidateAllNonInheritedProperties(sw);
+    writeValidateAllNonInheritedProperties(sw);
     sw.println();
 
     // Write the wrappers after we know which are needed
-    this.writeWrappers(sw);
+    writeWrappers(sw);
     sw.println();
   }
 
@@ -400,12 +400,12 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   private boolean areConstraintDescriptorGroupsValid(
       final ConstraintDescriptor<?> constraintDescriptor) {
-    if (this.validConstraintsMap.containsKey(constraintDescriptor)) {
-      return this.validConstraintsMap.get(constraintDescriptor);
+    if (validConstraintsMap.containsKey(constraintDescriptor)) {
+      return validConstraintsMap.get(constraintDescriptor);
     } else {
-      final boolean areValid = this.checkGroups(constraintDescriptor.getGroups());
+      final boolean areValid = checkGroups(constraintDescriptor.getGroups());
       // cache result
-      this.validConstraintsMap.put(constraintDescriptor, areValid);
+      validConstraintsMap.put(constraintDescriptor, areValid);
       return areValid;
     }
   }
@@ -418,7 +418,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private boolean checkGroups(final Set<Class<?>> groups) {
-    return groups.stream().anyMatch(group -> this.validGroups.contains(group));
+    return groups.stream().anyMatch(group -> validGroups.contains(group));
   }
 
   private String constraintDescriptorVar(final String name, final int count) {
@@ -429,13 +429,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final boolean useField, final Class<? extends Annotation> expectedAnnotationClass) {
     Annotation annotation = null;
     if (useField) {
-      final JField field = this.beanType.findField(ppropertyDescription.getPropertyName());
-      if (field.getEnclosingType().equals(this.beanType)) {
+      final JField field = beanType.findField(ppropertyDescription.getPropertyName());
+      if (field.getEnclosingType().equals(beanType)) {
         annotation = field.getAnnotation(expectedAnnotationClass);
       }
     } else {
-      final JMethod method = this.beanType.findMethod(asGetter(ppropertyDescription), NO_ARGS);
-      if (method.getEnclosingType().equals(this.beanType)) {
+      final JMethod method = beanType.findMethod(asGetter(ppropertyDescription), NO_ARGS);
+      if (method.getEnclosingType().equals(beanType)) {
         annotation = method.getAnnotation(expectedAnnotationClass);
       }
     }
@@ -444,7 +444,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   private Annotation[] getAnnotations(final PropertyDescriptor ppropertyDescription,
       final boolean useField) {
-    final Class<?> clazz = this.beanHelper.getClazz();
+    final Class<?> clazz = beanHelper.getClazz();
     if (useField) {
       try {
         final Field field = clazz.getDeclaredField(ppropertyDescription.getPropertyName());
@@ -496,7 +496,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         } catch (final NoSuchMethodException ignore) { // NOPMD
           // Expected Case.
         } catch (final Exception e) {
-          throw error(this.logger, e);
+          throw error(logger, e);
         }
       }
     }
@@ -507,13 +507,12 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       throws UnableToCompleteException {
     final Annotation expectedAnnotation = constraint.getAnnotation();
     final Class<? extends Annotation> expectedAnnotationClass = expectedAnnotation.annotationType();
-    if (expectedAnnotation
-        .equals(this.beanHelper.getClazz().getAnnotation(expectedAnnotationClass))) {
+    if (expectedAnnotation.equals(beanHelper.getClazz().getAnnotation(expectedAnnotationClass))) {
       return true;
     }
 
     // See spec section 2.2. Applying multiple constraints of the same type
-    final Annotation[] annotations = this.beanHelper.getClazz().getAnnotations();
+    final Annotation[] annotations = beanHelper.getClazz().getAnnotations();
     return this.hasMatchingAnnotation(expectedAnnotation, annotations);
   }
 
@@ -523,23 +522,22 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     final Annotation expectedAnnotation = constraint.getAnnotation();
     final Class<? extends Annotation> expectedAnnotationClass = expectedAnnotation.annotationType();
     if (expectedAnnotation
-        .equals(this.getAnnotation(ppropertyDescription, useField, expectedAnnotationClass))) {
+        .equals(getAnnotation(ppropertyDescription, useField, expectedAnnotationClass))) {
       return true;
     }
     return this.hasMatchingAnnotation(expectedAnnotation,
-        this.getAnnotations(ppropertyDescription, useField));
+        getAnnotations(ppropertyDescription, useField));
   }
 
   private boolean hasValid(final PropertyDescriptor ppropertyDescription, final boolean useField) {
-    return this.getAnnotation(ppropertyDescription, useField, Valid.class) != null;
+    return getAnnotation(ppropertyDescription, useField, Valid.class) != null;
   }
 
   private boolean isPropertyConstrained(final BeanHelper helper,
       final PropertyDescriptor ppropertyDescription) {
     final Set<PropertyDescriptor> propertyDescriptors =
         helper.getBeanDescriptor().getConstrainedProperties();
-    final Predicate<PropertyDescriptor> nameMatches =
-        this.newPropertyNameMatches(ppropertyDescription);
+    final Predicate<PropertyDescriptor> nameMatches = newPropertyNameMatches(ppropertyDescription);
     return Iterables.any(propertyDescriptors, nameMatches);
   }
 
@@ -547,7 +545,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final boolean useField) {
     // cascaded counts as constrained
     // we must know if the @Valid annotation is on a field or a getter
-    final JClassType jClass = this.beanHelper.getJClass();
+    final JClassType jClass = beanHelper.getJClass();
     if (useField && jClass.findField(ppropertyDescription.getPropertyName())
         .isAnnotationPresent(Valid.class)) {
       return true;
@@ -590,19 +588,19 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private void writeBeanDescriptor(final SourceWriter sw) {
-    final BeanDescriptor beanDescriptor = this.beanHelper.getBeanDescriptor();
+    final BeanDescriptor beanDescriptor = beanHelper.getBeanDescriptor();
 
     // private final GwtBeanDescriptor <MyBean> beanDescriptor =
     sw.print("private final ");
     sw.print(GwtBeanDescriptor.class.getCanonicalName());
-    sw.print("<" + this.beanHelper.getTypeCanonicalName() + ">");
+    sw.print("<" + beanHelper.getTypeCanonicalName() + ">");
     sw.println(" beanDescriptor = ");
     sw.indent();
     sw.indent();
 
     // GwtBeanDescriptorImpl.builder(Order.class)
     sw.print(GwtBeanDescriptorImpl.class.getCanonicalName());
-    sw.println(".builder(" + this.beanHelper.getTypeCanonicalName() + ".class)");
+    sw.println(".builder(" + beanHelper.getTypeCanonicalName() + ".class)");
     sw.indent();
     sw.indent();
 
@@ -611,9 +609,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
     int count = 0;
     for (final ConstraintDescriptor<?> constraint : beanDescriptor.getConstraintDescriptors()) {
-      if (this.areConstraintDescriptorGroupsValid(constraint)) {
+      if (areConstraintDescriptorGroupsValid(constraint)) {
         // .add(c0)
-        sw.println(".add(" + this.constraintDescriptorVar("this", count) + ")");
+        sw.println(".add(" + constraintDescriptorVar("this", count) + ")");
         count++;
       }
     }
@@ -650,7 +648,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
 
     // <<bean class>>, <<default group seq class 1>>, <<default group seq class 2>>, ...
-    final Class<?> beanClazz = this.beanHelper.getClazz();
+    final Class<?> beanClazz = beanHelper.getClazz();
     sw.print(asLiteral(beanClazz));
     final GroupSequence groupSeqAnnotation = beanClazz.getAnnotation(GroupSequence.class);
     final List<Class<?>> groupSequence = new ArrayList<>();
@@ -666,13 +664,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         sw.print(asLiteral(Default.class));
         groupSequenceContainsDefault = true;
       } else if (group.getName().equals(Default.class.getName())) {
-        throw error(this.logger, "'Default.class' cannot appear in default group sequence list.");
+        throw error(logger, "'Default.class' cannot appear in default group sequence list.");
       } else {
         sw.print(asLiteral(group));
       }
     }
     if (!groupSequenceContainsDefault) {
-      throw error(this.logger,
+      throw error(logger,
           beanClazz.getName() + " must be part of the redefined default group " + "sequence.");
     }
 
@@ -687,10 +685,10 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final String groupsVarName) throws UnableToCompleteException {
     // all class level constraints
     int count = 0;
-    final Class<?> clazz = this.beanHelper.getClazz();
-    for (final ConstraintDescriptor<?> constraint : this.beanHelper.getBeanDescriptor()
+    final Class<?> clazz = beanHelper.getClazz();
+    for (final ConstraintDescriptor<?> constraint : beanHelper.getBeanDescriptor()
         .getConstraintDescriptors()) {
-      if (this.areConstraintDescriptorGroupsValid(constraint)) {
+      if (areConstraintDescriptorGroupsValid(constraint)) {
         if (this.hasMatchingAnnotation(constraint)) {
 
           if (!constraint.getConstraintValidatorClasses().isEmpty()) { // NOPMD
@@ -706,13 +704,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
             sw.print("(), "); // TODO(nchalko) use ConstraintValidatorFactory
 
             // this.aConstraintDescriptor, groups);
-            sw.print(this.constraintDescriptorVar("this", count));
+            sw.print(constraintDescriptorVar("this", count));
             sw.print(", ");
             sw.print(groupsVarName);
             sw.println(");");
           } else if (constraint.getComposingConstraints().isEmpty()) {
             // TODO(nchalko) What does the spec say to do here.
-            this.logger.log(TreeLogger.WARN,
+            logger.log(TreeLogger.WARN,
                 "No ConstraintValidator of " + constraint + " for type " + clazz);
           }
           // TODO(nchalko) handle constraint.isReportAsSingleViolation() and
@@ -732,7 +730,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     // First list all composing constraints
     int count = 0;
     for (final ConstraintDescriptor<?> composingConstraint : constraint.getComposingConstraints()) {
-      this.writeConstraintDescriptor(sw, composingConstraint, elementType, origin,
+      writeConstraintDescriptor(sw, composingConstraint, elementType, origin,
           constraintDescripotorVar + "_" + count++);
     }
 
@@ -761,7 +759,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.println(".setAnnotation( ");
     sw.indent();
     sw.indent();
-    this.writeNewAnnotation(sw, constraint);
+    writeNewAnnotation(sw, constraint);
     sw.println(")");
     sw.outdent();
     sw.outdent();
@@ -841,7 +839,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   private void writeExpandDefaultAndValidate(final SourceWriter sw, final Stage stage)
       throws UnableToCompleteException {
-    final Class<?> clazz = this.beanHelper.getClazz();
+    final Class<?> clazz = beanHelper.getClazz();
 
     // ArrayList<Class<?>> justGroups = new ArrayList<Class<?>>();
     sw.println("ArrayList<Class<?>> justGroups = new ArrayList<Class<?>>();");
@@ -870,7 +868,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         // validateAllNonInheritedProperties(context, object, violations, justGroupsArray);
         sw.println("validateAllNonInheritedProperties(context, object, violations, "
             + "justGroupsArray);");
-        this.writeClassLevelConstraintsValidation(sw, "justGroupsArray");
+        writeClassLevelConstraintsValidation(sw, "justGroupsArray");
         break;
       case PROPERTY:
         // validatePropertyGroups(context, object, propertyName, violations, justGroupsArray);
@@ -900,7 +898,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       case OBJECT:
         // validateAllNonInheritedProperties(context, object, violations, g);
         sw.println("validateAllNonInheritedProperties(context, object, violations, g);");
-        this.writeClassLevelConstraintsValidation(sw, "g");
+        writeClassLevelConstraintsValidation(sw, "g");
         // validate super classes and super interfaces
         this.writeValidateInheritance(sw, clazz, Stage.OBJECT, null, false, "g");
         break;
@@ -954,12 +952,12 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Group... groups) {");
     sw.outdent();
 
-    this.writeExpandDefaultAndValidate(sw, Stage.OBJECT);
+    writeExpandDefaultAndValidate(sw, Stage.OBJECT);
 
     // }
     sw.outdent();
@@ -976,13 +974,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
     sw.println("String propertyName,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Group... groups) {");
     sw.outdent();
 
-    this.writeExpandDefaultAndValidate(sw, Stage.PROPERTY);
+    writeExpandDefaultAndValidate(sw, Stage.PROPERTY);
 
     // }
     sw.outdent();
@@ -999,14 +997,14 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println("Class<" + this.beanHelper.getTypeCanonicalName() + "> beanType,");
+    sw.println("Class<" + beanHelper.getTypeCanonicalName() + "> beanType,");
     sw.println("String propertyName,");
     sw.println("Object value,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Group... groups) {");
     sw.outdent();
 
-    this.writeExpandDefaultAndValidate(sw, Stage.VALUE);
+    writeExpandDefaultAndValidate(sw, Stage.VALUE);
 
     // }
     sw.outdent();
@@ -1018,9 +1016,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     // Create a static array of all valid property names.
     BeanInfo beanInfo;
     try {
-      beanInfo = Introspector.getBeanInfo(this.beanHelper.getClazz());
+      beanInfo = Introspector.getBeanInfo(beanHelper.getClazz());
     } catch (final IntrospectionException e) {
-      throw error(this.logger, e);
+      throw error(logger, e);
     }
 
     // private static final java.util.List<String> ALL_PROPERTY_NAMES =
@@ -1047,51 +1045,50 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.outdent();
 
     // Write the metadata for the bean
-    this.writeBeanMetadata(sw);
+    writeBeanMetadata(sw);
     sw.println();
 
     // Create a variable for each constraint of each property
-    for (final PropertyDescriptor p : this.beanHelper.getBeanDescriptor()
-        .getConstrainedProperties()) {
+    for (final PropertyDescriptor p : beanHelper.getBeanDescriptor().getConstrainedProperties()) {
       int count = 0;
       for (final ConstraintDescriptor<?> constraint : p.getConstraintDescriptors()) {
         final org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl<?> constraintHibernate =
             (org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl<?>) constraint;
-        if (this.areConstraintDescriptorGroupsValid(constraint)) {
-          this.writeConstraintDescriptor(sw, constraint, constraintHibernate.getElementType(),
+        if (areConstraintDescriptorGroupsValid(constraint)) {
+          writeConstraintDescriptor(sw, constraint, constraintHibernate.getElementType(),
               convertConstraintOriginEnum(constraintHibernate.getDefinedOn()),
-              this.constraintDescriptorVar(p.getPropertyName(), count++));
+              constraintDescriptorVar(p.getPropertyName(), count++));
         }
       }
-      this.writePropertyDescriptor(sw, p);
+      writePropertyDescriptor(sw, p);
       if (p.isCascaded()) {
-        this.beansToValidate.add(isIterableOrMap(p.getElementClass())
-            ? this.createBeanHelper(this.beanHelper.getAssociationType(p, true))
+        beansToValidate.add(isIterableOrMap(p.getElementClass())
+            ? this.createBeanHelper(beanHelper.getAssociationType(p, true))
             : this.createBeanHelper(p.getElementClass()));
       }
     }
 
     // Create a variable for each constraint of this class.
     int count = 0;
-    for (final ConstraintDescriptor<?> constraint : this.beanHelper.getBeanDescriptor()
+    for (final ConstraintDescriptor<?> constraint : beanHelper.getBeanDescriptor()
         .getConstraintDescriptors()) {
       final org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl<?> constraintHibernate =
           (org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl<?>) constraint;
-      if (this.areConstraintDescriptorGroupsValid(constraint)) {
-        this.writeConstraintDescriptor(sw, constraint, ElementType.TYPE,
+      if (areConstraintDescriptorGroupsValid(constraint)) {
+        writeConstraintDescriptor(sw, constraint, ElementType.TYPE,
             convertConstraintOriginEnum(constraintHibernate.getDefinedOn()),
-            this.constraintDescriptorVar("this", count++));
+            constraintDescriptorVar("this", count++));
       }
     }
 
     // Now write the BeanDescriptor after we already have the
     // PropertyDescriptors and class constraints
-    this.writeBeanDescriptor(sw);
+    writeBeanDescriptor(sw);
     sw.println();
   }
 
   private void writeFieldWrapperMethod(final SourceWriter sw, final JField field) {
-    this.writeUnsafeNativeLongIfNeeded(sw, field.getType());
+    writeUnsafeNativeLongIfNeeded(sw, field.getType());
 
     // private native fieldType _fieldName(com.example.Bean object) /*-{
     sw.print("private native ");
@@ -1132,7 +1129,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     // public GwtBeanDescriptor<beanType>
     // getConstraints(ValidationGroupsMetadata validationGroupsMetadata) {
     sw.print("public ");
-    sw.print("GwtBeanDescriptor<" + this.beanHelper.getTypeCanonicalName() + "> ");
+    sw.print("GwtBeanDescriptor<" + beanHelper.getTypeCanonicalName() + "> ");
     sw.println("getConstraints(ValidationGroupsMetadata validationGroupsMetadata) {");
     sw.indent();
 
@@ -1147,7 +1144,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private void writeGetterWrapperMethod(final SourceWriter sw, final JMethod method) {
-    this.writeUnsafeNativeLongIfNeeded(sw, method.getReturnType());
+    writeUnsafeNativeLongIfNeeded(sw, method.getReturnType());
 
     // private native fieldType _getter(Bean object) /*={
     sw.print("private native ");
@@ -1155,7 +1152,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.print(" ");
     sw.print(this.toWrapperName(method));
     sw.print("(");
-    sw.print(this.beanType.getName());
+    sw.print(beanType.getName());
     sw.println(" object) /*-{");
     sw.indent();
 
@@ -1179,7 +1176,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.print("throw new ");
     sw.print(IllegalArgumentException.class.getCanonicalName());
     sw.print("( propertyName +\" is not a valid property of ");
-    sw.print(this.beanType.getQualifiedSourceName());
+    sw.print(beanType.getQualifiedSourceName());
     sw.println("\");");
 
     // }
@@ -1221,11 +1218,11 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
           final Object value = method.invoke(annotation);
           sw.print(asLiteral(value));
         } catch (final IllegalArgumentException e) {
-          throw error(this.logger, e);
+          throw error(logger, e);
         } catch (final IllegalAccessException e) {
-          throw error(this.logger, e);
+          throw error(logger, e);
         } catch (final InvocationTargetException e) {
-          throw error(this.logger, e);
+          throw error(logger, e);
         }
         sw.println(";}");
       }
@@ -1283,9 +1280,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     int count = 0;
     for (final ConstraintDescriptor<?> constraint : ppropertyDescription
         .getConstraintDescriptors()) {
-      if (this.areConstraintDescriptorGroupsValid(constraint)) {
+      if (areConstraintDescriptorGroupsValid(constraint)) {
         sw.println(","); // Print the , for the previous line
-        sw.print(this.constraintDescriptorVar(ppropertyDescription.getPropertyName(), count));
+        sw.print(constraintDescriptorVar(ppropertyDescription.getPropertyName(), count));
         count++;
       }
     }
@@ -1298,14 +1295,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   }
 
   private void writePropertyValidators(final SourceWriter sw) throws UnableToCompleteException {
-    for (final PropertyDescriptor p : this.beanHelper.getBeanDescriptor()
-        .getConstrainedProperties()) {
-      if (this.beanHelper.hasField(p)) {
-        this.writeValidatePropertyMethod(sw, p, true);
+    for (final PropertyDescriptor p : beanHelper.getBeanDescriptor().getConstrainedProperties()) {
+      if (beanHelper.hasField(p)) {
+        writeValidatePropertyMethod(sw, p, true);
         sw.println();
       }
-      if (this.beanHelper.hasGetter(p)) {
-        this.writeValidatePropertyMethod(sw, p, false);
+      if (beanHelper.hasGetter(p)) {
+        writeValidatePropertyMethod(sw, p, false);
         sw.println();
       }
     }
@@ -1320,14 +1316,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     // GwtValidationContext<T> context, BeanType object,
     // Set<ConstraintViolation<T>> violations, Class<?>... groups) {
     sw.println("GwtValidationContext<T> context,");
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Class<?>... groups) {");
     sw.outdent();
 
-    for (final PropertyDescriptor p : this.beanHelper.getBeanDescriptor()
-        .getConstrainedProperties()) {
-      this.writeValidatePropertyCall(sw, p, false, true);
+    for (final PropertyDescriptor p : beanHelper.getBeanDescriptor().getConstrainedProperties()) {
+      writeValidatePropertyCall(sw, p, false, true);
     }
 
     sw.outdent();
@@ -1343,7 +1338,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Class<?>... groups) {");
     sw.outdent();
@@ -1360,10 +1355,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.println("validateAllNonInheritedProperties(context, object, violations, groups);");
 
     // validate super classes and super interfaces
-    this.writeValidateInheritance(sw, this.beanHelper.getClazz(), Stage.OBJECT, null, false,
-        "groups");
+    this.writeValidateInheritance(sw, beanHelper.getClazz(), Stage.OBJECT, null, false, "groups");
 
-    this.writeClassLevelConstraintsValidation(sw, "groups");
+    writeClassLevelConstraintsValidation(sw, "groups");
 
     // }
     sw.outdent();
@@ -1412,7 +1406,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       sw.print("// Report ");
       sw.print(constraint.getAnnotation().annotationType().getCanonicalName());
       sw.println(" as Single Violation");
-      this.writeNewViolations(sw, compositeViolationsVar);
+      writeNewViolations(sw, compositeViolationsVar);
     }
 
     if (hasValidator) {
@@ -1420,7 +1414,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       try {
         validatorClass = getValidatorForType(constraint, elementClass);
       } catch (final UnexpectedTypeException e) {
-        throw error(this.logger, e);
+        throw error(logger, e);
       }
 
       if (firstReportAsSingleViolation) {
@@ -1456,7 +1450,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       }
     } else if (!isComposite) {
       // TODO(nchalko) What does the spec say to do here.
-      this.logger.log(TreeLogger.WARN, "No ConstraintValidator of " + constraint + " for "
+      logger.log(TreeLogger.WARN, "No ConstraintValidator of " + constraint + " for "
           + ppropertyDescription.getPropertyName() + " of type " + elementClass);
     }
 
@@ -1513,7 +1507,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     final String propertyName = ppropertyDescription.getPropertyName();
 
     // validateProperty_<<field>>(context,
-    sw.print(this.validateMethodFieldName(ppropertyDescription));
+    sw.print(validateMethodFieldName(ppropertyDescription));
     sw.print("(context, ");
     sw.print("violations, ");
 
@@ -1523,17 +1517,17 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     if (useValue) {
       sw.print("null, ");
       sw.print("(");
-      sw.print(this.getQualifiedSourceNonPrimitiveType(
-          this.beanHelper.getElementType(ppropertyDescription, true)));
+      sw.print(getQualifiedSourceNonPrimitiveType(
+          beanHelper.getElementType(ppropertyDescription, true)));
       sw.print(") value");
     } else {
       sw.print("object, ");
-      final JField field = this.beanType.getField(propertyName);
+      final JField field = beanType.getField(propertyName);
       if (field.isPublic()) {
         sw.print("object.");
         sw.print(propertyName);
       } else {
-        this.fieldsToWrap.add(field);
+        fieldsToWrap.add(field);
         sw.print(this.toWrapperName(field) + "(object)");
       }
     }
@@ -1548,7 +1542,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final PropertyDescriptor ppropertyDescription, final boolean useValue,
       final boolean honorValid) {
     // validateProperty_get<<field>>(context, violations,
-    sw.print(this.validateMethodGetterName(ppropertyDescription));
+    sw.print(validateMethodGetterName(ppropertyDescription));
     sw.print("(context, ");
     sw.print("violations, ");
 
@@ -1558,18 +1552,18 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     if (useValue) {
       sw.print("null, ");
       sw.print("(");
-      sw.print(this.getQualifiedSourceNonPrimitiveType(
-          this.beanHelper.getElementType(ppropertyDescription, false)));
+      sw.print(getQualifiedSourceNonPrimitiveType(
+          beanHelper.getElementType(ppropertyDescription, false)));
       sw.print(") value");
     } else {
       sw.print("object, ");
-      final JMethod method = this.beanType.findMethod(asGetter(ppropertyDescription), NO_ARGS);
+      final JMethod method = beanType.findMethod(asGetter(ppropertyDescription), NO_ARGS);
       if (method.isPublic()) {
         sw.print("object.");
         sw.print(asGetter(ppropertyDescription));
         sw.print("()");
       } else {
-        this.gettersToWrap.add(method);
+        gettersToWrap.add(method);
         sw.print(this.toWrapperName(method) + "(object)");
       }
     }
@@ -1589,11 +1583,10 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final Stage stage, final PropertyDescriptor property,
       final boolean expandDefaultGroupSequence, final String groupsVarName)
       throws UnableToCompleteException {
-    this.writeValidateInterfaces(sw, clazz, stage, property, expandDefaultGroupSequence,
-        groupsVarName);
+    writeValidateInterfaces(sw, clazz, stage, property, expandDefaultGroupSequence, groupsVarName);
     final Class<?> superClass = clazz.getSuperclass();
     if (superClass != null) {
-      this.writeValidatorCall(sw, superClass, stage, property, expandDefaultGroupSequence,
+      writeValidatorCall(sw, superClass, stage, property, expandDefaultGroupSequence,
           groupsVarName);
     }
   }
@@ -1603,10 +1596,10 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final boolean expandDefaultGroupSequence, final String groupsVarName)
       throws UnableToCompleteException {
     for (final Class<?> type : clazz.getInterfaces()) {
-      this.writeValidatorCall(sw, type, stage, ppropertyDescription, expandDefaultGroupSequence,
+      writeValidatorCall(sw, type, stage, ppropertyDescription, expandDefaultGroupSequence,
           groupsVarName);
-      this.writeValidateInterfaces(sw, type, stage, ppropertyDescription,
-          expandDefaultGroupSequence, groupsVarName);
+      writeValidateInterfaces(sw, type, stage, ppropertyDescription, expandDefaultGroupSequence,
+          groupsVarName);
     }
   }
 
@@ -1715,12 +1708,11 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       // boolean valueTypeMatches = false;
       sw.println("boolean valueTypeMatches = false;");
     }
-    if (this.beanHelper.hasGetter(property)) {
+    if (beanHelper.hasGetter(property)) {
       if (useValue) {
         // if ( value == null || value instanceof propertyType) {
         sw.print("if (value == null || value instanceof ");
-        sw.print(this
-            .getQualifiedSourceNonPrimitiveType(this.beanHelper.getElementType(property, false)));
+        sw.print(getQualifiedSourceNonPrimitiveType(beanHelper.getElementType(property, false)));
         sw.println(") {");
         sw.indent();
 
@@ -1728,7 +1720,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         sw.println("valueTypeMatches = true;");
       }
       // validate_getMyProperty
-      this.writeValidateGetterCall(sw, property, useValue, honorValid);
+      writeValidateGetterCall(sw, property, useValue, honorValid);
       if (useValue) {
         // }
         sw.outdent();
@@ -1736,12 +1728,11 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       }
     }
 
-    if (this.beanHelper.hasField(property)) {
+    if (beanHelper.hasField(property)) {
       if (useValue) {
         // if ( value == null || value instanceof propertyType) {
         sw.print("if ( value == null || value instanceof ");
-        sw.print(this
-            .getQualifiedSourceNonPrimitiveType(this.beanHelper.getElementType(property, true)));
+        sw.print(getQualifiedSourceNonPrimitiveType(beanHelper.getElementType(property, true)));
         sw.println(") {");
         sw.indent();
 
@@ -1749,7 +1740,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
         sw.println("valueTypeMatches = true;");
       }
       // validate_myProperty
-      this.writeValidateFieldCall(sw, property, useValue, honorValid);
+      writeValidateFieldCall(sw, property, useValue, honorValid);
       if (useValue) {
         // } else
         sw.outdent();
@@ -1757,7 +1748,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       }
     }
 
-    if (useValue && (this.beanHelper.hasGetter(property) || this.beanHelper.hasField(property))) {
+    if (useValue && (beanHelper.hasGetter(property) || beanHelper.hasField(property))) {
       // if(!valueTypeMatches) {
       sw.println("if (!valueTypeMatches)  {");
       sw.indent();
@@ -1782,13 +1773,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
     sw.println("String propertyName,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Class<?>... groups) throws ValidationException {");
     sw.outdent();
 
-    for (final PropertyDescriptor property : this.beanHelper.getBeanDescriptor()
+    for (final PropertyDescriptor property : beanHelper.getBeanDescriptor()
         .getConstrainedProperties()) {
       // if (propertyName.equals(myPropety)) {
       sw.print("if (propertyName.equals(\"");
@@ -1796,17 +1787,17 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       sw.println("\")) {");
       sw.indent();
 
-      this.writeValidatePropertyCall(sw, property, false, false);
+      writeValidatePropertyCall(sw, property, false, false);
 
       // validate all super classes and interfaces
-      this.writeValidateInheritance(sw, this.beanHelper.getClazz(), Stage.PROPERTY, property);
+      this.writeValidateInheritance(sw, beanHelper.getClazz(), Stage.PROPERTY, property);
 
       // }
       sw.outdent();
       sw.print("} else ");
     }
 
-    this.writeIfPropertyNameNotFound(sw);
+    writeIfPropertyNameNotFound(sw);
 
     // }
     sw.outdent();
@@ -1817,14 +1808,14 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       final PropertyDescriptor ppropertyDescription, final boolean useField)
       throws UnableToCompleteException {
     final Class<?> elementClass = ppropertyDescription.getElementClass();
-    final JType elementType = this.beanHelper.getElementType(ppropertyDescription, useField);
+    final JType elementType = beanHelper.getElementType(ppropertyDescription, useField);
 
     // private final <T> void validateProperty_{get}<p>(
     sw.print("private final <T> void ");
     if (useField) {
-      sw.print(this.validateMethodFieldName(ppropertyDescription));
+      sw.print(validateMethodFieldName(ppropertyDescription));
     } else {
-      sw.print(this.validateMethodGetterName(ppropertyDescription));
+      sw.print(validateMethodGetterName(ppropertyDescription));
     }
     sw.println("(");
     sw.indent();
@@ -1837,7 +1828,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.println("final Set<ConstraintViolation<T>> violations,");
 
     // BeanType object,
-    sw.println(this.beanHelper.getTypeCanonicalName() + " object,");
+    sw.println(beanHelper.getTypeCanonicalName() + " object,");
 
     // final <Type> value,
     sw.print("final ");
@@ -1889,7 +1880,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       sw.indent();
 
       // TODO(nchalko) move this out of here to the Validate method
-      if (ppropertyDescription.isCascaded() && this.hasValid(ppropertyDescription, useField)) {
+      if (ppropertyDescription.isCascaded() && hasValid(ppropertyDescription, useField)) {
 
         // if (honorValid && value != null) {
         sw.println("if (honorValid && value != null) {");
@@ -1920,12 +1911,12 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
         if (isIterableOrMap(elementClass)) {
           final JClassType associationType =
-              this.beanHelper.getAssociationType(ppropertyDescription, useField);
+              beanHelper.getAssociationType(ppropertyDescription, useField);
           final BeanHelper beanHelper = this.createBeanHelper(associationType);
           if (Map.class.isAssignableFrom(elementClass)) {
-            this.writeValidateMap(sw, ppropertyDescription, beanHelper);
+            writeValidateMap(sw, ppropertyDescription, beanHelper);
           } else {
-            this.writeValidateIterable(sw, ppropertyDescription, beanHelper);
+            writeValidateIterable(sw, ppropertyDescription, beanHelper);
           }
         } else {
           final BeanHelper beanHelper = this.createBeanHelper(elementClass);
@@ -1960,11 +1951,11 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       int count = 0;
       for (final ConstraintDescriptor<?> constraint : ppropertyDescription
           .getConstraintDescriptors()) {
-        if (this.areConstraintDescriptorGroupsValid(constraint)) {
+        if (areConstraintDescriptorGroupsValid(constraint)) {
           final Object annotation = constraint.getAnnotation();
           if (this.hasMatchingAnnotation(ppropertyDescription, useField, constraint)) {
             final String constraintDescriptorVar =
-                this.constraintDescriptorVar(ppropertyDescription.getPropertyName(), count);
+                constraintDescriptorVar(ppropertyDescription.getPropertyName(), count);
             if (includedAnnotations.contains(annotation)) {
               // The annotation has been looked at once already during this validate property call
               // so we know the field and the getter are both annotated with the same constraint.
@@ -1979,7 +1970,7 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
               } else {
                 // The annotation hasn't been looked at twice (yet) and we are validating a getter
                 // Write the call if only the getter has this constraint applied to it
-                final boolean hasField = this.beanHelper.hasField(ppropertyDescription);
+                final boolean hasField = beanHelper.hasField(ppropertyDescription);
                 if (!hasField || hasField
                     && !this.hasMatchingAnnotation(ppropertyDescription, true, constraint)) {
                   this.writeValidateConstraint(sw, ppropertyDescription, elementClass, constraint,
@@ -2009,14 +2000,14 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
     sw.indent();
     sw.indent();
     sw.println("GwtValidationContext<T> context,");
-    sw.println("Class<" + this.beanHelper.getTypeCanonicalName() + "> beanType,");
+    sw.println("Class<" + beanHelper.getTypeCanonicalName() + "> beanType,");
     sw.println("String propertyName,");
     sw.println("Object value,");
     sw.println("Set<ConstraintViolation<T>> violations,");
     sw.println("Class<?>... groups) {");
     sw.outdent();
 
-    for (final PropertyDescriptor property : this.beanHelper.getBeanDescriptor()
+    for (final PropertyDescriptor property : beanHelper.getBeanDescriptor()
         .getConstrainedProperties()) {
       // if (propertyName.equals(myPropety)) {
       sw.print("if (propertyName.equals(\"");
@@ -2025,18 +2016,18 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
       sw.indent();
 
       if (!isIterableOrMap(property.getElementClass())) {
-        this.writeValidatePropertyCall(sw, property, true, false);
+        writeValidatePropertyCall(sw, property, true, false);
       }
 
       // validate all super classes and interfaces
-      this.writeValidateInheritance(sw, this.beanHelper.getClazz(), Stage.VALUE, property);
+      this.writeValidateInheritance(sw, beanHelper.getClazz(), Stage.VALUE, property);
 
       // }
       sw.outdent();
       sw.print("} else ");
     }
 
-    this.writeIfPropertyNameNotFound(sw);
+    writeIfPropertyNameNotFound(sw);
 
     sw.outdent();
     sw.println("}");
@@ -2053,9 +2044,9 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
   private void writeValidatorCall(final SourceWriter sw, final Class<?> type, final Stage stage,
       final PropertyDescriptor ppropertyDescription, final boolean expandDefaultGroupSequence,
       final String groupsVarName) throws UnableToCompleteException {
-    if (this.cache.isClassConstrained(type) && !isIterableOrMap(type)) {
+    if (cache.isClassConstrained(type) && !isIterableOrMap(type)) {
       final BeanHelper helper = this.createBeanHelper(type);
-      this.beansToValidate.add(helper);
+      beansToValidate.add(helper);
       switch (stage) {
         case OBJECT:
           // myValidator
@@ -2096,13 +2087,13 @@ public final class GwtSpecificValidatorCreator extends AbstractCreator {
 
   private void writeWrappers(final SourceWriter sw) {
     sw.println("// Write the wrappers after we know which are needed");
-    for (final JField field : this.fieldsToWrap) {
-      this.writeFieldWrapperMethod(sw, field);
+    for (final JField field : fieldsToWrap) {
+      writeFieldWrapperMethod(sw, field);
       sw.println();
     }
 
-    for (final JMethod method : this.gettersToWrap) {
-      this.writeGetterWrapperMethod(sw, method);
+    for (final JMethod method : gettersToWrap) {
+      writeGetterWrapperMethod(sw, method);
       sw.println();
     }
   }

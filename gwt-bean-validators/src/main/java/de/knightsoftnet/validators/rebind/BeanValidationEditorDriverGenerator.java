@@ -71,7 +71,7 @@ public class BeanValidationEditorDriverGenerator extends AbstractEditorDriverGen
       final EditorModel model, final SourceWriter sw) throws UnableToCompleteException {
     super.writeAdditionalContent(logger, context, model, sw);
 
-    final BeanHelper beanHelper = this.cache.createHelper(model.getProxyType(), logger, context);
+    final BeanHelper beanHelper = cache.createHelper(model.getProxyType(), logger, context);
     // final String validatorClass =
     // StringUtils.reverse(StringUtils.replace(StringUtils.reverse(modelClass), ".", "_.", 1))
     // + "Validator";

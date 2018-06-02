@@ -68,43 +68,42 @@ public class PropertyDescriptorImpl implements PropertyDescriptor {
     this.validationGroupsMetadata = validationGroupsMetadata;
     this.parentBeanMetadata = parentBeanMetadata;
     this.descriptors = new HashSet<>(Arrays.asList(descriptors));
-    this.groupConversions = Collections.emptySet();
+    groupConversions = Collections.emptySet();
   }
 
   @Override
   public ConstraintFinder findConstraints() {
-    return new ConstraintFinderImpl(this.parentBeanMetadata, this.validationGroupsMetadata,
-        this.descriptors);
+    return new ConstraintFinderImpl(parentBeanMetadata, validationGroupsMetadata, descriptors);
   }
 
   @Override
   public Set<ConstraintDescriptor<?>> getConstraintDescriptors() {
-    return this.findConstraints().getConstraintDescriptors();
+    return findConstraints().getConstraintDescriptors();
   }
 
   @Override
   public Class<?> getElementClass() {
-    return this.elementClass;
+    return elementClass;
   }
 
   @Override
   public String getPropertyName() {
-    return this.name;
+    return name;
   }
 
   @Override
   public boolean hasConstraints() {
-    return !this.descriptors.isEmpty();
+    return !descriptors.isEmpty();
   }
 
   @Override
   public boolean isCascaded() {
-    return this.cascaded;
+    return cascaded;
   }
 
   @Override
   public Set<GroupConversionDescriptor> getGroupConversions() {
-    return this.groupConversions;
+    return groupConversions;
   }
 
   public void setValidationGroupsMetadata(final ValidationGroupsMetadata validationGroupsMetadata) {
@@ -118,15 +117,14 @@ public class PropertyDescriptorImpl implements PropertyDescriptor {
    * @return copy of the class
    */
   public PropertyDescriptorImpl shallowCopy() {
-    final ConstraintDescriptorImpl<?>[] desc =
-        new ConstraintDescriptorImpl<?>[this.descriptors.size()];
-    this.descriptors.toArray(desc);
+    final ConstraintDescriptorImpl<?>[] desc = new ConstraintDescriptorImpl<?>[descriptors.size()];
+    descriptors.toArray(desc);
     return new PropertyDescriptorImpl( //
-        this.name, //
-        this.elementClass, //
-        this.cascaded, //
-        this.parentBeanMetadata, //
-        this.validationGroupsMetadata, //
+        name, //
+        elementClass, //
+        cascaded, //
+        parentBeanMetadata, //
+        validationGroupsMetadata, //
         desc);
   }
 

@@ -48,27 +48,27 @@ public class ValidationDto implements ValidationValueInterface {
    */
   public ValidationDto(final String pmessage, final String ppropertyPath) {
     super();
-    this.message = pmessage;
-    this.propertyPath = ppropertyPath;
+    message = pmessage;
+    propertyPath = ppropertyPath;
   }
 
   @Override
   public final String getMessage() {
-    return this.message;
+    return message;
   }
 
   @Override
   public final void setMessage(final String pmessage) {
-    this.message = pmessage;
+    message = pmessage;
   }
 
   @Override
   public final String getPropertyPath() {
-    return this.propertyPath;
+    return propertyPath;
   }
 
   @Override
   public final void setPropertyPath(final String ppropertyPath) {
-    this.propertyPath = ppropertyPath;
+    propertyPath = ppropertyPath;
   }
 }

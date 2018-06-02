@@ -39,8 +39,8 @@ public class PhoneNumberDin5008SuggestBox extends AbstractPhoneNumberSuggestBox 
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(this.phoneNumberUtil.formatDin5008WithPos(pvalue,
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()))));
+    setTextWithPos(phoneNumberUtil.formatDin5008WithPos(pvalue,
+        StringUtils.upperCase(Objects.toString(countryCodeField.getValue()))));
   }
 
   @Override

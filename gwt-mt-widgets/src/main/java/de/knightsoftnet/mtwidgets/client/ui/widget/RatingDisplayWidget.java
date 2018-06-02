@@ -78,10 +78,10 @@ public class RatingDisplayWidget extends Composite implements TakesValue<Double>
   public RatingDisplayWidget(final int max, final Resources presource) {
     super();
     this.max = max;
-    this.resource = presource;
-    this.resource.ratingDisplayStyle().ensureInjected();
-    this.panel = new HTMLPanel("span", StringUtils.EMPTY);
-    this.initWidget(this.panel);
+    resource = presource;
+    resource.ratingDisplayStyle().ensureInjected();
+    panel = new HTMLPanel("span", StringUtils.EMPTY);
+    initWidget(panel);
   }
 
   /**
@@ -102,31 +102,31 @@ public class RatingDisplayWidget extends Composite implements TakesValue<Double>
 
   @Override
   public void setValue(final Double pvalue) {
-    this.value = pvalue;
+    value = pvalue;
     final double rating = pvalue == null ? 0.0 : pvalue.doubleValue();
     final SafeHtmlBuilder stars = new SafeHtmlBuilder();
-    for (int i = 1; i <= this.max; i++) {
-      this.appendStar(stars, i, rating);
+    for (int i = 1; i <= max; i++) {
+      appendStar(stars, i, rating);
     }
-    this.panel.getElement().setInnerSafeHtml(stars.toSafeHtml());
+    panel.getElement().setInnerSafeHtml(stars.toSafeHtml());
   }
 
   private void appendStar(final SafeHtmlBuilder stringBuilder, final int star,
       final double rating) {
     final String starClass;
     if (rating >= star - 0.25) {
-      starClass = StringUtils.SPACE + this.resource.ratingDisplayStyle().full();
+      starClass = StringUtils.SPACE + resource.ratingDisplayStyle().full();
     } else if (rating >= star - 0.75) {
-      starClass = StringUtils.SPACE + this.resource.ratingDisplayStyle().half();
+      starClass = StringUtils.SPACE + resource.ratingDisplayStyle().half();
     } else {
       starClass = StringUtils.EMPTY;
     }
-    stringBuilder.appendHtmlConstant("<span class=\""
-        + this.resource.ratingDisplayStyle().staricon() + starClass + "\">☆</span>");
+    stringBuilder.appendHtmlConstant(
+        "<span class=\"" + resource.ratingDisplayStyle().staricon() + starClass + "\">☆</span>");
   }
 
   @Override
   public Double getValue() {
-    return this.value;
+    return value;
   }
 }

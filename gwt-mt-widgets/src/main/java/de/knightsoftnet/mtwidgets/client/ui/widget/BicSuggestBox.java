@@ -49,16 +49,16 @@ public class BicSuggestBox extends SuggestBoxWithEditorErrors {
    */
   public BicSuggestBox() {
     super(new BicOracle());
-    this.setWidth("11em");
-    this.getValueBox().addKeyPressHandler(HandlerFactory.getNumericAndUpperAsciiKeyPressHandler());
+    setWidth("11em");
+    getValueBox().addKeyPressHandler(HandlerFactory.getNumericAndUpperAsciiKeyPressHandler());
 
-    this.addValueChangeHandler(pevent -> this.fillBankName(pevent.getValue()));
+    addValueChangeHandler(pevent -> fillBankName(pevent.getValue()));
   }
 
   @Override
   public void setText(final String ptext) {
     super.setText(ptext);
-    this.fillBankName(ptext);
+    fillBankName(ptext);
   }
 
   @Override
@@ -69,29 +69,29 @@ public class BicSuggestBox extends SuggestBoxWithEditorErrors {
   @Override
   public void setValue(final String pvalue, final boolean pfireEvents) {
     super.setValue(pvalue, pfireEvents);
-    this.fillBankName(pvalue);
+    fillBankName(pvalue);
   }
 
 
   protected final void fillBankName(final String pvalue) {
-    if (this.bankNameWidget != null) {
+    if (bankNameWidget != null) {
       if (BicSuggestBox.BIC_MAP.bics().containsKey(pvalue)) {
-        this.bankNameWidget.setText(BicSuggestBox.BIC_MAP.bics().get(pvalue));
+        bankNameWidget.setText(BicSuggestBox.BIC_MAP.bics().get(pvalue));
       } else if (BicSuggestBox.BIC_MAP.bics()
           .containsKey(StringUtils.substring(pvalue, 0, BicValidator.BIC_LENGTH_MIN))) {
-        this.bankNameWidget.setText(BicSuggestBox.BIC_MAP.bics()
+        bankNameWidget.setText(BicSuggestBox.BIC_MAP.bics()
             .get(StringUtils.substring(pvalue, 0, BicValidator.BIC_LENGTH_MIN)));
       } else {
-        this.bankNameWidget.setText(StringUtils.EMPTY);
+        bankNameWidget.setText(StringUtils.EMPTY);
       }
     }
   }
 
   public HasText getBankNameWidget() {
-    return this.bankNameWidget;
+    return bankNameWidget;
   }
 
   public void setBankNameWidget(final HasText pbankNameWidget) {
-    this.bankNameWidget = pbankNameWidget;
+    bankNameWidget = pbankNameWidget;
   }
 }

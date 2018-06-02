@@ -41,61 +41,61 @@ public class IbanLengthDefinition {
     final String[] splittedValue = StringUtils.split(pvalueToParse, ';');
     if (splittedValue != null) {
       if (splittedValue.length >= 5) {
-        this.accountNumberEnd = Integer.parseInt(splittedValue[4]);
+        accountNumberEnd = Integer.parseInt(splittedValue[4]);
       }
       if (splittedValue.length >= 4) {
-        this.accountNumberStart = Integer.parseInt(splittedValue[3]);
+        accountNumberStart = Integer.parseInt(splittedValue[3]);
       }
       if (splittedValue.length >= 3) {
-        this.bankNumberEnd = Integer.parseInt(splittedValue[2]);
+        bankNumberEnd = Integer.parseInt(splittedValue[2]);
       }
       if (splittedValue.length >= 2) {
-        this.bankNumberStart = Integer.parseInt(splittedValue[1]);
+        bankNumberStart = Integer.parseInt(splittedValue[1]);
       }
       if (splittedValue.length >= 1) {
-        this.length = Integer.parseInt(splittedValue[0]);
+        length = Integer.parseInt(splittedValue[0]);
       }
     }
   }
 
   public final int getLength() {
-    return this.length;
+    return length;
   }
 
   public final void setLength(final int plength) {
-    this.length = plength;
+    length = plength;
   }
 
   public final int getBankNumberStart() {
-    return this.bankNumberStart;
+    return bankNumberStart;
   }
 
   public final void setBankNumberStart(final int pbankNumberStart) {
-    this.bankNumberStart = pbankNumberStart;
+    bankNumberStart = pbankNumberStart;
   }
 
   public final int getBankNumberEnd() {
-    return this.bankNumberEnd;
+    return bankNumberEnd;
   }
 
   public final void setBankNumberEnd(final int pbankNumberEnd) {
-    this.bankNumberEnd = pbankNumberEnd;
+    bankNumberEnd = pbankNumberEnd;
   }
 
   public final int getAccountNumberStart() {
-    return this.accountNumberStart;
+    return accountNumberStart;
   }
 
   public final void setAccountNumberStart(final int paccountNumberStart) {
-    this.accountNumberStart = paccountNumberStart;
+    accountNumberStart = paccountNumberStart;
   }
 
   public final int getAccountNumberEnd() {
-    return this.accountNumberEnd;
+    return accountNumberEnd;
   }
 
   public final void setAccountNumberEnd(final int paccountNumberEnd) {
-    this.accountNumberEnd = paccountNumberEnd;
+    accountNumberEnd = paccountNumberEnd;
   }
 
 }

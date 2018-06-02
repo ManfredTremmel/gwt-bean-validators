@@ -78,23 +78,23 @@ public final class ValidatorCreator extends AbstractCreator {
       final BeanHelper helper = this.createBeanHelper(clazz);
       temp.add(helper);
     }
-    this.beansToValidate = Util.sortMostSpecificFirst(temp, BeanHelper.TO_CLAZZ);
+    beansToValidate = Util.sortMostSpecificFirst(temp, BeanHelper.TO_CLAZZ);
   }
 
   @Override
   protected void compose(final ClassSourceFileComposerFactory composerFactory) {
-    this.addImports(composerFactory, GWT.class, GwtBeanDescriptor.class, GwtSpecificValidator.class,
+    addImports(composerFactory, GWT.class, GwtBeanDescriptor.class, GwtSpecificValidator.class,
         GwtValidationContext.class, ValidationGroupsMetadata.class, Set.class, HashSet.class,
         Map.class, HashMap.class, Default.class, ConstraintViolation.class, BeanDescriptor.class);
     composerFactory.setSuperclass(AbstractGwtValidator.class.getCanonicalName());
-    composerFactory.addImplementedInterface(this.validatorType.getQualifiedSourceName());
+    composerFactory.addImplementedInterface(validatorType.getQualifiedSourceName());
   }
 
   @Override
   protected void writeClassBody(final SourceWriter sourceWriter) {
-    this.writeConstructor(sourceWriter);
+    writeConstructor(sourceWriter);
     sourceWriter.println();
-    this.writeCreateValidationGroupsMetadata(sourceWriter);
+    writeCreateValidationGroupsMetadata(sourceWriter);
     sourceWriter.println();
     this.writeValidate(sourceWriter);
     sourceWriter.println();
@@ -111,7 +111,7 @@ public final class ValidatorCreator extends AbstractCreator {
 
   private void writeConstructor(final SourceWriter sw) {
     // public MyValidator() {
-    sw.println("public " + this.getSimpleName() + "() {");
+    sw.println("public " + getSimpleName() + "() {");
     sw.indent();
 
     // super(createValidationGroupsMetadata());
@@ -162,7 +162,7 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("return ValidationGroupsMetadata.builder()");
     sw.indent();
     sw.indent();
-    for (final Class<?> group : this.gwtValidation.groups()) {
+    for (final Class<?> group : gwtValidation.groups()) {
       final GroupSequence sequenceAnnotation = group.getAnnotation(GroupSequence.class);
       Class<?>[] groups;
       if (sequenceAnnotation == null) {
@@ -203,11 +203,11 @@ public final class ValidatorCreator extends AbstractCreator {
     // checkNotNull(clazz, "clazz");
     sw.println("checkNotNull(clazz, \"clazz\");");
 
-    for (final BeanHelper bean : this.beansToValidate) {
+    for (final BeanHelper bean : beansToValidate) {
       this.writeGetConstraintsForClass(sw, bean);
     }
 
-    this.writeThrowIllegalArgumnet(sw, "clazz.getName()");
+    writeThrowIllegalArgumnet(sw, "clazz.getName()");
 
     // }
     sw.outdent();
@@ -246,19 +246,19 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("checkNotNull(groups, \"groups\");");
     sw.println("checkGroups(groups);");
 
-    for (final BeanHelper bean : this.beansToValidate) {
+    for (final BeanHelper bean : beansToValidate) {
       this.writeGwtValidate(sw, bean);
     }
 
     // TODO(nchalko) log warning instead.
-    this.writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
+    writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
 
     sw.outdent();
     sw.println("}");
   }
 
   private void writeGwtValidate(final SourceWriter sw, final BeanHelper bean) {
-    this.writeIfInstanceofBeanType(sw, bean);
+    writeIfInstanceofBeanType(sw, bean);
     sw.indent();
 
     // return PersonValidator.INSTANCE
@@ -290,7 +290,7 @@ public final class ValidatorCreator extends AbstractCreator {
       final String getClassName) {
     // throw new IllegalArgumentException("MyValidator can not validate ",
     sourceWriter.print("throw new IllegalArgumentException(\"");
-    sourceWriter.print(this.validatorType.getName() + " can not  validate \"");
+    sourceWriter.print(validatorType.getName() + " can not  validate \"");
     sourceWriter.indent();
     sourceWriter.indent();
 
@@ -301,7 +301,7 @@ public final class ValidatorCreator extends AbstractCreator {
 
     // + "Valid values are {Foo.clas, Bar.class}
     sourceWriter.print("+ \"Valid types are ");
-    sourceWriter.print(this.beansToValidate.toString());
+    sourceWriter.print(beansToValidate.toString());
     sourceWriter.println("\");");
     sourceWriter.outdent();
     sourceWriter.outdent();
@@ -317,21 +317,21 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("checkNotNull(groups, \"groups\");");
     sw.println("checkGroups(groups);");
 
-    for (final BeanHelper bean : this.beansToValidate) {
+    for (final BeanHelper bean : beansToValidate) {
       this.writeValidate(sw, bean);
     }
 
-    this.writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
+    writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
 
     sw.outdent();
     sw.println("}");
   }
 
   private void writeValidate(final SourceWriter sw, final BeanHelper bean) {
-    this.writeIfInstanceofBeanType(sw, bean);
+    writeIfInstanceofBeanType(sw, bean);
     sw.indent();
 
-    this.writeContext(sw, bean, "object");
+    writeContext(sw, bean, "object");
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
@@ -361,20 +361,20 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("checkNotNull(groups, \"groups\");");
     sw.println("checkGroups(groups);");
 
-    for (final BeanHelper bean : this.beansToValidate) {
+    for (final BeanHelper bean : beansToValidate) {
       this.writeValidateProperty(sw, bean);
     }
 
-    this.writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
+    writeThrowIllegalArgumnet(sw, "object.getClass().getName()");
 
     sw.outdent();
     sw.println("}");
   }
 
   private void writeValidateProperty(final SourceWriter sw, final BeanHelper bean) {
-    this.writeIfInstanceofBeanType(sw, bean);
+    writeIfInstanceofBeanType(sw, bean);
     sw.indent();
-    this.writeContext(sw, bean, "object");
+    writeContext(sw, bean, "object");
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
@@ -405,11 +405,11 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("checkNotNull(groups, \"groups\");");
     sw.println("checkGroups(groups);");
 
-    for (final BeanHelper bean : this.beansToValidate) {
+    for (final BeanHelper bean : beansToValidate) {
       this.writeValidateValue(sw, bean);
     }
 
-    this.writeThrowIllegalArgumnet(sw, "beanType.getName()");
+    writeThrowIllegalArgumnet(sw, "beanType.getName()");
 
     sw.outdent();
     sw.println("}");
@@ -418,7 +418,7 @@ public final class ValidatorCreator extends AbstractCreator {
   private void writeValidateValue(final SourceWriter sw, final BeanHelper bean) {
     sw.println("if (beanType.equals(" + bean.getTypeCanonicalName() + ".class)) {");
     sw.indent();
-    this.writeContext(sw, bean, "null");
+    writeContext(sw, bean, "null");
 
     // return PersonValidator.INSTANCE
     sw.print("return ");
@@ -448,12 +448,12 @@ public final class ValidatorCreator extends AbstractCreator {
     sw.println("throws NoSuchMethodException, ReflectiveOperationException {");
     sw.outdent();
 
-    if (this.gwtValidation.reflect().length == 0) {
-      for (final BeanHelper bean : this.cache.getAllBeans()) {
+    if (gwtValidation.reflect().length == 0) {
+      for (final BeanHelper bean : cache.getAllBeans()) {
         this.writeGetProperty(sw, bean);
       }
     } else {
-      for (final Class<?> clazz : this.gwtValidation.reflect()) {
+      for (final Class<?> clazz : gwtValidation.reflect()) {
         try {
           final BeanHelper helper = this.createBeanHelper(clazz);
           this.writeGetProperty(sw, helper);

@@ -43,9 +43,9 @@ import elemental.html.InputElement;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * input field for star ratings.
@@ -103,21 +103,21 @@ public class RatingInputWidget extends Composite
   public RatingInputWidget(final int max, final String idBase, final Resources presource) {
     super();
     presource.ratingInputStyle().ensureInjected();
-    this.panel = new FlowPanel();
-    this.panel.setStylePrimaryName(presource.ratingInputStyle().ratingArea());
-    this.panel.getElement().setId(idBase);
-    this.initWidget(this.panel);
-    this.editor = new ExtendedValueBoxEditor<>(this, null);
+    panel = new FlowPanel();
+    panel.setStylePrimaryName(presource.ratingInputStyle().ratingArea());
+    panel.getElement().setId(idBase);
+    initWidget(panel);
+    editor = new ExtendedValueBoxEditor<>(this, null);
     for (int i = max; i > 0; i--) {
       final RadioButton radioButton = new RadioButton();
       radioButton.getElement().setId(idBase + Integer.toString(i));
       radioButton.setFormValue(Integer.toString(i));
       radioButton.setName(idBase);
-      this.panel.add(radioButton);
+      panel.add(radioButton);
       final InputLabel label = new InputLabel();
       label.setFor(radioButton);
       label.setText(StringUtils.SPACE);
-      this.panel.add(label);
+      panel.add(label);
     }
   }
 
@@ -144,18 +144,18 @@ public class RatingInputWidget extends Composite
 
   @Override
   public void setValue(final Integer pvalue, final boolean pfireEvents) {
-    final Integer oldValue = this.getValue();
+    final Integer oldValue = getValue();
     if (pvalue == null) {
-      for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-        if (this.panel.getWidget(i) instanceof RadioButton) {
-          ((RadioButton) this.panel.getWidget(i)).setValue(Boolean.FALSE, false);
+      for (int i = 0; i < panel.getWidgetCount(); i++) {
+        if (panel.getWidget(i) instanceof RadioButton) {
+          ((RadioButton) panel.getWidget(i)).setValue(Boolean.FALSE, false);
         }
       }
     } else {
-      for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-        if (this.panel.getWidget(i) instanceof RadioButton && StringUtils.equals(pvalue.toString(),
-            ((RadioButton) this.panel.getWidget(i)).getFormValue())) {
-          ((RadioButton) this.panel.getWidget(i)).setValue(Boolean.TRUE, false);
+      for (int i = 0; i < panel.getWidgetCount(); i++) {
+        if (panel.getWidget(i) instanceof RadioButton && StringUtils.equals(pvalue.toString(),
+            ((RadioButton) panel.getWidget(i)).getFormValue())) {
+          ((RadioButton) panel.getWidget(i)).setValue(Boolean.TRUE, false);
           break;
         }
       }
@@ -167,9 +167,9 @@ public class RatingInputWidget extends Composite
 
   @Override
   public Integer getValue() {
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        final RadioButton radioButton = (RadioButton) this.panel.getWidget(i);
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        final RadioButton radioButton = (RadioButton) panel.getWidget(i);
         if (BooleanUtils.isTrue(radioButton.getValue())) {
           return Integer.valueOf(radioButton.getFormValue());
         }
@@ -181,18 +181,18 @@ public class RatingInputWidget extends Composite
   @Override
   public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Integer> phandler) {
     // Is this the first value change handler? If so, time to add handlers
-    if (!this.valueChangeHandlerInitialized) {
-      this.ensureDomEventHandlers();
-      this.valueChangeHandlerInitialized = true;
+    if (!valueChangeHandlerInitialized) {
+      ensureDomEventHandlers();
+      valueChangeHandlerInitialized = true;
     }
     return this.addHandler(phandler, ValueChangeEvent.getType());
   }
 
   protected void ensureDomEventHandlers() {
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        ((RadioButton) this.panel.getWidget(i))
-            .addValueChangeHandler(event -> ValueChangeEvent.fire(this, this.getValue()));
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        ((RadioButton) panel.getWidget(i))
+            .addValueChangeHandler(event -> ValueChangeEvent.fire(this, getValue()));
       }
     }
   }
@@ -200,18 +200,18 @@ public class RatingInputWidget extends Composite
   @Override
   public void setTabIndex(final int pindex) {
     int index = pindex;
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        ((RadioButton) this.panel.getWidget(i)).setTabIndex(index++);
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        ((RadioButton) panel.getWidget(i)).setTabIndex(index++);
       }
     }
   }
 
   @Override
   public int getTabIndex() {
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        return ((RadioButton) this.panel.getWidget(i)).getTabIndex();
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        return ((RadioButton) panel.getWidget(i)).getTabIndex();
       }
     }
     return -1;
@@ -219,9 +219,9 @@ public class RatingInputWidget extends Composite
 
   @Override
   public void setAccessKey(final char pkey) {
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        ((RadioButton) this.panel.getWidget(i)).setAccessKey(pkey);
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        ((RadioButton) panel.getWidget(i)).setAccessKey(pkey);
         return;
       }
     }
@@ -229,9 +229,9 @@ public class RatingInputWidget extends Composite
 
   @Override
   public void setFocus(final boolean pfocused) {
-    for (int i = 0; i < this.panel.getWidgetCount(); i++) {
-      if (this.panel.getWidget(i) instanceof RadioButton) {
-        ((RadioButton) this.panel.getWidget(i)).setFocus(pfocused);
+    for (int i = 0; i < panel.getWidgetCount(); i++) {
+      if (panel.getWidget(i) instanceof RadioButton) {
+        ((RadioButton) panel.getWidget(i)).setFocus(pfocused);
         return;
       }
     }
@@ -239,31 +239,27 @@ public class RatingInputWidget extends Composite
 
   @Override
   public ValueBoxEditor<Integer> asEditor() {
-    return this.editor;
+    return editor;
   }
 
   @Override
   public void showErrors(final List<EditorError> perrors) {
-    final elemental.dom.Element headElement = this.getElement().cast();
+    final elemental.dom.Element headElement = getElement().cast();
     final NodeList inputElements = headElement.getElementsByTagName("input");
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : perrors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+    final Set<String> messages = perrors.stream().filter(error -> editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       for (int i = 0; i < inputElements.length(); i++) {
         final InputElement input = (InputElement) inputElements.at(i);
         if (FeatureCheck.supportCustomValidity(input)) {
           input.setCustomValidity(StringUtils.EMPTY);
         }
-        if (this.validationMessageElement == null) {
+        if (validationMessageElement == null) {
           input.setTitle(StringUtils.EMPTY);
         }
       }
-      if (this.validationMessageElement != null) {
-        this.validationMessageElement.getElement().removeAllChildren();
+      if (validationMessageElement != null) {
+        validationMessageElement.getElement().removeAllChildren();
       }
     } else {
       final String messagesAsString = ErrorMessageFormater.messagesToString(messages);
@@ -272,12 +268,12 @@ public class RatingInputWidget extends Composite
         if (FeatureCheck.supportCustomValidity(input)) {
           input.setCustomValidity(messagesAsString);
         }
-        if (this.validationMessageElement == null) {
+        if (validationMessageElement == null) {
           input.setTitle(messagesAsString);
         }
       }
-      if (this.validationMessageElement != null) {
-        this.validationMessageElement.getElement()
+      if (validationMessageElement != null) {
+        validationMessageElement.getElement()
             .setInnerSafeHtml(ErrorMessageFormater.messagesToList(messages));
       }
     }
@@ -291,16 +287,16 @@ public class RatingInputWidget extends Composite
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(asEditor()));
   }
 
   @Override
   public void setValidationMessageElement(final HTMLPanel pelement) {
-    this.validationMessageElement = pelement;
+    validationMessageElement = pelement;
   }
 
   @Override
   public HTMLPanel getValidationMessageElement() {
-    return this.validationMessageElement;
+    return validationMessageElement;
   }
 }

@@ -62,9 +62,9 @@ public abstract class AbstractPhoneNumberRestSuggestBox extends AbstractFormatin
    */
   public AbstractPhoneNumberRestSuggestBox(final SuggestOracle poracle) {
     super(poracle, new TextBoxWithFormating(Browser.getDocument().createInputElement(), "tel"));
-    ((TextBoxWithFormating) this.getValueBox()).setFormating(this);
-    this.service = ServiceFactory.getPhoneNumberService();
-    this.callback = new MethodCallback<ValueWithPos<String>>() {
+    ((TextBoxWithFormating) getValueBox()).setFormating(this);
+    service = ServiceFactory.getPhoneNumberService();
+    callback = new MethodCallback<ValueWithPos<String>>() {
 
       @Override
       public void onFailure(final Method pmethod, final Throwable pexception) {
@@ -78,23 +78,22 @@ public abstract class AbstractPhoneNumberRestSuggestBox extends AbstractFormatin
         }
       }
     };
-    this.cache =
-        CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(10, TimeUnit.DAYS).build(
-            new CacheLoader<ValueWithPosAndCountry<String>, FutureResult<ValueWithPos<String>>>() {
+    cache = CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(10, TimeUnit.DAYS).build(
+        new CacheLoader<ValueWithPosAndCountry<String>, FutureResult<ValueWithPos<String>>>() {
 
-              @Override
-              public FutureResult<ValueWithPos<String>> load(
-                  final ValueWithPosAndCountry<String> pkey) {
-                final FutureResult<ValueWithPos<String>> result = new FutureResult<>();
-                result.addCallback(AbstractPhoneNumberRestSuggestBox.this.callback);
-                try {
-                  AbstractPhoneNumberRestSuggestBox.this.formatValue(pkey, result);
-                } catch (final ExecutionException e) {
-                  GWT.log(e.getMessage(), e);
-                }
-                return result;
-              }
-            });
+          @Override
+          public FutureResult<ValueWithPos<String>> load(
+              final ValueWithPosAndCountry<String> pkey) {
+            final FutureResult<ValueWithPos<String>> result = new FutureResult<>();
+            result.addCallback(callback);
+            try {
+              AbstractPhoneNumberRestSuggestBox.this.formatValue(pkey, result);
+            } catch (final ExecutionException e) {
+              GWT.log(e.getMessage(), e);
+            }
+            return result;
+          }
+        });
   }
 
   @Override
@@ -103,12 +102,12 @@ public abstract class AbstractPhoneNumberRestSuggestBox extends AbstractFormatin
       this.setValue(StringUtils.EMPTY);
     } else {
       final ValueWithPosAndCountry<String> unformatedEntry = new ValueWithPosAndCountry<>(
-          pvalue.getValue(), pvalue.getPos(), Objects.toString(this.countryCodeField.getValue()),
+          pvalue.getValue(), pvalue.getPos(), Objects.toString(countryCodeField.getValue()),
           LocaleInfo.getCurrentLocale().getLocaleName());
       try {
-        final FutureResult<ValueWithPos<String>> result = this.cache.get(unformatedEntry);
+        final FutureResult<ValueWithPos<String>> result = cache.get(unformatedEntry);
         if (result.isDone()) {
-          this.setTextWithPos(result.get());
+          setTextWithPos(result.get());
         }
       } catch (final ExecutionException e) {
         GWT.log(e.getMessage(), e);
@@ -125,12 +124,12 @@ public abstract class AbstractPhoneNumberRestSuggestBox extends AbstractFormatin
    * @param pcountryCodeField field which contains the country code
    */
   public final void setCountryCodeReferenceField(final TakesValue<?> pcountryCodeField) {
-    this.countryCodeField = pcountryCodeField;
+    countryCodeField = pcountryCodeField;
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    return pcharacter >= '0' && pcharacter <= '9' || this.isFormatingCharacter(pcharacter);
+    return pcharacter >= '0' && pcharacter <= '9' || isFormatingCharacter(pcharacter);
   }
 
   @Override

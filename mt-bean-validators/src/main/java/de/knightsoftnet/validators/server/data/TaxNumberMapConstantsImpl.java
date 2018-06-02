@@ -23,11 +23,11 @@ public class TaxNumberMapConstantsImpl implements TaxNumberMapSharedConstants {
   private final Map<String, String> taxNumberMap;
 
   public TaxNumberMapConstantsImpl(final Map<String, String> pmap) {
-    this.taxNumberMap = pmap;
+    taxNumberMap = pmap;
   }
 
   @Override
   public Map<String, String> taxNumbers() {
-    return this.taxNumberMap;
+    return taxNumberMap;
   }
 }

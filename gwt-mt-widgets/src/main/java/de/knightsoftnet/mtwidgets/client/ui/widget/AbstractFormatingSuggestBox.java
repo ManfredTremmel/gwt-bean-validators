@@ -37,9 +37,9 @@ public abstract class AbstractFormatingSuggestBox extends SuggestBoxWithEditorEr
    */
   public AbstractFormatingSuggestBox(final SuggestOracle poracle) {
     super(poracle);
-    this.addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
-    this.addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
-    this.sinkEvents(Event.ONPASTE);
+    addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
+    addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
+    sinkEvents(Event.ONPASTE);
   }
 
   /**
@@ -52,16 +52,16 @@ public abstract class AbstractFormatingSuggestBox extends SuggestBoxWithEditorEr
   public AbstractFormatingSuggestBox(final SuggestOracle poracle,
       final ValueBoxBaseWithEditorErrors<String> pbox) {
     super(poracle, pbox);
-    this.addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
-    this.addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
-    this.sinkEvents(Event.ONPASTE);
+    addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
+    addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
+    sinkEvents(Event.ONPASTE);
   }
 
   @Override
   public void onBrowserEvent(final Event pevent) {
     // Checking for paste event
     if (pevent.getTypeInt() == Event.ONPASTE) {
-      Scheduler.get().scheduleDeferred(() -> this.reformatValue());
+      Scheduler.get().scheduleDeferred(() -> reformatValue());
       return;
     }
     super.onBrowserEvent(pevent);
@@ -70,17 +70,17 @@ public abstract class AbstractFormatingSuggestBox extends SuggestBoxWithEditorEr
   @Override
   public void reformatValue() {
     final ValueWithPos<String> unformatedEntry =
-        new ValueWithPos<>(this.getValue(), this.getValueBox().getCursorPos());
-    this.formatValue(unformatedEntry);
+        new ValueWithPos<>(getValue(), getValueBox().getCursorPos());
+    formatValue(unformatedEntry);
   }
 
   protected void setTextWithPos(final ValueWithPos<String> formatedEntry) {
     this.setValue(formatedEntry.getValue(), true);
     if (formatedEntry.getPos() > StringUtils.length(formatedEntry.getValue()) //
         || formatedEntry.getPos() < 0) {
-      this.getValueBox().setCursorPos(formatedEntry.getValue().length());
+      getValueBox().setCursorPos(formatedEntry.getValue().length());
     } else {
-      this.getValueBox().setCursorPos(formatedEntry.getPos());
+      getValueBox().setCursorPos(formatedEntry.getPos());
     }
   }
 }

@@ -55,7 +55,7 @@ public class FilterReplaceAndFormatKeyPressHandler<E> extends ValueBoxFromEvent<
     final String type = pevent.getSource().getClass().getName();
     GWT.log(type);
     final HasFormating formatingWidget = (HasFormating) pevent.getSource();
-    final ValueBoxBase<E> textBox = this.getTextBoxFromEvent(pevent);
+    final ValueBoxBase<E> textBox = getTextBoxFromEvent(pevent);
     final int cursorPos = textBox.getCursorPos();
     final String oldValue = textBox.getText();
 

@@ -56,10 +56,10 @@ public class NotEmptyAlternateIfOtherIsEmptyValidator
    */
   @Override
   public final void initialize(final NotEmptyAlternateIfOtherIsEmpty pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCheckName = pconstraintAnnotation.field();
-    this.fieldCompareName = pconstraintAnnotation.fieldCompare();
-    this.fieldAlternateCheckName = pconstraintAnnotation.fieldAlternate();
+    message = pconstraintAnnotation.message();
+    fieldCheckName = pconstraintAnnotation.field();
+    fieldCompareName = pconstraintAnnotation.fieldCompare();
+    fieldAlternateCheckName = pconstraintAnnotation.fieldAlternate();
   }
 
   /**
@@ -75,28 +75,28 @@ public class NotEmptyAlternateIfOtherIsEmptyValidator
     }
     try {
       final String fieldCheckValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCheckName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCheckName);
       final String fieldAlternateCheckValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldAlternateCheckName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldAlternateCheckName);
       final String fieldCompareValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCompareName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCompareName);
       if (StringUtils.isEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldAlternateCheckValue)
           && StringUtils.isEmpty(fieldCompareValue)) {
-        this.switchContext(pcontext);
+        switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldCheckName)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldCheckName)
         .addConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message)
-        .addPropertyNode(this.fieldAlternateCheckName).addConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldAlternateCheckName)
+        .addConstraintViolation();
   }
 }

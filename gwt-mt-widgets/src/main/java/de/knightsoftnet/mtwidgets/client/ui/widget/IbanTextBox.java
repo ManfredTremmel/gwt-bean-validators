@@ -35,7 +35,7 @@ public class IbanTextBox extends AbstractFormatingTextBox {
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(IbanUtil.ibanFormatWithPos(pvalue));
+    setTextWithPos(IbanUtil.ibanFormatWithPos(pvalue));
   }
 
   @Override
@@ -61,19 +61,19 @@ public class IbanTextBox extends AbstractFormatingTextBox {
   @Override
   protected void setTextWithPos(final ValueWithPos<String> formatedEntry) {
     super.setTextWithPos(formatedEntry);
-    if (this.bicInput != null && StringUtils.isEmpty(this.bicInput.getValue())) {
+    if (bicInput != null && StringUtils.isEmpty(bicInput.getValue())) {
       final String bic = IbanUtil.getBicOfIban(formatedEntry.getValue());
       if (StringUtils.isNotEmpty(bic)) {
-        this.bicInput.setValue(bic);
+        bicInput.setValue(bic);
       }
     }
   }
 
   public final TakesValue<String> getBicInput() {
-    return this.bicInput;
+    return bicInput;
   }
 
   public final void setBicInput(final TakesValue<String> pbicInput) {
-    this.bicInput = pbicInput;
+    bicInput = pbicInput;
   }
 }

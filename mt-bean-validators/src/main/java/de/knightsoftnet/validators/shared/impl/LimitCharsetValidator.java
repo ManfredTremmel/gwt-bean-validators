@@ -45,7 +45,7 @@ public class LimitCharsetValidator implements ConstraintValidator<LimitCharset, 
    */
   @Override
   public final void initialize(final LimitCharset pconstraintAnnotation) {
-    this.charsetEncoder = Charset.forName(pconstraintAnnotation.charset()).newEncoder();
+    charsetEncoder = Charset.forName(pconstraintAnnotation.charset()).newEncoder();
   }
 
   /**
@@ -59,6 +59,6 @@ public class LimitCharsetValidator implements ConstraintValidator<LimitCharset, 
     if (StringUtils.isEmpty(pvalue)) {
       return true;
     }
-    return this.charsetEncoder.canEncode(pvalue);
+    return charsetEncoder.canEncode(pvalue);
   }
 }

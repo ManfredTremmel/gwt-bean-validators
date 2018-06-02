@@ -15,18 +15,18 @@
 
 package de.knightsoftnet.gwtp.spring.server.security;
 
-import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import java.io.IOException;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
 
 /**
  * set csrf/xsrf cookie.

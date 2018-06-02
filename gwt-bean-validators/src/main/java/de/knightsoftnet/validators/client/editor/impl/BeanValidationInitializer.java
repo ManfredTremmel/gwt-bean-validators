@@ -71,15 +71,14 @@ public class BeanValidationInitializer extends Initializer {
       final ValueChangeHandler<?> pvalueChangeHandler, final CheckTimeEnum pcheckTime,
       final boolean psubmitOnReturn) {
     super();
-    this.commitOnReturnHandler = psubmitOnReturn ? pcommitOnReturnHandler : null;
-    this.validateOnKeyUpHandler =
-        pcheckTime == CheckTimeEnum.ON_KEY_UP ? pvalidateOnKeyUpHandler : null;
-    this.validateOnVueChangeHandler =
+    commitOnReturnHandler = psubmitOnReturn ? pcommitOnReturnHandler : null;
+    validateOnKeyUpHandler = pcheckTime == CheckTimeEnum.ON_KEY_UP ? pvalidateOnKeyUpHandler : null;
+    validateOnVueChangeHandler =
         pcheckTime == CheckTimeEnum.ON_CHANGE || pcheckTime == CheckTimeEnum.ON_KEY_UP
             ? pvalidateOnVueChangeHandler
             : null;
-    this.valueChangeHandler = pvalueChangeHandler;
-    this.checkTime = pcheckTime;
+    valueChangeHandler = pvalueChangeHandler;
+    checkTime = pcheckTime;
   }
 
   @Override
@@ -90,12 +89,12 @@ public class BeanValidationInitializer extends Initializer {
         && ((ExtendedValueBoxEditor<?>) pctx.getEditor()).getDecorator() != null) {
       final AbstractDecorator<?> decorator =
           ((ExtendedValueBoxEditor<?>) pctx.getEditor()).getDecorator();
-      decorator.setFocusOnError(this.checkTime == CheckTimeEnum.ON_SUBMIT);
+      decorator.setFocusOnError(checkTime == CheckTimeEnum.ON_SUBMIT);
       editor = decorator;
     } else {
       editor = pctx.getEditor();
     }
-    this.initializeEditors(editor);
+    initializeEditors(editor);
 
     return result;
   }
@@ -107,20 +106,20 @@ public class BeanValidationInitializer extends Initializer {
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void initializeEditors(final Object editor) {
-    if (editor instanceof HasValueChangeHandlers && this.valueChangeHandler != null) {
-      ((HasValueChangeHandlers) editor).addValueChangeHandler(this.valueChangeHandler);
+    if (editor instanceof HasValueChangeHandlers && valueChangeHandler != null) {
+      ((HasValueChangeHandlers) editor).addValueChangeHandler(valueChangeHandler);
       // if widget has a value change handler, validate on change
-      if (this.validateOnVueChangeHandler != null) {
-        ((HasValueChangeHandlers) editor).addValueChangeHandler(this.validateOnVueChangeHandler);
+      if (validateOnVueChangeHandler != null) {
+        ((HasValueChangeHandlers) editor).addValueChangeHandler(validateOnVueChangeHandler);
       }
     }
     // if widget has a key up handler, validate on key up
-    if (editor instanceof HasKeyUpHandlers && this.validateOnKeyUpHandler != null) {
-      ((HasKeyUpHandlers) editor).addKeyUpHandler(this.validateOnKeyUpHandler);
+    if (editor instanceof HasKeyUpHandlers && validateOnKeyUpHandler != null) {
+      ((HasKeyUpHandlers) editor).addKeyUpHandler(validateOnKeyUpHandler);
     }
     // try to submit form on return
-    if (editor instanceof HasKeyPressHandlers && this.commitOnReturnHandler != null) {
-      ((HasKeyPressHandlers) editor).addKeyPressHandler(this.commitOnReturnHandler);
+    if (editor instanceof HasKeyPressHandlers && commitOnReturnHandler != null) {
+      ((HasKeyPressHandlers) editor).addKeyPressHandler(commitOnReturnHandler);
     }
   }
 }

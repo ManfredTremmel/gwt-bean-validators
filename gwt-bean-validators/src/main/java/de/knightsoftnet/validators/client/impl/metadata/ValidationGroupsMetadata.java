@@ -40,9 +40,9 @@ public class ValidationGroupsMetadata {
     private final Map<Class<?>, List<Class<?>>> sequenceMap;
 
     private Builder() {
-      this.inheritanceinheritanceMap = new HashMap<>();
-      this.sequenceMap = new HashMap<>();
-      this.addGroup(Default.class);
+      inheritanceinheritanceMap = new HashMap<>();
+      sequenceMap = new HashMap<>();
+      addGroup(Default.class);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ValidationGroupsMetadata {
      * @return Builder
      */
     public Builder addGroup(final Class<?> group, final Class<?>... parents) {
-      this.inheritanceinheritanceMap.put(group, new HashSet<>(Arrays.asList(parents)));
+      inheritanceinheritanceMap.put(group, new HashSet<>(Arrays.asList(parents)));
       return this;
     }
 
@@ -66,13 +66,13 @@ public class ValidationGroupsMetadata {
      * @return Builder
      */
     public Builder addSequence(final Class<?> groupSequence, final Class<?>... sequenceGroups) {
-      this.sequenceMap.put(groupSequence, Arrays.asList(sequenceGroups));
+      sequenceMap.put(groupSequence, Arrays.asList(sequenceGroups));
       return this;
     }
 
     public ValidationGroupsMetadata build() {
-      return new ValidationGroupsMetadata(this.inheritanceinheritanceMap, // NOPMD
-          this.sequenceMap);
+      return new ValidationGroupsMetadata(inheritanceinheritanceMap, // NOPMD
+          sequenceMap);
     }
   }
 
@@ -90,8 +90,8 @@ public class ValidationGroupsMetadata {
 
   private ValidationGroupsMetadata(final Map<Class<?>, Set<Class<?>>> inheritanceinheritanceMap,
       final Map<Class<?>, List<Class<?>>> sequenceMap) {
-    this.inheritanceMapping = Collections.unmodifiableMap(inheritanceinheritanceMap);
-    this.sequenceMapping = Collections.unmodifiableMap(sequenceMap);
+    inheritanceMapping = Collections.unmodifiableMap(inheritanceinheritanceMap);
+    sequenceMapping = Collections.unmodifiableMap(sequenceMap);
   }
 
   /**
@@ -101,7 +101,7 @@ public class ValidationGroupsMetadata {
    * @return true if group is contained in keys
    */
   public boolean containsGroup(final Class<?> group) {
-    return this.inheritanceMapping.containsKey(group);
+    return inheritanceMapping.containsKey(group);
   }
 
   @Override
@@ -113,8 +113,8 @@ public class ValidationGroupsMetadata {
       return false;
     }
     final ValidationGroupsMetadata otherObj = (ValidationGroupsMetadata) other;
-    return this.inheritanceMapping.equals(otherObj.inheritanceMapping)
-        && this.sequenceMapping.equals(otherObj.sequenceMapping);
+    return inheritanceMapping.equals(otherObj.inheritanceMapping)
+        && sequenceMapping.equals(otherObj.sequenceMapping);
   }
 
   /**
@@ -132,7 +132,7 @@ public class ValidationGroupsMetadata {
     final Stack<Class<?>> remaining = new Stack<>();
     // initialize
     baseGroups.forEach(group -> {
-      if (!this.inheritanceMapping.containsKey(group)) {
+      if (!inheritanceMapping.containsKey(group)) {
         throw new IllegalArgumentException("The collection of groups contains a group which"
             + " was not added to the map. Be sure to call addGroup() for all groups first.");
       }
@@ -142,7 +142,7 @@ public class ValidationGroupsMetadata {
     while (!remaining.isEmpty()) {
       final Class<?> current = remaining.pop();
       found.add(current);
-      this.inheritanceMapping.get(current).forEach(parent -> {
+      inheritanceMapping.get(current).forEach(parent -> {
         if (!found.contains(parent)) {
           remaining.push(parent);
         }
@@ -159,11 +159,11 @@ public class ValidationGroupsMetadata {
    */
   public Set<Class<?>> getAllGroupsAndSequences() {
     final Set<Class<?>> allGroups = new HashSet<>();
-    for (final Map.Entry<Class<?>, Set<Class<?>>> entry : this.inheritanceMapping.entrySet()) {
+    for (final Map.Entry<Class<?>, Set<Class<?>>> entry : inheritanceMapping.entrySet()) {
       allGroups.add(entry.getKey());
       allGroups.addAll(entry.getValue());
     }
-    allGroups.addAll(this.sequenceMapping.keySet());
+    allGroups.addAll(sequenceMapping.keySet());
     return allGroups;
   }
 
@@ -173,7 +173,7 @@ public class ValidationGroupsMetadata {
    * @return set of groups
    */
   public Set<Class<?>> getGroupSequences() {
-    return this.sequenceMapping.keySet();
+    return sequenceMapping.keySet();
   }
 
   /**
@@ -187,7 +187,7 @@ public class ValidationGroupsMetadata {
    * @see #findAllExtendedGroups(Collection)
    */
   public Set<Class<?>> getParentsOfGroup(final Class<?> group) {
-    return this.inheritanceMapping.get(group);
+    return inheritanceMapping.get(group);
   }
 
   /**
@@ -196,7 +196,7 @@ public class ValidationGroupsMetadata {
    * @return set of groups
    */
   public Set<Class<?>> getRootGroups() {
-    return this.inheritanceMapping.keySet();
+    return inheritanceMapping.keySet();
   }
 
   /**
@@ -207,12 +207,12 @@ public class ValidationGroupsMetadata {
    * @return list of classes
    */
   public List<Class<?>> getSequenceList(final Class<?> sequence) {
-    return this.sequenceMapping.get(sequence);
+    return sequenceMapping.get(sequence);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.inheritanceMapping, this.sequenceMapping);
+    return Objects.hash(inheritanceMapping, sequenceMapping);
   }
 
   /**
@@ -222,12 +222,12 @@ public class ValidationGroupsMetadata {
    * @return true if group has parents
    */
   public boolean hasParents(final Class<?> group) {
-    final Set<Class<?>> possibleParents = this.getParentsOfGroup(group);
+    final Set<Class<?>> possibleParents = getParentsOfGroup(group);
     return possibleParents != null && !possibleParents.isEmpty();
   }
 
   public boolean isInheritanceMapEmpty() {
-    return this.inheritanceMapping.isEmpty();
+    return inheritanceMapping.isEmpty();
   }
 
   /**
@@ -237,16 +237,16 @@ public class ValidationGroupsMetadata {
    * @return true if class is a sequence
    */
   public boolean isSeqeuence(final Class<?> sequence) {
-    return this.sequenceMapping.containsKey(sequence);
+    return sequenceMapping.containsKey(sequence);
   }
 
   public boolean isSequenceMapEmpty() {
-    return this.sequenceMapping.isEmpty();
+    return sequenceMapping.isEmpty();
   }
 
   @Override
   public String toString() {
-    return "ValidationGroupsMetaData{inheritanceMap=" + this.inheritanceMapping + ", "
-        + "sequenceMap=" + this.sequenceMapping + "}";
+    return "ValidationGroupsMetaData{inheritanceMap=" + inheritanceMapping + ", " + "sequenceMap="
+        + sequenceMapping + "}";
   }
 }

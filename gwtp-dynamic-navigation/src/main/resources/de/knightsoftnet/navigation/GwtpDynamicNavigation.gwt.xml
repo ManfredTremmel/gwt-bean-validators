@@ -16,7 +16,7 @@
   <inherits name="com.google.gwt.inject.Inject"/>
 
   <!-- gwtp spring integration -->
-  <inherits name="de.knightsoftnet.gwtp.spring.GwtpSpringIntegrationUser" />
+  <inherits name="de.knightsoftnet.gwtp.spring.GwtpSpringIntegrationUserSuper" />
 
   <!-- gwtp mvp support -->
   <inherits name='com.gwtplatform.mvp.MvpWithEntryPoint'/>

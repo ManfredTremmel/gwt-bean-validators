@@ -36,7 +36,7 @@ public abstract class AbstractBeanValidationEditorDelegate<T, E extends Editor<T
 
   @Override
   public final void setParentDriver(final BeanValidationEditorDriver<?, ?> pparentDriver) {
-    this.parentDriver = pparentDriver;
+    parentDriver = pparentDriver;
   }
 
   @Override
@@ -46,8 +46,8 @@ public abstract class AbstractBeanValidationEditorDelegate<T, E extends Editor<T
 
   @Override
   protected EditorVisitor createInitializerVisitor() {
-    if (this.parentDriver != null) {
-      return this.parentDriver.createInitializerVisitor();
+    if (parentDriver != null) {
+      return parentDriver.createInitializerVisitor();
     }
     return new BeanValidationInitializer(null, null, null, null, null, false);
   }

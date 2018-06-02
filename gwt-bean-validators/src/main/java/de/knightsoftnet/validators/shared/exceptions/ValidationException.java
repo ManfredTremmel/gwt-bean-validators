@@ -47,7 +47,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   public ValidationException() {
     super();
-    this.validationErrorSet = new ArrayList<>(1);
+    validationErrorSet = new ArrayList<>(1);
   }
 
   /**
@@ -68,7 +68,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   public ValidationException(final String pmessage) {
     super(pmessage);
-    this.validationErrorSet = new ArrayList<>(1);
+    validationErrorSet = new ArrayList<>(1);
   }
 
   /**
@@ -91,7 +91,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   @SuppressWarnings({"unchecked"})
   public final ArrayList<ConstraintViolation<?>> getValidationErrorSet(final Object pclass) {
-    return new ArrayList<>(this.validationErrorSet.stream()
+    return new ArrayList<>(validationErrorSet.stream()
         .map(violation -> ConstraintViolationImpl.forBeanValidation( //
             violation.getMessageTemplate(), //
             Collections.emptyMap(), //
@@ -115,7 +115,7 @@ public class ValidationException extends Exception implements Serializable {
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(final Set pvalidationErrorSet) {
-    this.validationErrorSet =
+    validationErrorSet =
         new ArrayList<>((List<SerializeableConstraintValidationImpl<?>>) pvalidationErrorSet
             .stream().map(violation -> new SerializeableConstraintValidationImpl(
                 (ConstraintViolation<?>) violation))
@@ -130,7 +130,7 @@ public class ValidationException extends Exception implements Serializable {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public final void setValidationErrorSet(
       final ArrayList<ConstraintViolation<?>> pvalidationErrorSet) {
-    this.validationErrorSet = new ArrayList<>(pvalidationErrorSet.stream().map(
+    validationErrorSet = new ArrayList<>(pvalidationErrorSet.stream().map(
         violation -> (SerializeableConstraintValidationImpl<?>) new SerializeableConstraintValidationImpl(
             violation))
         .collect(Collectors.toList()));

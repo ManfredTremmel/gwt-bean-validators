@@ -45,7 +45,7 @@ public class NotEmptyAfterStripValidator
    */
   @Override
   public final void initialize(final NotEmptyAfterStrip pconstraintAnnotation) {
-    this.stripcharacters = pconstraintAnnotation.stripcharacters();
+    stripcharacters = pconstraintAnnotation.stripcharacters();
   }
 
   /**
@@ -56,8 +56,7 @@ public class NotEmptyAfterStripValidator
    */
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
-    final String valueAsString =
-        StringUtils.strip(Objects.toString(pvalue, null), this.stripcharacters);
+    final String valueAsString = StringUtils.strip(Objects.toString(pvalue, null), stripcharacters);
 
     return StringUtils.isNotEmpty(valueAsString);
   }

@@ -15,11 +15,11 @@
 
 package de.knightsoftnet.gwtp.spring.client.factory;
 
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationValueInterface;
-
 import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanFactory;
+
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationValueInterface;
 
 /**
  * define autobean definitions for parsing json data.

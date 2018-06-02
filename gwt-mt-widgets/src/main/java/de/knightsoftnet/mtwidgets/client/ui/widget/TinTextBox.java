@@ -27,6 +27,6 @@ public class TinTextBox extends TextBox {
    * @param pcountryCodeField input field which contains country code
    */
   public void setCountryCodeReference(final TakesValue<?> pcountryCodeField) {
-    this.addKeyPressHandler(HandlerFactory.getTinKeyPressHandler(pcountryCodeField));
+    addKeyPressHandler(HandlerFactory.getTinKeyPressHandler(pcountryCodeField));
   }
 }

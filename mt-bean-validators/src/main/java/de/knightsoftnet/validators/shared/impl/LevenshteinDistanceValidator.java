@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-
 /**
  * Check if the Levenshtein Distance of two field entries reach a minimum value.
  *
@@ -62,12 +61,12 @@ public class LevenshteinDistanceValidator
 
   @Override
   public void initialize(final LevenshteinDistance pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.field1Name = pconstraintAnnotation.field1();
-    this.field2Name = pconstraintAnnotation.field2();
-    this.minDistance = pconstraintAnnotation.minDistance();
-    this.addErrorToField1 = pconstraintAnnotation.addErrorToField1();
-    this.addErrorToField2 = pconstraintAnnotation.addErrorToField2();
+    message = pconstraintAnnotation.message();
+    field1Name = pconstraintAnnotation.field1();
+    field2Name = pconstraintAnnotation.field2();
+    minDistance = pconstraintAnnotation.minDistance();
+    addErrorToField1 = pconstraintAnnotation.addErrorToField1();
+    addErrorToField2 = pconstraintAnnotation.addErrorToField2();
   }
 
   @SuppressWarnings("deprecation")
@@ -78,32 +77,32 @@ public class LevenshteinDistanceValidator
     }
     try {
       final String field1Value =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.field1Name);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, field1Name);
       final String field2Value =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.field2Name);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, field2Name);
       final boolean oneFieldIsEmpty =
           StringUtils.isEmpty(field1Value) || StringUtils.isEmpty(field2Value);
       if (oneFieldIsEmpty
-          || StringUtils.getLevenshteinDistance(field1Value, field2Value) >= this.minDistance) {
+          || StringUtils.getLevenshteinDistance(field1Value, field2Value) >= minDistance) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception pexception) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
-    if (this.addErrorToField1 || this.addErrorToField2) {
+    if (addErrorToField1 || addErrorToField2) {
       pcontext.disableDefaultConstraintViolation();
-      if (this.addErrorToField1) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field1Name)
+      if (addErrorToField1) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field1Name)
             .addConstraintViolation();
       }
-      if (this.addErrorToField2) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field2Name)
+      if (addErrorToField2) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field2Name)
             .addConstraintViolation();
       }
     }

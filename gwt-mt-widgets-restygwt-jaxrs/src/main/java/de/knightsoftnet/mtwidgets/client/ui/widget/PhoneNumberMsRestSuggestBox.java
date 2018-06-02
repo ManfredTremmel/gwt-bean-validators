@@ -40,7 +40,7 @@ public class PhoneNumberMsRestSuggestBox extends AbstractPhoneNumberRestSuggestB
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.service.formatMsWithPos(pkey, presult);
+    service.formatMsWithPos(pkey, presult);
   }
 
   @Override

@@ -34,14 +34,14 @@ public class IbanLengthMapConstantsImpl implements IbanLengthMapSharedConstants 
     // this.ibanLengthMap = pmap.entrySet().stream().collect(Collectors.toMap( //
     // entry -> entry.getKey(), //
     // entry -> new IbanLengthDefinition(entry.getValue())));
-    this.ibanLengthMap = new HashMap<>(pmap.size());
+    ibanLengthMap = new HashMap<>(pmap.size());
     for (final Entry<String, String> entry : pmap.entrySet()) {
-      this.ibanLengthMap.put(entry.getKey(), new IbanLengthDefinition(entry.getValue()));
+      ibanLengthMap.put(entry.getKey(), new IbanLengthDefinition(entry.getValue()));
     }
   }
 
   @Override
   public Map<String, IbanLengthDefinition> ibanLengths() {
-    return this.ibanLengthMap;
+    return ibanLengthMap;
   }
 }

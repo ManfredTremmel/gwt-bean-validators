@@ -57,7 +57,7 @@ public class PhoneNumberService {
   public PhoneNumberData parsePhoneNumber(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry,
+    return phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry,
         LocaleUtil.convertLanguageToLocale(planguage));
   }
 
@@ -66,7 +66,7 @@ public class PhoneNumberService {
   @Path(PhoneNumber.PARSE_WITH_POS)
   public ValueWithPos<PhoneNumberData> parsePhoneNumber(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.parsePhoneNumber(pphoneNumber, pphoneNumber.getCountry());
   }
 
   /**
@@ -83,16 +83,16 @@ public class PhoneNumberService {
       @QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    final PhoneNumberDataWithFormats result = new PhoneNumberDataWithFormats(this.phoneNumberUtil
+    final PhoneNumberDataWithFormats result = new PhoneNumberDataWithFormats(phoneNumberUtil
         .parsePhoneNumber(pphoneNumber, pcountry, LocaleUtil.convertLanguageToLocale(planguage)));
-    result.setCommonInternational(this.phoneNumberUtil.formatCommonInternational(result));
-    result.setCommonNational(this.phoneNumberUtil.formatCommonNational(result));
-    result.setDin5008International(this.phoneNumberUtil.formatDin5008International(result));
-    result.setDin5008National(this.phoneNumberUtil.formatDin5008National(result));
-    result.setE123International(this.phoneNumberUtil.formatE123International(result));
-    result.setE123National(this.phoneNumberUtil.formatE123National(result));
-    result.setMs(this.phoneNumberUtil.formatMs(result));
-    result.setUrl(this.phoneNumberUtil.formatUrl(result));
+    result.setCommonInternational(phoneNumberUtil.formatCommonInternational(result));
+    result.setCommonNational(phoneNumberUtil.formatCommonNational(result));
+    result.setDin5008International(phoneNumberUtil.formatDin5008International(result));
+    result.setDin5008National(phoneNumberUtil.formatDin5008National(result));
+    result.setE123International(phoneNumberUtil.formatE123International(result));
+    result.setE123National(phoneNumberUtil.formatE123National(result));
+    result.setMs(phoneNumberUtil.formatMs(result));
+    result.setUrl(phoneNumberUtil.formatUrl(result));
     return result;
   }
 
@@ -102,13 +102,13 @@ public class PhoneNumberService {
   public String formatE123(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatE123(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatE123(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_E123_WITH_POS)
   public ValueWithPos<String> formatE123WithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatE123WithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
   @GET
@@ -116,15 +116,14 @@ public class PhoneNumberService {
   public String formatE123International(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatE123International(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatE123International(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_E123_INTERNATIONAL_WITH_POS)
   public ValueWithPos<String> formatE123InternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123InternationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return phoneNumberUtil.formatE123InternationalWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
   @GET
@@ -132,14 +131,14 @@ public class PhoneNumberService {
   public String formatE123National(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatE123National(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatE123National(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_E123_NATIONAL_WITH_POS)
   public ValueWithPos<String> formatE123NationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatE123NationalWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatE123NationalWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -148,14 +147,14 @@ public class PhoneNumberService {
   public String formatDin5008(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatDin5008(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_DIN5008_WITH_POS)
   public ValueWithPos<String> formatDin5008WithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatDin5008WithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
   @GET
@@ -163,14 +162,14 @@ public class PhoneNumberService {
   public String formatDin5008International(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008International(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatDin5008International(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_DIN5008_INTERNATIONAL_WITH_POS)
   public ValueWithPos<String> formatDin5008InternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008InternationalWithPos(pphoneNumber,
+    return phoneNumberUtil.formatDin5008InternationalWithPos(pphoneNumber,
         pphoneNumber.getCountry());
   }
 
@@ -179,15 +178,14 @@ public class PhoneNumberService {
   public String formatDin5008National(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008National(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatDin5008National(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_DIN5008_NATIONAL_WITH_POS)
   public ValueWithPos<String> formatDin5008NationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatDin5008NationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return phoneNumberUtil.formatDin5008NationalWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -196,14 +194,14 @@ public class PhoneNumberService {
   public String formatRfc3966(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatRfc3966(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatRfc3966(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_RFC3966_WITH_POS)
   public ValueWithPos<String> formatRfc3966WithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatRfc3966WithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatRfc3966WithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -212,13 +210,13 @@ public class PhoneNumberService {
   public String formatMs(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatMs(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatMs(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_MS_WITH_POS)
   public ValueWithPos<String> formatMsWithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatMsWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatMsWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -227,13 +225,13 @@ public class PhoneNumberService {
   public String formatUrl(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatUrl(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatUrl(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_URL_WITH_POS)
   public ValueWithPos<String> formatUrlWithPos(final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatUrlWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatUrlWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -242,14 +240,14 @@ public class PhoneNumberService {
   public String formatCommon(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatCommon(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatCommon(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_COMMON_WITH_POS)
   public ValueWithPos<String> formatCommonWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonWithPos(pphoneNumber, pphoneNumber.getCountry());
+    return phoneNumberUtil.formatCommonWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
   @GET
@@ -257,14 +255,14 @@ public class PhoneNumberService {
   public String formatCommonInternational(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonInternational(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatCommonInternational(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_COMMON_INTERNATIONAL_WITH_POS)
   public ValueWithPos<String> formatCommonInternationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonInternationalWithPos(pphoneNumber,
+    return phoneNumberUtil.formatCommonInternationalWithPos(pphoneNumber,
         pphoneNumber.getCountry());
   }
 
@@ -273,15 +271,14 @@ public class PhoneNumberService {
   public String formatCommonNational(@QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.COUNTRY) final String pcountry,
       @QueryParam(Parameters.PHONE_NUMBER) final String pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonNational(pphoneNumber, pcountry);
+    return phoneNumberUtil.formatCommonNational(pphoneNumber, pcountry);
   }
 
   @PUT
   @Path(PhoneNumber.FORMAT_COMMON_NATIONAL_WITH_POS)
   public ValueWithPos<String> formatCommonNationalWithPos(
       final ValueWithPosAndCountry<String> pphoneNumber) {
-    return this.phoneNumberUtil.formatCommonNationalWithPos(pphoneNumber,
-        pphoneNumber.getCountry());
+    return phoneNumberUtil.formatCommonNationalWithPos(pphoneNumber, pphoneNumber.getCountry());
   }
 
 
@@ -291,7 +288,7 @@ public class PhoneNumberService {
       @QueryParam(Parameters.LANGUAGE) final String planguage,
       @QueryParam(Parameters.SEARCH) final String psearch,
       @QueryParam(Parameters.LIMIT) final int plimit) {
-    return this.phoneNumberUtil.getSuggstions(psearch, plimit,
+    return phoneNumberUtil.getSuggstions(psearch, plimit,
         LocaleUtil.convertLanguageToLocale(planguage));
   }
 
@@ -316,33 +313,32 @@ public class PhoneNumberService {
       @QueryParam(Parameters.E123) final Boolean pe123,
       @QueryParam(Parameters.URI) final Boolean puri, @QueryParam(Parameters.MS) final Boolean pms,
       @QueryParam(Parameters.COMMON) final Boolean pcommon) {
-    final PhoneNumberData parsedNumber =
-        this.phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry);
+    final PhoneNumberData parsedNumber = phoneNumberUtil.parsePhoneNumber(pphoneNumber, pcountry);
     if (parsedNumber.isValid()) {
-      if (BooleanUtils.isTrue(pdin5008) && (StringUtils.equals(pphoneNumber,
-          this.phoneNumberUtil.formatDin5008National(parsedNumber))
-          || StringUtils.equals(pphoneNumber,
-              this.phoneNumberUtil.formatDin5008International(parsedNumber)))) {
+      if (BooleanUtils.isTrue(pdin5008)
+          && (StringUtils.equals(pphoneNumber, phoneNumberUtil.formatDin5008National(parsedNumber))
+              || StringUtils.equals(pphoneNumber,
+                  phoneNumberUtil.formatDin5008International(parsedNumber)))) {
         return Boolean.TRUE;
       }
-      if (BooleanUtils.isTrue(pe123) && (StringUtils.equals(pphoneNumber,
-          this.phoneNumberUtil.formatE123National(parsedNumber))
-          || StringUtils.equals(pphoneNumber,
-              this.phoneNumberUtil.formatE123International(parsedNumber)))) {
+      if (BooleanUtils.isTrue(pe123)
+          && (StringUtils.equals(pphoneNumber, phoneNumberUtil.formatE123National(parsedNumber))
+              || StringUtils.equals(pphoneNumber,
+                  phoneNumberUtil.formatE123International(parsedNumber)))) {
         return Boolean.TRUE;
       }
       if (BooleanUtils.isTrue(puri)
-          && StringUtils.equals(pphoneNumber, this.phoneNumberUtil.formatUrl(parsedNumber))) {
+          && StringUtils.equals(pphoneNumber, phoneNumberUtil.formatUrl(parsedNumber))) {
         return Boolean.TRUE;
       }
       if (BooleanUtils.isTrue(pms)
-          && StringUtils.equals(pphoneNumber, this.phoneNumberUtil.formatMs(parsedNumber))) {
+          && StringUtils.equals(pphoneNumber, phoneNumberUtil.formatMs(parsedNumber))) {
         return Boolean.TRUE;
       }
-      if (BooleanUtils.isTrue(pcommon) && (StringUtils.equals(pphoneNumber,
-          this.phoneNumberUtil.formatCommonNational(parsedNumber))
-          || StringUtils.equals(pphoneNumber,
-              this.phoneNumberUtil.formatCommonInternational(parsedNumber)))) {
+      if (BooleanUtils.isTrue(pcommon)
+          && (StringUtils.equals(pphoneNumber, phoneNumberUtil.formatCommonNational(parsedNumber))
+              || StringUtils.equals(pphoneNumber,
+                  phoneNumberUtil.formatCommonInternational(parsedNumber)))) {
         return Boolean.TRUE;
       }
     }

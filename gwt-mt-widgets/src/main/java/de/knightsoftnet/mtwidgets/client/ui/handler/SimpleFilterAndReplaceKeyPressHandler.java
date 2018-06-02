@@ -60,42 +60,42 @@ public class SimpleFilterAndReplaceKeyPressHandler extends AbstractFilterAndRepl
   }
 
   protected final Set<Character> getAllowedCharacters() {
-    return this.allowedCharacters;
+    return allowedCharacters;
   }
 
   protected final void setAllowedCharacters(final Set<Character> pallowedCharacters) {
-    this.allowedCharacters = pallowedCharacters;
-    this.containsUpper = false;
-    this.containsLower = false;
+    allowedCharacters = pallowedCharacters;
+    containsUpper = false;
+    containsLower = false;
     for (final char character : pallowedCharacters) {
-      this.containsUpper |= CharUtils.isAsciiAlphaUpper(character);
-      this.containsLower |= CharUtils.isAsciiAlphaLower(character);
+      containsUpper |= CharUtils.isAsciiAlphaUpper(character);
+      containsLower |= CharUtils.isAsciiAlphaLower(character);
     }
   }
 
   protected final void setAllowedCharacters(final String pallowedCharacters) {
-    this.allowedCharacters = new TreeSet<>();
-    this.containsUpper = false;
-    this.containsLower = false;
+    allowedCharacters = new TreeSet<>();
+    containsUpper = false;
+    containsLower = false;
     for (final char character : pallowedCharacters.toCharArray()) {
-      this.allowedCharacters.add(Character.valueOf(character));
-      this.containsUpper |= CharUtils.isAsciiAlphaUpper(character);
-      this.containsLower |= CharUtils.isAsciiAlphaLower(character);
+      allowedCharacters.add(Character.valueOf(character));
+      containsUpper |= CharUtils.isAsciiAlphaUpper(character);
+      containsLower |= CharUtils.isAsciiAlphaLower(character);
     }
   }
 
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    return this.allowedCharacters.contains(Character.valueOf(pcharacter));
+    return allowedCharacters.contains(Character.valueOf(pcharacter));
   }
 
   @Override
   public boolean isCharacterToReplace(final char pcharacter) {
-    return CharUtils.isAsciiAlphaUpper(pcharacter) && !this.containsUpper && this.containsLower
-        && this.allowedCharacters.contains(Character.toLowerCase(pcharacter))
-        || CharUtils.isAsciiAlphaLower(pcharacter) && this.containsUpper && !this.containsLower
-            && this.allowedCharacters.contains(Character.toUpperCase(pcharacter));
+    return CharUtils.isAsciiAlphaUpper(pcharacter) && !containsUpper && containsLower
+        && allowedCharacters.contains(Character.toLowerCase(pcharacter))
+        || CharUtils.isAsciiAlphaLower(pcharacter) && containsUpper && !containsLower
+            && allowedCharacters.contains(Character.toUpperCase(pcharacter));
   }
 
   @Override

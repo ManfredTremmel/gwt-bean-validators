@@ -53,10 +53,10 @@ public class PhoneNumberData implements PhoneNumberExtendedInterface, Validation
   public PhoneNumberData(final String pcountryCode, final String pareaCode,
       final String plineNumber, final String pextension) {
     super();
-    this.countryCode = pcountryCode;
-    this.areaCode = pareaCode;
-    this.lineNumber = plineNumber;
-    this.extension = pextension;
+    countryCode = pcountryCode;
+    areaCode = pareaCode;
+    lineNumber = plineNumber;
+    extension = pextension;
   }
 
   /**
@@ -66,93 +66,93 @@ public class PhoneNumberData implements PhoneNumberExtendedInterface, Validation
    */
   public PhoneNumberData(final PhoneNumberInterface pphoneNumber) {
     super();
-    this.countryCode = pphoneNumber.getCountryCode();
-    this.areaCode = pphoneNumber.getAreaCode();
-    this.lineNumber = pphoneNumber.getLineNumber();
-    this.extension = pphoneNumber.getExtension();
+    countryCode = pphoneNumber.getCountryCode();
+    areaCode = pphoneNumber.getAreaCode();
+    lineNumber = pphoneNumber.getLineNumber();
+    extension = pphoneNumber.getExtension();
     if (pphoneNumber instanceof PhoneNumberExtendedInterface) {
-      this.countryName = ((PhoneNumberExtendedInterface) pphoneNumber).getCountryName();
-      this.areaName = ((PhoneNumberExtendedInterface) pphoneNumber).getAreaName();
+      countryName = ((PhoneNumberExtendedInterface) pphoneNumber).getCountryName();
+      areaName = ((PhoneNumberExtendedInterface) pphoneNumber).getAreaName();
     }
     if (pphoneNumber instanceof ValidationInterface) {
-      this.valid = ((ValidationInterface) pphoneNumber).isValid();
+      valid = ((ValidationInterface) pphoneNumber).isValid();
     }
   }
 
 
   @Override
   public final String getCountryCode() {
-    return this.countryCode;
+    return countryCode;
   }
 
   @Override
   public final void setCountryCode(final String pcountryCode) {
-    this.countryCode = pcountryCode;
+    countryCode = pcountryCode;
   }
 
   @Override
   public final String getCountryName() {
-    return this.countryName;
+    return countryName;
   }
 
   @Override
   public final void setCountryName(final String pcountryName) {
-    this.countryName = pcountryName;
+    countryName = pcountryName;
   }
 
   @Override
   public final String getAreaCode() {
-    return this.areaCode;
+    return areaCode;
   }
 
   @Override
   public final void setAreaCode(final String pareaCode) {
-    this.areaCode = pareaCode;
+    areaCode = pareaCode;
   }
 
   @Override
   public final String getAreaName() {
-    return this.areaName;
+    return areaName;
   }
 
   @Override
   public final void setAreaName(final String pareaName) {
-    this.areaName = pareaName;
+    areaName = pareaName;
   }
 
   @Override
   public final String getLineNumber() {
-    return this.lineNumber;
+    return lineNumber;
   }
 
   @Override
   public final void setLineNumber(final String plineNumber) {
-    this.lineNumber = plineNumber;
+    lineNumber = plineNumber;
   }
 
   @Override
   public final String getExtension() {
-    return this.extension;
+    return extension;
   }
 
   @Override
   public final void setExtension(final String pextension) {
-    this.extension = pextension;
+    extension = pextension;
   }
 
   @Override
   public final boolean isValid() {
-    return this.valid;
+    return valid;
   }
 
   @Override
   public final void setValid(final boolean pvalid) {
-    this.valid = pvalid;
+    valid = pvalid;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.countryCode, this.areaCode, this.lineNumber, this.extension);
+    return Objects.hash(countryCode, areaCode, lineNumber, extension);
   }
 
   @Override
@@ -167,15 +167,15 @@ public class PhoneNumberData implements PhoneNumberExtendedInterface, Validation
       return false;
     }
     final PhoneNumberData other = (PhoneNumberData) pobj;
-    return StringUtils.equals(this.countryCode, other.countryCode)
-        && StringUtils.equals(this.areaCode, other.areaCode)
-        && StringUtils.equals(this.lineNumber, other.lineNumber)
-        && StringUtils.equals(this.extension, other.extension);
+    return StringUtils.equals(countryCode, other.countryCode)
+        && StringUtils.equals(areaCode, other.areaCode)
+        && StringUtils.equals(lineNumber, other.lineNumber)
+        && StringUtils.equals(extension, other.extension);
   }
 
   @Override
   public String toString() {
-    return "PhoneNumberData [countryCode=" + this.countryCode + ", areaCode=" + this.areaCode
-        + ", phoneNumber=" + this.lineNumber + ", extension=" + this.extension + "]";
+    return "PhoneNumberData [countryCode=" + countryCode + ", areaCode=" + areaCode
+        + ", phoneNumber=" + lineNumber + ", extension=" + extension + "]";
   }
 }

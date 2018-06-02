@@ -15,13 +15,13 @@
 
 package de.knightsoftnet.gwtp.spring.client.rest.helper;
 
-import de.knightsoftnet.gwtp.spring.client.session.Session;
-import de.knightsoftnet.gwtp.spring.shared.models.User;
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.http.client.Response;
 import com.gwtplatform.dispatch.rest.client.RestCallback;
 import com.gwtplatform.dispatch.shared.ActionException;
+
+import de.knightsoftnet.gwtp.spring.client.session.Session;
+import de.knightsoftnet.gwtp.spring.shared.models.User;
 
 /**
  * Login Callback for login.

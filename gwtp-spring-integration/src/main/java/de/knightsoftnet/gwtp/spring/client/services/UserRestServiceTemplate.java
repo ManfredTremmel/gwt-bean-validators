@@ -15,10 +15,6 @@
 
 package de.knightsoftnet.gwtp.spring.client.services;
 
-import de.knightsoftnet.gwtp.spring.shared.Parameters;
-import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
-import de.knightsoftnet.gwtp.spring.shared.models.User;
-
 import com.gwtplatform.dispatch.rest.shared.RestAction;
 
 import javax.ws.rs.Consumes;
@@ -28,6 +24,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+
+import de.knightsoftnet.gwtp.spring.shared.Parameters;
+import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
+import de.knightsoftnet.gwtp.spring.shared.models.User;
 
 /**
  * Definition of the login/logout remote services template.

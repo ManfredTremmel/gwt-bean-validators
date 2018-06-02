@@ -15,16 +15,15 @@
 
 package de.knightsoftnet.gwtp.spring.client.rest.helper;
 
-import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
 import com.gwtplatform.mvp.client.ViewImpl;
 
-import elemental.html.InputElement;
-
 import javax.validation.ConstraintViolation;
+
+import de.knightsoftnet.validators.client.editor.BeanValidationEditorDriver;
+import elemental.html.InputElement;
 
 /**
  * abstract editor implementation with default functionality used in forms.

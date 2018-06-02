@@ -92,14 +92,14 @@ public class PhoneNumberValueRestValidator
    */
   @Override
   public final void initialize(final PhoneNumberValueRest pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldPhoneNumber = pconstraintAnnotation.fieldPhoneNumber();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowDin5008 = pconstraintAnnotation.allowDin5008();
-    this.allowE123 = pconstraintAnnotation.allowE123();
-    this.allowUri = pconstraintAnnotation.allowUri();
-    this.allowMs = pconstraintAnnotation.allowMs();
-    this.allowCommon = pconstraintAnnotation.allowCommon();
+    message = pconstraintAnnotation.message();
+    fieldPhoneNumber = pconstraintAnnotation.fieldPhoneNumber();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowDin5008 = pconstraintAnnotation.allowDin5008();
+    allowE123 = pconstraintAnnotation.allowE123();
+    allowUri = pconstraintAnnotation.allowUri();
+    allowMs = pconstraintAnnotation.allowMs();
+    allowCommon = pconstraintAnnotation.allowCommon();
   }
 
   /**
@@ -117,13 +117,13 @@ public class PhoneNumberValueRestValidator
       return true;
     }
     try {
-      String countryCode = BeanUtils.getProperty(pvalue, this.fieldCountryCode);
-      final String phoneNumber = BeanUtils.getProperty(pvalue, this.fieldPhoneNumber);
+      String countryCode = BeanUtils.getProperty(pvalue, fieldCountryCode);
+      final String phoneNumber = BeanUtils.getProperty(pvalue, fieldPhoneNumber);
       if (StringUtils.isEmpty(phoneNumber)) {
         return true;
       }
 
-      if (this.allowLowerCaseCountryCode) {
+      if (allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
       final String url = StringUtils
@@ -131,7 +131,7 @@ public class PhoneNumberValueRestValidator
               GWT.getModuleName()), "/")
           + PhoneNumber.ROOT + PhoneNumber.VALIDATE //
           + "?" + Parameters.COUNTRY + "=" + countryCode //
-          + "&" + Parameters.PHONE_NUMBER + "=" + this.urlEncode(phoneNumber) //
+          + "&" + Parameters.PHONE_NUMBER + "=" + urlEncode(phoneNumber) //
           + "&" + Parameters.DIN_5008 + "=" + PhoneNumberValueRestValidator.this.allowDin5008 //
           + "&" + Parameters.E123 + "=" + PhoneNumberValueRestValidator.this.allowE123 //
           + "&" + Parameters.URI + "=" + PhoneNumberValueRestValidator.this.allowUri //
@@ -141,10 +141,10 @@ public class PhoneNumberValueRestValidator
       if (StringUtils.equalsIgnoreCase("TRUE", restResult)) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
@@ -160,7 +160,7 @@ public class PhoneNumberValueRestValidator
   @SuppressWarnings("deprecation")
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addNode(this.fieldPhoneNumber)
+    pcontext.buildConstraintViolationWithTemplate(message).addNode(fieldPhoneNumber)
         .addConstraintViolation();
   }
 }

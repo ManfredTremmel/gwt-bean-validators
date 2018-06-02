@@ -68,7 +68,7 @@ public class IbanValidator implements ConstraintValidator<Iban, Object> {
    */
   @Override
   public final void initialize(final Iban pconstraintAnnotation) {
-    this.ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
+    ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
   }
 
   /**
@@ -80,7 +80,7 @@ public class IbanValidator implements ConstraintValidator<Iban, Object> {
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
-    if (this.ignoreWhitspaces) {
+    if (ignoreWhitspaces) {
       valueAsString = IbanUtil.ibanCompress(Objects.toString(pvalue, StringUtils.EMPTY));
     } else {
       valueAsString = Objects.toString(pvalue, null);

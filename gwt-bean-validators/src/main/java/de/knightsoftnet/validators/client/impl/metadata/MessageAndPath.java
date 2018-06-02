@@ -40,11 +40,11 @@ public final class MessageAndPath {
   }
 
   public String getMessage() {
-    return this.message;
+    return message;
   }
 
   public Path getPath() {
-    return this.path;
+    return path;
   }
 
   /**
@@ -52,6 +52,6 @@ public final class MessageAndPath {
    */
   @Override
   public String toString() {
-    return this.path + "=" + this.message;
+    return path + "=" + message;
   }
 }

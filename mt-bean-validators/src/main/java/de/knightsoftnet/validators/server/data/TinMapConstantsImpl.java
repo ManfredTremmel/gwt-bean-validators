@@ -23,11 +23,11 @@ public class TinMapConstantsImpl implements TinMapSharedConstants {
   private final Map<String, String> tinMap;
 
   public TinMapConstantsImpl(final Map<String, String> pmap) {
-    this.tinMap = pmap;
+    tinMap = pmap;
   }
 
   @Override
   public Map<String, String> tins() {
-    return this.tinMap;
+    return tinMap;
   }
 }

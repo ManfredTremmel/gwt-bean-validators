@@ -23,11 +23,11 @@ public class PostalCodesMapConstantsImpl implements PostalCodesMapSharedConstant
   private final Map<String, String> postalCodesMap;
 
   public PostalCodesMapConstantsImpl(final Map<String, String> pmap) {
-    this.postalCodesMap = pmap;
+    postalCodesMap = pmap;
   }
 
   @Override
   public Map<String, String> postalCodes() {
-    return this.postalCodesMap;
+    return postalCodesMap;
   }
 }

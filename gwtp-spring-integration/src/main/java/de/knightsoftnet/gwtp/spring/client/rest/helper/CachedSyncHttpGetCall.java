@@ -20,11 +20,11 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.gwt.core.shared.GWT;
 
-import elemental.client.Browser;
-import elemental.xml.XMLHttpRequest;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+import elemental.client.Browser;
+import elemental.xml.XMLHttpRequest;
 
 /**
  * helper class for synchronous rest get call with result caching.

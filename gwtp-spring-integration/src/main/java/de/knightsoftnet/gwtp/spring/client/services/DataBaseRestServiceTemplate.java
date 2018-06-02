@@ -17,14 +17,14 @@ package de.knightsoftnet.gwtp.spring.client.services;
 
 import com.gwtplatform.dispatch.rest.shared.RestAction;
 
-import java.io.Serializable;
-
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
+import java.io.Serializable;
 
 /**
  * Client side interface for generic CRUD operations on a repository for a specific type.

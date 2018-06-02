@@ -17,10 +17,6 @@ package de.knightsoftnet.gwtp.spring.server.controller;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-import de.knightsoftnet.gwtp.spring.server.service.UserService;
-import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
-import de.knightsoftnet.gwtp.spring.shared.models.User;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
+
+import de.knightsoftnet.gwtp.spring.server.service.UserService;
+import de.knightsoftnet.gwtp.spring.shared.ResourcePaths;
+import de.knightsoftnet.gwtp.spring.shared.models.User;
 
 /**
  * user web service. based on the work of https://github.com/imrabti/gwtp-spring-security
@@ -43,17 +43,17 @@ public class UserController {
 
   @Inject
   protected UserController(final UserService puserService) {
-    this.userService = puserService;
+    userService = puserService;
   }
 
   @RequestMapping(value = ResourcePaths.User.LOGIN, method = RequestMethod.GET)
   @PermitAll
   ResponseEntity<Boolean> isCurrentUserLoggedIn() {
-    return new ResponseEntity<>(this.userService.isCurrentUserLoggedIn(), HttpStatus.OK);
+    return new ResponseEntity<>(userService.isCurrentUserLoggedIn(), HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.GET)
   ResponseEntity<User> getCurrentUser() {
-    return ok(this.userService.getCurrentUser());
+    return ok(userService.getCurrentUser());
   }
 }

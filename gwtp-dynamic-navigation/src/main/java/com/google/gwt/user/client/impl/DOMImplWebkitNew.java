@@ -4,7 +4,7 @@ package com.google.gwt.user.client.impl;
 public class DOMImplWebkitNew extends DOMImplStandardBase {
 
   @SuppressWarnings("deprecation")
-  @Override
+  @Override 
   protected native void initEventSystem() /*-{
     // Ensure $entry for bitfull event dispatchers
     @com.google.gwt.user.client.impl.DOMImplStandard::dispatchEvent =

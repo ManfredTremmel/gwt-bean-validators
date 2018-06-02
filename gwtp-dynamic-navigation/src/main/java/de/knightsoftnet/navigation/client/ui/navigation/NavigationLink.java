@@ -75,26 +75,26 @@ public class NavigationLink implements NavigationEntryInterface {
   public NavigationLink(final SafeHtml pmenuValue, final SafeUri purl, final String ptarget,
       final Gatekeeper pgatekeeper) {
     super();
-    this.menuValue = pmenuValue;
-    this.url = purl;
-    this.target = ptarget;
-    this.gatekeeper = pgatekeeper;
-    this.parentEntry = null;
+    menuValue = pmenuValue;
+    url = purl;
+    target = ptarget;
+    gatekeeper = pgatekeeper;
+    parentEntry = null;
   }
 
   @Override
   public final SafeHtml getMenuValue() {
-    return this.menuValue;
+    return menuValue;
   }
 
   @Override
   public final String getToken() {
-    return this.url.asString();
+    return url.asString();
   }
 
   @Override
   public final String getFullToken() {
-    return this.getToken();
+    return getToken();
   }
 
   @Override
@@ -108,21 +108,21 @@ public class NavigationLink implements NavigationEntryInterface {
   }
 
   public String getTarget() {
-    return this.target;
+    return target;
   }
 
   public Anchor getAnchor() {
-    return new Anchor(this.menuValue, this.url, this.target);
+    return new Anchor(menuValue, url, target);
   }
 
   @Override
   public final NavigationEntryInterface getParentEntry() {
-    return this.parentEntry;
+    return parentEntry;
   }
 
   @Override
   public final void setParentEntry(final NavigationEntryInterface pparentEntry) {
-    this.parentEntry = pparentEntry;
+    parentEntry = pparentEntry;
   }
 
   @Override
@@ -132,12 +132,12 @@ public class NavigationLink implements NavigationEntryInterface {
 
   @Override
   public final boolean canReveal() {
-    return this.gatekeeper == null || this.gatekeeper.canReveal();
+    return gatekeeper == null || gatekeeper.canReveal();
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(this.menuValue, this.url);
+    return Objects.hash(menuValue, url);
   }
 
   @Override
@@ -152,7 +152,7 @@ public class NavigationLink implements NavigationEntryInterface {
       return false;
     }
     final NavigationLink other = (NavigationLink) obj;
-    return Objects.equals(this.menuValue, other.menuValue) && Objects.equals(this.url, other.url);
+    return Objects.equals(menuValue, other.menuValue) && Objects.equals(url, other.url);
   }
 
 }

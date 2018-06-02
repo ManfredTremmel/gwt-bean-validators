@@ -31,16 +31,16 @@ public abstract class AbstractFormatingTextBox extends TextBox implements HasFor
    */
   public AbstractFormatingTextBox() {
     super();
-    this.addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
-    this.addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
-    this.sinkEvents(Event.ONPASTE);
+    addKeyPressHandler(HandlerFactory.getFilterReplAndFormatStrKeyPressHandler());
+    addKeyUpHandler(HandlerFactory.getFormatStrKeyUpHandler());
+    sinkEvents(Event.ONPASTE);
   }
 
   @Override
   public void onBrowserEvent(final Event pevent) {
     // Checking for paste event
     if (pevent.getTypeInt() == Event.ONPASTE) {
-      Scheduler.get().scheduleDeferred(() -> this.reformatValue());
+      Scheduler.get().scheduleDeferred(() -> reformatValue());
       return;
     }
     super.onBrowserEvent(pevent);
@@ -48,18 +48,17 @@ public abstract class AbstractFormatingTextBox extends TextBox implements HasFor
 
   @Override
   public void reformatValue() {
-    final ValueWithPos<String> unformatedEntry =
-        new ValueWithPos<>(this.getValue(), this.getCursorPos());
-    this.formatValue(unformatedEntry);
+    final ValueWithPos<String> unformatedEntry = new ValueWithPos<>(getValue(), getCursorPos());
+    formatValue(unformatedEntry);
   }
 
   protected void setTextWithPos(final ValueWithPos<String> formatedEntry) {
     this.setValue(formatedEntry.getValue(), false);
     if (formatedEntry.getPos() > StringUtils.length(formatedEntry.getValue()) //
         || formatedEntry.getPos() < 0) {
-      this.setCursorPos(formatedEntry.getValue().length());
+      setCursorPos(formatedEntry.getValue().length());
     } else {
-      this.setCursorPos(formatedEntry.getPos());
+      setCursorPos(formatedEntry.getPos());
     }
   }
 }

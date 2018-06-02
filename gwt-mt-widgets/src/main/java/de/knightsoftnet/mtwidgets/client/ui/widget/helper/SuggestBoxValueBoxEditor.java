@@ -20,8 +20,8 @@ public class SuggestBoxValueBoxEditor extends ExtendedValueBoxEditor<String> {
    */
   @Ignore
   public TextBoxBase getTextBox() {
-    if (this.getTakesValues() instanceof SuggestBox) {
-      return (TextBoxBase) ((SuggestBox) this.getTakesValues()).getValueBox();
+    if (getTakesValues() instanceof SuggestBox) {
+      return (TextBoxBase) ((SuggestBox) getTakesValues()).getValueBox();
     }
     return null;
   }
@@ -33,8 +33,8 @@ public class SuggestBoxValueBoxEditor extends ExtendedValueBoxEditor<String> {
    */
   @Ignore
   public ValueBoxBase<String> getValueBox() {
-    if (this.getTakesValues() instanceof SuggestBox) {
-      return ((SuggestBox) this.getTakesValues()).getValueBox();
+    if (getTakesValues() instanceof SuggestBox) {
+      return ((SuggestBox) getTakesValues()).getValueBox();
     }
     return null;
   }

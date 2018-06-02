@@ -54,42 +54,42 @@ public class BicItemSuggest implements Suggestion {
    */
   public BicItemSuggest(final String pbic, final String pbicDisplay, final String pbankName) {
     super();
-    this.bic = pbic;
-    this.bicDisplay = pbicDisplay;
-    this.bankName = pbankName;
+    bic = pbic;
+    bicDisplay = pbicDisplay;
+    bankName = pbankName;
   }
 
   @Override
   public String getDisplayString() {
-    return this.bicDisplay + " - " + this.bankName;
+    return bicDisplay + " - " + bankName;
   }
 
   @Override
   public String getReplacementString() {
-    return this.bic;
+    return bic;
   }
 
   public String getBic() {
-    return this.bic;
+    return bic;
   }
 
   public void setBic(final String pbic) {
-    this.bic = pbic;
+    bic = pbic;
   }
 
   public String getBicDisplay() {
-    return this.bicDisplay;
+    return bicDisplay;
   }
 
   public void setBicDisplay(final String pbicDisplay) {
-    this.bicDisplay = pbicDisplay;
+    bicDisplay = pbicDisplay;
   }
 
   public String getBankName() {
-    return this.bankName;
+    return bankName;
   }
 
   public void setBankName(final String pbankName) {
-    this.bankName = pbankName;
+    bankName = pbankName;
   }
 }

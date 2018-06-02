@@ -54,7 +54,7 @@ public class Isbn10Validator implements ConstraintValidator<Isbn10, Object> {
    */
   @Override
   public final void initialize(final Isbn10 pconstraintAnnotation) {
-    this.ignoreSeparators = pconstraintAnnotation.ignoreSeparators();
+    ignoreSeparators = pconstraintAnnotation.ignoreSeparators();
   }
 
   /**
@@ -66,7 +66,7 @@ public class Isbn10Validator implements ConstraintValidator<Isbn10, Object> {
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
-    if (this.ignoreSeparators) {
+    if (ignoreSeparators) {
       valueAsString =
           Objects.toString(pvalue, StringUtils.EMPTY).replaceAll("-", StringUtils.EMPTY);
     } else {

@@ -69,10 +69,10 @@ public class TinValidator implements ConstraintValidator<Tin, Object> {
    */
   @Override
   public final void initialize(final Tin pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
-    this.fieldTin = pconstraintAnnotation.fieldTin();
+    message = pconstraintAnnotation.message();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
+    fieldTin = pconstraintAnnotation.fieldTin();
   }
 
   @Override
@@ -82,16 +82,16 @@ public class TinValidator implements ConstraintValidator<Tin, Object> {
     }
     try {
       String countryCode =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCountryCode);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCountryCode);
       if (StringUtils.isEmpty(countryCode)) {
         return true;
       }
-      final String Tin = BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldTin);
+      final String Tin = BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldTin);
       if (StringUtils.isEmpty(Tin)) {
         return true;
       }
 
-      if (this.allowLowerCaseCountryCode) {
+      if (allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
 
@@ -99,20 +99,20 @@ public class TinValidator implements ConstraintValidator<Tin, Object> {
       if (regExCheck == null) {
         return true;
       }
-      if (Tin.matches(regExCheck) && this.checkSumTest(countryCode, Tin)) {
+      if (Tin.matches(regExCheck) && checkSumTest(countryCode, Tin)) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldTin)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldTin)
         .addConstraintViolation();
   }
 
@@ -120,32 +120,32 @@ public class TinValidator implements ConstraintValidator<Tin, Object> {
     boolean checkSumOk = false;
     switch (pcountryCode) {
       case "AT":
-        checkSumOk = this.checkAtTin(ptin);
+        checkSumOk = checkAtTin(ptin);
         break;
       case "DE":
       case "HR":
-        checkSumOk = this.checkModulo11Tin(ptin);
+        checkSumOk = checkModulo11Tin(ptin);
         break;
       case "DK":
-        checkSumOk = this.checkDkTin(ptin);
+        checkSumOk = checkDkTin(ptin);
         break;
       case "EE":
       case "LT":
-        checkSumOk = this.checkEeTin(ptin);
+        checkSumOk = checkEeTin(ptin);
         break;
       case "ES":
-        checkSumOk = this.checkEsTin(ptin);
+        checkSumOk = checkEsTin(ptin);
         break;
       case "BA":
       case "ME":
       case "MK":
-        checkSumOk = this.checkUniqueMasterCitizenNumber(ptin);
+        checkSumOk = checkUniqueMasterCitizenNumber(ptin);
         break;
       case "NL":
-        checkSumOk = this.checkNlTin(ptin);
+        checkSumOk = checkNlTin(ptin);
         break;
       case "PL":
-        checkSumOk = this.checkPlTin(ptin);
+        checkSumOk = checkPlTin(ptin);
         break;
       default:
         // for other countries, I haven't found checksum rules

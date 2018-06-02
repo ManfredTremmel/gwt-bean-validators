@@ -34,14 +34,14 @@ public class PhoneNumberValueRestValidator
    */
   @Override
   public final void initialize(final PhoneNumberValueRest pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldPhoneNumber = pconstraintAnnotation.fieldPhoneNumber();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowDin5008 = pconstraintAnnotation.allowDin5008();
-    this.allowE123 = pconstraintAnnotation.allowE123();
-    this.allowUri = pconstraintAnnotation.allowUri();
-    this.allowMs = pconstraintAnnotation.allowMs();
-    this.allowCommon = pconstraintAnnotation.allowCommon();
-    this.phoneNumberUtil = new PhoneNumberUtil();
+    message = pconstraintAnnotation.message();
+    fieldPhoneNumber = pconstraintAnnotation.fieldPhoneNumber();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowDin5008 = pconstraintAnnotation.allowDin5008();
+    allowE123 = pconstraintAnnotation.allowE123();
+    allowUri = pconstraintAnnotation.allowUri();
+    allowMs = pconstraintAnnotation.allowMs();
+    allowCommon = pconstraintAnnotation.allowCommon();
+    phoneNumberUtil = new PhoneNumberUtil();
   }
 }

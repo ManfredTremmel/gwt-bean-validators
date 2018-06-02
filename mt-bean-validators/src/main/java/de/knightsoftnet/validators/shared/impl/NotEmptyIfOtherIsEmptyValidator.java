@@ -52,9 +52,9 @@ public class NotEmptyIfOtherIsEmptyValidator
    */
   @Override
   public final void initialize(final NotEmptyIfOtherIsEmpty pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCheckName = pconstraintAnnotation.field();
-    this.fieldCompareName = pconstraintAnnotation.fieldCompare();
+    message = pconstraintAnnotation.message();
+    fieldCheckName = pconstraintAnnotation.field();
+    fieldCompareName = pconstraintAnnotation.fieldCompare();
   }
 
   /**
@@ -70,23 +70,23 @@ public class NotEmptyIfOtherIsEmptyValidator
     }
     try {
       final String fieldCheckValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCheckName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCheckName);
       final String fieldCompareValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCompareName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCompareName);
       if (StringUtils.isEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldCompareValue)) {
-        this.switchContext(pcontext);
+        switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldCheckName)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldCheckName)
         .addConstraintViolation();
   }
 }

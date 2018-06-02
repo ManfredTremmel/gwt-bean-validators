@@ -59,12 +59,12 @@ public abstract class AbstractCreator extends AbstractSourceCreator {
    * @throws UnableToCompleteException if fails
    */
   public final String create() throws UnableToCompleteException {
-    final SourceWriter sourceWriter = this.getSourceWriter(this.logger, this.context);
+    final SourceWriter sourceWriter = getSourceWriter(logger, context);
     if (sourceWriter != null) {
-      this.writeClassBody(sourceWriter);
-      sourceWriter.commit(this.logger);
+      writeClassBody(sourceWriter);
+      sourceWriter.commit(logger);
     }
-    return this.getQualifiedName();
+    return getQualifiedName();
   }
 
   protected void addImports(final ClassSourceFileComposerFactory composerFactory,
@@ -77,22 +77,22 @@ public abstract class AbstractCreator extends AbstractSourceCreator {
   protected abstract void compose(ClassSourceFileComposerFactory composerFactory);
 
   protected BeanHelper createBeanHelper(final Class<?> clazz) throws UnableToCompleteException {
-    return this.cache.createHelper(clazz, this.logger, this.context);
+    return cache.createHelper(clazz, logger, context);
   }
 
   protected BeanHelper createBeanHelper(final JClassType jtype) throws UnableToCompleteException {
-    return this.cache.createHelper(jtype, this.logger, this.context);
+    return cache.createHelper(jtype, logger, context);
   }
 
   protected final String getPackage() {
-    final JPackage serviceIntfPkg = this.validatorType.getPackage();
+    final JPackage serviceIntfPkg = validatorType.getPackage();
     return serviceIntfPkg == null ? "" : serviceIntfPkg.getName();
   }
 
   protected String getSimpleName() {
-    final int length = this.getPackage().length();
+    final int length = getPackage().length();
     final String rawName =
-        this.validatorType.getQualifiedSourceName().substring(length == 0 ? 0 : length + 1);
+        validatorType.getQualifiedSourceName().substring(length == 0 ? 0 : length + 1);
     return rawName.replace('.', '_') + "Impl";
   }
 
@@ -100,14 +100,14 @@ public abstract class AbstractCreator extends AbstractSourceCreator {
       throws UnableToCompleteException;
 
   private String getQualifiedName() {
-    final String packageName = this.getPackage();
+    final String packageName = getPackage();
     return (StringUtils.isEmpty(packageName) ? StringUtils.EMPTY : packageName + ".")
-        + this.getSimpleName();
+        + getSimpleName();
   }
 
   private SourceWriter getSourceWriter(final TreeLogger logger, final GeneratorContext ctx) {
-    final String packageName = this.getPackage();
-    final String simpleName = this.getSimpleName();
+    final String packageName = getPackage();
+    final String simpleName = getSimpleName();
     final PrintWriter printWriter = ctx.tryCreate(logger, packageName, simpleName);
     if (printWriter == null) {
       return null;
@@ -115,7 +115,7 @@ public abstract class AbstractCreator extends AbstractSourceCreator {
 
     final ClassSourceFileComposerFactory composerFactory =
         new ClassSourceFileComposerFactory(packageName, simpleName);
-    this.compose(composerFactory);
+    compose(composerFactory);
     return composerFactory.createSourceWriter(ctx, printWriter);
   }
 }

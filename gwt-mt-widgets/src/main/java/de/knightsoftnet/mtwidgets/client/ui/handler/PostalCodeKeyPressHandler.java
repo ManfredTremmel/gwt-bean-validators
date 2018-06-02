@@ -59,19 +59,18 @@ public class PostalCodeKeyPressHandler extends SimpleFilterAndReplaceKeyPressHan
    */
   public PostalCodeKeyPressHandler(final TakesValue<?> pcountryCodeField) {
     super(Collections.<Character>emptySet(), true);
-    this.countryCodeField = pcountryCodeField;
+    countryCodeField = pcountryCodeField;
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    final String countryCode =
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()));
+    final String countryCode = StringUtils.upperCase(Objects.toString(countryCodeField.getValue()));
     final Set<Character> currentCharacterSet =
         PostalCodeKeyPressHandler.ALLOWED_CHRACTERS.get(countryCode);
     if (currentCharacterSet == null) {
       this.setAllowedCharacters(RegExUtil.getAllowedCharactersForRegEx(
           PostalCodeKeyPressHandler.POSTAL_CODE_MAP.postalCodes().get(countryCode)));
-      PostalCodeKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, this.getAllowedCharacters());
+      PostalCodeKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, getAllowedCharacters());
     } else {
       this.setAllowedCharacters(currentCharacterSet);
     }

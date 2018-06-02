@@ -38,24 +38,24 @@ public class NavigationKeys {
    */
   public NavigationKeys() {
     super();
-    this.navigationChars = new HashSet<>();
-    this.navigationChars.add(KeyCodes.KEY_TAB);
-    this.navigationChars.add(KeyCodes.KEY_ENTER);
+    navigationChars = new HashSet<>();
+    navigationChars.add(KeyCodes.KEY_TAB);
+    navigationChars.add(KeyCodes.KEY_ENTER);
     if (StringUtils.contains(StringUtils.upperCase(Window.Navigator.getUserAgent()), "GECKO/")) {
-      this.navigationChars.add(KeyCodes.KEY_ALT);
-      this.navigationChars.add(KeyCodes.KEY_BACKSPACE);
-      this.navigationChars.add(KeyCodes.KEY_CTRL);
-      this.navigationChars.add(KeyCodes.KEY_DELETE);
-      this.navigationChars.add(KeyCodes.KEY_DOWN);
-      this.navigationChars.add(KeyCodes.KEY_END);
-      this.navigationChars.add(KeyCodes.KEY_ESCAPE);
-      this.navigationChars.add(KeyCodes.KEY_HOME);
-      this.navigationChars.add(KeyCodes.KEY_LEFT);
-      this.navigationChars.add(KeyCodes.KEY_PAGEDOWN);
-      this.navigationChars.add(KeyCodes.KEY_PAGEUP);
-      this.navigationChars.add(KeyCodes.KEY_RIGHT);
-      this.navigationChars.add(KeyCodes.KEY_SHIFT);
-      this.navigationChars.add(KeyCodes.KEY_UP);
+      navigationChars.add(KeyCodes.KEY_ALT);
+      navigationChars.add(KeyCodes.KEY_BACKSPACE);
+      navigationChars.add(KeyCodes.KEY_CTRL);
+      navigationChars.add(KeyCodes.KEY_DELETE);
+      navigationChars.add(KeyCodes.KEY_DOWN);
+      navigationChars.add(KeyCodes.KEY_END);
+      navigationChars.add(KeyCodes.KEY_ESCAPE);
+      navigationChars.add(KeyCodes.KEY_HOME);
+      navigationChars.add(KeyCodes.KEY_LEFT);
+      navigationChars.add(KeyCodes.KEY_PAGEDOWN);
+      navigationChars.add(KeyCodes.KEY_PAGEUP);
+      navigationChars.add(KeyCodes.KEY_RIGHT);
+      navigationChars.add(KeyCodes.KEY_SHIFT);
+      navigationChars.add(KeyCodes.KEY_UP);
     }
   }
 
@@ -65,7 +65,7 @@ public class NavigationKeys {
    * @return set of characters with navigation keys that shouldn't be blocked
    */
   public Set<Integer> getNavigationChars() {
-    return this.navigationChars;
+    return navigationChars;
   }
 
   /**
@@ -75,6 +75,6 @@ public class NavigationKeys {
    * @return true if it's a navigation key
    */
   public boolean isNavigationKey(final int pkeyCode) {
-    return this.navigationChars.contains(Integer.valueOf(pkeyCode));
+    return navigationChars.contains(Integer.valueOf(pkeyCode));
   }
 }

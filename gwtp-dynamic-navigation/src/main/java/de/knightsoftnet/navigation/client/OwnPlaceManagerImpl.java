@@ -59,45 +59,44 @@ public class OwnPlaceManagerImpl extends PlaceManagerImpl {
 
     pnavigationStructure.setActiveNavigationEntryInterface(pdefaultPlaceNameToken);
     if (StringUtils.contains(pdefaultPlaceNameToken, '{')) {
-      this.defaultPlaceRequest = new PlaceRequest.Builder().nameToken(pdefaultPlaceNameToken)
+      defaultPlaceRequest = new PlaceRequest.Builder().nameToken(pdefaultPlaceNameToken)
           .with(Collections.emptyMap()).build();
     } else {
-      this.defaultPlaceRequest =
-          new PlaceRequest.Builder().nameToken(pdefaultPlaceNameToken).build();
+      defaultPlaceRequest = new PlaceRequest.Builder().nameToken(pdefaultPlaceNameToken).build();
     }
     if (StringUtils.contains(pdefaultPlaceNameToken, '{')) {
-      this.errorPlaceRequest = new PlaceRequest.Builder().nameToken(perrorPlaceNameToken)
+      errorPlaceRequest = new PlaceRequest.Builder().nameToken(perrorPlaceNameToken)
           .with(Collections.emptyMap()).build();
     } else {
-      this.errorPlaceRequest = new PlaceRequest.Builder().nameToken(perrorPlaceNameToken).build();
+      errorPlaceRequest = new PlaceRequest.Builder().nameToken(perrorPlaceNameToken).build();
     }
     if (StringUtils.contains(pdefaultPlaceNameToken, '{')) {
-      this.unauthorizedPlaceRequest = new PlaceRequest.Builder()
-          .nameToken(punauthorizedPlaceNameToken).with(Collections.emptyMap()).build();
+      unauthorizedPlaceRequest = new PlaceRequest.Builder().nameToken(punauthorizedPlaceNameToken)
+          .with(Collections.emptyMap()).build();
     } else {
-      this.unauthorizedPlaceRequest =
+      unauthorizedPlaceRequest =
           new PlaceRequest.Builder().nameToken(punauthorizedPlaceNameToken).build();
     }
   }
 
   @Override
   public void revealDefaultPlace() {
-    this.revealPlace(this.defaultPlaceRequest, false);
+    this.revealPlace(defaultPlaceRequest, false);
   }
 
   @Override
   public void revealErrorPlace(final String pinvalidHistoryToken) {
-    this.revealPlace(this.errorPlaceRequest, false);
+    this.revealPlace(errorPlaceRequest, false);
   }
 
   @Override
   public void revealUnauthorizedPlace(final String punauthorizedHistoryToken) {
-    this.revealRelativePlace(this.unauthorizedPlaceRequest);
+    this.revealRelativePlace(unauthorizedPlaceRequest);
   }
 
   @Override
   protected void doRevealPlace(final PlaceRequest prequest, final boolean pupdateBrowserUrl) {
     super.doRevealPlace(prequest, pupdateBrowserUrl);
-    this.getEventBus().fireEvent(new ChangePlaceEvent(prequest));
+    getEventBus().fireEvent(new ChangePlaceEvent(prequest));
   }
 }

@@ -47,14 +47,14 @@ public class PhoneNumberMsRestSuggestBox extends AbstractPhoneNumberRestSuggestB
       final PhoneNumberRestService pservice, final PhoneNumberMsRestOracle poracle,
       final Session psession) {
     super(poracle, psession);
-    this.dispatcher = pdispatcher;
-    this.service = pservice;
+    dispatcher = pdispatcher;
+    service = pservice;
   }
 
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.dispatcher.execute(this.service.formatMsWithPos(pkey), presult);
+    dispatcher.execute(service.formatMsWithPos(pkey), presult);
   }
 
   @Override

@@ -50,8 +50,8 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
       final boolean pallowCopyAndPast) {
     super();
     this.setAllowedCharacters(pallowedCharacters);
-    this.allowCopyAndPast = pallowCopyAndPast;
-    this.navigationKeys = new NavigationKeys();
+    allowCopyAndPast = pallowCopyAndPast;
+    navigationKeys = new NavigationKeys();
   }
 
   /**
@@ -64,22 +64,22 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
       final boolean pallowCopyAndPast) {
     super();
     this.setAllowedCharacters(pallowedCharacters);
-    this.allowCopyAndPast = pallowCopyAndPast;
-    this.navigationKeys = new NavigationKeys();
+    allowCopyAndPast = pallowCopyAndPast;
+    navigationKeys = new NavigationKeys();
   }
 
   protected final Set<Character> getAllowedCharacters() {
-    return this.allowedCharacters;
+    return allowedCharacters;
   }
 
   protected final void setAllowedCharacters(final Set<Character> pallowedCharacters) {
-    this.allowedCharacters = pallowedCharacters;
+    allowedCharacters = pallowedCharacters;
   }
 
   protected final void setAllowedCharacters(final String pallowedCharacters) {
-    this.allowedCharacters = new TreeSet<>();
+    allowedCharacters = new TreeSet<>();
     for (final char character : pallowedCharacters.toCharArray()) {
-      this.allowedCharacters.add(Character.valueOf(character));
+      allowedCharacters.add(Character.valueOf(character));
     }
   }
 
@@ -92,16 +92,16 @@ public abstract class AbstractFilterKeyPressHandler implements KeyPressHandler {
     final char charCode = pevent.getCharCode();
 
     // accept navigation keys like cursor right, left, ...
-    if (this.navigationKeys.isNavigationKey(keyCode)) {
+    if (navigationKeys.isNavigationKey(keyCode)) {
       return;
     }
     // Copy, Cut or Paste allowed?
-    if (this.allowCopyAndPast && pevent.isControlKeyDown()
+    if (allowCopyAndPast && pevent.isControlKeyDown()
         && (charCode == 'c' || charCode == 'x' || charCode == 'v')) {
       return;
     }
     // check for allowed characters
-    if (this.allowedCharacters.contains(Character.valueOf(charCode))) {
+    if (allowedCharacters.contains(Character.valueOf(charCode))) {
       return;
     }
     // nothing matched, cancel event

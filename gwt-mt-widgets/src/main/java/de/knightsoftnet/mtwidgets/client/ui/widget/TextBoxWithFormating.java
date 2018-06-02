@@ -38,7 +38,7 @@ public class TextBoxWithFormating extends TextBox implements HasFormating {
   }
 
   public final HasFormating getFormating() {
-    return this.formating;
+    return formating;
   }
 
   public final void setFormating(final HasFormating formating) {
@@ -47,31 +47,31 @@ public class TextBoxWithFormating extends TextBox implements HasFormating {
 
   @Override
   public void reformatValue() {
-    this.formating.reformatValue();
+    formating.reformatValue();
   }
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.formating.formatValue(pvalue);
+    formating.formatValue(pvalue);
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    return this.formating.isAllowedCharacter(pcharacter);
+    return formating.isAllowedCharacter(pcharacter);
   }
 
   @Override
   public boolean isCharacterToReplace(final char pcharacter) {
-    return this.formating.isCharacterToReplace(pcharacter);
+    return formating.isCharacterToReplace(pcharacter);
   }
 
   @Override
   public boolean isFormatingCharacter(final char pcharacter) {
-    return this.formating.isFormatingCharacter(pcharacter);
+    return formating.isFormatingCharacter(pcharacter);
   }
 
   @Override
   public char replaceCharacter(final char pcharacter) {
-    return this.formating.replaceCharacter(pcharacter);
+    return formating.replaceCharacter(pcharacter);
   }
 }

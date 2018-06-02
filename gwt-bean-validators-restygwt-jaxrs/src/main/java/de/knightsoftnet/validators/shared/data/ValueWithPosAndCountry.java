@@ -83,8 +83,7 @@ public class ValueWithPosAndCountry<E> extends ValueWithPos<E> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(Integer.valueOf(this.getPos()), this.getValue(), this.country,
-        this.language);
+    return Objects.hash(Integer.valueOf(getPos()), getValue(), this.country, this.language);
   }
 
   @Override

@@ -55,54 +55,54 @@ public class ListValidationEditorWrapper<T, E extends Editor<? super T>> extends
     this.backing = backing;
     this.chain = chain;
     this.editorSource = editorSource;
-    if (this.chain instanceof HasParentDriverSetter) {
-      ((HasParentDriverSetter) this.chain).setParentDriver(pparentDriver);
+    if (chain instanceof HasParentDriverSetter) {
+      ((HasParentDriverSetter) chain).setParentDriver(pparentDriver);
     }
-    this.editors = new ArrayList<>(backing.size());
-    this.workingCopy = new ArrayList<>(backing);
+    editors = new ArrayList<>(backing.size());
+    workingCopy = new ArrayList<>(backing);
   }
 
 
   @Override
   public void add(final int index, final T element) {
-    this.workingCopy.add(index, element);
-    final E subEditor = this.editorSource.create(index);
-    this.editors.add(index, subEditor);
-    final int size = this.editors.size();
+    workingCopy.add(index, element);
+    final E subEditor = editorSource.create(index);
+    editors.add(index, subEditor);
+    final int size = editors.size();
     for (int i = index + 1; i < size; i++) {
-      this.editorSource.setIndex(this.editors.get(i), i);
+      editorSource.setIndex(editors.get(i), i);
     }
-    this.chain.attach(element, subEditor);
+    chain.attach(element, subEditor);
   }
 
   @Override
   public T get(final int index) {
-    return this.workingCopy.get(index);
+    return workingCopy.get(index);
   }
 
   @Override
   public T remove(final int index) {
-    final T toReturn = this.workingCopy.remove(index);
-    final E subEditor = this.editors.remove(index);
-    this.editorSource.dispose(subEditor);
-    final int size = this.editors.size();
+    final T toReturn = workingCopy.remove(index);
+    final E subEditor = editors.remove(index);
+    editorSource.dispose(subEditor);
+    final int size = editors.size();
     for (int i = index; i < size; i++) {
-      this.editorSource.setIndex(this.editors.get(i), i);
+      editorSource.setIndex(editors.get(i), i);
     }
-    this.chain.detach(subEditor);
+    chain.detach(subEditor);
     return toReturn;
   }
 
   @Override
   public T set(final int index, final T element) {
-    final T toReturn = this.workingCopy.set(index, element);
-    this.chain.attach(element, this.editors.get(index));
+    final T toReturn = workingCopy.set(index, element);
+    chain.attach(element, editors.get(index));
     return toReturn;
   }
 
   @Override
   public int size() {
-    return this.workingCopy.size();
+    return workingCopy.size();
   }
 
   /**
@@ -110,40 +110,40 @@ public class ListValidationEditorWrapper<T, E extends Editor<? super T>> extends
    * assign its list field before any sub-editors might call {@link ListEditor#getList()}
    */
   void attach() {
-    this.editors.addAll(this.editorSource.create(this.workingCopy.size(), 0));
-    final int size = this.workingCopy.size();
+    editors.addAll(editorSource.create(workingCopy.size(), 0));
+    final int size = workingCopy.size();
     for (int i = 0; i < size; i++) {
-      this.chain.attach(this.workingCopy.get(i), this.editors.get(i));
+      chain.attach(workingCopy.get(i), editors.get(i));
     }
   }
 
   void detach() {
-    final int size = this.editors.size();
+    final int size = editors.size();
     for (int i = 0; i < size; i++) {
-      this.chain.detach(this.editors.get(i));
-      this.editorSource.dispose(this.editors.get(i));
+      chain.detach(editors.get(i));
+      editorSource.dispose(editors.get(i));
     }
   }
 
   void flush() {
-    final int size = this.workingCopy.size();
+    final int size = workingCopy.size();
     for (int i = 0; i < size; i++) {
-      final E subEditor = this.editors.get(i);
-      final T value = this.chain.getValue(subEditor);
+      final E subEditor = editors.get(i);
+      final T value = chain.getValue(subEditor);
       // Use of object-identity intentional
-      if (this.workingCopy.get(i) != value) {
-        this.workingCopy.set(i, value);
+      if (workingCopy.get(i) != value) {
+        workingCopy.set(i, value);
       }
     }
-    this.backing.clear();
-    this.backing.addAll(this.workingCopy);
+    backing.clear();
+    backing.addAll(workingCopy);
   }
 
   /**
    * For testing only.
    */
   List<? extends E> getEditors() {
-    return this.editors;
+    return editors;
   }
 
   /**
@@ -155,7 +155,7 @@ public class ListValidationEditorWrapper<T, E extends Editor<? super T>> extends
    */
   boolean isSameValue(final List<T> value) {
     // identity check intentional
-    return this.backing == value;
+    return backing == value;
   }
 
   /**
@@ -168,19 +168,19 @@ public class ListValidationEditorWrapper<T, E extends Editor<? super T>> extends
    */
   void refresh() {
     int pos = 0;
-    for (final T item : this.backing) {
-      if (pos < this.size()) {
-        this.set(pos, item);
+    for (final T item : backing) {
+      if (pos < size()) {
+        set(pos, item);
       } else {
-        assert pos == this.size();
-        this.add(pos, item);
+        assert pos == size();
+        add(pos, item);
       }
       pos++;
     }
-    while (this.backing.size() < this.size()) {
-      this.remove(this.size() - 1);
+    while (backing.size() < size()) {
+      remove(size() - 1);
     }
-    assert this.backing.size() == this.size();
-    assert this.backing.equals(this.workingCopy);
+    assert backing.size() == size();
+    assert backing.equals(workingCopy);
   }
 }

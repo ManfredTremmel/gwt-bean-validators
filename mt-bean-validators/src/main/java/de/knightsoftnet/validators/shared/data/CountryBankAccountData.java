@@ -38,21 +38,21 @@ public class CountryBankAccountData implements Comparable<CountryBankAccountData
    */
   public CountryBankAccountData(final String pcountryCode, final String pbankAccount) {
     super();
-    this.countryCode = pcountryCode;
-    this.bankAccount = pbankAccount;
+    countryCode = pcountryCode;
+    bankAccount = pbankAccount;
   }
 
   public final String getCountryCode() {
-    return this.countryCode;
+    return countryCode;
   }
 
   public final String getBankAccount() {
-    return this.bankAccount;
+    return bankAccount;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.countryCode, this.bankAccount);
+    return Objects.hash(countryCode, bankAccount);
   }
 
   @Override
@@ -67,22 +67,22 @@ public class CountryBankAccountData implements Comparable<CountryBankAccountData
       return false;
     }
     final CountryBankAccountData other = (CountryBankAccountData) pobj;
-    return StringUtils.equals(this.countryCode, other.countryCode)
-        && StringUtils.equals(this.bankAccount, other.bankAccount);
+    return StringUtils.equals(countryCode, other.countryCode)
+        && StringUtils.equals(bankAccount, other.bankAccount);
   }
 
   @Override
   public int compareTo(final CountryBankAccountData pcompare) {
-    if (this.equals(pcompare)) {
+    if (equals(pcompare)) {
       return 0;
     }
     if (pcompare == null) {
       return 1;
     }
-    final int countryCompare = StringUtils.compare(this.countryCode, pcompare.countryCode);
+    final int countryCompare = StringUtils.compare(countryCode, pcompare.countryCode);
     if (countryCompare != 0) {
       return countryCompare;
     }
-    return StringUtils.compare(this.bankAccount, pcompare.bankAccount);
+    return StringUtils.compare(bankAccount, pcompare.bankAccount);
   }
 }

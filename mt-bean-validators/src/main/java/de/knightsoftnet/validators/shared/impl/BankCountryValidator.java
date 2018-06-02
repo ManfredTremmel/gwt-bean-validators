@@ -128,8 +128,7 @@ public class BankCountryValidator implements ConstraintValidator<BankCountry, Ob
 
         boolean ibanCodeMatches = false;
         boolean bicCodeMatches = false;
-        final boolean bicIbanMatches =
-            bicOfIban == null ? true : StringUtils.equals(bicOfIban, valueBic);
+        final boolean bicIbanMatches = bicOfIban == null || StringUtils.equals(bicOfIban, valueBic);
         switch (valueCountry) {
           case "GF": // French Guyana
           case "GP": // Guadeloupe

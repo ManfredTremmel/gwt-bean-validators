@@ -65,12 +65,12 @@ public class SizeWithoutSeparatorsValidator
    */
   @Override
   public final void initialize(final SizeWithoutSeparators pconstraintAnnotation) {
-    this.min = pconstraintAnnotation.min();
-    this.max = pconstraintAnnotation.max();
-    this.ignoreWhiteSpaces = pconstraintAnnotation.ignoreWhiteSpaces();
-    this.ignoreMinus = pconstraintAnnotation.ignoreMinus();
-    this.ignoreSlashes = pconstraintAnnotation.ignoreSlashes();
-    this.validateParameters();
+    min = pconstraintAnnotation.min();
+    max = pconstraintAnnotation.max();
+    ignoreWhiteSpaces = pconstraintAnnotation.ignoreWhiteSpaces();
+    ignoreMinus = pconstraintAnnotation.ignoreMinus();
+    ignoreSlashes = pconstraintAnnotation.ignoreSlashes();
+    validateParameters();
   }
 
   /**
@@ -85,30 +85,30 @@ public class SizeWithoutSeparatorsValidator
     if (StringUtils.isEmpty(valueAsString)) {
       return true;
     }
-    if (this.ignoreWhiteSpaces) {
+    if (ignoreWhiteSpaces) {
       valueAsString = valueAsString.replaceAll("\\s", StringUtils.EMPTY);
     }
-    if (this.ignoreMinus) {
+    if (ignoreMinus) {
       valueAsString = valueAsString.replaceAll("-", StringUtils.EMPTY);
     }
-    if (this.ignoreSlashes) {
+    if (ignoreSlashes) {
       valueAsString = valueAsString.replaceAll("/", StringUtils.EMPTY);
     }
     final int length = valueAsString.length();
-    return length >= this.min && length <= this.max;
+    return length >= min && length <= max;
   }
 
   /**
    * check validity of the the parameters.
    */
   private void validateParameters() {
-    if (this.min < 0) {
+    if (min < 0) {
       throw new IllegalArgumentException("The min parameter cannot be negative.");
     }
-    if (this.max < 0) {
+    if (max < 0) {
       throw new IllegalArgumentException("The max parameter cannot be negative.");
     }
-    if (this.max < this.min) {
+    if (max < min) {
       throw new IllegalArgumentException("The length cannot be negative.");
     }
   }

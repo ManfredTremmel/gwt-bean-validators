@@ -51,9 +51,9 @@ public class ConstraintViolationImpl<T> implements ConstraintViolation<T>, Seria
      * @return ConstraintViolationImpl
      */
     public ConstraintViolationImpl<T> build() {
-      return new ConstraintViolationImpl<>(this.message, this.messageTemplate, // NOPMD
-          this.rootBean, this.rootBeanClass, this.leafBean, this.propertyPath, this.invalidValue,
-          this.elementType, this.constraintDescriptor);
+      return new ConstraintViolationImpl<>(message, messageTemplate, // NOPMD
+          rootBean, rootBeanClass, leafBean, propertyPath, invalidValue, elementType,
+          constraintDescriptor);
     }
 
     public Builder<T> setConstraintDescriptor(final ConstraintDescriptor<?> constraintDescriptor) {

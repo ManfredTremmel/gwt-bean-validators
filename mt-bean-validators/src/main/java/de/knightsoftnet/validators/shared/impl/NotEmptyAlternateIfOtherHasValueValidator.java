@@ -60,11 +60,11 @@ public class NotEmptyAlternateIfOtherHasValueValidator
    */
   @Override
   public final void initialize(final NotEmptyAlternateIfOtherHasValue pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCheckName = pconstraintAnnotation.field();
-    this.fieldAlternateCheckName = pconstraintAnnotation.fieldAlternate();
-    this.fieldCompareName = pconstraintAnnotation.fieldCompare();
-    this.valueCompare = pconstraintAnnotation.valueCompare();
+    message = pconstraintAnnotation.message();
+    fieldCheckName = pconstraintAnnotation.field();
+    fieldAlternateCheckName = pconstraintAnnotation.fieldAlternate();
+    fieldCompareName = pconstraintAnnotation.fieldCompare();
+    valueCompare = pconstraintAnnotation.valueCompare();
   }
 
   /**
@@ -80,28 +80,28 @@ public class NotEmptyAlternateIfOtherHasValueValidator
     }
     try {
       final String fieldCheckValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCheckName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCheckName);
       final String fieldAlternateCheckValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldAlternateCheckName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldAlternateCheckName);
       final String fieldCompareValue =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCompareName);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCompareName);
       if (StringUtils.isEmpty(fieldCheckValue) && StringUtils.isEmpty(fieldAlternateCheckValue)
-          && StringUtils.equals(this.valueCompare, fieldCompareValue)) {
-        this.switchContext(pcontext);
+          && StringUtils.equals(valueCompare, fieldCompareValue)) {
+        switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldCheckName)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldCheckName)
         .addConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message)
-        .addPropertyNode(this.fieldAlternateCheckName).addConstraintViolation();
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldAlternateCheckName)
+        .addConstraintViolation();
   }
 }

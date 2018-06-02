@@ -56,9 +56,9 @@ import elemental.html.ValidityState;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SuggestBoxWithEditorErrors extends Composite
     implements HasFocusHandlers, HasBlurHandlers, HasEditorErrors<String>,
@@ -110,23 +110,19 @@ public class SuggestBoxWithEditorErrors extends Composite
   public SuggestBoxWithEditorErrors(final SuggestOracle oracle,
       final ValueBoxBaseWithEditorErrors<String> box, final SuggestionDisplay suggestDisplay) {
     super();
-    this.suggestBox = new SuggestBox(oracle, box, suggestDisplay);
-    this.initWidget(this.suggestBox);
-    this.addSelectionHandler(event -> {
-      this.suggestBox.setValue(StringUtils.EMPTY, false);
-      this.suggestBox.setValue(event.getSelectedItem().getReplacementString(), true);
+    suggestBox = new SuggestBox(oracle, box, suggestDisplay);
+    initWidget(suggestBox);
+    addSelectionHandler(event -> {
+      suggestBox.setValue(StringUtils.EMPTY, false);
+      suggestBox.setValue(event.getSelectedItem().getReplacementString(), true);
     });
   }
 
   @Override
-  public void showErrors(final List<EditorError> errors) {
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
-    ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).showErrors(messages);
+  public void showErrors(final List<EditorError> perrors) {
+    final Set<String> messages = perrors.stream().filter(error -> editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
+    ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).showErrors(messages);
   }
 
   /**
@@ -137,88 +133,88 @@ public class SuggestBoxWithEditorErrors extends Composite
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(asEditor()));
   }
 
   @Override
   public HandlerRegistration addBlurHandler(final BlurHandler phandler) {
-    return this.getValueBox().addBlurHandler(phandler);
+    return getValueBox().addBlurHandler(phandler);
   }
 
   @Override
   public HandlerRegistration addFocusHandler(final FocusHandler phandler) {
-    return this.getValueBox().addFocusHandler(phandler);
+    return getValueBox().addFocusHandler(phandler);
   }
 
   @Override
   public String getValidationMessage() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).getValidationMessage();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).getValidationMessage();
   }
 
   @Override
   public ValidityState getValidity() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).getValidity();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).getValidity();
   }
 
   @Override
   public boolean checkValidity() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).checkValidity();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).checkValidity();
   }
 
 
   @Override
   public boolean isRequired() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).isRequired();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).isRequired();
   }
 
   @Override
   public void setRequired(final boolean arg) {
-    ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).setRequired(arg);
+    ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).setRequired(arg);
   }
 
   @Override
   public boolean isAutofocus() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).isAutofocus();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).isAutofocus();
   }
 
   @Override
   public void setAutofocus(final boolean arg) {
-    ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).setAutofocus(arg);
+    ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).setAutofocus(arg);
   }
 
   @Override
   public LeafValueEditor<String> asEditor() {
-    return this.suggestBox.asEditor();
+    return suggestBox.asEditor();
   }
 
   @Override
   public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<String> handler) {
-    return this.suggestBox.addValueChangeHandler(handler);
+    return suggestBox.addValueChangeHandler(handler);
   }
 
   @Override
   public String getValue() {
-    return this.suggestBox.getValue();
+    return suggestBox.getValue();
   }
 
   @Override
   public void setValue(final String value) {
-    this.suggestBox.setValue(value);
+    suggestBox.setValue(value);
   }
 
   @Override
   public void setValue(final String value, final boolean fireEvents) {
-    this.suggestBox.setValue(value, fireEvents);
+    suggestBox.setValue(value, fireEvents);
   }
 
   @Override
   public String getText() {
-    return this.suggestBox.getText();
+    return suggestBox.getText();
   }
 
   @Override
   public void setText(final String text) {
-    this.suggestBox.setText(text);
+    suggestBox.setText(text);
   }
 
   /**
@@ -228,90 +224,88 @@ public class SuggestBoxWithEditorErrors extends Composite
    */
   @Ignore
   public ValueBoxBase<String> getValueBox() {
-    return this.suggestBox.getValueBox();
+    return suggestBox.getValueBox();
   }
 
   @Override
   public int getTabIndex() {
-    return this.suggestBox.getTabIndex();
+    return suggestBox.getTabIndex();
   }
 
   @Override
   public void setAccessKey(final char key) {
-    this.suggestBox.setAccessKey(key);
+    suggestBox.setAccessKey(key);
   }
 
   @Override
   public void setFocus(final boolean focused) {
-    this.suggestBox.setFocus(focused);
+    suggestBox.setFocus(focused);
   }
 
   @Override
   public void setTabIndex(final int index) {
-    this.suggestBox.setTabIndex(index);
+    suggestBox.setTabIndex(index);
   }
 
   @Override
   public HandlerRegistration addKeyUpHandler(final KeyUpHandler handler) {
-    return this.getValueBox().addKeyUpHandler(handler);
+    return getValueBox().addKeyUpHandler(handler);
   }
 
   @Override
   public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
-    return this.getValueBox().addKeyDownHandler(handler);
+    return getValueBox().addKeyDownHandler(handler);
   }
 
   @Override
   public HandlerRegistration addKeyPressHandler(final KeyPressHandler handler) {
-    return this.getValueBox().addKeyPressHandler(handler);
+    return getValueBox().addKeyPressHandler(handler);
   }
 
   @SuppressWarnings("deprecation")
   @Override
   public boolean isAnimationEnabled() {
-    return this.suggestBox.isAnimationEnabled();
+    return suggestBox.isAnimationEnabled();
   }
 
   @SuppressWarnings("deprecation")
   @Override
   public void setAnimationEnabled(final boolean enable) {
-    this.suggestBox.setAnimationEnabled(enable);
+    suggestBox.setAnimationEnabled(enable);
   }
 
   @Override
   public HandlerRegistration addSelectionHandler(final SelectionHandler<Suggestion> handler) {
-    return this.suggestBox.addSelectionHandler(handler);
+    return suggestBox.addSelectionHandler(handler);
   }
 
   @Override
   public boolean isEnabled() {
-    return this.suggestBox.isEnabled();
+    return suggestBox.isEnabled();
   }
 
   @Override
   public void setEnabled(final boolean enabled) {
-    this.suggestBox.setEnabled(enabled);
+    suggestBox.setEnabled(enabled);
   }
 
   @Override
   public void setValidationMessageElement(final HTMLPanel pelement) {
-    ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox())
-        .setValidationMessageElement(pelement);
+    ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).setValidationMessageElement(pelement);
   }
 
   @Override
   public HTMLPanel getValidationMessageElement() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox())
-        .getValidationMessageElement();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).getValidationMessageElement();
   }
 
   @Override
   public String getPlaceholder() {
-    return ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).getPlaceholder();
+    return ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).getPlaceholder();
   }
 
   @Override
   public void setPlaceholder(final String placeholder) {
-    ((ValueBoxBaseWithEditorErrors<String>) this.getValueBox()).setPlaceholder(placeholder);
+    ((ValueBoxBaseWithEditorErrors<String>) getValueBox()).setPlaceholder(placeholder);
   }
 }

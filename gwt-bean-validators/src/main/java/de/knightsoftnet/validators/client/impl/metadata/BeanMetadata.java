@@ -37,19 +37,19 @@ public class BeanMetadata {
   public BeanMetadata(final Class<?> beanClass, final Class<?>... defaultGroupSequence) {
     this.beanClass = beanClass;
     this.defaultGroupSequence = Collections.unmodifiableList(Arrays.asList(defaultGroupSequence));
-    this.defaultGroupSequenceRedefined =
+    defaultGroupSequenceRedefined =
         !(defaultGroupSequence.length == 1 && defaultGroupSequence[0].equals(Default.class));
   }
 
   public boolean defaultGroupSequenceIsRedefined() {
-    return this.defaultGroupSequenceRedefined;
+    return defaultGroupSequenceRedefined;
   }
 
   public Class<?> getBeanClass() {
-    return this.beanClass;
+    return beanClass;
   }
 
   public List<Class<?>> getDefaultGroupSequence() {
-    return this.defaultGroupSequence;
+    return defaultGroupSequence;
   }
 }

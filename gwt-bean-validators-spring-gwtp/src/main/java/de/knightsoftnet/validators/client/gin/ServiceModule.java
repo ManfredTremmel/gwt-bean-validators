@@ -34,10 +34,10 @@ import org.apache.commons.lang3.StringUtils;
 public class ServiceModule extends AbstractGinModule {
   @Override
   protected void configure() {
-    this.install(new RestDispatchAsyncModule.Builder()
-        .xsrfTokenHeaderName(ResourcePaths.XSRF_HEADER).build());
+    install(new RestDispatchAsyncModule.Builder().xsrfTokenHeaderName(ResourcePaths.XSRF_HEADER)
+        .build());
 
-    this.bindConstant().annotatedWith(SecurityCookie.class).to(ResourcePaths.XSRF_COOKIE);
+    bindConstant().annotatedWith(SecurityCookie.class).to(ResourcePaths.XSRF_COOKIE);
   }
 
   @Provides

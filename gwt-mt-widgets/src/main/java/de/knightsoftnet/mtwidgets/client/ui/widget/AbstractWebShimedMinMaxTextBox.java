@@ -115,10 +115,10 @@ public abstract class AbstractWebShimedMinMaxTextBox<T> extends AbstractMinMaxTe
       WebshimResources.whenReady(event -> {
         Scheduler.get().scheduleFixedDelay(() -> {
           this.getJQueryElement().updatePolyfill();
-          GWT.log("Initialize webshim for: " + this.getElement().getId());
+          GWT.log("Initialize webshim for: " + getElement().getId());
           try {
             this.getJQueryElement().getShadowElement().addEventListener(Event.CHANGE,
-                listener -> ValueChangeEvent.fire(this, this.getValue()));
+                listener -> ValueChangeEvent.fire(this, getValue()));
           } catch (final Exception exception) {
             GWT.log(exception.getMessage());
           }
@@ -129,18 +129,18 @@ public abstract class AbstractWebShimedMinMaxTextBox<T> extends AbstractMinMaxTe
   }
 
   private boolean isNative() {
-    final String rememberValue = this.getInputElement().getValue();
-    this.getInputElement().setValue("x");
-    final String dateInput = this.getInputElement().getValue();
-    this.getInputElement().setValue(rememberValue);
+    final String rememberValue = getInputElement().getValue();
+    getInputElement().setValue("x");
+    final String dateInput = getInputElement().getValue();
+    getInputElement().setValue(rememberValue);
     return !StringUtils.equals(dateInput, "x");
   }
 
   @Override
   public void setValue(final T value, final boolean fireEvents) {
-    final T oldValue = this.getValue();
-    final String renderedDate = this.numberRenderer.render(value);
-    this.getInputElement().setValue(renderedDate);
+    final T oldValue = getValue();
+    final String renderedDate = numberRenderer.render(value);
+    getInputElement().setValue(renderedDate);
     if (!this.nativeSupport && WebshimResources.isInitialized()) {
       this.getJQueryElement().val(renderedDate);
     }
@@ -152,13 +152,13 @@ public abstract class AbstractWebShimedMinMaxTextBox<T> extends AbstractMinMaxTe
   @Override
   public void setMin(final T pmin) {
     super.setMin(pmin);
-    this.updateAttribute("min", this.numberRenderer.render(pmin));
+    this.updateAttribute("min", numberRenderer.render(pmin));
   }
 
   @Override
   public void setMax(final T pmax) {
     super.setMax(pmax);
-    this.updateAttribute("max", this.numberRenderer.render(pmax));
+    this.updateAttribute("max", numberRenderer.render(pmax));
   }
 
   @Override
@@ -178,6 +178,6 @@ public abstract class AbstractWebShimedMinMaxTextBox<T> extends AbstractMinMaxTe
   }
 
   private JQuery getJQueryElement() {
-    return JQuery.$("#" + this.getElement().getId());
+    return JQuery.$("#" + getElement().getId());
   }
 }

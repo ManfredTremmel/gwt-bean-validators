@@ -62,15 +62,15 @@ public final class ValidatorGenerator extends Generator {
     final TypeOracle typeOracle = context.getTypeOracle();
     assert typeOracle != null;
 
-    final JClassType validatorType = this.findType(logger, typeOracle, typeName);
-    final JClassType genericType = this.findType(logger, typeOracle, Validator.class.getName());
+    final JClassType validatorType = findType(logger, typeOracle, typeName);
+    final JClassType genericType = findType(logger, typeOracle, Validator.class.getName());
     final JClassType gwtSpecificType =
-        this.findType(logger, typeOracle, GwtSpecificValidator.class.getName());
+        findType(logger, typeOracle, GwtSpecificValidator.class.getName());
 
     if (validatorType.isAssignableTo(genericType)) {
-      return this.generateGenericValidator(logger, context, validatorType);
+      return generateGenericValidator(logger, context, validatorType);
     } else if (validatorType.isAssignableTo(gwtSpecificType)) {
-      return this.generateGwtSpecificValidator(logger, context, validatorType);
+      return generateGwtSpecificValidator(logger, context, validatorType);
     } else {
       logger.log(TreeLogger.ERROR,
           "type is not a ValidatorGenerator or GwtSpecificValidatorGenerator: '" + typeName + "'",
@@ -108,12 +108,12 @@ public final class ValidatorGenerator extends Generator {
       throw new UnableToCompleteException();
     }
 
-    this.validGroups = gwtValidation.groups();
+    validGroups = gwtValidation.groups();
 
     final TreeLogger validatorLogger = logger.branch(TreeLogger.DEBUG,
         "Generating Validator for  '" + validatorType.getQualifiedSourceName() + "'", null);
     final AbstractCreator creator =
-        new ValidatorCreator(validatorType, gwtValidation, validatorLogger, context, this.cache);
+        new ValidatorCreator(validatorType, gwtValidation, validatorLogger, context, cache);
     return creator.create();
   }
 
@@ -121,10 +121,10 @@ public final class ValidatorGenerator extends Generator {
       final GeneratorContext context, final JClassType validatorType)
       throws UnableToCompleteException {
 
-    final JClassType gwtSpecificInterface = this.getGwtSpecificValidator(logger, validatorType);
-    final JClassType beanType = this.getBeanType(logger, validatorType, gwtSpecificInterface);
+    final JClassType gwtSpecificInterface = getGwtSpecificValidator(logger, validatorType);
+    final JClassType beanType = getBeanType(logger, validatorType, gwtSpecificInterface);
 
-    final BeanHelper beanHelper = this.cache.createHelper(beanType, logger, context);
+    final BeanHelper beanHelper = cache.createHelper(beanType, logger, context);
 
     if (beanHelper == null) {
       logger.log(TreeLogger.ERROR, "Unable to create BeanHelper for " + beanType + " "
@@ -133,7 +133,7 @@ public final class ValidatorGenerator extends Generator {
     }
 
     final AbstractCreator creator = new GwtSpecificValidatorCreator(validatorType, beanType,
-        beanHelper, logger, context, this.cache, this.validGroups);
+        beanHelper, logger, context, cache, validGroups);
     return creator.create();
   }
 

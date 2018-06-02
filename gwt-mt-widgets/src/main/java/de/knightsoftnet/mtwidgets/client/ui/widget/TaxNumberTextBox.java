@@ -27,6 +27,6 @@ public class TaxNumberTextBox extends TextBox {
    * @param pcountryCodeField input field which contains country code
    */
   public void setCountryCodeReference(final TakesValue<?> pcountryCodeField) {
-    this.addKeyPressHandler(HandlerFactory.getTaxNumberKeyPressHandler(pcountryCodeField));
+    addKeyPressHandler(HandlerFactory.getTaxNumberKeyPressHandler(pcountryCodeField));
   }
 }

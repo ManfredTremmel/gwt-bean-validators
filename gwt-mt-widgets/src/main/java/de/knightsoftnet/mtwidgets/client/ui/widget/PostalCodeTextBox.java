@@ -26,8 +26,8 @@ public class PostalCodeTextBox extends TextBox {
    */
   public PostalCodeTextBox() {
     super();
-    this.setMaxLength(10);
-    this.setVisibleLength(10);
+    setMaxLength(10);
+    setVisibleLength(10);
   }
 
   /**
@@ -38,7 +38,7 @@ public class PostalCodeTextBox extends TextBox {
    */
   @Deprecated
   public void addCountryCodeReference(final TakesValue<?> pcountryCodeField) {
-    this.setCountryCodeReference(pcountryCodeField);
+    setCountryCodeReference(pcountryCodeField);
   }
 
   /**
@@ -47,6 +47,6 @@ public class PostalCodeTextBox extends TextBox {
    * @param pcountryCodeField input field which contains country code
    */
   public void setCountryCodeReference(final TakesValue<?> pcountryCodeField) {
-    this.addKeyPressHandler(HandlerFactory.getPostalCodeKeyPressHandler(pcountryCodeField));
+    addKeyPressHandler(HandlerFactory.getPostalCodeKeyPressHandler(pcountryCodeField));
   }
 }

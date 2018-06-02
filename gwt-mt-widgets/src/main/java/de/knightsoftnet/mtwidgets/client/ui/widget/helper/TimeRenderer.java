@@ -51,7 +51,7 @@ public class TimeRenderer extends AbstractRenderer<Date> {
 
   public TimeRenderer(final String pformat) {
     super();
-    this.dateTimeFormat = DateTimeFormat.getFormat(pformat);
+    dateTimeFormat = DateTimeFormat.getFormat(pformat);
   }
 
   @Override
@@ -59,6 +59,6 @@ public class TimeRenderer extends AbstractRenderer<Date> {
     if (pobject == null) {
       return StringUtils.EMPTY;
     }
-    return this.dateTimeFormat.format(pobject);
+    return dateTimeFormat.format(pobject);
   }
 }

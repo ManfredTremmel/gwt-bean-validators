@@ -21,11 +21,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 /**
  * http logout success handler for gwt applications. based on the work of
@@ -43,7 +43,7 @@ public class HttpLogoutSuccessHandler implements LogoutSuccessHandler {
   @Inject
   public HttpLogoutSuccessHandler(final CsrfCookieHandler pcsrfCookieHandler) {
     super();
-    this.csrfCookieHandler = pcsrfCookieHandler;
+    csrfCookieHandler = pcsrfCookieHandler;
   }
 
   @Override
@@ -52,6 +52,6 @@ public class HttpLogoutSuccessHandler implements LogoutSuccessHandler {
       throws IOException {
     LOGGER.info("User logged out!");
     presponse.setStatus(HttpServletResponse.SC_OK);
-    this.csrfCookieHandler.setCookie(prequest, presponse);
+    csrfCookieHandler.setCookie(prequest, presponse);
   }
 }

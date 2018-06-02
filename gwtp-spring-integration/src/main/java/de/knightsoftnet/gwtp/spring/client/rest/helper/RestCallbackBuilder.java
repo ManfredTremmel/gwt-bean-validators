@@ -15,10 +15,10 @@
 
 package de.knightsoftnet.gwtp.spring.client.rest.helper;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import de.knightsoftnet.gwtp.spring.client.session.Session;
 import de.knightsoftnet.gwtp.spring.shared.models.User;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * Async callback implementation with error handling.

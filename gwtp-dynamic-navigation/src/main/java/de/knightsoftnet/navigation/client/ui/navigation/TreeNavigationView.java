@@ -107,10 +107,10 @@ public class TreeNavigationView extends ViewImpl implements NavigationPresenter.
   @Inject
   public TreeNavigationView(final Binder puiBinder, final Resources presources) {
     super();
-    this.resources = presources;
-    this.resources.navigationStyle().ensureInjected();
-    this.navigationMap = new HashMap<>();
-    this.initWidget(puiBinder.createAndBindUi(this));
+    resources = presources;
+    resources.navigationStyle().ensureInjected();
+    navigationMap = new HashMap<>();
+    initWidget(puiBinder.createAndBindUi(this));
   }
 
   @Override
@@ -120,15 +120,15 @@ public class TreeNavigationView extends ViewImpl implements NavigationPresenter.
 
   @Override
   public final void createNavigation(final NavigationStructure pnavigation) {
-    this.navigationMap.clear();
-    this.firstItem.removeItems();
-    this.selectedItem = null;
-    this.createRecursiveNavigation(this.firstItem, pnavigation.getFullNavigationList(),
+    navigationMap.clear();
+    firstItem.removeItems();
+    selectedItem = null;
+    createRecursiveNavigation(firstItem, pnavigation.getFullNavigationList(),
         pnavigation.getActiveNavigationEntryInterface());
-    this.firstItem.setState(true, false);
-    if (this.selectedItem != null) {
-      this.selectedItem.setSelected(true);
-      for (TreeItem openItem = this.selectedItem.getParentItem(); openItem != null; openItem =
+    firstItem.setState(true, false);
+    if (selectedItem != null) {
+      selectedItem.setSelected(true);
+      for (TreeItem openItem = selectedItem.getParentItem(); openItem != null; openItem =
           openItem.getParentItem()) {
         openItem.setState(true, false);
       }
@@ -148,12 +148,12 @@ public class TreeNavigationView extends ViewImpl implements NavigationPresenter.
       final TreeItem newItem;
       if (navEntry instanceof NavigationEntryFolder) {
         newItem = new TreeItem(navEntry.getMenuValue());
-        this.createRecursiveNavigation(newItem, ((NavigationEntryFolder) navEntry).getSubEntries(),
+        createRecursiveNavigation(newItem, ((NavigationEntryFolder) navEntry).getSubEntries(),
             pactiveEntry);
         newItem.setState(navEntry.isOpenOnStartup());
       } else if (navEntry instanceof NavigationLink) {
         final Anchor link = ((NavigationLink) navEntry).getAnchor();
-        link.setStylePrimaryName(this.resources.navigationStyle().link());
+        link.setStylePrimaryName(resources.navigationStyle().link());
         newItem = new TreeItem(link);
       } else if (navEntry.getToken() == null) {
         newItem = null;
@@ -161,15 +161,15 @@ public class TreeNavigationView extends ViewImpl implements NavigationPresenter.
         final InlineHyperlink entryPoint = GWT.create(InlineHyperlink.class);
         entryPoint.setHTML(navEntry.getMenuValue());
         entryPoint.setTargetHistoryToken(navEntry.getFullToken());
-        entryPoint.setStylePrimaryName(this.resources.navigationStyle().link());
+        entryPoint.setStylePrimaryName(resources.navigationStyle().link());
         newItem = new TreeItem(entryPoint);
-        this.navigationMap.put(newItem, navEntry);
+        navigationMap.put(newItem, navEntry);
       }
       if (newItem != null) {
         pitem.addItem(newItem);
         if (pactiveEntry != null && pactiveEntry.equals(navEntry)) {
-          this.selectedItem = newItem;
-          this.selectedItem.setSelected(true);
+          selectedItem = newItem;
+          selectedItem.setSelected(true);
         }
       }
     }
@@ -182,20 +182,20 @@ public class TreeNavigationView extends ViewImpl implements NavigationPresenter.
    */
   @UiHandler("navTree")
   final void menuItemSelected(final SelectionEvent<TreeItem> pselectionEvent) {
-    if (this.selectedItem != null && !this.selectedItem.equals(pselectionEvent.getSelectedItem())) {
+    if (selectedItem != null && !selectedItem.equals(pselectionEvent.getSelectedItem())) {
       // workaround, revert selection, it's triggered by the selected page
       pselectionEvent.getSelectedItem().setSelected(false);
-      this.selectedItem.setSelected(true);
+      selectedItem.setSelected(true);
     }
   }
 
 
   @Override
   public void setSelectedItem(final NavigationEntryInterface pnewItem) {
-    for (final Entry<TreeItem, NavigationEntryInterface> entry : this.navigationMap.entrySet()) {
+    for (final Entry<TreeItem, NavigationEntryInterface> entry : navigationMap.entrySet()) {
       if (Objects.equals(pnewItem, entry.getValue())) {
-        this.selectedItem = entry.getKey();
-        this.selectedItem.setSelected(true);
+        selectedItem = entry.getKey();
+        selectedItem.setSelected(true);
       } else {
         entry.getKey().setSelected(false);
       }

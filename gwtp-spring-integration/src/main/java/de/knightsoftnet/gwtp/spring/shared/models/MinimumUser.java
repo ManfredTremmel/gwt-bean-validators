@@ -48,27 +48,27 @@ public class MinimumUser implements User, Serializable {
    */
   public MinimumUser(final String puserName) {
     super();
-    this.setUserName(puserName);
+    setUserName(puserName);
   }
 
   @Override
   public final String getUserName() {
-    return this.userName;
+    return userName;
   }
 
   @Override
   public final void setUserName(final String puserName) {
-    this.userName = puserName;
+    userName = puserName;
   }
 
   @Override
   public boolean isLoggedIn() {
-    return StringUtils.isNotEmpty(this.userName);
+    return StringUtils.isNotEmpty(userName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.userName);
+    return Objects.hashCode(userName);
   }
 
   @Override
@@ -83,6 +83,6 @@ public class MinimumUser implements User, Serializable {
       return false;
     }
     final MinimumUser other = (MinimumUser) obj;
-    return StringUtils.equals(this.userName, other.userName);
+    return StringUtils.equals(userName, other.userName);
   }
 }

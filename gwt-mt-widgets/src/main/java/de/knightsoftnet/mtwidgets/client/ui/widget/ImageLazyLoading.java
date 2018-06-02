@@ -69,32 +69,32 @@ public class ImageLazyLoading extends Image {
 
   @Override
   public void setUrl(final SafeUri purl) {
-    Scheduler.get().scheduleDeferred(() -> this.setImageUrl(purl));
+    Scheduler.get().scheduleDeferred(() -> setImageUrl(purl));
   }
 
   private void setImageUrl(final SafeUri purl) {
-    if (this.isInViewPort()) {
+    if (isInViewPort()) {
       super.setUrl(purl);
-      this.parkedUri = null;
-      if (this.scrollHandler != null) {
-        this.scrollHandler.removeHandler();
+      parkedUri = null;
+      if (scrollHandler != null) {
+        scrollHandler.removeHandler();
       }
-      if (this.resizeHandler != null) {
-        this.resizeHandler.removeHandler();
+      if (resizeHandler != null) {
+        resizeHandler.removeHandler();
       }
     } else {
-      this.parkedUri = purl;
-      if (this.scrollHandler == null) {
-        this.scrollHandler = Window.addWindowScrollHandler(pScrollEvent -> {
-          if (this.isInViewPort()) {
-            super.setUrl(this.parkedUri);
+      parkedUri = purl;
+      if (scrollHandler == null) {
+        scrollHandler = Window.addWindowScrollHandler(pScrollEvent -> {
+          if (isInViewPort()) {
+            super.setUrl(parkedUri);
           }
         });
       }
-      if (this.resizeHandler == null) {
-        this.resizeHandler = Window.addResizeHandler(pResizeEvent -> {
-          if (this.isInViewPort()) {
-            super.setUrl(this.parkedUri);
+      if (resizeHandler == null) {
+        resizeHandler = Window.addResizeHandler(pResizeEvent -> {
+          if (isInViewPort()) {
+            super.setUrl(parkedUri);
           }
         });
       }
@@ -104,8 +104,8 @@ public class ImageLazyLoading extends Image {
   private boolean isInViewPort() {
     final int pageTop = Window.getScrollTop();
     final int pageBottom = pageTop + Window.getClientHeight();
-    final int elementTop = this.asWidget().getElement().getAbsoluteTop();
-    final int elementBottom = elementTop + this.asWidget().getElement().getClientHeight();
+    final int elementTop = asWidget().getElement().getAbsoluteTop();
+    final int elementBottom = elementTop + asWidget().getElement().getClientHeight();
     return elementTop <= pageBottom && elementBottom >= pageTop;
   }
 }

@@ -46,7 +46,7 @@ public class AgeLimitCheckValidator implements ConstraintValidator<AgeLimitCheck
    */
   @Override
   public final void initialize(final AgeLimitCheck pconstraintAnnotation) {
-    this.minYears = pconstraintAnnotation.minYears();
+    minYears = pconstraintAnnotation.minYears();
   }
 
   /**
@@ -72,8 +72,8 @@ public class AgeLimitCheckValidator implements ConstraintValidator<AgeLimitCheck
           "Object for validation with AgeLimitCheckValidator must be of type "
               + "Date, Calendar or HasGetTime.");
     }
-    final Date dateLimit = DateUtils.truncate(DateUtils.addYears(new Date(), 0 - this.minYears),
-        Calendar.DAY_OF_MONTH);
+    final Date dateLimit =
+        DateUtils.truncate(DateUtils.addYears(new Date(), 0 - minYears), Calendar.DAY_OF_MONTH);
     final Date birthday = DateUtils.truncate(value, Calendar.DAY_OF_MONTH);
     return !dateLimit.before(birthday);
   }

@@ -9,6 +9,6 @@ public class Collator {
   }
 
   public native int compare(final String source, final String target) /*-{
-    return source.localeCompare( target );
+    return source.localeCompare(target);
   }-*/;
 }

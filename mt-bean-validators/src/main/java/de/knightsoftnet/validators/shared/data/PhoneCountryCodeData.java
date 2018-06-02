@@ -42,38 +42,38 @@ public class PhoneCountryCodeData implements Comparable<PhoneCountryCodeData> {
    */
   public PhoneCountryCodeData(final String pcountryCode, final String pcountryCodeName) {
     super();
-    this.countryCode = pcountryCode;
-    this.countryCodeName = pcountryCodeName;
-    this.areaCodeData = new TreeSet<>();
+    countryCode = pcountryCode;
+    countryCodeName = pcountryCodeName;
+    areaCodeData = new TreeSet<>();
   }
 
   public String getCountryCode() {
-    return this.countryCode;
+    return countryCode;
   }
 
   public String getCountryCodeName() {
-    return this.countryCodeName;
+    return countryCodeName;
   }
 
   public PhoneCountryData getPhoneCountryData() {
-    return this.phoneCountryData;
+    return phoneCountryData;
   }
 
   public void setPhoneCountryData(final PhoneCountryData pphoneCountryData) {
-    this.phoneCountryData = pphoneCountryData;
+    phoneCountryData = pphoneCountryData;
   }
 
   public Set<PhoneAreaCodeData> getAreaCodeData() {
-    return Collections.unmodifiableSet(this.areaCodeData);
+    return Collections.unmodifiableSet(areaCodeData);
   }
 
   public void addAreaCodeData(final PhoneAreaCodeData pareaCodeData) {
-    this.areaCodeData.add(pareaCodeData);
+    areaCodeData.add(pareaCodeData);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.countryCode);
+    return Objects.hashCode(countryCode);
   }
 
   @Override
@@ -88,26 +88,26 @@ public class PhoneCountryCodeData implements Comparable<PhoneCountryCodeData> {
       return false;
     }
     final PhoneCountryCodeData other = (PhoneCountryCodeData) pobj;
-    return StringUtils.equals(this.countryCode, other.countryCode);
+    return StringUtils.equals(countryCode, other.countryCode);
   }
 
   @Override
   public int compareTo(final PhoneCountryCodeData pcompare) {
-    if (this.countryCode == null) {
+    if (countryCode == null) {
       return -1;
     }
-    if (this.countryCode.equals(pcompare.countryCode)) {
+    if (countryCode.equals(pcompare.countryCode)) {
       return 0;
     }
     if (pcompare.countryCode == null) {
       return 1;
     }
-    if (this.countryCode.startsWith(pcompare.countryCode)) {
+    if (countryCode.startsWith(pcompare.countryCode)) {
       return 1;
     }
-    if (pcompare.countryCode.startsWith(this.countryCode)) {
+    if (pcompare.countryCode.startsWith(countryCode)) {
       return -1;
     }
-    return this.countryCode.compareTo(pcompare.countryCode);
+    return countryCode.compareTo(pcompare.countryCode);
   }
 }

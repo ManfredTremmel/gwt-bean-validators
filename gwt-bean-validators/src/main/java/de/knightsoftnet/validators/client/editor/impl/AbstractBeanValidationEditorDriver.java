@@ -119,65 +119,62 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
   public AbstractBeanValidationEditorDriver() {
     super();
-    this.commitOnReturnHandler = pevent -> {
+    commitOnReturnHandler = pevent -> {
       if (pevent.getCharCode() == KeyCodes.KEY_ENTER
           || pevent.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-        AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+        tryToSubmitFrom();
       }
     };
-    this.validateOnKeyUpHandler = pevent -> AbstractBeanValidationEditorDriver.this.validate();
-    this.validateOnVueChangeHandler = pevent -> AbstractBeanValidationEditorDriver.this.validate();
-    this.valueChangeHandler = pevent -> {
-      ValueChangeEvent.fire(AbstractBeanValidationEditorDriver.this,
-          AbstractBeanValidationEditorDriver.this.getObject());
-      if (AbstractBeanValidationEditorDriver.this.submitOnValueChange) {
-        AbstractBeanValidationEditorDriver.this.tryToSubmitFrom();
+    validateOnKeyUpHandler = pevent -> validate();
+    validateOnVueChangeHandler = pevent -> validate();
+    valueChangeHandler = pevent -> {
+      ValueChangeEvent.fire(this, getObject());
+      if (submitOnValueChange) {
+        tryToSubmitFrom();
       }
     };
-    this.setValidationGroups();
+    setValidationGroups();
   }
 
   @Override
   public void edit(final T object) {
-    this.edit(object, this.checkTime != CheckTimeEnum.ON_SUBMIT);
+    edit(object, checkTime != CheckTimeEnum.ON_SUBMIT);
   }
 
   private void edit(final T object, final boolean pcheck) {
     super.doEdit(object);
     if (pcheck) {
-      this.validate();
+      validate();
     }
   }
 
   @Override
   public EditorVisitor createInitializerVisitor() {
-    return new BeanValidationInitializer(this.commitOnReturnHandler, this.validateOnKeyUpHandler,
-        this.validateOnVueChangeHandler, this.valueChangeHandler, this.checkTime,
-        this.submitOnReturn);
+    return new BeanValidationInitializer(commitOnReturnHandler, validateOnKeyUpHandler,
+        validateOnVueChangeHandler, valueChangeHandler, checkTime, submitOnReturn);
   }
 
   @Override
   public T flush() {
-    this.doFlush();
-    return this.getObject();
+    doFlush();
+    return getObject();
   }
 
   @Override
   public void initialize(final E editor) {
-    this.doInitialize(editor);
+    doInitialize(editor);
   }
 
   @Override
   public final boolean validate() {
     boolean valid = false;
-    final T object = this.flush();
-    if (!this.hasErrors()) {
-      this.setConstraintViolations(this.validateContent(object));
-      valid = !this.hasErrors();
+    final T object = flush();
+    if (!hasErrors()) {
+      setConstraintViolations(validateContent(object));
+      valid = !hasErrors();
     }
-    if (this.submitButton instanceof HasEnabled && this.checkTime != CheckTimeEnum.ON_SUBMIT) {
-      ((HasEnabled) this.submitButton)
-          .setEnabled(valid && (this.submitUnchanged || this.isDirty()));
+    if (submitButton instanceof HasEnabled && checkTime != CheckTimeEnum.ON_SUBMIT) {
+      ((HasEnabled) submitButton).setEnabled(valid && (submitUnchanged || isDirty()));
     }
     return valid;
   }
@@ -185,48 +182,48 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
   protected Set<ConstraintViolation<?>> validateContent(final T pobject) {
     final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     final Set<ConstraintViolation<T>> validationResult =
-        this.validateContent(pobject, (AbstractGwtValidator) validator);
+        validateContent(pobject, (AbstractGwtValidator) validator);
     return new HashSet<>(validationResult == null ? Collections.emptySet() : validationResult);
   }
 
   // protected Set<ConstraintViolation<T>> validateContent(final T pobject,
   // final AbstractGwtValidator pvalidator) throws IllegalArgumentException {
-  // return pvalidator.validateInternal(pobject, this.validationGroups);
+  // return pvalidator.validateInternal(pobject, validationGroups);
   // }
   protected abstract Set<ConstraintViolation<T>> validateContent(final T pobject,
       final AbstractGwtValidator pvalidator) throws IllegalArgumentException;
 
   @Override
   public final HandlerRegistration addFormSubmitHandler(final FormSubmitHandler<T> phandler) {
-    return this.ensureHandlers().addHandler(FormSubmitEvent.getType(), phandler);
+    return ensureHandlers().addHandler(FormSubmitEvent.getType(), phandler);
   }
 
   @Override
   public final HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> phandler) {
-    return this.ensureHandlers().addHandler(ValueChangeEvent.getType(), phandler);
+    return ensureHandlers().addHandler(ValueChangeEvent.getType(), phandler);
   }
 
   @Override
   public void fireEvent(final GwtEvent<?> pevent) {
-    if (this.handlerManager != null) {
-      this.handlerManager.fireEvent(pevent);
+    if (handlerManager != null) {
+      handlerManager.fireEvent(pevent);
     }
   }
 
   @Override
   public final boolean tryToSubmitFrom() {
-    return this.tryToSubmitFrom(this.isDirty());
+    return tryToSubmitFrom(isDirty());
   }
 
   @Override
   public final boolean tryToSubmitFrom(final boolean pdirty) {
     boolean result = false;
-    if ((this.submitUnchanged || pdirty) && this.validate()) {
-      if (!this.submitUnchanged) {
+    if ((submitUnchanged || pdirty) && validate()) {
+      if (!submitUnchanged) {
         // edit changed values, so dirty flag is gone and no useless resubmission is done
-        this.edit(this.getObject(), false);
+        edit(getObject(), false);
       }
-      FormSubmitEvent.fire(this, this.getObject());
+      FormSubmitEvent.fire(this, getObject());
       result = true;
     }
     return result;
@@ -234,59 +231,59 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
 
   @Override
   public final boolean isSubmitUnchanged() {
-    return this.submitUnchanged;
+    return submitUnchanged;
   }
 
   @Override
   public final void setSubmitUnchanged(final boolean psubmitUnchanged) {
-    this.submitUnchanged = psubmitUnchanged;
+    submitUnchanged = psubmitUnchanged;
   }
 
   @Override
   public final boolean isCheckOnKeyUp() {
-    return this.checkTime == CheckTimeEnum.ON_KEY_UP;
+    return checkTime == CheckTimeEnum.ON_KEY_UP;
   }
 
   @Override
   public final void setCheckOnKeyUp(final boolean pcheckOnKeyUp) throws RuntimeException {
-    this.checkHandlerSet();
+    checkHandlerSet();
     if (pcheckOnKeyUp) {
-      this.checkTime = CheckTimeEnum.ON_KEY_UP;
+      checkTime = CheckTimeEnum.ON_KEY_UP;
     } else {
-      this.checkTime = CheckTimeEnum.ON_CHANGE;
+      checkTime = CheckTimeEnum.ON_CHANGE;
     }
   }
 
   @Override
   public final CheckTimeEnum getCheckTime() {
-    return this.checkTime;
+    return checkTime;
   }
 
   @Override
   public final void setCheckTime(final CheckTimeEnum pcheckTime) throws RuntimeException {
-    this.checkHandlerSet();
-    this.checkTime = pcheckTime;
+    checkHandlerSet();
+    checkTime = pcheckTime;
   }
 
   @Override
   public final boolean isSubmitOnReturn() {
-    return this.submitOnReturn;
+    return submitOnReturn;
   }
 
   @Override
   public final void setSubmitOnReturn(final boolean psubmitOnReturn) throws RuntimeException {
-    this.checkHandlerSet();
-    this.submitOnReturn = psubmitOnReturn;
+    checkHandlerSet();
+    submitOnReturn = psubmitOnReturn;
   }
 
   @Override
   public boolean isSubmitOnValueChange() {
-    return this.submitOnValueChange;
+    return submitOnValueChange;
   }
 
   @Override
   public void setSubmitOnValueChange(final boolean psubmitOnValueChange) {
-    this.submitOnValueChange = psubmitOnValueChange;
+    submitOnValueChange = psubmitOnValueChange;
   }
 
   /**
@@ -295,17 +292,16 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
    * @throws IllegalAccessException when handlers are already set
    */
   private void checkHandlerSet() throws RuntimeException {
-    if (this.handlersSet) {
+    if (handlersSet) {
       throw new RuntimeException("Can only be called before the first edit call!");
     }
   }
 
   @Override
   public final void setSubmitButton(final Widget psubmitButton) {
-    this.submitButton = psubmitButton;
-    if (this.submitButton instanceof HasClickHandlers) {
-      ((HasClickHandlers) this.submitButton)
-          .addClickHandler(pevent -> AbstractBeanValidationEditorDriver.this.tryToSubmitFrom());
+    submitButton = psubmitButton;
+    if (submitButton instanceof HasClickHandlers) {
+      ((HasClickHandlers) submitButton).addClickHandler(pevent -> tryToSubmitFrom());
     }
   }
 
@@ -315,14 +311,14 @@ public abstract class AbstractBeanValidationEditorDriver<T, E extends Editor<T>>
    * @return the handler manager
    */
   private HandlerManager ensureHandlers() {
-    if (this.handlerManager == null) {
-      this.handlerManager = new HandlerManager(this);
+    if (handlerManager == null) {
+      handlerManager = new HandlerManager(this);
     }
-    return this.handlerManager;
+    return handlerManager;
   }
 
   @Override
   public final void setValidationGroups(final Class<?>... pgroups) {
-    this.validationGroups = pgroups;
+    validationGroups = pgroups;
   }
 }

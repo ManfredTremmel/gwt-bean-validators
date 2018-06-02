@@ -43,13 +43,13 @@ public class DataListWidget extends Composite implements TakesValue<List<Suggest
   @UiConstructor
   public DataListWidget() {
     super();
-    this.panel = new HTMLPanel("datalist", StringUtils.EMPTY);
-    this.initWidget(this.panel);
+    panel = new HTMLPanel("datalist", StringUtils.EMPTY);
+    initWidget(panel);
   }
 
   @Override
   public void setValue(final List<Suggestion> pvalue) {
-    this.value = pvalue;
+    value = pvalue;
     final SafeHtmlBuilder options = new SafeHtmlBuilder();
     for (final Suggestion entry : pvalue) {
       if (StringUtils.isEmpty(entry.getDisplayString())) {
@@ -60,11 +60,11 @@ public class DataListWidget extends Composite implements TakesValue<List<Suggest
             + entry.getDisplayString() + "\"/>");
       }
     }
-    this.panel.getElement().setInnerSafeHtml(options.toSafeHtml());
+    panel.getElement().setInnerSafeHtml(options.toSafeHtml());
   }
 
   @Override
   public List<Suggestion> getValue() {
-    return this.value;
+    return value;
   }
 }

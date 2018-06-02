@@ -15,13 +15,13 @@
 
 package de.knightsoftnet.gwtp.spring.shared.data;
 
-import de.knightsoftnet.validators.shared.data.ValueWithPos;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
+
+import de.knightsoftnet.validators.shared.data.ValueWithPos;
 
 /**
  * bean with value, cursor position and default country.
@@ -85,8 +85,7 @@ public class ValueWithPosAndCountry<E> extends ValueWithPos<E> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(Integer.valueOf(this.getPos()), this.getValue(), this.country,
-        this.language);
+    return Objects.hash(Integer.valueOf(getPos()), getValue(), this.country, this.language);
   }
 
   @Override
@@ -102,8 +101,8 @@ public class ValueWithPosAndCountry<E> extends ValueWithPos<E> {
     }
     @SuppressWarnings("unchecked")
     final ValueWithPosAndCountry<E> other = (ValueWithPosAndCountry<E>) obj;
-    return this.getPos() == other.getPos() //
-        && Objects.equals(this.getValue(), other.getValue()) //
+    return getPos() == other.getPos() //
+        && Objects.equals(getValue(), other.getValue()) //
         && StringUtils.equals(this.country, other.country) //
         && StringUtils.equals(this.language, other.language);
   }

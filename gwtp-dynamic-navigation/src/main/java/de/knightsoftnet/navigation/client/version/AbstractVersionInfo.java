@@ -43,8 +43,8 @@ public abstract class AbstractVersionInfo implements VersionInfoInterface {
    */
   public AbstractVersionInfo() {
     super();
-    this.versionDateFormat = DateTimeFormat.getFormat("yyyyMMdd-HHmm");
-    this.dateFormatDisplay = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
+    versionDateFormat = DateTimeFormat.getFormat("yyyyMMdd-HHmm");
+    dateFormatDisplay = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
   }
 
   /**
@@ -59,11 +59,11 @@ public abstract class AbstractVersionInfo implements VersionInfoInterface {
       date = new Date();
     } else {
       try {
-        date = this.versionDateFormat.parse(pversionDate);
+        date = versionDateFormat.parse(pversionDate);
       } catch (final IllegalArgumentException e) {
         date = new Date();
       }
     }
-    return this.dateFormatDisplay.format(date);
+    return dateFormatDisplay.format(date);
   }
 }

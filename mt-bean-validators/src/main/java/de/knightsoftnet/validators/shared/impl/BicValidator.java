@@ -66,7 +66,7 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
    */
   @Override
   public final void initialize(final Bic pconstraintAnnotation) {
-    this.ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
+    ignoreWhitspaces = pconstraintAnnotation.ignoreWhitspaces();
   }
 
   /**
@@ -78,7 +78,7 @@ public class BicValidator implements ConstraintValidator<Bic, Object> {
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
-    if (this.ignoreWhitspaces) {
+    if (ignoreWhitspaces) {
       valueAsString =
           Objects.toString(pvalue, StringUtils.EMPTY).replaceAll("\\s+", StringUtils.EMPTY);
     } else {

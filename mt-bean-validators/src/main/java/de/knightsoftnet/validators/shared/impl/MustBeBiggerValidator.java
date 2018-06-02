@@ -61,11 +61,11 @@ public class MustBeBiggerValidator implements ConstraintValidator<MustBeBigger, 
    */
   @Override
   public final void initialize(final MustBeBigger pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.field1Name = pconstraintAnnotation.field1();
-    this.field2Name = pconstraintAnnotation.field2();
-    this.addErrorToField1 = pconstraintAnnotation.addErrorToField1();
-    this.addErrorToField2 = pconstraintAnnotation.addErrorToField2();
+    message = pconstraintAnnotation.message();
+    field1Name = pconstraintAnnotation.field1();
+    field2Name = pconstraintAnnotation.field2();
+    addErrorToField1 = pconstraintAnnotation.addErrorToField1();
+    addErrorToField2 = pconstraintAnnotation.addErrorToField2();
   }
 
   /**
@@ -80,17 +80,15 @@ public class MustBeBiggerValidator implements ConstraintValidator<MustBeBigger, 
       return true;
     }
     try {
-      final Object field1Value =
-          BeanPropertyReaderUtil.getNullSaveProperty(pvalue, this.field1Name);
-      final Object field2Value =
-          BeanPropertyReaderUtil.getNullSaveProperty(pvalue, this.field2Name);
-      if (!this.bigger(field1Value, field2Value)) {
-        this.switchContext(pcontext);
+      final Object field1Value = BeanPropertyReaderUtil.getNullSaveProperty(pvalue, field1Name);
+      final Object field2Value = BeanPropertyReaderUtil.getNullSaveProperty(pvalue, field2Name);
+      if (!bigger(field1Value, field2Value)) {
+        switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
@@ -114,14 +112,14 @@ public class MustBeBiggerValidator implements ConstraintValidator<MustBeBigger, 
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
-    if (this.addErrorToField1 || this.addErrorToField2) {
+    if (addErrorToField1 || addErrorToField2) {
       pcontext.disableDefaultConstraintViolation();
-      if (this.addErrorToField1) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field1Name)
+      if (addErrorToField1) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field1Name)
             .addConstraintViolation();
       }
-      if (this.addErrorToField2) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field2Name)
+      if (addErrorToField2) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field2Name)
             .addConstraintViolation();
       }
     }

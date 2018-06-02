@@ -62,12 +62,12 @@ public class AlternateSizeValidator implements ConstraintValidator<AlternateSize
    */
   @Override
   public final void initialize(final AlternateSize pconstraintAnnotation) {
-    this.size1 = pconstraintAnnotation.size1();
-    this.size2 = pconstraintAnnotation.size2();
-    this.ignoreWhiteSpaces = pconstraintAnnotation.ignoreWhiteSpaces();
-    this.ignoreMinus = pconstraintAnnotation.ignoreMinus();
-    this.ignoreSlashes = pconstraintAnnotation.ignoreSlashes();
-    this.validateParameters();
+    size1 = pconstraintAnnotation.size1();
+    size2 = pconstraintAnnotation.size2();
+    ignoreWhiteSpaces = pconstraintAnnotation.ignoreWhiteSpaces();
+    ignoreMinus = pconstraintAnnotation.ignoreMinus();
+    ignoreSlashes = pconstraintAnnotation.ignoreSlashes();
+    validateParameters();
   }
 
   /**
@@ -82,27 +82,26 @@ public class AlternateSizeValidator implements ConstraintValidator<AlternateSize
     if (StringUtils.isEmpty(valueAsString)) {
       return true;
     }
-    if (this.ignoreWhiteSpaces) {
+    if (ignoreWhiteSpaces) {
       valueAsString = valueAsString.replaceAll("\\s", StringUtils.EMPTY);
     }
-    if (this.ignoreMinus) {
+    if (ignoreMinus) {
       valueAsString = valueAsString.replaceAll("-", StringUtils.EMPTY);
     }
-    if (this.ignoreSlashes) {
+    if (ignoreSlashes) {
       valueAsString = valueAsString.replaceAll("/", StringUtils.EMPTY);
     }
-    return StringUtils.length(valueAsString) == this.size1
-        || StringUtils.length(valueAsString) == this.size2;
+    return StringUtils.length(valueAsString) == size1 || StringUtils.length(valueAsString) == size2;
   }
 
   /**
    * check validity of the the parameters.
    */
   private void validateParameters() {
-    if (this.size1 < 0) {
+    if (size1 < 0) {
       throw new IllegalArgumentException("The size1 parameter cannot be negative.");
     }
-    if (this.size2 < 0) {
+    if (size2 < 0) {
       throw new IllegalArgumentException("The size2 parameter cannot be negative.");
     }
   }

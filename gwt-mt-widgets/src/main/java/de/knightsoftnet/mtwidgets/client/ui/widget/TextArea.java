@@ -37,9 +37,9 @@ import elemental.html.ValidityState;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A text box that allows multiple lines of text to be entered.
@@ -116,17 +116,17 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @return the requested width, in characters
    */
   public int getCharacterWidth() {
-    return this.getTextAreaElement().getCols();
+    return getTextAreaElement().getCols();
   }
 
   @Override
   public int getCursorPos() {
-    return this.getImpl().getTextAreaCursorPos(this.getElement());
+    return getImpl().getTextAreaCursorPos(getElement());
   }
 
   @Override
   public int getSelectionLength() {
-    return this.getImpl().getTextAreaSelectionLength(this.getElement());
+    return getImpl().getTextAreaSelectionLength(getElement());
   }
 
   /**
@@ -135,7 +135,7 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @return the number of visible lines
    */
   public int getVisibleLines() {
-    return this.getTextAreaElement().getRows();
+    return getTextAreaElement().getRows();
   }
 
   /**
@@ -145,7 +145,7 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @param width the requested width, in characters
    */
   public void setCharacterWidth(final int width) {
-    this.getTextAreaElement().setCols(width);
+    getTextAreaElement().setCols(width);
   }
 
   /**
@@ -154,40 +154,36 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @param lines the number of visible lines
    */
   public void setVisibleLines(final int lines) {
-    this.getTextAreaElement().setRows(lines);
+    getTextAreaElement().setRows(lines);
   }
 
   private TextAreaElement getTextAreaElement() {
-    return this.getElement().cast();
+    return getElement().cast();
   }
 
   @Override
-  public void showErrors(final List<EditorError> errors) {
-    final elemental.html.TextAreaElement element = this.getInputElement();
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+  public void showErrors(final List<EditorError> perrors) {
+    final elemental.html.TextAreaElement element = getInputElement();
+    final Set<String> messages = perrors.stream().filter(error -> editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       if (FeatureCheck.supportCustomValidity(element)) {
         element.setCustomValidity(StringUtils.EMPTY);
       }
-      if (this.validationMessageElement == null) {
+      if (validationMessageElement == null) {
         element.setTitle(StringUtils.EMPTY);
       } else {
-        this.validationMessageElement.getElement().removeAllChildren();
+        validationMessageElement.getElement().removeAllChildren();
       }
     } else {
       final String messagesAsString = ErrorMessageFormater.messagesToString(messages);
       if (FeatureCheck.supportCustomValidity(element)) {
         element.setCustomValidity(messagesAsString);
       }
-      if (this.validationMessageElement == null) {
+      if (validationMessageElement == null) {
         element.setTitle(messagesAsString);
       } else {
-        this.validationMessageElement.getElement()
+        validationMessageElement.getElement()
             .setInnerSafeHtml(ErrorMessageFormater.messagesToList(messages));
       }
     }
@@ -201,66 +197,66 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(asEditor()));
   }
 
   public elemental.html.TextAreaElement getInputElement() {
-    return this.getElement().cast();
+    return getElement().cast();
   }
 
   @Override
   public String getValidationMessage() {
-    return this.getInputElement().getValidationMessage();
+    return getInputElement().getValidationMessage();
   }
 
   @Override
   public ValidityState getValidity() {
-    return this.getInputElement().getValidity();
+    return getInputElement().getValidity();
   }
 
   @Override
   public boolean checkValidity() {
-    return this.getInputElement().checkValidity();
+    return getInputElement().checkValidity();
   }
 
   @Override
   public boolean isRequired() {
-    return this.getInputElement().isRequired();
+    return getInputElement().isRequired();
   }
 
   @Override
   public void setRequired(final boolean arg) {
-    this.getInputElement().setRequired(arg);
+    getInputElement().setRequired(arg);
   }
 
   @Override
   public String getPlaceholder() {
-    return this.getInputElement().getPlaceholder();
+    return getInputElement().getPlaceholder();
   }
 
   @Override
   public void setPlaceholder(final String arg) {
-    this.getInputElement().setPlaceholder(arg);
+    getInputElement().setPlaceholder(arg);
   }
 
   @Override
   public boolean isAutofocus() {
-    return this.getInputElement().isAutofocus();
+    return getInputElement().isAutofocus();
   }
 
   @Override
   public void setAutofocus(final boolean arg) {
-    this.getInputElement().setAutofocus(arg);
+    getInputElement().setAutofocus(arg);
   }
 
   @Override
   public void setValidationMessageElement(final HTMLPanel pelement) {
-    this.validationMessageElement = pelement;
+    validationMessageElement = pelement;
   }
 
   @Override
   public HTMLPanel getValidationMessageElement() {
-    return this.validationMessageElement;
+    return validationMessageElement;
   }
 
   /**
@@ -269,7 +265,7 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @return the maximum length, in characters
    */
   public int getMaxLength() {
-    return this.getInputElement().getMaxLength();
+    return getInputElement().getMaxLength();
   }
 
   /**
@@ -278,6 +274,6 @@ public class TextArea extends TextBoxBase implements HasEditorErrors<String>,
    * @param length the maximum length, in characters
    */
   public void setMaxLength(final int length) {
-    this.getInputElement().setMaxLength(length);
+    getInputElement().setMaxLength(length);
   }
 }

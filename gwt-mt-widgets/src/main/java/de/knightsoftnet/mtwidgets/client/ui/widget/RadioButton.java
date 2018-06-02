@@ -55,7 +55,7 @@ public class RadioButton extends ValueBox<Boolean> {
    * @return value of the form value
    */
   public String getFormValue() {
-    return this.getInputElement().getValue();
+    return getInputElement().getValue();
   }
 
   /**
@@ -69,18 +69,18 @@ public class RadioButton extends ValueBox<Boolean> {
    * @param value form value to set
    */
   public void setFormValue(final String value) {
-    this.getInputElement().setAttribute("value", value);
+    getInputElement().setAttribute("value", value);
   }
 
   @Override
   public Boolean getValueOrThrow() throws ParseException {
-    return Boolean.valueOf(this.getInputElement().isChecked());
+    return Boolean.valueOf(getInputElement().isChecked());
   }
 
   @Override
   public void setValue(final Boolean value, final boolean fireEvents) {
-    final Boolean oldValue = this.getValue();
-    this.getInputElement().setChecked(BooleanUtils.isTrue(value));
+    final Boolean oldValue = getValue();
+    getInputElement().setChecked(BooleanUtils.isTrue(value));
     if (fireEvents) {
       ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
     }

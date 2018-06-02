@@ -15,16 +15,16 @@
 
 package de.knightsoftnet.gwtp.spring.client.converter;
 
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
-
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.core.convert.converter.Converter;
 
+import javax.validation.ConstraintViolation;
+
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
 
 /**
  * convert ValidationResultData from server to a ArrayList&lt;ConstraintViolation&lt;?&gt;&gt; which

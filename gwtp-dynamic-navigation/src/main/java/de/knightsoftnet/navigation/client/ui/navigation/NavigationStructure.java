@@ -88,14 +88,14 @@ public interface NavigationStructure {
 
   /**
    * set the login token.
-   * 
+   *
    * @param ploginToken login token
    */
   void setLoginToken(String ploginToken);
 
   /**
    * get the login token.
-   * 
+   *
    * @return login token
    */
   String getLoginToken();

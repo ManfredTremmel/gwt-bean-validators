@@ -61,7 +61,7 @@ public class SortableIdAndNameListBox<T extends Comparable<T>> extends IdAndName
   public SortableIdAndNameListBox(final ListSortEnum psort, final MessagesForValues<T> pmessages,
       final Collection<T> pids) {
     super();
-    this.setVisibleItemCount(1);
+    setVisibleItemCount(1);
     this.sortOrder = psort;
     this.messages = pmessages;
 
@@ -96,6 +96,6 @@ public class SortableIdAndNameListBox<T extends Comparable<T>> extends IdAndName
           break;
       }
     }
-    this.fillEntryCollections(entries);
+    fillEntryCollections(entries);
   }
 }

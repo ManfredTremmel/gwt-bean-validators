@@ -29,8 +29,8 @@ public class PhoneCountryConstantsImpl implements PhoneCountrySharedConstants {
    */
   public PhoneCountryConstantsImpl() {
     super();
-    this.countryCode = new TreeSet<>();
-    this.countriesMap = new HashMap<>();
+    countryCode = new TreeSet<>();
+    countriesMap = new HashMap<>();
   }
 
   /**
@@ -42,17 +42,17 @@ public class PhoneCountryConstantsImpl implements PhoneCountrySharedConstants {
   public PhoneCountryConstantsImpl(final Set<PhoneCountryCodeData> pcountryCode,
       final Map<String, PhoneCountryData> pcountryMap) {
     super();
-    this.countryCode = pcountryCode;
-    this.countriesMap = pcountryMap;
+    countryCode = pcountryCode;
+    countriesMap = pcountryMap;
   }
 
   @Override
   public Set<PhoneCountryCodeData> countryCodeData() {
-    return this.countryCode;
+    return countryCode;
   }
 
   @Override
   public Map<String, PhoneCountryData> countryMap() {
-    return this.countriesMap;
+    return countriesMap;
   }
 }

@@ -34,7 +34,7 @@ public abstract class AbstractSession implements Session {
    */
   public AbstractSession(final EventBus peventBus) {
     super();
-    this.eventBus = peventBus;
+    eventBus = peventBus;
   }
 
   @Override
@@ -42,20 +42,20 @@ public abstract class AbstractSession implements Session {
 
   @Override
   public User getUser() {
-    return this.user;
+    return user;
   }
 
   @Override
   public void setUser(final User puser) {
-    final boolean changed = !Objects.equals(puser, this.user);
-    this.user = puser;
+    final boolean changed = !Objects.equals(puser, user);
+    user = puser;
     if (changed) {
-      this.eventBus.fireEvent(new ChangeUserEvent(this.user));
+      eventBus.fireEvent(new ChangeUserEvent(user));
     }
   }
 
   @Override
   public boolean isLoggedIn() {
-    return this.user != null && this.user.isLoggedIn();
+    return user != null && user.isLoggedIn();
   }
 }

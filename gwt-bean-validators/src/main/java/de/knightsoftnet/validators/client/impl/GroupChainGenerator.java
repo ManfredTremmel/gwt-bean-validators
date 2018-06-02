@@ -55,20 +55,20 @@ public class GroupChainGenerator {
     }
 
     groups.forEach(clazz -> {
-      if (!this.validationGroupsMetadata.containsGroup(clazz)
-          && !this.validationGroupsMetadata.isSeqeuence(clazz)) {
+      if (!validationGroupsMetadata.containsGroup(clazz)
+          && !validationGroupsMetadata.isSeqeuence(clazz)) {
         throw new ValidationException("The class " + clazz + " is not a valid group or sequence.");
       }
     });
 
     final GroupChain chain = new GroupChain();
     groups.forEach(clazz -> {
-      if (this.isGroupSequence(clazz)) {
-        this.insertSequence(clazz, chain);
+      if (isGroupSequence(clazz)) {
+        insertSequence(clazz, chain);
       } else {
         final Group group = new Group(clazz);
         chain.insertGroup(group);
-        this.insertInheritedGroups(clazz, chain);
+        insertInheritedGroups(clazz, chain);
       }
     });
 
@@ -79,7 +79,7 @@ public class GroupChainGenerator {
   public String toString() {
     final StringBuilder sb = new StringBuilder(64);
     sb.append("GroupChainGenerator");
-    sb.append("{resolvedSequences=").append(this.resolvedSequences);
+    sb.append("{resolvedSequences=").append(resolvedSequences);
     sb.append('}');
     return sb.toString();
   }
@@ -96,16 +96,16 @@ public class GroupChainGenerator {
 
   private void addInheritedGroups(final Group group, final List<Group> expandedGroups) {
     final Set<Class<?>> inheritedGroups =
-        this.validationGroupsMetadata.getParentsOfGroup(group.getGroup());
+        validationGroupsMetadata.getParentsOfGroup(group.getGroup());
     if (inheritedGroups != null) {
       inheritedGroups.forEach(inheritedGroup -> {
-        if (this.isGroupSequence(inheritedGroup)) {
+        if (isGroupSequence(inheritedGroup)) {
           throw new GroupDefinitionException(
               "Sequence definitions are not allowed as composing " + "parts of a sequence.");
         }
         final Group g = new Group(inheritedGroup, group.getSequence());
         expandedGroups.add(g);
-        this.addInheritedGroups(g, expandedGroups);
+        addInheritedGroups(g, expandedGroups);
       });
     }
   }
@@ -114,7 +114,7 @@ public class GroupChainGenerator {
     final List<Group> expandedGroup = new ArrayList<>();
     sequence.forEach(group -> {
       expandedGroup.add(group);
-      this.addInheritedGroups(group, expandedGroup);
+      addInheritedGroups(group, expandedGroup);
     });
     return expandedGroup;
   }
@@ -126,27 +126,27 @@ public class GroupChainGenerator {
    * @param chain The group chain we are currently building.
    */
   private void insertInheritedGroups(final Class<?> clazz, final GroupChain chain) {
-    this.validationGroupsMetadata.getParentsOfGroup(clazz).forEach(inheritedGroup -> {
+    validationGroupsMetadata.getParentsOfGroup(clazz).forEach(inheritedGroup -> {
       final Group group = new Group(inheritedGroup);
       chain.insertGroup(group);
-      this.insertInheritedGroups(inheritedGroup, chain);
+      insertInheritedGroups(inheritedGroup, chain);
     });
   }
 
   private void insertSequence(final Class<?> clazz, final GroupChain chain) {
     List<Group> sequence;
-    if (this.resolvedSequences.containsKey(clazz)) {
-      sequence = this.resolvedSequences.get(clazz);
+    if (resolvedSequences.containsKey(clazz)) {
+      sequence = resolvedSequences.get(clazz);
     } else {
-      sequence = this.resolveSequence(clazz, new ArrayList<Class<?>>());
+      sequence = resolveSequence(clazz, new ArrayList<Class<?>>());
       // we expand the inherited groups only after we determined whether the sequence is expandable
-      sequence = this.expandInhertitedGroups(sequence);
+      sequence = expandInhertitedGroups(sequence);
     }
     chain.insertSequence(sequence);
   }
 
   private boolean isGroupSequence(final Class<?> clazz) {
-    return this.validationGroupsMetadata.isSeqeuence(clazz);
+    return validationGroupsMetadata.isSeqeuence(clazz);
   }
 
   private List<Group> resolveSequence(final Class<?> group,
@@ -157,18 +157,18 @@ public class GroupChainGenerator {
       processedSequences.add(group);
     }
     final List<Group> resolvedGroupSequence = new ArrayList<>();
-    final List<Class<?>> sequenceList = this.validationGroupsMetadata.getSequenceList(group);
+    final List<Class<?>> sequenceList = validationGroupsMetadata.getSequenceList(group);
     sequenceList.forEach(clazz -> {
-      if (this.isGroupSequence(clazz)) {
-        final List<Group> tmpSequence = this.resolveSequence(clazz, processedSequences);
-        this.addGroups(resolvedGroupSequence, tmpSequence);
+      if (isGroupSequence(clazz)) {
+        final List<Group> tmpSequence = resolveSequence(clazz, processedSequences);
+        addGroups(resolvedGroupSequence, tmpSequence);
       } else {
         final List<Group> list = new ArrayList<>();
         list.add(new Group(clazz, group));
-        this.addGroups(resolvedGroupSequence, list);
+        addGroups(resolvedGroupSequence, list);
       }
     });
-    this.resolvedSequences.put(group, resolvedGroupSequence);
+    resolvedSequences.put(group, resolvedGroupSequence);
     return resolvedGroupSequence;
   }
 }

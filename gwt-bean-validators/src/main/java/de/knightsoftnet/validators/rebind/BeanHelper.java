@@ -48,9 +48,9 @@ public final class BeanHelper {
    */
   BeanHelper(final JClassType pjclass, final Class<?> pclazz,
       final BeanDescriptor pbeanDescriptor) {
-    this.beanDescriptor = pbeanDescriptor;
-    this.jclass = pjclass;
-    this.clazz = pclazz;
+    beanDescriptor = pbeanDescriptor;
+    jclass = pjclass;
+    clazz = pclazz;
   }
 
   /**
@@ -62,7 +62,7 @@ public final class BeanHelper {
    */
   public JClassType getAssociationType(final PropertyDescriptor ppropertyDescriptor,
       final boolean puseField) {
-    final JType type = this.getElementType(ppropertyDescriptor, puseField);
+    final JType type = getElementType(ppropertyDescriptor, puseField);
     if (type == null) {
       return null;
     }
@@ -83,57 +83,56 @@ public final class BeanHelper {
   }
 
   public BeanDescriptor getBeanDescriptor() {
-    return this.beanDescriptor;
+    return beanDescriptor;
   }
 
   /*
    * The server-side validator needs an actual class.
    */
   public Class<?> getClazz() {
-    return this.clazz;
+    return clazz;
   }
 
   public String getFullyQualifiedValidatorName() {
-    return this.getPackage() + "." + this.getValidatorName();
+    return getPackage() + "." + getValidatorName();
   }
 
   public JClassType getJClass() {
-    return this.jclass;
+    return jclass;
   }
 
   public String getPackage() {
-    return this.jclass.getPackage().getName();
+    return jclass.getPackage().getName();
   }
 
   public String getTypeCanonicalName() {
-    return this.jclass.getQualifiedSourceName();
+    return jclass.getQualifiedSourceName();
   }
 
   public String getValidatorInstanceName() {
-    return this.getFullyQualifiedValidatorName() + ".INSTANCE";
+    return getFullyQualifiedValidatorName() + ".INSTANCE";
   }
 
   public String getValidatorName() {
-    return this.makeJavaSafe("_" + this.jclass.getName() + "Validator");
+    return makeJavaSafe("_" + jclass.getName() + "Validator");
   }
 
   @Override
   public String toString() {
-    return this.getTypeCanonicalName();
+    return getTypeCanonicalName();
   }
 
   JType getElementType(final PropertyDescriptor ppropertyDescriptor, final boolean puseField) {
     if (puseField) {
-      final JField field =
-          this.findRecursiveField(this.jclass, ppropertyDescriptor.getPropertyName());
+      final JField field = findRecursiveField(jclass, ppropertyDescriptor.getPropertyName());
       if (field == null) {
         return null;
       }
       return field.getType();
     } else {
-      final JMethod method = this.findRecursiveMethod(this.jclass,
-          GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor),
-          GwtSpecificValidatorCreator.NO_ARGS);
+      final JMethod method =
+          findRecursiveMethod(jclass, GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor),
+              GwtSpecificValidatorCreator.NO_ARGS);
       if (method == null) {
         return null;
       }
@@ -148,7 +147,7 @@ public final class BeanHelper {
     }
     final JMethod method = pjclass.findMethod(pasGetter, pnoArgs);
     if (method == null) {
-      return this.findRecursiveMethod(pjclass.getSuperclass(), pasGetter, pnoArgs);
+      return findRecursiveMethod(pjclass.getSuperclass(), pasGetter, pnoArgs);
     }
     return method;
   }
@@ -159,20 +158,20 @@ public final class BeanHelper {
     }
     final JField field = pjclass.findField(ppropertyName);
     if (field == null) {
-      return this.findRecursiveField(pjclass.getSuperclass(), ppropertyName);
+      return findRecursiveField(pjclass.getSuperclass(), ppropertyName);
     }
     return field;
   }
 
   boolean hasField(final PropertyDescriptor ppropertyDescriptor) {
-    final JField field = this.jclass.findField(ppropertyDescriptor.getPropertyName());
+    final JField field = jclass.findField(ppropertyDescriptor.getPropertyName());
     return field != null;
   }
 
   boolean hasGetter(final PropertyDescriptor ppropertyDescriptor) {
     final JType[] paramTypes = new JType[] {};
     try {
-      this.jclass.getMethod(GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor), paramTypes);
+      jclass.getMethod(GwtSpecificValidatorCreator.asGetter(ppropertyDescriptor), paramTypes);
       return true;
     } catch (final NotFoundException e) {
       return false;

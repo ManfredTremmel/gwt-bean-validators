@@ -37,8 +37,8 @@ public class Utf8Control extends Control {
       final String pformat, final ClassLoader ploader, final boolean preload)
       throws IllegalAccessException, InstantiationException, IOException {
     // The below is a copy of the default implementation.
-    final String bundleName = this.toBundleName(pbaseName, plocale);
-    final String resourceName = this.toResourceName(bundleName, "properties");
+    final String bundleName = toBundleName(pbaseName, plocale);
+    final String resourceName = toResourceName(bundleName, "properties");
     ResourceBundle bundle = null;
     InputStream stream = null;
     if (preload) {

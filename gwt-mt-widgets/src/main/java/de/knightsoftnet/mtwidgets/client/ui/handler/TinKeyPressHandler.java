@@ -58,19 +58,18 @@ public class TinKeyPressHandler extends SimpleFilterAndReplaceKeyPressHandler {
    */
   public TinKeyPressHandler(final TakesValue<?> pcountryCodeField) {
     super(Collections.<Character>emptySet(), true);
-    this.countryCodeField = pcountryCodeField;
+    countryCodeField = pcountryCodeField;
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    final String countryCode =
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()));
+    final String countryCode = StringUtils.upperCase(Objects.toString(countryCodeField.getValue()));
     final Set<Character> currentCharacterSet =
         TinKeyPressHandler.ALLOWED_CHRACTERS.get(countryCode);
     if (currentCharacterSet == null) {
       this.setAllowedCharacters(RegExUtil
           .getAllowedCharactersForRegEx(TinKeyPressHandler.TIN_MAP.tins().get(countryCode)));
-      TinKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, this.getAllowedCharacters());
+      TinKeyPressHandler.ALLOWED_CHRACTERS.put(countryCode, getAllowedCharacters());
     } else {
       this.setAllowedCharacters(currentCharacterSet);
     }

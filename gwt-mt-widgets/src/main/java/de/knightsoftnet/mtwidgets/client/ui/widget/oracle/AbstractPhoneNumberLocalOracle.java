@@ -48,14 +48,14 @@ public abstract class AbstractPhoneNumberLocalOracle<T extends AbstractPhoneNumb
   @Override
   public final void requestSuggestions(final Request prequest, final Callback pcallback) {
     final SuggestOracle.Response response = new SuggestOracle.Response();
-    if (prequest != null && this.needSuggest(prequest.getQuery())) {
+    if (prequest != null && needSuggest(prequest.getQuery())) {
       final List<PhoneNumberData> suggestionList =
-          this.phoneNumberUtil.getSuggstions(prequest.getQuery(), this.getLimit(prequest));
+          this.phoneNumberUtil.getSuggstions(prequest.getQuery(), getLimit(prequest));
       final List<T> suggestions;
       if (suggestionList.isEmpty()) {
         suggestions = Collections.emptyList();
       } else {
-        suggestions = suggestionList.stream().map(entry -> this.createInstance(entry))
+        suggestions = suggestionList.stream().map(entry -> createInstance(entry))
             .collect(Collectors.toList());
       }
       response.setSuggestions(suggestions);

@@ -11,3 +11,5 @@
 .idea/*
 *.iml
 /.fbExcludeFilterFile
+/.pmdruleset.xml
+/.pmd

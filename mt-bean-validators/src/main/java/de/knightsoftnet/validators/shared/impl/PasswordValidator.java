@@ -96,23 +96,23 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
    */
   @Override
   public final void initialize(final Password pconstraintAnnotation) {
-    this.messageBlacklist = pconstraintAnnotation.messageBlacklist();
-    this.messageStartCharacters = pconstraintAnnotation.messageStartCharacters();
-    this.messageMaxRepeat = pconstraintAnnotation.messageMaxRepeat();
-    this.minRules = pconstraintAnnotation.minRules();
+    messageBlacklist = pconstraintAnnotation.messageBlacklist();
+    messageStartCharacters = pconstraintAnnotation.messageStartCharacters();
+    messageMaxRepeat = pconstraintAnnotation.messageMaxRepeat();
+    minRules = pconstraintAnnotation.minRules();
     if (pconstraintAnnotation.blacklist() == null) {
-      this.blacklist = Collections.emptyList();
+      blacklist = Collections.emptyList();
     } else {
-      this.blacklist = Arrays.asList(StringUtils.split(pconstraintAnnotation.blacklist(), ','))
-          .stream().filter(entry -> StringUtils.isNotEmpty(entry))
-          .map(entry -> entry.trim().toLowerCase()).collect(Collectors.toList());
+      blacklist = Arrays.asList(StringUtils.split(pconstraintAnnotation.blacklist(), ',')).stream()
+          .filter(entry -> StringUtils.isNotEmpty(entry)).map(entry -> entry.trim().toLowerCase())
+          .collect(Collectors.toList());
     }
     if (StringUtils.isEmpty(pconstraintAnnotation.disalowedStartChars())) {
-      this.disalowedStartChars = null;
+      disalowedStartChars = null;
     } else {
-      this.disalowedStartChars = pconstraintAnnotation.disalowedStartChars().toCharArray();
+      disalowedStartChars = pconstraintAnnotation.disalowedStartChars().toCharArray();
     }
-    this.maxRepeatChar = pconstraintAnnotation.maxRepeatChar();
+    maxRepeatChar = pconstraintAnnotation.maxRepeatChar();
   }
 
   /**
@@ -125,10 +125,9 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString = Objects.toString(pvalue, null);
     return StringUtils.isEmpty(valueAsString)
-        || this.countCriteriaMatches(valueAsString) >= this.minRules
-            && !this.isBlacklist(pcontext, valueAsString)
-            && !this.startsWithDisalowedCharacter(pcontext, valueAsString)
-            && !this.maxRepeatCharacterExceded(pcontext, valueAsString);
+        || countCriteriaMatches(valueAsString) >= minRules && !isBlacklist(pcontext, valueAsString)
+            && !startsWithDisalowedCharacter(pcontext, valueAsString)
+            && !maxRepeatCharacterExceded(pcontext, valueAsString);
   }
 
   private int countCriteriaMatches(final String ppassword) {
@@ -145,13 +144,12 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
 
   private boolean isBlacklist(final ConstraintValidatorContext pcontext,
       final String pvalueAsString) {
-    if (!this.blacklist.isEmpty()) {
+    if (!blacklist.isEmpty()) {
       final String valueLowerCase = pvalueAsString.toLowerCase();
-      for (final String blacklistEntry : this.blacklist) {
+      for (final String blacklistEntry : blacklist) {
         if (valueLowerCase.contains(blacklistEntry)) {
           pcontext.disableDefaultConstraintViolation();
-          pcontext.buildConstraintViolationWithTemplate(this.messageBlacklist)
-              .addConstraintViolation();
+          pcontext.buildConstraintViolationWithTemplate(messageBlacklist).addConstraintViolation();
           return true;
         }
       }
@@ -161,12 +159,12 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
 
   private boolean startsWithDisalowedCharacter(final ConstraintValidatorContext pcontext,
       final String pvalueAsString) {
-    if (this.disalowedStartChars != null) {
+    if (disalowedStartChars != null) {
       final char firstChar = pvalueAsString.charAt(0);
-      for (final char startChar : this.disalowedStartChars) {
+      for (final char startChar : disalowedStartChars) {
         if (firstChar == startChar) {
           pcontext.disableDefaultConstraintViolation();
-          pcontext.buildConstraintViolationWithTemplate(this.messageStartCharacters)
+          pcontext.buildConstraintViolationWithTemplate(messageStartCharacters)
               .addConstraintViolation();
           return true;
         }
@@ -177,7 +175,7 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
 
   private boolean maxRepeatCharacterExceded(final ConstraintValidatorContext pcontext,
       final String pvalueAsString) {
-    if (this.maxRepeatChar <= 1) {
+    if (maxRepeatChar <= 1) {
       return false;
     }
     int currentCount = 0;
@@ -185,10 +183,9 @@ public class PasswordValidator implements ConstraintValidator<Password, Object> 
     for (final char singleChar : pvalueAsString.toLowerCase().toCharArray()) {
       if (singleChar == oldChar) {
         currentCount++;
-        if (currentCount >= this.maxRepeatChar) {
+        if (currentCount >= maxRepeatChar) {
           pcontext.disableDefaultConstraintViolation();
-          pcontext.buildConstraintViolationWithTemplate(this.messageMaxRepeat)
-              .addConstraintViolation();
+          pcontext.buildConstraintViolationWithTemplate(messageMaxRepeat).addConstraintViolation();
           return true;
         }
       } else {

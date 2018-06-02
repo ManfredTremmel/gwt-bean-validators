@@ -64,12 +64,12 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    * @param source the EditorSource which will create sub-Editors
    */
   protected ListValidationEditor(final EditorSource<E> source) {
-    this.editorSource = source;
+    editorSource = source;
   }
 
   @Override
   public final void setParentDriver(final BeanValidationEditorDriver<?, ?> pparentDriver) {
-    this.parentDriver = pparentDriver;
+    parentDriver = pparentDriver;
   }
 
   /**
@@ -79,13 +79,13 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    */
   @Override
   public E createEditorForTraversal() {
-    return this.editorSource.createEditorForTraversal();
+    return editorSource.createEditorForTraversal();
   }
 
   @Override
   public void flush() {
-    if (this.list != null) {
-      this.list.flush();
+    if (list != null) {
+      list.flush();
     }
   }
 
@@ -103,10 +103,10 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    * @return a List of {@link Editor Editors} of type E
    */
   public List<E> getEditors() {
-    if (this.list == null) {
+    if (list == null) {
       return Collections.emptyList();
     }
-    return Collections.unmodifiableList(this.list.getEditors());
+    return Collections.unmodifiableList(list.getEditors());
   }
 
   /**
@@ -131,12 +131,12 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    *         backing list.
    */
   public List<T> getList() {
-    return this.list;
+    return list;
   }
 
   @Override
   public String getPathElement(final E subEditor) {
-    return "[" + this.list.getEditors().indexOf(subEditor) + "]";
+    return "[" + list.getEditors().indexOf(subEditor) + "]";
   }
 
   @Override
@@ -145,7 +145,7 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
   @Override
   public void setDelegate(final EditorDelegate<List<T>> delegate) {
     if (delegate instanceof HasParentDriverSetter) {
-      ((HasParentDriverSetter) delegate).setParentDriver(this.parentDriver);
+      ((HasParentDriverSetter) delegate).setParentDriver(parentDriver);
     }
   }
 
@@ -164,26 +164,25 @@ public class ListValidationEditor<T, E extends Editor<? super T>>
    */
   @Override
   public void setValue(final List<T> value) {
-    if (this.list == null && value == null) {
+    if (list == null && value == null) {
       // fast exit
       return;
     }
-    if (this.list != null && this.list.isSameValue(value)) {
+    if (list != null && list.isSameValue(value)) {
       // setting the same value as the one being edited
-      this.list.refresh();
+      list.refresh();
       return;
     }
 
-    if (this.list != null) {
+    if (list != null) {
       // Having entire value reset, so dump the wrapper gracefully
-      this.list.detach();
+      list.detach();
     }
     if (value == null) {
-      this.list = null;
+      list = null;
     } else {
-      this.list = new ListValidationEditorWrapper<>(value, this.chain, this.editorSource,
-          this.parentDriver);
-      this.list.attach();
+      list = new ListValidationEditorWrapper<>(value, chain, editorSource, parentDriver);
+      list.attach();
     }
   }
 }

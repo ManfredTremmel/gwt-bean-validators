@@ -48,6 +48,6 @@ public abstract class AbstractListItemView<D> extends Composite
    * removes current entry from list.
    */
   protected void removeThisEntry() {
-    this.fireEvent(new EditorDeleteEvent<>(this));
+    fireEvent(new EditorDeleteEvent<>(this));
   }
 }

@@ -94,16 +94,16 @@ public class NavigationPresenter
       final NavigationStructure pnavigationStructure) {
     super(peventBus, pview, pproxy);
     pview.setPresenter(this);
-    this.placeManager = pplaceManager;
-    this.navigationStructure = pnavigationStructure;
+    placeManager = pplaceManager;
+    navigationStructure = pnavigationStructure;
 
-    this.loginToken = NameTokens.LOGIN;
-    this.logoutToken = NameTokens.LOGOUT;
+    loginToken = NameTokens.LOGIN;
+    logoutToken = NameTokens.LOGOUT;
 
     peventBus.addHandler(ChangeUserEvent.getType(), this);
     pnavigationStructure.buildVisibleNavigation(null);
 
-    this.getView().createNavigation(this.navigationStructure);
+    getView().createNavigation(navigationStructure);
 
     peventBus.addHandler(ChangePlaceEvent.getType(), this);
 
@@ -112,24 +112,23 @@ public class NavigationPresenter
 
   @Override
   public void onChangeUser(final ChangeUserEvent pevent) {
-    if (this.tokenEquals(this.placeManager.getCurrentPlaceRequest().getNameToken(),
-        this.logoutToken)) {
+    if (tokenEquals(placeManager.getCurrentPlaceRequest().getNameToken(), logoutToken)) {
       final PlaceRequest loginPlaceRequest =
-          new PlaceRequest.Builder().nameToken(this.loginToken).build();
-      this.placeManager.revealPlace(loginPlaceRequest);
+          new PlaceRequest.Builder().nameToken(loginToken).build();
+      placeManager.revealPlace(loginPlaceRequest);
     } else {
-      if (this.placeManager.getHierarchyDepth() > 1) {
-        this.placeManager.revealRelativePlace(-1);
-      } else if (this.tokenEquals(this.placeManager.getCurrentPlaceRequest().getNameToken(),
-          this.loginToken) && pevent.getUser() != null && pevent.getUser().isLoggedIn()) {
-        this.placeManager.revealDefaultPlace();
+      if (placeManager.getHierarchyDepth() > 1) {
+        placeManager.revealRelativePlace(-1);
+      } else if (tokenEquals(placeManager.getCurrentPlaceRequest().getNameToken(), loginToken)
+          && pevent.getUser() != null && pevent.getUser().isLoggedIn()) {
+        placeManager.revealDefaultPlace();
       } else if (pevent.getUser() == null || !pevent.getUser().isLoggedIn()) {
         // user not logged in, load page once again, maybe we are no longer allowed to see
-        this.placeManager.revealCurrentPlace();
+        placeManager.revealCurrentPlace();
       }
     }
-    this.navigationStructure.buildVisibleNavigation(pevent.getUser());
-    this.getView().createNavigation(this.navigationStructure);
+    navigationStructure.buildVisibleNavigation(pevent.getUser());
+    getView().createNavigation(navigationStructure);
   }
 
   private boolean tokenEquals(final String purl1, final String purl2) {
@@ -140,24 +139,23 @@ public class NavigationPresenter
   @Override
   public void onChangePlace(final ChangePlaceEvent pevent) {
     if (pevent != null && StringUtils.isNotEmpty(pevent.getToken())) {
-      this.getView()
-          .setSelectedItem(this.navigationStructure.getNavigationForToken(pevent.getToken()));
+      getView().setSelectedItem(navigationStructure.getNavigationForToken(pevent.getToken()));
     }
   }
 
   public String getLoginToken() {
-    return this.loginToken;
+    return loginToken;
   }
 
   public void setLoginToken(final String ploginToken) {
-    this.loginToken = ploginToken;
+    loginToken = ploginToken;
   }
 
   public String getLogoutToken() {
-    return this.logoutToken;
+    return logoutToken;
   }
 
   public void setLogoutToken(final String plogoutToken) {
-    this.logoutToken = plogoutToken;
+    logoutToken = plogoutToken;
   }
 }

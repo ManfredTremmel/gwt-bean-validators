@@ -52,7 +52,7 @@ public class MonthParser implements Parser<Date> {
 
   public MonthParser(final String pformat) {
     super();
-    this.dateTimeFormat = DateTimeFormat.getFormat(pformat);
+    dateTimeFormat = DateTimeFormat.getFormat(pformat);
   }
 
   @Override
@@ -62,7 +62,7 @@ public class MonthParser implements Parser<Date> {
     }
 
     try {
-      return this.dateTimeFormat.parse(Objects.toString(pobject));
+      return dateTimeFormat.parse(Objects.toString(pobject));
     } catch (final IllegalArgumentException e) {
       throw new ParseException(e.getMessage(), 0); // NOPMD, we needn't a stack trace
     }

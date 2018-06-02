@@ -50,10 +50,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * select box with icon field for star ratings.
@@ -126,7 +127,7 @@ public class SelectBoxWithIconInputWidget<T extends Comparable<T>> extends Compo
     this.options = new FlowPanel();
     this.options.setStylePrimaryName(presource.selectBoxInputStyle().options());
     this.panel.add(this.options);
-    this.initWidget(this.panel);
+    initWidget(this.panel);
     this.valueChangeHandler = event -> ValueChangeEvent.fire(this, this.getValue());
     this.clickHandler = event -> {
       if (StringUtils.contains(this.panel.getStyleName(),
@@ -253,9 +254,8 @@ public class SelectBoxWithIconInputWidget<T extends Comparable<T>> extends Compo
   }
 
   protected void ensureDomEventHandlers() {
-    for (final RadioButton radioButton : this.radioButtons) {
-      radioButton.addValueChangeHandler(this.valueChangeHandler);
-    }
+    this.radioButtons
+        .forEach(radioButton -> radioButton.addValueChangeHandler(this.valueChangeHandler));
   }
 
   @Override
@@ -268,24 +268,23 @@ public class SelectBoxWithIconInputWidget<T extends Comparable<T>> extends Compo
 
   @Override
   public int getTabIndex() {
-    for (final RadioButton radioButton : this.radioButtons) {
-      return radioButton.getTabIndex();
-    }
-    return -1;
+    return this.radioButtons.stream().map(radioButton -> radioButton.getTabIndex()).findFirst()
+        .orElse(-1);
   }
 
   @Override
   public void setAccessKey(final char pkey) {
-    for (final RadioButton radioButton : this.radioButtons) {
-      radioButton.setAccessKey(pkey);
-      return;
+    final Optional<RadioButton> radioButton = this.radioButtons.stream().findFirst();
+    if (radioButton.isPresent()) {
+      radioButton.get().setAccessKey(pkey);
     }
   }
 
   @Override
   public void setFocus(final boolean pfocused) {
-    for (final RadioButton radioButton : this.radioButtons) {
-      radioButton.setFocus(pfocused);
+    final Optional<RadioButton> radioButton = this.radioButtons.stream().findFirst();
+    if (radioButton.isPresent()) {
+      radioButton.get().setFocus(pfocused);
     }
   }
 
@@ -296,14 +295,10 @@ public class SelectBoxWithIconInputWidget<T extends Comparable<T>> extends Compo
 
   @Override
   public void showErrors(final List<EditorError> perrors) {
-    final elemental.dom.Element headElement = this.getElement().cast();
+    final elemental.dom.Element headElement = getElement().cast();
     final NodeList inputElements = headElement.getElementsByTagName("input");
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : perrors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+    final Set<String> messages = perrors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       for (int i = 0; i < inputElements.length(); i++) {
         final InputElement input = (InputElement) inputElements.at(i);
@@ -343,7 +338,7 @@ public class SelectBoxWithIconInputWidget<T extends Comparable<T>> extends Compo
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
   }
 
   @Override

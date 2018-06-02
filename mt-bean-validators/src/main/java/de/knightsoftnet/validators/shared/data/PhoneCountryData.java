@@ -48,41 +48,41 @@ public class PhoneCountryData {
       final String ptrunkCode, final String pexitCode, final boolean pareaCodeMustBeFilled,
       final PhoneCountryCodeData pcountryCodeData) {
     super();
-    this.countryCode = pcountryCode;
-    this.countryCodeName = pcountryCodeName;
-    this.trunkCode = ptrunkCode;
-    this.exitCode = pexitCode;
-    this.areaCodeMustBeFilled = pareaCodeMustBeFilled;
-    this.countryCodeData = pcountryCodeData;
+    countryCode = pcountryCode;
+    countryCodeName = pcountryCodeName;
+    trunkCode = ptrunkCode;
+    exitCode = pexitCode;
+    areaCodeMustBeFilled = pareaCodeMustBeFilled;
+    countryCodeData = pcountryCodeData;
   }
 
   public String getCountryCode() {
-    return this.countryCode;
+    return countryCode;
   }
 
   public String getCountryCodeName() {
-    return this.countryCodeName;
+    return countryCodeName;
   }
 
   public String getTrunkCode() {
-    return this.trunkCode;
+    return trunkCode;
   }
 
   public String getExitCode() {
-    return this.exitCode;
+    return exitCode;
   }
 
   public final boolean isAreaCodeMustBeFilled() {
-    return this.areaCodeMustBeFilled;
+    return areaCodeMustBeFilled;
   }
 
   public PhoneCountryCodeData getCountryCodeData() {
-    return this.countryCodeData;
+    return countryCodeData;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.countryCode);
+    return Objects.hashCode(countryCode);
   }
 
   @Override
@@ -97,6 +97,6 @@ public class PhoneCountryData {
       return false;
     }
     final PhoneCountryData other = (PhoneCountryData) pobj;
-    return StringUtils.equals(this.countryCode, other.countryCode);
+    return StringUtils.equals(countryCode, other.countryCode);
   }
 }

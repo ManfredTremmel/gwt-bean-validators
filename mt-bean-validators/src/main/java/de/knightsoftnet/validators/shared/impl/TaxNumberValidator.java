@@ -70,10 +70,10 @@ public class TaxNumberValidator implements ConstraintValidator<TaxNumber, Object
    */
   @Override
   public final void initialize(final TaxNumber pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
-    this.fieldTaxNumber = pconstraintAnnotation.fieldTaxNumber();
+    message = pconstraintAnnotation.message();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
+    fieldTaxNumber = pconstraintAnnotation.fieldTaxNumber();
   }
 
   @Override
@@ -83,17 +83,17 @@ public class TaxNumberValidator implements ConstraintValidator<TaxNumber, Object
     }
     try {
       String countryCode =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCountryCode);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCountryCode);
       if (StringUtils.isEmpty(countryCode)) {
         return true;
       }
       final String taxNumber =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldTaxNumber);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldTaxNumber);
       if (StringUtils.isEmpty(taxNumber)) {
         return true;
       }
 
-      if (this.allowLowerCaseCountryCode) {
+      if (allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
 
@@ -101,20 +101,20 @@ public class TaxNumberValidator implements ConstraintValidator<TaxNumber, Object
       if (regExCheck == null) {
         return true;
       }
-      if (taxNumber.matches(regExCheck) && this.checkSumTest(countryCode, taxNumber)) {
+      if (taxNumber.matches(regExCheck) && checkSumTest(countryCode, taxNumber)) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldTaxNumber)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldTaxNumber)
         .addConstraintViolation();
   }
 
@@ -122,34 +122,34 @@ public class TaxNumberValidator implements ConstraintValidator<TaxNumber, Object
     boolean checkSumOk = false;
     switch (pcountryCode) {
       case "AT":
-        checkSumOk = this.checkAtTaxNumber(ptaxNumber);
+        checkSumOk = checkAtTaxNumber(ptaxNumber);
         break;
       case "DE":
-        checkSumOk = this.checkDeTaxNumber(ptaxNumber);
+        checkSumOk = checkDeTaxNumber(ptaxNumber);
         break;
       case "HR":
-        checkSumOk = this.checkModulo11TaxNumber(ptaxNumber);
+        checkSumOk = checkModulo11TaxNumber(ptaxNumber);
         break;
       case "DK":
-        checkSumOk = this.checkDkTaxNumber(ptaxNumber);
+        checkSumOk = checkDkTaxNumber(ptaxNumber);
         break;
       case "EE":
       case "LT":
-        checkSumOk = this.checkEeTaxNumber(ptaxNumber);
+        checkSumOk = checkEeTaxNumber(ptaxNumber);
         break;
       case "ES":
-        checkSumOk = this.checkEsTaxNumber(ptaxNumber);
+        checkSumOk = checkEsTaxNumber(ptaxNumber);
         break;
       case "BA":
       case "ME":
       case "MK":
-        checkSumOk = this.checkUniqueMasterCitizenNumber(ptaxNumber);
+        checkSumOk = checkUniqueMasterCitizenNumber(ptaxNumber);
         break;
       case "NL":
-        checkSumOk = this.checkNlTaxNumber(ptaxNumber);
+        checkSumOk = checkNlTaxNumber(ptaxNumber);
         break;
       case "PL":
-        checkSumOk = this.checkPlTaxNumber(ptaxNumber);
+        checkSumOk = checkPlTaxNumber(ptaxNumber);
         break;
       default:
         // for other countries, I haven't found checksum rules

@@ -102,7 +102,7 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
     this.numberRenderer = pplainNumberRenderer;
     this.numberParser = pplainNumberParser;
     if (pkeyPressHandler != null) {
-      this.addKeyPressHandler(pkeyPressHandler);
+      addKeyPressHandler(pkeyPressHandler);
     }
   }
 
@@ -113,9 +113,9 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    */
   public void setMin(final T pmin) {
     if (pmin == null) {
-      this.getInputElement().removeAttribute("min");
+      getInputElement().removeAttribute("min");
     } else {
-      this.getInputElement().setMin(this.numberRenderer.render(pmin));
+      getInputElement().setMin(this.numberRenderer.render(pmin));
     }
   }
 
@@ -138,11 +138,11 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    * @return minimum value allowed
    */
   public T getMin() {
-    if (StringUtils.isEmpty(this.getInputElement().getMin())) {
+    if (StringUtils.isEmpty(getInputElement().getMin())) {
       return null;
     }
     try {
-      return this.numberParser.parse(this.getInputElement().getMin());
+      return this.numberParser.parse(getInputElement().getMin());
     } catch (final ParseException e) {
       return null;
     }
@@ -155,9 +155,9 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    */
   public void setMax(final T pmax) {
     if (pmax == null) {
-      this.getInputElement().removeAttribute("max");
+      getInputElement().removeAttribute("max");
     } else {
-      this.getInputElement().setMax(this.numberRenderer.render(pmax));
+      getInputElement().setMax(this.numberRenderer.render(pmax));
     }
   }
 
@@ -181,11 +181,11 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    * @return maximum value allowed
    */
   public T getMax() {
-    if (StringUtils.isEmpty(this.getInputElement().getMax())) {
+    if (StringUtils.isEmpty(getInputElement().getMax())) {
       return null;
     }
     try {
-      return this.numberParser.parse(this.getInputElement().getMax());
+      return this.numberParser.parse(getInputElement().getMax());
     } catch (final ParseException e) {
       return null;
     }
@@ -198,9 +198,9 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    */
   public void setStep(final Integer pstep) {
     if (pstep == null) {
-      this.getInputElement().removeAttribute("step");
+      getInputElement().removeAttribute("step");
     } else {
-      this.getInputElement().setStep(pstep.toString());
+      getInputElement().setStep(pstep.toString());
     }
   }
 
@@ -224,11 +224,11 @@ public abstract class AbstractMinMaxTextBox<T> extends ValueBox<T> {
    * @return maximum value allowed
    */
   public Integer getStep() {
-    if (StringUtils.isEmpty(this.getInputElement().getStep())) {
+    if (StringUtils.isEmpty(getInputElement().getStep())) {
       return null;
     }
     try {
-      return Integer.valueOf(this.getInputElement().getStep());
+      return Integer.valueOf(getInputElement().getStep());
     } catch (final NumberFormatException e) {
       return null;
     }

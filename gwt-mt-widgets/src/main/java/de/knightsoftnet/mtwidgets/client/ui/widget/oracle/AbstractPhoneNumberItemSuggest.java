@@ -49,10 +49,10 @@ public abstract class AbstractPhoneNumberItemSuggest implements Suggestion {
   public AbstractPhoneNumberItemSuggest(final String pcountryCode, final String pcountryName,
       final String pareaCode, final String pareaName) {
     super();
-    this.countryCode = pcountryCode;
-    this.countryName = pcountryName;
-    this.areaCode = pareaCode;
-    this.areaName = pareaName;
+    countryCode = pcountryCode;
+    countryName = pcountryName;
+    areaCode = pareaCode;
+    areaName = pareaName;
   }
 
   @Override
@@ -62,34 +62,34 @@ public abstract class AbstractPhoneNumberItemSuggest implements Suggestion {
   public abstract String getReplacementString();
 
   public final String getCountryCode() {
-    return this.countryCode;
+    return countryCode;
   }
 
   public final void setCountryCode(final String pcountryCode) {
-    this.countryCode = pcountryCode;
+    countryCode = pcountryCode;
   }
 
   public final String getCountryName() {
-    return this.countryName;
+    return countryName;
   }
 
   public final void setCountryName(final String pcountryName) {
-    this.countryName = pcountryName;
+    countryName = pcountryName;
   }
 
   public final String getAreaCode() {
-    return this.areaCode;
+    return areaCode;
   }
 
   public final void setAreaCode(final String pareaCode) {
-    this.areaCode = pareaCode;
+    areaCode = pareaCode;
   }
 
   public final String getAreaName() {
-    return this.areaName;
+    return areaName;
   }
 
   public final void setAreaName(final String pareaName) {
-    this.areaName = pareaName;
+    areaName = pareaName;
   }
 }

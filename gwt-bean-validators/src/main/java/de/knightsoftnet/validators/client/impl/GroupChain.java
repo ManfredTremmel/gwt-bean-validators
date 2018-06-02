@@ -52,27 +52,27 @@ public final class GroupChain {
    */
   public void checkDefaultGroupSequenceIsExpandable(final List<Class<?>> defaultGroupSequence)
       throws GroupDefinitionException {
-    for (final Map.Entry<Class<?>, List<Group>> entry : this.sequenceMap.entrySet()) {
+    for (final Map.Entry<Class<?>, List<Group>> entry : sequenceMap.entrySet()) {
       final Class<?> sequence = entry.getKey();
       final List<Group> groups = entry.getValue();
-      final List<Group> defaultGroupList = this.buildTempGroupList(defaultGroupSequence, sequence);
-      final int defaultGroupIndex = this.containsDefaultGroupAtIndex(sequence, groups);
+      final List<Group> defaultGroupList = buildTempGroupList(defaultGroupSequence, sequence);
+      final int defaultGroupIndex = containsDefaultGroupAtIndex(sequence, groups);
       if (defaultGroupIndex != -1) {
-        this.ensureDefaultGroupSequenceIsExpandable(groups, defaultGroupList, defaultGroupIndex);
+        ensureDefaultGroupSequenceIsExpandable(groups, defaultGroupList, defaultGroupIndex);
       }
     }
   }
 
   public Collection<Group> getAllGroups() {
-    return this.groupList;
+    return groupList;
   }
 
   public Iterator<Group> getGroupIterator() {
-    return this.groupList.iterator();
+    return groupList.iterator();
   }
 
   public Iterator<List<Group>> getSequenceIterator() {
-    return this.sequenceMap.values().iterator();
+    return sequenceMap.values().iterator();
   }
 
   /**
@@ -81,8 +81,8 @@ public final class GroupChain {
    * @param group to add
    */
   public void insertGroup(final Group group) {
-    if (!this.groupList.contains(group)) {
-      this.groupList.add(group);
+    if (!groupList.contains(group)) {
+      groupList.add(group);
     }
   }
 
@@ -92,17 +92,14 @@ public final class GroupChain {
    * @param groups list of groups to add
    */
   public void insertSequence(final List<Group> groups) {
-    if (groups != null && !groups.isEmpty()) {
-      if (!this.sequenceMap.containsValue(groups)) {
-        this.sequenceMap.put(groups.get(0).getSequence(), groups);
-      }
+    if (groups != null && !groups.isEmpty() && !sequenceMap.containsValue(groups)) {
+      sequenceMap.put(groups.get(0).getSequence(), groups);
     }
   }
 
   @Override
   public String toString() {
-    return "GroupChain{" + "groupList=" + this.groupList + ", sequenceMap=" + this.sequenceMap
-        + "}";
+    return "GroupChain{" + "groupList=" + groupList + ", sequenceMap=" + sequenceMap + "}";
   }
 
   private List<Group> buildTempGroupList(final List<Class<?>> defaultGroupSequence,

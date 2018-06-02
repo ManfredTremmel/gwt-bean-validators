@@ -15,13 +15,13 @@
 
 package de.knightsoftnet.gwtp.spring.server.service.impl;
 
-import de.knightsoftnet.gwtp.spring.server.security.LoggedInChecker;
-import de.knightsoftnet.gwtp.spring.server.service.UserService;
-import de.knightsoftnet.gwtp.spring.shared.models.User;
-
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import de.knightsoftnet.gwtp.spring.server.security.LoggedInChecker;
+import de.knightsoftnet.gwtp.spring.server.service.UserService;
+import de.knightsoftnet.gwtp.spring.shared.models.User;
 
 /**
  * user service implementation. based on the work of https://github.com/imrabti/gwtp-spring-security
@@ -35,16 +35,16 @@ public class UserServiceImpl implements UserService {
 
   @Inject
   protected UserServiceImpl(final LoggedInChecker ploggedInChecker) {
-    this.loggedInChecker = ploggedInChecker;
+    loggedInChecker = ploggedInChecker;
   }
 
   @Override
   public User getCurrentUser() {
-    return this.loggedInChecker.getLoggedInUser();
+    return loggedInChecker.getLoggedInUser();
   }
 
   @Override
   public Boolean isCurrentUserLoggedIn() {
-    return this.loggedInChecker.getLoggedInUser() != null;
+    return loggedInChecker.getLoggedInUser() != null;
   }
 }

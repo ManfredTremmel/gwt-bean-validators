@@ -28,11 +28,11 @@ public class LoggedInGatekeeper implements Gatekeeper {
 
   @Inject
   public LoggedInGatekeeper(final Session pcurrentSession) {
-    this.currentSession = pcurrentSession;
+    currentSession = pcurrentSession;
   }
 
   @Override
   public boolean canReveal() {
-    return this.currentSession.isLoggedIn();
+    return currentSession.isLoggedIn();
   }
 }

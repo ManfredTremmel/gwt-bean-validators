@@ -44,13 +44,13 @@ public class CheckBox extends ValueBox<Boolean> {
 
   @Override
   public Boolean getValueOrThrow() throws ParseException {
-    return Boolean.valueOf(this.getInputElement().isChecked());
+    return Boolean.valueOf(getInputElement().isChecked());
   }
 
   @Override
   public void setValue(final Boolean value, final boolean fireEvents) {
-    final Boolean oldValue = this.getValue();
-    this.getInputElement().setChecked(BooleanUtils.isTrue(value));
+    final Boolean oldValue = getValue();
+    getInputElement().setChecked(BooleanUtils.isTrue(value));
     if (fireEvents) {
       ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
     }

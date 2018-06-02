@@ -61,66 +61,66 @@ public class NavigationEntryProxy implements NavigationEntryInterface {
    */
   public NavigationEntryProxy(final SafeHtml pmenuValue, final ProxyPlace<?> pproxyPlace) {
     super();
-    this.menuValue = pmenuValue;
-    this.proxyPlace = pproxyPlace;
-    this.openOnStartup = true;
-    this.parentEntry = null;
+    menuValue = pmenuValue;
+    proxyPlace = pproxyPlace;
+    openOnStartup = true;
+    parentEntry = null;
   }
 
   @Override
   public final SafeHtml getMenuValue() {
-    return this.menuValue;
+    return menuValue;
   }
 
   @Override
   public final String getToken() {
-    return this.proxyPlace.getNameToken();
+    return proxyPlace.getNameToken();
   }
 
   @Override
   public final String getFullToken() {
-    return this.proxyPlace.getNameToken();
+    return proxyPlace.getNameToken();
   }
 
   @Override
   public final String getTokenDynamic() {
-    return this.tokenDynamic;
+    return tokenDynamic;
   }
 
   @Override
   public final void setTokenDynamic(final String ptokenDynamic) {
-    if (StringUtils.equals(ptokenDynamic, this.getToken())) {
-      this.tokenDynamic = null;
-    } else if (StringUtils.startsWith(ptokenDynamic, this.getToken())) {
-      this.tokenDynamic = ptokenDynamic.substring(this.getToken().length());
+    if (StringUtils.equals(ptokenDynamic, getToken())) {
+      tokenDynamic = null;
+    } else if (StringUtils.startsWith(ptokenDynamic, getToken())) {
+      tokenDynamic = ptokenDynamic.substring(getToken().length());
     } else {
-      this.tokenDynamic = ptokenDynamic;
+      tokenDynamic = ptokenDynamic;
     }
   }
 
   @Override
   public final NavigationEntryInterface getParentEntry() {
-    return this.parentEntry;
+    return parentEntry;
   }
 
   @Override
   public final void setParentEntry(final NavigationEntryInterface pparentEntry) {
-    this.parentEntry = pparentEntry;
+    parentEntry = pparentEntry;
   }
 
   @Override
   public final boolean isOpenOnStartup() {
-    return this.openOnStartup;
+    return openOnStartup;
   }
 
   @Override
   public final boolean canReveal() {
-    return this.proxyPlace.canReveal();
+    return proxyPlace.canReveal();
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(this.menuValue, this.proxyPlace);
+    return Objects.hash(menuValue, proxyPlace);
   }
 
   @Override
@@ -135,7 +135,7 @@ public class NavigationEntryProxy implements NavigationEntryInterface {
       return false;
     }
     final NavigationEntryProxy other = (NavigationEntryProxy) obj;
-    return Objects.equals(this.menuValue, other.menuValue)
-        && Objects.equals(this.proxyPlace, other.proxyPlace);
+    return Objects.equals(menuValue, other.menuValue)
+        && Objects.equals(proxyPlace, other.proxyPlace);
   }
 }

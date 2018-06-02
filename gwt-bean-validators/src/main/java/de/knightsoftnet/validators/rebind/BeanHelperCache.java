@@ -50,15 +50,15 @@ public class BeanHelperCache { // public for testing
    * Creates a cache. There should be one cache per compiler run. (public for tests.)
    */
   public BeanHelperCache() {
-    this.cache = new HashMap<>();
-    this.serverSideValidator = Validation.buildDefaultValidatorFactory().getValidator();
+    cache = new HashMap<>();
+    serverSideValidator = Validation.buildDefaultValidatorFactory().getValidator();
   }
 
   /**
    * Clears the cache. (Public for testing.)
    */
   public void clear() {
-    this.cache.clear();
+    cache.clear();
   }
 
   /**
@@ -74,7 +74,7 @@ public class BeanHelperCache { // public for testing
   public BeanHelper createHelper(final Class<?> clazz, final TreeLogger logger,
       final GeneratorContext context) throws UnableToCompleteException {
     final JClassType beanType = context.getTypeOracle().findType(clazz.getCanonicalName());
-    return this.doCreateHelper(clazz, beanType, logger, context);
+    return doCreateHelper(clazz, beanType, logger, context);
   }
 
   /**
@@ -86,7 +86,7 @@ public class BeanHelperCache { // public for testing
     final JClassType erasedType = pjtype.getErasedType();
     try {
       final Class<?> clazz = Class.forName(erasedType.getQualifiedBinaryName());
-      return this.doCreateHelper(clazz, erasedType, plogger, pcontext);
+      return doCreateHelper(clazz, erasedType, plogger, pcontext);
     } catch (final ClassNotFoundException e) {
       plogger.log(TreeLogger.ERROR, "Unable to create BeanHelper for " + erasedType, e);
       throw new UnableToCompleteException(); // NOPMD
@@ -94,40 +94,40 @@ public class BeanHelperCache { // public for testing
   }
 
   List<BeanHelper> getAllBeans() {
-    return Util.sortMostSpecificFirst(this.cache.values(), BeanHelper.TO_CLAZZ);
+    return Util.sortMostSpecificFirst(cache.values(), BeanHelper.TO_CLAZZ);
   }
 
   BeanHelper getBean(final JClassType key) {
-    return this.cache.get(key);
+    return cache.get(key);
   }
 
   boolean isClassConstrained(final Class<?> clazz) {
-    return this.serverSideValidator.getConstraintsForClass(clazz).isBeanConstrained();
+    return serverSideValidator.getConstraintsForClass(clazz).isBeanConstrained();
   }
 
   private BeanHelper doCreateHelper(final Class<?> clazz, final JClassType beanType,
       final TreeLogger logger, final GeneratorContext context) throws UnableToCompleteException {
-    BeanHelper helper = this.getBean(beanType);
+    BeanHelper helper = getBean(beanType);
     if (helper == null) {
       BeanDescriptor bean;
       try {
-        bean = this.serverSideValidator.getConstraintsForClass(clazz);
+        bean = serverSideValidator.getConstraintsForClass(clazz);
       } catch (final ValidationException e) {
         logger.log(TreeLogger.ERROR, "Unable to create a validator for " + clazz.getCanonicalName()
             + " because " + e.getMessage(), e);
         throw new UnableToCompleteException(); // NOPMD
       }
       helper = new BeanHelper(beanType, clazz, bean);
-      this.cache.put(helper.getJClass(), helper);
+      cache.put(helper.getJClass(), helper);
 
-      this.writeInterface(context, logger, helper);
+      writeInterface(context, logger, helper);
 
       // now recurse on all Cascaded elements
       for (final PropertyDescriptor p : bean.getConstrainedProperties()) {
         // TODO(idol) only bother creating objects for properties that have constrains in the groups
         // specified in @GwtValidation, but not others
         if (p.isCascaded()) {
-          this.doCreateHelperForProp(p, helper, logger, context);
+          doCreateHelperForProp(p, helper, logger, context);
         }
       }
     }
@@ -153,7 +153,7 @@ public class BeanHelperCache { // public for testing
         this.createHelper(type.getErasedType(), logger, context);
       }
     } else {
-      if (this.serverSideValidator.getConstraintsForClass(elementClass).isBeanConstrained()) {
+      if (serverSideValidator.getConstraintsForClass(elementClass).isBeanConstrained()) {
         this.createHelper(elementClass, logger, context);
       }
     }

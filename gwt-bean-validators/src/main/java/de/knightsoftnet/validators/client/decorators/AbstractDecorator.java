@@ -131,8 +131,8 @@ public abstract class AbstractDecorator<T> extends Composite
   public AbstractDecorator(final Widget pwidget, final PanelLocationEnum errorLocation,
       final Resources decoratorResource) {
     this(errorLocation, decoratorResource);
-    this.widget = pwidget;
-    this.contents.add(pwidget);
+    widget = pwidget;
+    contents.add(pwidget);
   }
 
   /**
@@ -163,11 +163,11 @@ public abstract class AbstractDecorator<T> extends Composite
   public AbstractDecorator(final PanelLocationEnum errorLocation, final Resources resource) {
     super();
     // Inject the stylesheet.
-    this.decoratorStyle = resource.decoratorStyle();
-    this.decoratorStyle.ensureInjected();
+    decoratorStyle = resource.decoratorStyle();
+    decoratorStyle.ensureInjected();
 
-    this.layout = this.createWidgetPanel(errorLocation);
-    this.initWidget(this.layout);
+    layout = createWidgetPanel(errorLocation);
+    initWidget(layout);
   }
 
   private FlowPanel createWidgetPanel(final PanelLocationEnum perrorLocation) {
@@ -177,38 +177,38 @@ public abstract class AbstractDecorator<T> extends Composite
             || perrorLocation == PanelLocationEnum.BOTTOM;
     final FlowPanel layout = new FlowPanel();
     if (perrorLocation == PanelLocationEnum.TOP) {
-      layout.add(this.errorLabel);
-      layout.add(this.contents);
+      layout.add(errorLabel);
+      layout.add(contents);
     } else {
-      layout.add(this.contents);
-      layout.add(this.errorLabel);
+      layout.add(contents);
+      layout.add(errorLabel);
     }
     switch (perrorLocation) {
       case TOP:
-        this.errorLabel.setStylePrimaryName(this.decoratorStyle.errorLabelStyleTop());
-        this.contents.setStylePrimaryName(this.decoratorStyle.contentContainerStyleTop());
+        errorLabel.setStylePrimaryName(decoratorStyle.errorLabelStyleTop());
+        contents.setStylePrimaryName(decoratorStyle.contentContainerStyleTop());
         break;
       case BOTTOM:
-        this.errorLabel.setStylePrimaryName(this.decoratorStyle.errorLabelStyleBottom());
-        this.contents.setStylePrimaryName(this.decoratorStyle.contentContainerStyleBottom());
+        errorLabel.setStylePrimaryName(decoratorStyle.errorLabelStyleBottom());
+        contents.setStylePrimaryName(decoratorStyle.contentContainerStyleBottom());
         break;
       default:
         if (contentFirst) {
-          this.errorLabel.setStylePrimaryName(this.decoratorStyle.errorLabelStyleRight());
-          this.contents.setStylePrimaryName(this.decoratorStyle.contentContainerStyleRight());
+          errorLabel.setStylePrimaryName(decoratorStyle.errorLabelStyleRight());
+          contents.setStylePrimaryName(decoratorStyle.contentContainerStyleRight());
         } else {
-          this.errorLabel.setStylePrimaryName(this.decoratorStyle.errorLabelStyleLeft());
-          this.contents.setStylePrimaryName(this.decoratorStyle.contentContainerStyleLeft());
+          errorLabel.setStylePrimaryName(decoratorStyle.errorLabelStyleLeft());
+          contents.setStylePrimaryName(decoratorStyle.contentContainerStyleLeft());
         }
         break;
     }
-    this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
-    this.focusOnError = true;
+    errorLabel.getElement().getStyle().setDisplay(Display.NONE);
+    focusOnError = true;
     return layout;
   }
 
   public FlowPanel getLayout() {
-    return this.layout;
+    return layout;
   }
 
   /**
@@ -235,17 +235,16 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @UiChild(limit = 1, tagname = "widget")
   public void setChildWidget(final TakesValue<T> pwidget) {
-    this.widget = (Widget) pwidget;
-    this.contents.add(this.widget);
-    this.setEditor(new ExtendedValueBoxEditor<>(pwidget, this));
+    widget = (Widget) pwidget;
+    contents.add(widget);
+    setEditor(new ExtendedValueBoxEditor<>(pwidget, this));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public final HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> phandler) {
-    if (this.contents.getWidget() instanceof HasValueChangeHandlers<?>) {
-      return ((HasValueChangeHandlers<T>) this.contents.getWidget())
-          .addValueChangeHandler(phandler);
+    if (contents.getWidget() instanceof HasValueChangeHandlers<?>) {
+      return ((HasValueChangeHandlers<T>) contents.getWidget()).addValueChangeHandler(phandler);
     }
     return null;
   }
@@ -256,18 +255,18 @@ public abstract class AbstractDecorator<T> extends Composite
    * @param pwidget widget to set the handler to
    */
   protected void addValueChangeHandler(final HasValueChangeHandlers<T> pwidget) {
-    pwidget.addValueChangeHandler(event -> AbstractDecorator.this.clearErrors());
+    pwidget.addValueChangeHandler(event -> clearErrors());
   }
 
   /**
    * clear errors.
    */
   public void clearErrors() {
-    this.errorLabel.setText(StringUtils.EMPTY);
-    this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
-    if (this.contents.getWidget() != null) {
-      this.contents.getWidget().removeStyleName(this.decoratorStyle.errorInputStyle());
-      this.contents.getWidget().removeStyleName(this.decoratorStyle.validInputStyle());
+    errorLabel.setText(StringUtils.EMPTY);
+    errorLabel.getElement().getStyle().setDisplay(Display.NONE);
+    if (contents.getWidget() != null) {
+      contents.getWidget().removeStyleName(decoratorStyle.errorInputStyle());
+      contents.getWidget().removeStyleName(decoratorStyle.validInputStyle());
     }
   }
 
@@ -280,22 +279,22 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @Override
   public void showErrors(final List<EditorError> errors) {
-    final Set<String> messages = errors.stream().filter(error -> this.editorErrorMatches(error))
+    final Set<String> messages = errors.stream().filter(error -> editorErrorMatches(error))
         .map(error -> error.getMessage()).distinct().collect(Collectors.toSet());
 
     if (messages.isEmpty()) {
-      this.errorLabel.setText(StringUtils.EMPTY);
-      this.errorLabel.getElement().getStyle().setDisplay(Display.NONE);
-      if (this.contents.getWidget() != null) {
-        this.contents.getWidget().removeStyleName(this.decoratorStyle.errorInputStyle());
-        this.contents.getWidget().addStyleName(this.decoratorStyle.validInputStyle());
+      errorLabel.setText(StringUtils.EMPTY);
+      errorLabel.getElement().getStyle().setDisplay(Display.NONE);
+      if (contents.getWidget() != null) {
+        contents.getWidget().removeStyleName(decoratorStyle.errorInputStyle());
+        contents.getWidget().addStyleName(decoratorStyle.validInputStyle());
       }
     } else {
-      if (this.contents.getWidget() != null) {
-        this.contents.getWidget().removeStyleName(this.decoratorStyle.validInputStyle());
-        this.contents.getWidget().addStyleName(this.decoratorStyle.errorInputStyle());
-        if (this.focusOnError) {
-          this.setFocus(true);
+      if (contents.getWidget() != null) {
+        contents.getWidget().removeStyleName(decoratorStyle.validInputStyle());
+        contents.getWidget().addStyleName(decoratorStyle.errorInputStyle());
+        if (focusOnError) {
+          setFocus(true);
         }
       }
       final SafeHtmlBuilder sb = new SafeHtmlBuilder();
@@ -303,8 +302,8 @@ public abstract class AbstractDecorator<T> extends Composite
         sb.appendEscaped(message);
         sb.appendHtmlConstant("<br />");
       });
-      this.errorLabel.setHTML(sb.toSafeHtml());
-      this.errorLabel.getElement().getStyle().setDisplay(Display.TABLE);
+      errorLabel.setHTML(sb.toSafeHtml());
+      errorLabel.getElement().getStyle().setDisplay(Display.TABLE);
     }
   }
 
@@ -316,77 +315,77 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.editor));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(editor));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public final T getValue() {
-    if (this.contents.getWidget() instanceof TakesValue<?>) {
-      return ((TakesValue<T>) this.contents.getWidget()).getValue();
+    if (contents.getWidget() instanceof TakesValue<?>) {
+      return ((TakesValue<T>) contents.getWidget()).getValue();
     }
     return null;
   }
 
   @Override
   public final void setValue(final T pvalue) {
-    this.setValue(pvalue, false);
+    setValue(pvalue, false);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public void setValue(final T pvalue, final boolean pfireEvents) {
-    if (this.contents.getWidget() instanceof TakesValue<?>) {
-      this.clearErrors();
-      if (this.contents.getWidget() instanceof HasValue<?>) {
-        ((HasValue<T>) this.contents.getWidget()).setValue(pvalue, pfireEvents);
+    if (contents.getWidget() instanceof TakesValue<?>) {
+      clearErrors();
+      if (contents.getWidget() instanceof HasValue<?>) {
+        ((HasValue<T>) contents.getWidget()).setValue(pvalue, pfireEvents);
       } else {
-        ((TakesValue<T>) this.contents.getWidget()).setValue(pvalue);
+        ((TakesValue<T>) contents.getWidget()).setValue(pvalue);
       }
     }
   }
 
   @Override
   public final void setTabIndex(final int pindex) {
-    if (this.contents.getWidget() instanceof Focusable) {
-      ((Focusable) this.contents.getWidget()).setTabIndex(pindex);
+    if (contents.getWidget() instanceof Focusable) {
+      ((Focusable) contents.getWidget()).setTabIndex(pindex);
     }
   }
 
   @Override
   public final int getTabIndex() {
-    if (this.contents.getWidget() instanceof Focusable) {
-      return ((Focusable) this.contents.getWidget()).getTabIndex();
+    if (contents.getWidget() instanceof Focusable) {
+      return ((Focusable) contents.getWidget()).getTabIndex();
     }
     return 0;
   }
 
   @Override
   public final void setAccessKey(final char pkey) {
-    if (this.contents.getWidget() instanceof Focusable) {
-      ((Focusable) this.contents.getWidget()).setAccessKey(pkey);
+    if (contents.getWidget() instanceof Focusable) {
+      ((Focusable) contents.getWidget()).setAccessKey(pkey);
     }
   }
 
   @Override
   public final void setFocus(final boolean pfocused) {
-    if (this.contents.getWidget() instanceof Focusable) {
-      ((Focusable) this.contents.getWidget()).setFocus(pfocused);
+    if (contents.getWidget() instanceof Focusable) {
+      ((Focusable) contents.getWidget()).setFocus(pfocused);
     }
   }
 
   @Override
   public boolean isEnabled() {
-    if (this.contents.getWidget() instanceof HasEnabled) {
-      ((HasEnabled) this.contents.getWidget()).isEnabled();
+    if (contents.getWidget() instanceof HasEnabled) {
+      ((HasEnabled) contents.getWidget()).isEnabled();
     }
     return false;
   }
 
   @Override
   public void setEnabled(final boolean penabled) {
-    if (this.contents.getWidget() instanceof HasEnabled) {
-      ((HasEnabled) this.contents.getWidget()).setEnabled(penabled);
+    if (contents.getWidget() instanceof HasEnabled) {
+      ((HasEnabled) contents.getWidget()).setEnabled(penabled);
     }
   }
 
@@ -397,7 +396,7 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @Override
   public final Widget getWidget() {
-    return this.widget;
+    return widget;
   }
 
   /**
@@ -408,7 +407,7 @@ public abstract class AbstractDecorator<T> extends Composite
    */
   @Override
   public ValueBoxEditor<T> asEditor() {
-    return this.editor;
+    return editor;
   }
 
   /**
@@ -418,7 +417,7 @@ public abstract class AbstractDecorator<T> extends Composite
    * @see #asEditor()
    */
   public final void setEditor(final ExtendedValueBoxEditor<T> peditor) {
-    this.editor = peditor;
+    editor = peditor;
   }
 
   /**
@@ -427,7 +426,7 @@ public abstract class AbstractDecorator<T> extends Composite
    * @return true if widget should get focus on error
    */
   public final boolean isFocusOnError() {
-    return this.focusOnError;
+    return focusOnError;
   }
 
   /**
@@ -436,21 +435,21 @@ public abstract class AbstractDecorator<T> extends Composite
    * @param pfocusOnError the focusOnError to set
    */
   public final void setFocusOnError(final boolean pfocusOnError) {
-    this.focusOnError = pfocusOnError;
+    focusOnError = pfocusOnError;
   }
 
   @Override
   public final HandlerRegistration addKeyPressHandler(final KeyPressHandler phandler) {
-    if (this.contents.getWidget() instanceof HasKeyPressHandlers) {
-      return ((HasKeyPressHandlers) this.contents.getWidget()).addKeyPressHandler(phandler);
+    if (contents.getWidget() instanceof HasKeyPressHandlers) {
+      return ((HasKeyPressHandlers) contents.getWidget()).addKeyPressHandler(phandler);
     }
     return null;
   }
 
   @Override
   public HandlerRegistration addKeyUpHandler(final KeyUpHandler pkeyUpHandler) {
-    if (this.contents.getWidget() instanceof HasKeyUpHandlers) {
-      return ((HasKeyUpHandlers) this.contents.getWidget()).addKeyUpHandler(pkeyUpHandler);
+    if (contents.getWidget() instanceof HasKeyUpHandlers) {
+      return ((HasKeyUpHandlers) contents.getWidget()).addKeyUpHandler(pkeyUpHandler);
     }
     return null;
   }

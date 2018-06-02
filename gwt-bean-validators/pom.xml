@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>de.knightsoft-net</groupId>
 		<artifactId>gwt-bean-validators-parent</artifactId>
-		<version>0.55.1</version>
+		<version>0.55.2</version>
 	</parent>
 	<artifactId>gwt-bean-validators</artifactId>
 	<packaging>jar</packaging>
@@ -73,6 +73,7 @@
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-client</artifactId>
+			<version>${websocket-client.version}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -256,7 +257,7 @@
 					</dependency>
 				</dependencies>
 				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
+					<configLocation>${project.basedir}/../codequality/checkstyle.xml</configLocation>
 					<encoding>UTF-8</encoding>
 				</configuration>
 				<executions>
@@ -275,7 +276,7 @@
 				<version>${maven-pmd-plugin.version}</version>
 				<configuration>
 					<rulesets>
-						<ruleset>.ruleset</ruleset>
+						<ruleset>${project.basedir}/../codequality/pmd-ruleset.xml</ruleset>
 					</rulesets>
 				</configuration>
 				<executions>
@@ -293,7 +294,7 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs-maven-plugin.version}</version>
 				<configuration>
-					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+					<excludeFilterFile>${project.basedir}/../codequality/findbugs-exclude.xml</excludeFilterFile>
 				</configuration>
 				<executions>
 					<execution>

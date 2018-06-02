@@ -68,12 +68,12 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
 
   protected AbstractBaseMessageInterpolator(
       final UserValidationMessagesResolver userValidationMessagesResolver) {
-    this.userReplacer = createReplacer(userValidationMessagesResolver);
+    userReplacer = createReplacer(userValidationMessagesResolver);
   }
 
   @Override
   public final String interpolate(final String messageTemplate, final Context context) {
-    return this.gwtInterpolate(messageTemplate, context, null);
+    return gwtInterpolate(messageTemplate, context, null);
   }
 
   @Override
@@ -97,17 +97,17 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
 
         // Step 1 Replace message parameters using custom user messages
         // repeat
-        resolvedMessage = this.replaceParameters(resolvedMessage, this.userReplacer);
+        resolvedMessage = replaceParameters(resolvedMessage, userReplacer);
       } while (!step1message.equals(resolvedMessage));
 
       // Step2 Replace message parameter using the default provider messages.
-      resolvedMessage = this.replaceParameters(resolvedMessage, this.providerReplacer);
+      resolvedMessage = replaceParameters(resolvedMessage, providerReplacer);
 
       // Step 3 repeat from step 1 if step 2 made changes.
     } while (!step1message.equals(resolvedMessage));
 
     // step 4 resolve annotation attributes
-    resolvedMessage = this.replaceParameters(resolvedMessage,
+    resolvedMessage = replaceParameters(resolvedMessage,
         createAnnotationReplacer(context.getConstraintDescriptor().getAttributes()));
 
     // Remove escapes (4.3.1)
@@ -126,7 +126,7 @@ abstract class AbstractBaseMessageInterpolator implements MessageInterpolator {
     while (matcher != null) {
       final String matched = matcher.getGroup(0);
       sb.append(message.substring(index, matcher.getIndex()));
-      final Object value = replacer.apply(this.removeCurlyBrace(matched));
+      final Object value = replacer.apply(removeCurlyBrace(matched));
       sb.append(value == null ? matched : value);
       index = MESSAGE_PARAMETER_PATTERN.getLastIndex();
       matcher = MESSAGE_PARAMETER_PATTERN.exec(message);

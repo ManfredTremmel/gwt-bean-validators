@@ -49,26 +49,26 @@ public class PhoneNumberCommonItemSuggest extends AbstractPhoneNumberItemSuggest
 
   @Override
   public String getDisplayString() {
-    if (StringUtils.isEmpty(this.getAreaCode())) {
-      return "+" + this.getCountryCode() + " - " + this.getCountryName();
+    if (StringUtils.isEmpty(getAreaCode())) {
+      return "+" + getCountryCode() + " - " + getCountryName();
     }
-    return "+" + this.getCountryCode() + " (" + this.getTrunkCode() + ")" + this.getAreaCode()
-        + " - " + this.getAreaName();
+    return "+" + getCountryCode() + " (" + getTrunkCode() + ")" + getAreaCode() + " - "
+        + getAreaName();
   }
 
   @Override
   public String getReplacementString() {
-    if (StringUtils.isEmpty(this.getAreaCode())) {
-      return "+" + this.getCountryCode();
+    if (StringUtils.isEmpty(getAreaCode())) {
+      return "+" + getCountryCode();
     }
-    return "+" + this.getCountryCode() + " (" + this.getTrunkCode() + ")" + this.getAreaCode();
+    return "+" + getCountryCode() + " (" + getTrunkCode() + ")" + getAreaCode();
   }
 
   private String getTrunkCode() {
     PhoneCountryData phoneCountryData = null;
     for (final PhoneCountryCodeData country : PhoneNumberCommonItemSuggest.COUNTRY_CONSTANTS
         .countryCodeData()) {
-      if (StringUtils.equals(country.getCountryCode(), this.getCountryCode())) {
+      if (StringUtils.equals(country.getCountryCode(), getCountryCode())) {
         phoneCountryData = country.getPhoneCountryData();
         break;
       }

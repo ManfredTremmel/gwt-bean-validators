@@ -39,8 +39,8 @@ public class PhoneNumberE123InterSuggestBox extends AbstractPhoneNumberSuggestBo
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(this.phoneNumberUtil.formatE123InternationalWithPos(pvalue,
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()))));
+    setTextWithPos(phoneNumberUtil.formatE123InternationalWithPos(pvalue,
+        StringUtils.upperCase(Objects.toString(countryCodeField.getValue()))));
   }
 
   @Override

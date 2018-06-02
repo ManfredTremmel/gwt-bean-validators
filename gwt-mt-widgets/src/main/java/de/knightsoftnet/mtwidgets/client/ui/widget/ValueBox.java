@@ -73,7 +73,7 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
     // BiDi input is not expected - disable direction estimation.
     this.setDirectionEstimator(false);
     if (LocaleInfo.getCurrentLocale().isRTL()) {
-      this.setDirection(Direction.LTR);
+      setDirection(Direction.LTR);
     }
     assert InputElement.as(element).getType().equalsIgnoreCase("text");
   }
@@ -94,7 +94,7 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
     // BiDi input is not expected - disable direction estimation.
     this.setDirectionEstimator(false);
     if (LocaleInfo.getCurrentLocale().isRTL()) {
-      this.setDirection(Direction.LTR);
+      setDirection(Direction.LTR);
     }
   }
 
@@ -104,7 +104,7 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
    * @return the maximum length, in characters
    */
   public int getMaxLength() {
-    return this.getInputElement().getMaxLength();
+    return getInputElement().getMaxLength();
   }
 
   /**
@@ -113,7 +113,7 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
    * @return the number of visible characters
    */
   public int getVisibleLength() {
-    return this.getInputElement().getSize();
+    return getInputElement().getSize();
   }
 
   /**
@@ -122,7 +122,7 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
    * @param length the maximum length, in characters
    */
   public void setMaxLength(final int length) {
-    this.getInputElement().setMaxLength(length);
+    getInputElement().setMaxLength(length);
   }
 
   /**
@@ -131,6 +131,6 @@ public class ValueBox<T> extends ValueBoxBaseWithEditorErrors<T> {
    * @param length the number of visible characters
    */
   public void setVisibleLength(final int length) {
-    this.getInputElement().setSize(length);
+    getInputElement().setSize(length);
   }
 }

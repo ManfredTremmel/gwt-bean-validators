@@ -43,7 +43,7 @@ public class ChangeUserEvent extends GwtEvent<ChangeUserEvent.ChangeUserHandler>
 
   public ChangeUserEvent(final User puser) {
     super();
-    this.user = puser;
+    user = puser;
   }
 
   public static Type<ChangeUserHandler> getType() {
@@ -61,6 +61,6 @@ public class ChangeUserEvent extends GwtEvent<ChangeUserEvent.ChangeUserHandler>
   }
 
   public User getUser() {
-    return this.user;
+    return user;
   }
 }

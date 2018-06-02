@@ -63,6 +63,6 @@ public class EditorDeleteEvent<T> extends GwtEvent<EditorDeleteEvent.EditorDelet
   }
 
   public Editor<T> getEditor() {
-    return this.editor;
+    return editor;
   }
 }

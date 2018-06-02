@@ -41,7 +41,7 @@ public class FormatKeyUpHandler<E> extends ValueBoxFromEvent<E> implements KeyUp
       keyCode = pevent.getNativeEvent().getKeyCode();
     }
     final HasFormating formatingWidget = (HasFormating) pevent.getSource();
-    final ValueBoxBase<?> textBox = this.getTextBoxFromEvent(pevent);
+    final ValueBoxBase<?> textBox = getTextBoxFromEvent(pevent);
     final int cursorPos = textBox.getCursorPos();
     final String oldValue = textBox.getText();
     int newCursorPos = cursorPos;
@@ -103,8 +103,7 @@ public class FormatKeyUpHandler<E> extends ValueBoxFromEvent<E> implements KeyUp
         final boolean ctlr = pevent.isControlKeyDown();
         if (ctlr && charCode == 86) {
           pevent.getNativeEvent().stopPropagation();
-          formatingWidget
-              .formatValue(new ValueWithPos<>(oldValue, StringUtils.length(oldValue)));
+          formatingWidget.formatValue(new ValueWithPos<>(oldValue, StringUtils.length(oldValue)));
         }
         break;
     }

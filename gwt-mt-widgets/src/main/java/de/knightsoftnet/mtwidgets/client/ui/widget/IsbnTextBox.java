@@ -33,13 +33,13 @@ public class IsbnTextBox extends AbstractFormatingTextBox {
    */
   public IsbnTextBox() {
     super();
-    this.setMaxLength(17);
-    this.setVisibleLength(17);
+    setMaxLength(17);
+    setVisibleLength(17);
   }
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(IsbnUtil.isbnFormatWithPos(pvalue));
+    setTextWithPos(IsbnUtil.isbnFormatWithPos(pvalue));
   }
 
   @Override

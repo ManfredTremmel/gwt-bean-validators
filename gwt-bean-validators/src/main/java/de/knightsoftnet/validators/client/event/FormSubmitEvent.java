@@ -89,7 +89,7 @@ public class FormSubmitEvent<T> extends GwtEvent<FormSubmitHandler<T>> {
    * @return the value
    */
   public T getValue() {
-    return this.value;
+    return value;
   }
 
   @Override

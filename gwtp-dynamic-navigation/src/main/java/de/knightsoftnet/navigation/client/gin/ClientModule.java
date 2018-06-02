@@ -36,7 +36,7 @@ public class ClientModule extends AbstractPresenterModule {
   @Override
   protected void configure() {
     // dummy, redefine in your application
-    this.install(new DefaultModule.Builder().placeManager(OwnPlaceManagerImpl.class)
+    install(new DefaultModule.Builder().placeManager(OwnPlaceManagerImpl.class)
         .defaultPlace(NameTokens.LOGIN).errorPlace(NameTokens.LOGIN)
         .unauthorizedPlace(NameTokens.LOGIN).build());
 

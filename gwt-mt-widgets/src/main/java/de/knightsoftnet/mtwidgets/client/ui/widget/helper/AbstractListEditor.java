@@ -32,9 +32,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * editor to show a list of items entries.
@@ -52,13 +52,13 @@ public abstract class AbstractListEditor<D, V extends AbstractListItemView<D>> e
 
 
   public void removeEntry(final int ppos) {
-    this.asEditor().getList().remove(ppos);
-    ValueChangeEvent.fire(this, this.asEditor().getList());
+    asEditor().getList().remove(ppos);
+    ValueChangeEvent.fire(this, asEditor().getList());
   }
 
   public void addNewEntry() {
-    this.asEditor().getList().add(this.createData());
-    ValueChangeEvent.fire(this, this.asEditor().getList());
+    asEditor().getList().add(this.createData());
+    ValueChangeEvent.fire(this, asEditor().getList());
   }
 
   /**
@@ -74,17 +74,13 @@ public abstract class AbstractListEditor<D, V extends AbstractListItemView<D>> e
    * @param pparentDriver BeanValidationEditorDriver to set
    */
   public final void setParentDriver(final BeanValidationEditorDriver<?, ?> pparentDriver) {
-    this.asEditor().setParentDriver(pparentDriver);
+    asEditor().setParentDriver(pparentDriver);
   }
 
   @Override
   public void showErrors(final List<EditorError> perrors) {
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : perrors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+    final Set<String> messages = perrors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       if (this.validationMessageElement != null) {
         this.validationMessageElement.getElement().setInnerText(StringUtils.EMPTY);
@@ -117,7 +113,7 @@ public abstract class AbstractListEditor<D, V extends AbstractListItemView<D>> e
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(asEditor()));
   }
 
   @Override

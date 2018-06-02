@@ -40,10 +40,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * a list box with id and name.
@@ -87,7 +87,7 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
     this.entries.clear();
     this.entries.addAll(pentries);
 
-    this.clear();
+    clear();
     for (final IdAndNameBean<T> entry : this.entries) {
       this.addItem(entry.getName(), Objects.toString(entry.getId()));
     }
@@ -104,13 +104,13 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
   }
 
   protected void ensureDomEventHandlers() {
-    this.addChangeHandler(pevent -> ValueChangeEvent.fire(this, this.getValue()));
+    addChangeHandler(pevent -> ValueChangeEvent.fire(this, this.getValue()));
   }
 
   @Override
   public T getValue() {
-    if (this.getSelectedIndex() >= 0 && this.getSelectedIndex() < this.entries.size()) {
-      return this.entries.get(this.getSelectedIndex()).getId();
+    if (getSelectedIndex() >= 0 && getSelectedIndex() < this.entries.size()) {
+      return this.entries.get(getSelectedIndex()).getId();
     }
     return null;
   }
@@ -126,7 +126,7 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
     final T oldValue = this.getValue();
     for (final IdAndNameBean<T> entry : this.entries) {
       if (Objects.equals(pvalue, entry.getId())) {
-        this.setSelectedIndex(pos);
+        setSelectedIndex(pos);
         if (pfireEvents) {
           ValueChangeEvent.fireIfNotEqual(this, oldValue, pvalue);
         }
@@ -134,21 +134,17 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
       }
       pos++;
     }
-    this.setSelectedIndex(-1);
+    setSelectedIndex(-1);
     if (pfireEvents) {
       ValueChangeEvent.fireIfNotEqual(this, oldValue, null);
     }
   }
 
   @Override
-  public void showErrors(final List<EditorError> errors) {
-    final SelectElement selectElement = this.getElement().cast();
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+  public void showErrors(final List<EditorError> perrors) {
+    final SelectElement selectElement = getElement().cast();
+    final Set<String> messages = perrors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       if (FeatureCheck.supportCustomValidity(selectElement)) {
         selectElement.setCustomValidity(StringUtils.EMPTY);
@@ -180,7 +176,7 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
   }
 
   @Override
@@ -190,13 +186,13 @@ public class IdAndNameListBox<T extends Comparable<T>> extends ListBox implement
 
   @Override
   public boolean isAutofocus() {
-    final SelectElement selectElement = this.getElement().cast();
+    final SelectElement selectElement = getElement().cast();
     return selectElement.isAutofocus();
   }
 
   @Override
   public void setAutofocus(final boolean arg) {
-    final SelectElement selectElement = this.getElement().cast();
+    final SelectElement selectElement = getElement().cast();
     selectElement.setAutofocus(arg);
   }
 

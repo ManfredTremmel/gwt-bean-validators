@@ -12,8 +12,14 @@
   <!-- elemental support -->
   <inherits name="elemental.Elemental" />
 
+  <!-- guave caching support -->
+  <inherits name="com.google.common.cache.Cache" />
+
   <!-- Spring Core -->
   <inherits name="org.springframework.Core" />
+
+  <!-- Spring Data Common -->
+  <inherits name="org.springframework.data.Common" />
 
   <!-- Spring Security Core -->
   <inherits name="org.springframework.security.Core" />
@@ -22,4 +28,5 @@
   <source path='client' />
   <source path='shared' />
 
+  <super-source path="supersource" />
 </module>

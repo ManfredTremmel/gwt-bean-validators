@@ -45,24 +45,24 @@ public abstract class AbstractBaseGwtConfiguration
 
   public AbstractBaseGwtConfiguration(final GwtValidationProvider gwtValidationProvider,
       final BootstrapState state) {
-    this.provider = gwtValidationProvider;
+    provider = gwtValidationProvider;
     this.state = state;
   }
 
   @Override
   public final AbstractBaseGwtConfiguration addProperty(final String name, final String value) {
-    this.properties.put(name, value);
+    properties.put(name, value);
     return this;
   }
 
   @Override
   public final ValidatorFactory buildValidatorFactory() {
     final GwtConfigurationState configurationState = new GwtConfigurationState( //
-        this.constraintValidatorFactoryProperty, //
-        this.messageInterpolatorProperty, //
-        this.properties, //
-        this.traversableResolverProperty);
-    return this.provider.buildValidatorFactory(configurationState);
+        constraintValidatorFactoryProperty, //
+        messageInterpolatorProperty, //
+        properties, //
+        traversableResolverProperty);
+    return provider.buildValidatorFactory(configurationState);
   }
 
   /**
@@ -72,7 +72,7 @@ public abstract class AbstractBaseGwtConfiguration
   @Override
   public final AbstractBaseGwtConfiguration constraintValidatorFactory(
       final ConstraintValidatorFactory constraintValidatorFactory) {
-    this.constraintValidatorFactoryProperty = constraintValidatorFactory;
+    constraintValidatorFactoryProperty = constraintValidatorFactory;
     return this;
   }
 
@@ -100,14 +100,14 @@ public abstract class AbstractBaseGwtConfiguration
   @Override
   public final AbstractBaseGwtConfiguration messageInterpolator(
       final MessageInterpolator interpolator) {
-    this.messageInterpolatorProperty = interpolator;
+    messageInterpolatorProperty = interpolator;
     return this;
   }
 
   @Override
   public final AbstractBaseGwtConfiguration traversableResolver(
       final TraversableResolver resolver) {
-    this.traversableResolverProperty = resolver;
+    traversableResolverProperty = resolver;
     return this;
   }
 }

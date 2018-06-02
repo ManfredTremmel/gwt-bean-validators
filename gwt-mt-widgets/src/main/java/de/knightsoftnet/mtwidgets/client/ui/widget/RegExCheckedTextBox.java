@@ -41,22 +41,22 @@ public class RegExCheckedTextBox extends TextBox {
   @UiConstructor
   public RegExCheckedTextBox(final String regex) {
     super();
-    this.regEx = regex;
-    this.addKeyPressHandler(HandlerFactory.getRegExKeyPressHandler(regex));
+    regEx = regex;
+    addKeyPressHandler(HandlerFactory.getRegExKeyPressHandler(regex));
   }
 
   @Override
   public String getValueOrThrow() throws ParseException {
-    final String result = this.getValue();
+    final String result = getValue();
     boolean matches = false;
     try {
-      matches = StringUtils.defaultString(result).matches(this.regEx);
+      matches = StringUtils.defaultString(result).matches(regEx);
     } catch (final Exception e) {
       throw new ParseException(e.getMessage(), 0); // NOPMD we don't need stack trace
     }
 
     if (!matches) {
-      throw new ParseException("doesn't match regex: '" + this.regEx + "'", 0);
+      throw new ParseException("doesn't match regex: '" + regEx + "'", 0);
     }
     return result;
   }

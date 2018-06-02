@@ -68,7 +68,7 @@ public class Validation {
 
     @Override
     public Configuration<?> configure() {
-      final ValidationProviderResolver aResolver = this.getDefaultValidationProviderResolver();
+      final ValidationProviderResolver aResolver = getDefaultValidationProviderResolver();
 
       List<ValidationProvider<?>> resolvers;
       try {
@@ -94,15 +94,15 @@ public class Validation {
 
     @Override
     public ValidationProviderResolver getDefaultValidationProviderResolver() {
-      if (this.defaultResolver == null) {
-        this.defaultResolver = GWT.create(ValidationProviderResolver.class);
+      if (defaultResolver == null) {
+        defaultResolver = GWT.create(ValidationProviderResolver.class);
       }
-      return this.defaultResolver;
+      return defaultResolver;
     }
 
     @Override
     public ValidationProviderResolver getValidationProviderResolver() {
-      return this.getDefaultValidationProviderResolver();
+      return getDefaultValidationProviderResolver();
     }
 
     /**

@@ -41,17 +41,17 @@ public class PhoneNumberE123ItemSuggest extends AbstractPhoneNumberItemSuggest {
 
   @Override
   public String getDisplayString() {
-    if (StringUtils.isEmpty(this.getAreaCode())) {
-      return "+" + this.getCountryCode() + " - " + this.getCountryName();
+    if (StringUtils.isEmpty(getAreaCode())) {
+      return "+" + getCountryCode() + " - " + getCountryName();
     }
-    return "+" + this.getCountryCode() + " " + this.getAreaCode() + " - " + this.getAreaName();
+    return "+" + getCountryCode() + " " + getAreaCode() + " - " + getAreaName();
   }
 
   @Override
   public String getReplacementString() {
-    if (StringUtils.isEmpty(this.getAreaCode())) {
-      return "+" + this.getCountryCode();
+    if (StringUtils.isEmpty(getAreaCode())) {
+      return "+" + getCountryCode();
     }
-    return "+" + this.getCountryCode() + " " + this.getAreaCode();
+    return "+" + getCountryCode() + " " + getAreaCode();
   }
 }

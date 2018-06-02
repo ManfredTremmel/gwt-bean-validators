@@ -42,51 +42,51 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
   public PhoneAreaCodeData(final String pareaCode, final String pareaName,
       final int pcountryCodeLength) {
     super();
-    this.areaCode = StringUtils.replace(pareaCode, "u5b", "[");
-    this.regEx = !StringUtils.isNumeric(pareaCode);
+    areaCode = StringUtils.replace(pareaCode, "u5b", "[");
+    regEx = !StringUtils.isNumeric(pareaCode);
     if (StringUtils.contains(pareaName, '¡')) {
       final String[] splittedName = StringUtils.defaultString(pareaName).split("¡");
-      this.areaName = splittedName[0];
+      areaName = splittedName[0];
       if (splittedName.length > 1) {
-        this.minLength = Integer.parseInt(splittedName[1]);
+        minLength = Integer.parseInt(splittedName[1]);
       } else {
-        this.minLength = 2;
+        minLength = 2;
       }
       if (splittedName.length > 2) {
-        this.maxLength = Integer.parseInt(splittedName[2]);
+        maxLength = Integer.parseInt(splittedName[2]);
       } else {
-        this.maxLength = 15 - pcountryCodeLength - (this.regEx ? 3 : StringUtils.length(pareaCode));
+        maxLength = 15 - pcountryCodeLength - (regEx ? 3 : StringUtils.length(pareaCode));
       }
     } else {
-      this.areaName = pareaName;
-      this.minLength = 2;
-      this.maxLength = 15 - pcountryCodeLength - (this.regEx ? 2 : StringUtils.length(pareaCode));
+      areaName = pareaName;
+      minLength = 2;
+      maxLength = 15 - pcountryCodeLength - (regEx ? 2 : StringUtils.length(pareaCode));
     }
   }
 
   public String getAreaCode() {
-    return this.areaCode;
+    return areaCode;
   }
 
   public boolean isRegEx() {
-    return this.regEx;
+    return regEx;
   }
 
   public String getAreaName() {
-    return this.areaName;
+    return areaName;
   }
 
   public final int getMinLength() {
-    return this.minLength;
+    return minLength;
   }
 
   public final int getMaxLength() {
-    return this.maxLength;
+    return maxLength;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.areaCode);
+    return Objects.hashCode(areaCode);
   }
 
   @Override
@@ -101,35 +101,35 @@ public class PhoneAreaCodeData implements Comparable<PhoneAreaCodeData> {
       return false;
     }
     final PhoneAreaCodeData other = (PhoneAreaCodeData) pobj;
-    return StringUtils.equals(this.areaCode, other.areaCode);
+    return StringUtils.equals(areaCode, other.areaCode);
   }
 
   @Override
   public int compareTo(final PhoneAreaCodeData pcompare) {
-    if (this.equals(pcompare)) {
+    if (equals(pcompare)) {
       return 0;
     }
     if (pcompare == null) {
       return 1;
     }
-    if (this.regEx == pcompare.regEx) {
-      if (this.areaCode == null) {
+    if (regEx == pcompare.regEx) {
+      if (areaCode == null) {
         return -1;
       }
-      if (this.areaCode.equals(pcompare.areaCode)) {
+      if (areaCode.equals(pcompare.areaCode)) {
         return 0;
       }
       if (pcompare.areaCode == null) {
         return 1;
       }
-      if (this.areaCode.startsWith(pcompare.areaCode)) {
+      if (areaCode.startsWith(pcompare.areaCode)) {
         return -1;
       }
-      if (pcompare.areaCode.startsWith(this.areaCode)) {
+      if (pcompare.areaCode.startsWith(areaCode)) {
         return 1;
       }
-      return this.areaCode.compareTo(pcompare.areaCode);
+      return areaCode.compareTo(pcompare.areaCode);
     }
-    return this.regEx ? 1 : -1;
+    return regEx ? 1 : -1;
   }
 }

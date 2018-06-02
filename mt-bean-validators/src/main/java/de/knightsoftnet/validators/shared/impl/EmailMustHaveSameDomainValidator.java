@@ -64,11 +64,11 @@ public class EmailMustHaveSameDomainValidator
    */
   @Override
   public final void initialize(final EmailMustHaveSameDomain pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.field1Name = pconstraintAnnotation.field1();
-    this.field2Name = pconstraintAnnotation.field2();
-    this.addErrorToField1 = pconstraintAnnotation.addErrorToField1();
-    this.addErrorToField2 = pconstraintAnnotation.addErrorToField2();
+    message = pconstraintAnnotation.message();
+    field1Name = pconstraintAnnotation.field1();
+    field2Name = pconstraintAnnotation.field2();
+    addErrorToField1 = pconstraintAnnotation.addErrorToField1();
+    addErrorToField2 = pconstraintAnnotation.addErrorToField2();
   }
 
   /**
@@ -83,17 +83,17 @@ public class EmailMustHaveSameDomainValidator
       return true;
     }
     try {
-      final String field1Value = this
-          .getDomainOf(BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.field1Name));
-      final String field2Value = this
-          .getDomainOf(BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.field2Name));
+      final String field1Value =
+          getDomainOf(BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, field1Name));
+      final String field2Value =
+          getDomainOf(BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, field2Name));
       if (!StringUtils.equals(field1Value, field2Value)) {
-        this.switchContext(pcontext);
+        switchContext(pcontext);
         return false;
       }
       return true;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
@@ -109,14 +109,14 @@ public class EmailMustHaveSameDomainValidator
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
-    if (this.addErrorToField1 || this.addErrorToField2) {
+    if (addErrorToField1 || addErrorToField2) {
       pcontext.disableDefaultConstraintViolation();
-      if (this.addErrorToField1) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field1Name)
+      if (addErrorToField1) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field1Name)
             .addConstraintViolation();
       }
-      if (this.addErrorToField2) {
-        pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.field2Name)
+      if (addErrorToField2) {
+        pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(field2Name)
             .addConstraintViolation();
       }
     }

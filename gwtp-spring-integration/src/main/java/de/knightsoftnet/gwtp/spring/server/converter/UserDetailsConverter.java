@@ -23,7 +23,7 @@ import de.knightsoftnet.gwtp.spring.shared.models.User;
 /**
  * interface of a converter which converts UserDetails given by spring security into a
  * implementation of the User interface.
- * 
+ *
  * @author Manfred Tremmel
  *
  */

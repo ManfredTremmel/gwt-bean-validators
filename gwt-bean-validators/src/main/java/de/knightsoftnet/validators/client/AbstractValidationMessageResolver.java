@@ -25,7 +25,7 @@ public abstract class AbstractValidationMessageResolver { // NOPMD
   private final ConstantsWithLookup messages;
 
   protected AbstractValidationMessageResolver(final ConstantsWithLookup pmessages) {
-    this.messages = pmessages;
+    messages = pmessages;
   }
 
   /**
@@ -37,7 +37,7 @@ public abstract class AbstractValidationMessageResolver { // NOPMD
   public final String get(final String pkey) {
     try {
       // Replace "." with "_" in the key to match what ConstantsImplCreator does.
-      return pkey == null ? null : this.messages.getString(pkey.replace(".", "_"));
+      return pkey == null ? null : messages.getString(pkey.replace(".", "_"));
     } catch (final MissingResourceException e) {
       return null;
     }

@@ -68,28 +68,28 @@ public class Group {
       return false;
     }
     final Group other = (Group) pobject;
-    return Objects.equals(this.group, other.group);
+    return Objects.equals(group, other.group);
   }
 
   public Class<?> getGroup() {
-    return this.group;
+    return group;
   }
 
   public Class<?> getSequence() {
-    return this.sequence;
+    return sequence;
   }
 
   @Override
   public int hashCode() {
-    return this.group.hashCode();
+    return group.hashCode();
   }
 
   public boolean isDefaultGroup() {
-    return this.getGroup().getName().equals(Default.class.getName());
+    return getGroup().getName().equals(Default.class.getName());
   }
 
   @Override
   public String toString() {
-    return "Group{" + "group=" + this.group.getName() + "}";
+    return "Group{" + "group=" + group.getName() + "}";
   }
 }

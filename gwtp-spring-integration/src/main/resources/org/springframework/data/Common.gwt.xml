@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.8.2//EN"
+ "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
+<module rename-to='GwtSpringDataCommonGwtp'>
+  <source path="domain">
+    <include name="AbstractPageRequest.java"/>
+    <include name="Chunk.java"/>
+    <include name="Page.java"/>
+    <include name="Pageable.java"/>
+    <include name="PageImpl.java"/>
+    <include name="PageRequest.java"/>
+    <include name="Slice.java"/>
+    <include name="SliceImpl.java"/>
+    <include name="Sort.java"/>
+    <include name="Unpaged.java"/>
+  </source>
+  <source path="util">
+    <include name="LazyStreamable.java"/>
+    <include name="Streamable.java"/>
+  </source>
+</module>

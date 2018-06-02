@@ -53,12 +53,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * a radio box with id and name which is sortable and returns id.
@@ -119,7 +119,7 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
 
     this.fillEntries(pids);
 
-    this.initWidget(this.flowPanel);
+    initWidget(this.flowPanel);
     this.editor = new ExtendedValueBoxEditor<>(this, null);
   }
 
@@ -130,38 +130,42 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
    */
   private void fillEntries(final Collection<T> pids) {
     this.entries.clear();
-    for (final T proEnum : pids) {
-      this.entries.add(new IdAndNameBean<>(proEnum, this.messages.name(proEnum)));
-    }
-    if (this.sortOrder != null) {
-      switch (this.sortOrder) {
+    final Stream<IdAndNameBean<T>> stream =
+        pids.stream().map(proEnum -> new IdAndNameBean<>(proEnum, this.messages.name(proEnum)));
+    final Stream<IdAndNameBean<T>> sortedStream;
+
+    if (this.sortOrder == null) {
+      sortedStream = stream;
+    } else {
+      switch (this.sortOrder == null ? null : this.sortOrder) {
         case ID_ASC:
-          Collections.sort(this.entries, new IdAndNameIdComperator<T>());
+          sortedStream = stream.sorted(new IdAndNameIdComperator<T>());
           break;
         case ID_DSC:
-          Collections.sort(this.entries, Collections.reverseOrder(new IdAndNameIdComperator<T>()));
+          sortedStream = stream.sorted(Collections.reverseOrder(new IdAndNameIdComperator<T>()));
           break;
         case NAME_ASC:
-          Collections.sort(this.entries, new IdAndNameNameComperator<T>());
+          sortedStream = stream.sorted(new IdAndNameNameComperator<T>());
           break;
         case NAME_DSC:
-          Collections.sort(this.entries,
-              Collections.reverseOrder(new IdAndNameNameComperator<T>()));
+          sortedStream = stream.sorted(Collections.reverseOrder(new IdAndNameNameComperator<T>()));
           break;
         default:
+          sortedStream = stream;
           break;
       }
     }
+    this.entries.addAll(sortedStream.collect(Collectors.toList()));
 
     this.flowPanel.clear();
 
-    for (final IdAndNameBean<T> entry : this.entries) {
+    this.entries.forEach(entry -> {
       final RadioButton radioButton = new RadioButton(this.widgetId, entry.getName());
       radioButton.setFormValue(Objects.toString(entry.getId()));
       radioButton.setEnabled(this.enabled);
       this.flowPanel.add(radioButton);
       this.idToButtonMap.put(entry.getId(), radioButton);
-    }
+    });
   }
 
   @Override
@@ -175,19 +179,15 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
   }
 
   protected void ensureDomEventHandlers() {
-    for (final RadioButton radioButton : this.idToButtonMap.values()) {
-      radioButton.addValueChangeHandler(event -> ValueChangeEvent.fire(this, this.getValue()));
-    }
+    this.idToButtonMap.values().forEach(radioButton -> radioButton
+        .addValueChangeHandler(event -> ValueChangeEvent.fire(this, this.getValue())));
   }
 
   @Override
   public T getValue() {
-    for (final Entry<T, RadioButton> entry : this.idToButtonMap.entrySet()) {
-      if (BooleanUtils.isTrue(entry.getValue().getValue())) {
-        return entry.getKey();
-      }
-    }
-    return null;
+    return this.idToButtonMap.entrySet().stream()
+        .filter(entry -> BooleanUtils.isTrue(entry.getValue().getValue()))
+        .map(entry -> entry.getKey()).findFirst().orElse(null);
   }
 
   @Override
@@ -200,9 +200,7 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
     final T oldValue = this.getValue();
     final RadioButton radioButton = this.idToButtonMap.get(pvalue);
     if (radioButton == null) {
-      for (final RadioButton entry : this.idToButtonMap.values()) {
-        entry.setValue(Boolean.FALSE);
-      }
+      this.idToButtonMap.values().forEach(entry -> entry.setValue(Boolean.FALSE));
     } else {
       this.idToButtonMap.get(pvalue).setValue(Boolean.TRUE);
     }
@@ -213,29 +211,23 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
 
   @Override
   public int getTabIndex() {
-    if (this.flowPanel.getWidgetCount() > 0) {
-      if (this.flowPanel.getWidget(0) instanceof Focusable) {
-        return ((Focusable) this.flowPanel.getWidget(0)).getTabIndex();
-      }
+    if (this.flowPanel.getWidgetCount() > 0 && this.flowPanel.getWidget(0) instanceof Focusable) {
+      return ((Focusable) this.flowPanel.getWidget(0)).getTabIndex();
     }
     return -1;
   }
 
   @Override
   public void setAccessKey(final char pkey) {
-    if (this.flowPanel.getWidgetCount() > 0) {
-      if (this.flowPanel.getWidget(0) instanceof Focusable) {
-        ((Focusable) this.flowPanel.getWidget(0)).setAccessKey(pkey);
-      }
+    if (this.flowPanel.getWidgetCount() > 0 && this.flowPanel.getWidget(0) instanceof Focusable) {
+      ((Focusable) this.flowPanel.getWidget(0)).setAccessKey(pkey);
     }
   }
 
   @Override
   public void setFocus(final boolean pfocused) {
-    if (this.flowPanel.getWidgetCount() > 0) {
-      if (this.flowPanel.getWidget(0) instanceof Focusable) {
-        ((Focusable) this.flowPanel.getWidget(0)).setFocus(pfocused);
-      }
+    if (this.flowPanel.getWidgetCount() > 0 && this.flowPanel.getWidget(0) instanceof Focusable) {
+      ((Focusable) this.flowPanel.getWidget(0)).setFocus(pfocused);
     }
   }
 
@@ -248,15 +240,11 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
   }
 
   @Override
-  public void showErrors(final List<EditorError> errors) {
-    final elemental.dom.Element headElement = this.getElement().cast();
+  public void showErrors(final List<EditorError> perrors) {
+    final elemental.dom.Element headElement = getElement().cast();
     final NodeList inputElements = headElement.getElementsByTagName("input");
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+    final Set<String> messages = perrors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     if (messages.isEmpty()) {
       for (int i = 0; i < inputElements.length(); i++) {
         final InputElement input = (InputElement) inputElements.at(i);
@@ -296,7 +284,7 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
   }
 
   @Override
@@ -306,7 +294,7 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
 
   @Override
   public boolean isAutofocus() {
-    final elemental.dom.Element headElement = this.getElement().cast();
+    final elemental.dom.Element headElement = getElement().cast();
     final NodeList inputElements = headElement.getElementsByTagName("input");
     final InputElement input = (InputElement) inputElements.at(0);
     return input.isAutofocus();
@@ -314,7 +302,7 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
 
   @Override
   public void setAutofocus(final boolean arg) {
-    final elemental.dom.Element headElement = this.getElement().cast();
+    final elemental.dom.Element headElement = getElement().cast();
     final NodeList inputElements = headElement.getElementsByTagName("input");
     final InputElement input = (InputElement) inputElements.at(0);
     input.setAutofocus(arg);
@@ -338,8 +326,6 @@ public class SortableIdAndNameRadioButton<T extends Comparable<T>> extends Compo
   @Override
   public void setEnabled(final boolean penabled) {
     this.enabled = penabled;
-    for (final RadioButton entry : this.idToButtonMap.values()) {
-      entry.setEnabled(penabled);
-    }
+    this.idToButtonMap.values().forEach(entry -> entry.setEnabled(penabled));
   }
 }

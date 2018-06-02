@@ -40,48 +40,48 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
   public ExtendedValueBoxEditor(final TakesValue<T> ptakesValues,
       final AbstractDecorator<T> pdecorator) {
     super(null);
-    this.messages = GWT.create(ExtendedValueBoxEditorMessages.class);
-    this.takesValues = ptakesValues;
-    this.decorator = pdecorator;
-    if (this.takesValues instanceof ValueBoxBase<?>) {
-      this.delegate = ((ValueBoxBase<T>) this.takesValues).asEditor().getDelegate();
+    messages = GWT.create(ExtendedValueBoxEditorMessages.class);
+    takesValues = ptakesValues;
+    decorator = pdecorator;
+    if (takesValues instanceof ValueBoxBase<?>) {
+      delegate = ((ValueBoxBase<T>) takesValues).asEditor().getDelegate();
     }
   }
 
   @Override
   public EditorDelegate<T> getDelegate() {
-    return this.delegate;
+    return delegate;
   }
 
   @Override
   public T getValue() {
     T value = null;
-    if (this.takesValues instanceof ValueBoxBase<?>) {
+    if (takesValues instanceof ValueBoxBase<?>) {
       try {
-        value = ((ValueBoxBase<T>) this.takesValues).getValueOrThrow();
+        value = ((ValueBoxBase<T>) takesValues).getValueOrThrow();
       } catch (final ParseException e) {
-        final String entryAsText = ((ValueBoxBase<T>) this.takesValues).getText();
-        final String localizedMessage = this.messages.parseExceptionMessage(entryAsText);
-        if (this.delegate != null) {
-          this.delegate.recordError(localizedMessage, entryAsText, e);
+        final String entryAsText = ((ValueBoxBase<T>) takesValues).getText();
+        final String localizedMessage = messages.parseExceptionMessage(entryAsText);
+        if (delegate != null) {
+          delegate.recordError(localizedMessage, entryAsText, e);
         }
       }
     } else {
-      value = this.takesValues.getValue();
+      value = takesValues.getValue();
     }
     return value;
   }
 
   @Override
   public void setDelegate(final EditorDelegate<T> pdelegate) {
-    this.delegate = pdelegate;
+    delegate = pdelegate;
   }
 
   @Override
   public void setValue(final T pvalue) {
-    this.takesValues.setValue(pvalue);
-    if (this.decorator != null) {
-      this.decorator.clearErrors();
+    takesValues.setValue(pvalue);
+    if (decorator != null) {
+      decorator.clearErrors();
     }
   }
 
@@ -91,7 +91,7 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
    * @return the decorator
    */
   public final AbstractDecorator<T> getDecorator() {
-    return this.decorator;
+    return decorator;
   }
 
   /**
@@ -100,6 +100,6 @@ public class ExtendedValueBoxEditor<T> extends ValueBoxEditor<T> {
    * @return the takesValues
    */
   public final TakesValue<T> getTakesValues() {
-    return this.takesValues;
+    return takesValues;
   }
 }

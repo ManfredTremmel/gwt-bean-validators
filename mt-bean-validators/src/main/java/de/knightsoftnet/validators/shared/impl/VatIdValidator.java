@@ -73,10 +73,10 @@ public class VatIdValidator implements ConstraintValidator<VatId, Object> {
    */
   @Override
   public final void initialize(final VatId pconstraintAnnotation) {
-    this.message = pconstraintAnnotation.message();
-    this.fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
-    this.allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
-    this.fieldVatId = pconstraintAnnotation.fieldVatId();
+    message = pconstraintAnnotation.message();
+    fieldCountryCode = pconstraintAnnotation.fieldCountryCode();
+    allowLowerCaseCountryCode = pconstraintAnnotation.allowLowerCaseCountryCode();
+    fieldVatId = pconstraintAnnotation.fieldVatId();
   }
 
   @Override
@@ -86,17 +86,16 @@ public class VatIdValidator implements ConstraintValidator<VatId, Object> {
     }
     try {
       String countryCode =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldCountryCode);
+          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldCountryCode);
       if (StringUtils.isEmpty(countryCode)) {
         return true;
       }
-      final String vatId =
-          BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, this.fieldVatId);
+      final String vatId = BeanPropertyReaderUtil.getNullSaveStringProperty(pvalue, fieldVatId);
       if (StringUtils.isEmpty(vatId)) {
         return true;
       }
 
-      if (this.allowLowerCaseCountryCode) {
+      if (allowLowerCaseCountryCode) {
         countryCode = StringUtils.upperCase(countryCode);
       }
 
@@ -104,20 +103,20 @@ public class VatIdValidator implements ConstraintValidator<VatId, Object> {
       if (regExCheck == null) {
         return true;
       }
-      if (vatId.matches(regExCheck) && this.checkSumTest(countryCode, vatId)) {
+      if (vatId.matches(regExCheck) && checkSumTest(countryCode, vatId)) {
         return true;
       }
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     } catch (final Exception ignore) {
-      this.switchContext(pcontext);
+      switchContext(pcontext);
       return false;
     }
   }
 
   private void switchContext(final ConstraintValidatorContext pcontext) {
     pcontext.disableDefaultConstraintViolation();
-    pcontext.buildConstraintViolationWithTemplate(this.message).addPropertyNode(this.fieldVatId)
+    pcontext.buildConstraintViolationWithTemplate(message).addPropertyNode(fieldVatId)
         .addConstraintViolation();
   }
 
@@ -125,55 +124,55 @@ public class VatIdValidator implements ConstraintValidator<VatId, Object> {
     boolean checkSumOk = false;
     switch (pcountryCode) {
       case "AT":
-        checkSumOk = this.checkAtVatId(pvatId);
+        checkSumOk = checkAtVatId(pvatId);
         break;
       case "BE":
-        checkSumOk = this.checkBeVatId(pvatId);
+        checkSumOk = checkBeVatId(pvatId);
         break;
       case "DE":
-        checkSumOk = this.checkDeVatId(pvatId);
+        checkSumOk = checkDeVatId(pvatId);
         break;
       case "DK":
-        checkSumOk = this.checkDkVatId(pvatId);
+        checkSumOk = checkDkVatId(pvatId);
         break;
       case "ES":
-        checkSumOk = this.checkEsVatId(pvatId);
+        checkSumOk = checkEsVatId(pvatId);
         break;
       case "FI":
-        checkSumOk = this.checkFiVatId(pvatId);
+        checkSumOk = checkFiVatId(pvatId);
         break;
       case "FR":
-        checkSumOk = this.checkFrVatId(pvatId);
+        checkSumOk = checkFrVatId(pvatId);
         break;
       case "GR":
-        checkSumOk = this.checkGrVatId(pvatId);
+        checkSumOk = checkGrVatId(pvatId);
         break;
       case "IE":
-        checkSumOk = this.checkIeVatId(pvatId);
+        checkSumOk = checkIeVatId(pvatId);
         break;
       case "IT":
-        checkSumOk = this.checkItVatId(pvatId);
+        checkSumOk = checkItVatId(pvatId);
         break;
       case "LU":
-        checkSumOk = this.checkLuVatId(pvatId);
+        checkSumOk = checkLuVatId(pvatId);
         break;
       case "NL":
-        checkSumOk = this.checkNlVatId(pvatId);
+        checkSumOk = checkNlVatId(pvatId);
         break;
       case "NO":
-        checkSumOk = this.checkNoVatId(pvatId);
+        checkSumOk = checkNoVatId(pvatId);
         break;
       case "PL":
-        checkSumOk = this.checkPlVatId(pvatId);
+        checkSumOk = checkPlVatId(pvatId);
         break;
       case "PT":
-        checkSumOk = this.checkPtVatId(pvatId);
+        checkSumOk = checkPtVatId(pvatId);
         break;
       case "SE":
-        checkSumOk = this.checkSeVatId(pvatId);
+        checkSumOk = checkSeVatId(pvatId);
         break;
       case "SI":
-        checkSumOk = this.checkSiVatId(pvatId);
+        checkSumOk = checkSiVatId(pvatId);
         break;
       default:
         // for other countries, I haven't found checksum rules

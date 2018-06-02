@@ -17,6 +17,8 @@ package de.knightsoftnet.navigation.client.ui.navigation;
 
 import com.google.gwt.safehtml.shared.SafeHtml;
 
+import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -69,16 +71,16 @@ public class NavigationEntryFolder implements NavigationEntryInterface {
   public NavigationEntryFolder(final SafeHtml pmenuValue, final boolean popenOnStartup,
       final Collection<NavigationEntryInterface> psubEntries) {
     super();
-    this.menuValue = pmenuValue;
-    this.subEntries = new ArrayList<>(psubEntries);
-    this.openOnStartup = popenOnStartup;
-    this.parentEntry = null;
-    this.subEntries.forEach(subEntry -> subEntry.setParentEntry(this));
+    menuValue = pmenuValue;
+    subEntries = new ArrayList<>(psubEntries);
+    openOnStartup = popenOnStartup;
+    parentEntry = null;
+    subEntries.forEach(subEntry -> subEntry.setParentEntry(this));
   }
 
   @Override
   public final SafeHtml getMenuValue() {
-    return this.menuValue;
+    return menuValue;
   }
 
   @Override
@@ -107,7 +109,7 @@ public class NavigationEntryFolder implements NavigationEntryInterface {
    * @return the subEntries
    */
   public final List<NavigationEntryInterface> getSubEntries() {
-    return Collections.unmodifiableList(this.subEntries);
+    return Collections.unmodifiableList(subEntries);
   }
 
   /**
@@ -117,7 +119,7 @@ public class NavigationEntryFolder implements NavigationEntryInterface {
    */
   public final void addSubEntry(final NavigationEntryInterface psubEntry) {
     psubEntry.setParentEntry(this);
-    this.subEntries.add(psubEntry);
+    subEntries.add(psubEntry);
   }
 
   /**
@@ -126,36 +128,36 @@ public class NavigationEntryFolder implements NavigationEntryInterface {
    * @param psubEntries the sub entries to add
    */
   public final void addSubEntries(final Collection<NavigationEntryInterface> psubEntries) {
-    if (psubEntries != null && !psubEntries.isEmpty()) {
-      this.subEntries.addAll(psubEntries);
-      this.subEntries.forEach(subEntry -> subEntry.setParentEntry(this));
+    if (!CollectionUtils.isEmpty(psubEntries)) {
+      subEntries.addAll(psubEntries);
+      subEntries.forEach(subEntry -> subEntry.setParentEntry(this));
     }
   }
 
   @Override
   public final NavigationEntryInterface getParentEntry() {
-    return this.parentEntry;
+    return parentEntry;
   }
 
   @Override
   public final void setParentEntry(final NavigationEntryInterface pparentEntry) {
-    this.parentEntry = pparentEntry;
+    parentEntry = pparentEntry;
   }
 
   @Override
   public final boolean isOpenOnStartup() {
-    return this.openOnStartup;
+    return openOnStartup;
   }
 
   @Override
   public final boolean canReveal() {
     // one of the sub entries has to be displayable
-    return this.subEntries.stream().filter(subEntry -> subEntry.canReveal()).count() > 0L;
+    return subEntries.stream().filter(subEntry -> subEntry.canReveal()).count() > 0L;
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hashCode(this.menuValue);
+    return Objects.hashCode(menuValue);
   }
 
   @Override
@@ -170,6 +172,6 @@ public class NavigationEntryFolder implements NavigationEntryInterface {
       return false;
     }
     final NavigationEntryFolder other = (NavigationEntryFolder) obj;
-    return Objects.equals(this.menuValue, other.menuValue);
+    return Objects.equals(menuValue, other.menuValue);
   }
 }

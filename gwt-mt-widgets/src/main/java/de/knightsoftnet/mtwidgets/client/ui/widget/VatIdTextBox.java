@@ -27,6 +27,6 @@ public class VatIdTextBox extends TextBox {
    * @param pcountryCodeField input field which contains country code
    */
   public void setCountryCodeReference(final TakesValue<?> pcountryCodeField) {
-    this.addKeyPressHandler(HandlerFactory.getVatIdKeyPressHandler(pcountryCodeField));
+    addKeyPressHandler(HandlerFactory.getVatIdKeyPressHandler(pcountryCodeField));
   }
 }

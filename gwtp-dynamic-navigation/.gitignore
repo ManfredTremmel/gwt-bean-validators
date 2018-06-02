@@ -2,8 +2,14 @@
 /.settings/
 /.classpath
 /.project
+/.checkstyle
 /sample.log*
 /war/
 /www-test/
 /gwt-unitCache/
 /.gwt/
+.idea/*
+*.iml
+/.fbExcludeFilterFile
+/.pmdruleset.xml
+/.pmd

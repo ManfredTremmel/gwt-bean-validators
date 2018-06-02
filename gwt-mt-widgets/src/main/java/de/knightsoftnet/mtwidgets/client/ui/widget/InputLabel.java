@@ -57,22 +57,22 @@ public class InputLabel extends Widget implements HasDirectionalText, HasDirecti
     assert LabelElement.TAG.equalsIgnoreCase(element.getTagName());
 
     this.setElement(element);
-    this.directionalTextHelper = new DirectionalTextHelper(this.getElement(), true);
+    directionalTextHelper = new DirectionalTextHelper(getElement(), true);
   }
 
   @Override
   public DirectionEstimator getDirectionEstimator() {
-    return this.directionalTextHelper.getDirectionEstimator();
+    return directionalTextHelper.getDirectionEstimator();
   }
 
   @Override
   public void setDirectionEstimator(final DirectionEstimator directionEstimator) {
-    this.directionalTextHelper.setDirectionEstimator(directionEstimator);
+    directionalTextHelper.setDirectionEstimator(directionEstimator);
   }
 
   @Override
   public void setDirectionEstimator(final boolean enabled) {
-    this.directionalTextHelper.setDirectionEstimator(enabled);
+    directionalTextHelper.setDirectionEstimator(enabled);
   }
 
   private InputElement getInputElement(final Widget widget) {
@@ -93,46 +93,46 @@ public class InputLabel extends Widget implements HasDirectionalText, HasDirecti
    * @param target reference field
    */
   public void setFor(final IsWidget target) {
-    if (this.init) {
+    if (init) {
       return;
     }
-    this.init = true;
+    init = true;
     //
 
-    final InputElement input = this.getInputElement(target.asWidget());
+    final InputElement input = getInputElement(target.asWidget());
     if (input != null) {
       if (!input.hasAttribute("id")) {
         input.setId(DOM.createUniqueId());
       }
-      this.getElement().setAttribute("for", input.getId());
+      getElement().setAttribute("for", input.getId());
     }
   }
 
   public void setForm(final String form) {
-    this.getElement().setAttribute("form", form);
+    getElement().setAttribute("form", form);
   }
 
   @Override
   public String getText() {
-    return this.directionalTextHelper.getTextOrHtml(false);
+    return directionalTextHelper.getTextOrHtml(false);
   }
 
   @Override
   public void setText(@IsSafeHtml final String text) {
-    this.directionalTextHelper.setTextOrHtml(text, false);
+    directionalTextHelper.setTextOrHtml(text, false);
   }
 
   @Override
   public void setText(final String text, final HasDirection.Direction dir) {
-    this.directionalTextHelper.setTextOrHtml(text, dir, false);
+    directionalTextHelper.setTextOrHtml(text, dir, false);
   }
 
   public void setHtml(final SafeHtml text) {
-    this.directionalTextHelper.setHtml(text);
+    directionalTextHelper.setHtml(text);
   }
 
   @Override
   public HasDirection.Direction getTextDirection() {
-    return this.directionalTextHelper.getTextDirection();
+    return directionalTextHelper.getTextDirection();
   }
 }

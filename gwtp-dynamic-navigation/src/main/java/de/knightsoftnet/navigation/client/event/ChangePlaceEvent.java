@@ -44,7 +44,7 @@ public class ChangePlaceEvent extends GwtEvent<ChangePlaceEvent.ChangePlaceHandl
 
   public ChangePlaceEvent(final PlaceRequest pplaceRequest) {
     super();
-    this.placeRequest = pplaceRequest;
+    placeRequest = pplaceRequest;
   }
 
   public static Type<ChangePlaceHandler> getType() {
@@ -62,7 +62,7 @@ public class ChangePlaceEvent extends GwtEvent<ChangePlaceEvent.ChangePlaceHandl
   }
 
   public final PlaceRequest getPlaceRequest() {
-    return this.placeRequest;
+    return placeRequest;
   }
 
   /**
@@ -71,20 +71,19 @@ public class ChangePlaceEvent extends GwtEvent<ChangePlaceEvent.ChangePlaceHandl
    * @return token string
    */
   public final String getToken() {
-    if (this.placeRequest == null) {
+    if (placeRequest == null) {
       return null;
     }
-    if (this.placeRequest.getParameterNames() == null
-        || this.placeRequest.getParameterNames().size() == 0) {
-      return this.placeRequest.getNameToken();
+    if (placeRequest.getParameterNames() == null || placeRequest.getParameterNames().size() == 0) {
+      return placeRequest.getNameToken();
     }
     final StringBuilder token = new StringBuilder();
-    token.append(this.placeRequest.getNameToken());
-    for (final String param : this.placeRequest.getParameterNames()) {
+    token.append(placeRequest.getNameToken());
+    for (final String param : placeRequest.getParameterNames()) {
       token.append(';');
       token.append(param);
       token.append('=');
-      token.append(this.placeRequest.getParameter(param, StringUtils.EMPTY));
+      token.append(placeRequest.getParameter(param, StringUtils.EMPTY));
     }
     return token.toString();
   }

@@ -108,12 +108,12 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
      */
     @Override
     public int compareTo(final RouteMatch other) {
-      return Integer.valueOf(this.staticMatches).compareTo(other.staticMatches);
+      return Integer.valueOf(staticMatches).compareTo(other.staticMatches);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hashCode(this.staticMatches);
+      return Objects.hashCode(staticMatches);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
         return false;
       }
       final RouteMatch other = (RouteMatch) obj;
-      return Objects.equals(this.staticMatches, other.staticMatches);
+      return Objects.equals(staticMatches, other.staticMatches);
     }
   }
 
@@ -151,18 +151,16 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
      * @param placeToken The place-token.
      */
     RouteMatcher(final String placeToken) {
-      assert OwnRouteTokenFormatter.this
-          .placeTokenIsValid(placeToken) : "Place-token should start with a '/' or '!/'";
+      assert placeTokenIsValid(placeToken) : "Place-token should start with a '/' or '!/'";
       assert placeToken.indexOf('?') == -1 : "No Query string expected here";
 
-      this.allMatches = new TreeSet<>();
-      this.placeParts = StringUtils.splitPreserveAllTokens(placeToken, '/');
+      allMatches = new TreeSet<>();
+      placeParts = StringUtils.splitPreserveAllTokens(placeToken, '/');
 
-      for (final String route : OwnRouteTokenFormatter.this.allRegisteredPlaceTokens
-          .getAllPlaceTokens()) {
-        final RouteMatch match = this.matchRoute(route);
+      for (final String route : allRegisteredPlaceTokens.getAllPlaceTokens()) {
+        final RouteMatch match = matchRoute(route);
         if (match != null) {
-          this.allMatches.add(match);
+          allMatches.add(match);
         }
       }
     }
@@ -178,23 +176,23 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
     final RouteMatch matchRoute(final String route) {
       final String[] routeParts = StringUtils.splitPreserveAllTokens(route, '/');
 
-      if (this.placeParts.length != routeParts.length) {
+      if (placeParts.length != routeParts.length) {
         return null;
       }
 
-      if (this.placeParts.length == 0) {
-        assert this.routeIsEmpty(route);
+      if (placeParts.length == 0) {
+        assert routeIsEmpty(route);
         return new RouteMatch(route, 0, null);
       }
 
       final Map<String, String> recordedParameters = new HashMap<>();
       int staticMatches = 0;
-      for (int i = 0; i < this.placeParts.length; i++) {
-        if (this.placeParts[i].equals(routeParts[i])) {
+      for (int i = 0; i < placeParts.length; i++) {
+        if (placeParts[i].equals(routeParts[i])) {
           staticMatches++;
         } else if (routeParts[i].matches("\\{.*\\}")) {
           final String parameterName = routeParts[i].substring(1, routeParts[i].length() - 1);
-          recordedParameters.put(parameterName, this.placeParts[i]);
+          recordedParameters.put(parameterName, placeParts[i]);
         } else {
           return null;
         }
@@ -214,7 +212,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
   @Inject
   OwnRouteTokenFormatter(final UrlUtils urlUtils, final PlaceTokenRegistry tokenRegistry) {
     this.urlUtils = urlUtils;
-    this.allRegisteredPlaceTokens = tokenRegistry;
+    allRegisteredPlaceTokens = tokenRegistry;
   }
 
   @Override
@@ -226,7 +224,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
     for (final String parameterName : placeRequest.getParameterNames()) {
       final String parameterValue = placeRequest.getParameter(parameterName, null);
       if (parameterValue != null) {
-        final String encodedParameterValue = this.urlUtils.encodeQueryString(parameterValue);
+        final String encodedParameterValue = urlUtils.encodeQueryString(parameterValue);
 
         if (placeToken.contains("/{" + parameterName + "}")) {
           // route parameter
@@ -253,7 +251,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
       throws TokenFormatException {
     assert !placeRequestHierarchy.isEmpty() : "Expected a place hierarchy with one or more places.";
 
-    return this.toPlaceToken(placeRequestHierarchy.get(placeRequestHierarchy.size() - 1));
+    return toPlaceToken(placeRequestHierarchy.get(placeRequestHierarchy.size() - 1));
   }
 
   @Override
@@ -261,8 +259,8 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
     /*
      * To support the native GWT history as well as HTML pushstate a slash is added when needed.
      */
-    if (!this.placeTokenIsValid(placeToken)) {
-      return this.toPlaceRequest("/" + placeToken);
+    if (!placeTokenIsValid(placeToken)) {
+      return toPlaceRequest("/" + placeToken);
     }
 
     final int split = placeToken.indexOf('?');
@@ -271,10 +269,10 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
 
     final RouteMatcher matcher = new RouteMatcher(place);
     final RouteMatch match =
-        (matcher.allMatches.isEmpty()) ? new RouteMatch(place, 0, null) : matcher.allMatches.last();
+        matcher.allMatches.isEmpty() ? new RouteMatch(place, 0, null) : matcher.allMatches.last();
 
-    match.parameters = this.decodeEmbeddedParams(match.parameters);
-    match.parameters = this.parseQueryString(query, match.parameters);
+    match.parameters = decodeEmbeddedParams(match.parameters);
+    match.parameters = parseQueryString(query, match.parameters);
 
     return new PlaceRequest.Builder().nameToken(match.route).with(match.parameters).build();
   }
@@ -282,7 +280,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
   private Map<String, String> decodeEmbeddedParams(final Map<String, String> parameters) {
     if (parameters != null) {
       for (final Entry<String, String> entry : parameters.entrySet()) {
-        entry.setValue(this.urlUtils.decodeQueryString(entry.getValue()));
+        entry.setValue(urlUtils.decodeQueryString(entry.getValue()));
       }
     }
     return parameters;
@@ -292,7 +290,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
   public List<PlaceRequest> toPlaceRequestHierarchy(final String historyToken)
       throws TokenFormatException {
     final List<PlaceRequest> result = new ArrayList<>();
-    result.add(this.toPlaceRequest(historyToken));
+    result.add(toPlaceRequest(historyToken));
 
     return result;
   }
@@ -311,7 +309,7 @@ public class OwnRouteTokenFormatter implements TokenFormatter {
       for (final String keyValuePair : queryString.split("&")) {
         final String[] keyValue = keyValuePair.split("=", 2);
         if (keyValue.length > 1) {
-          result.put(keyValue[0], this.urlUtils.decodeQueryString(keyValue[1]));
+          result.put(keyValue[0], urlUtils.decodeQueryString(keyValue[1]));
         } else {
           result.put(keyValue[0], StringUtils.EMPTY);
         }

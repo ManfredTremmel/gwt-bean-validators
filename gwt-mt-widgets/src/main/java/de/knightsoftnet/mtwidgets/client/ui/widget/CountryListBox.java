@@ -51,6 +51,6 @@ public class CountryListBox extends SortableIdAndNameListBox<CountryEnum> {
    */
   @Deprecated
   public final void fillCountryEntries(final CountryEnum... pcountryEnums) {
-    this.fillEntries(Arrays.asList(pcountryEnums));
+    fillEntries(Arrays.asList(pcountryEnums));
   }
 }

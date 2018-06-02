@@ -39,8 +39,8 @@ public class PhoneNumberCommonInterSuggestBox extends AbstractPhoneNumberSuggest
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(this.phoneNumberUtil.formatCommonInternationalWithPos(pvalue,
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()))));
+    setTextWithPos(phoneNumberUtil.formatCommonInternationalWithPos(pvalue,
+        StringUtils.upperCase(Objects.toString(countryCodeField.getValue()))));
   }
 
   @Override

@@ -40,7 +40,7 @@ public class PhoneNumberE123RestSuggestBox extends AbstractPhoneNumberRestSugges
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.service.formatE123WithPos(pkey, presult);
+    service.formatE123WithPos(pkey, presult);
   }
 
   @Override

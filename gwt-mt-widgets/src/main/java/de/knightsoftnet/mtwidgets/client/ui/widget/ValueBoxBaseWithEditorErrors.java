@@ -39,9 +39,9 @@ import elemental.html.ValidityState;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ValueBoxBaseWithEditorErrors<T> extends ValueBoxBase<T>
     implements HasEditorErrors<T>, HasValidationMessageElement, HasAutofocus, HasRequired,
@@ -60,13 +60,9 @@ public class ValueBoxBaseWithEditorErrors<T> extends ValueBoxBase<T>
   }
 
   @Override
-  public void showErrors(final List<EditorError> errors) {
-    final Set<String> messages = new HashSet<>();
-    for (final EditorError error : errors) {
-      if (this.editorErrorMatches(error)) {
-        messages.add(error.getMessage());
-      }
-    }
+  public void showErrors(final List<EditorError> perrors) {
+    final Set<String> messages = perrors.stream().filter(error -> this.editorErrorMatches(error))
+        .map(error -> error.getMessage()).collect(Collectors.toSet());
     this.showErrors(messages);
   }
 
@@ -108,11 +104,11 @@ public class ValueBoxBaseWithEditorErrors<T> extends ValueBoxBase<T>
    */
   protected boolean editorErrorMatches(final EditorError perror) {
     return perror != null && perror.getEditor() != null
-        && (this.equals(perror.getEditor()) || perror.getEditor().equals(this.asEditor()));
+        && (equals(perror.getEditor()) || perror.getEditor().equals(asEditor()));
   }
 
   public InputElement getInputElement() {
-    return this.getElement().cast();
+    return getElement().cast();
   }
 
   @Override

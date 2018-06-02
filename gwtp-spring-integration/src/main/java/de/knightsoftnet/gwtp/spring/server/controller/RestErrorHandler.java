@@ -15,10 +15,6 @@
 
 package de.knightsoftnet.gwtp.spring.server.controller;
 
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationDto;
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultData;
-import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -30,6 +26,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationDto;
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultData;
+import de.knightsoftnet.gwtp.spring.shared.data.ValidationResultInterface;
 
 /**
  * This error handler handles validation errors.
@@ -53,7 +53,7 @@ public class RestErrorHandler {
     final BindingResult result = pexception.getBindingResult();
     final List<FieldError> fieldErrors = result.getFieldErrors();
 
-    return this.processFieldErrors(fieldErrors);
+    return processFieldErrors(fieldErrors);
   }
 
   private ValidationResultInterface processFieldErrors(final List<FieldError> pfieldErrors) {

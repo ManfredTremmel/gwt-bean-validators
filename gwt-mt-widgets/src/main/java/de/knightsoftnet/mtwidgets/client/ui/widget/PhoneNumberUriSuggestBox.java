@@ -39,8 +39,8 @@ public class PhoneNumberUriSuggestBox extends AbstractPhoneNumberSuggestBox {
 
   @Override
   public void formatValue(final ValueWithPos<String> pvalue) {
-    this.setTextWithPos(this.phoneNumberUtil.formatUrlWithPos(pvalue,
-        StringUtils.upperCase(Objects.toString(this.countryCodeField.getValue()))));
+    setTextWithPos(phoneNumberUtil.formatUrlWithPos(pvalue,
+        StringUtils.upperCase(Objects.toString(countryCodeField.getValue()))));
   }
 
   @Override

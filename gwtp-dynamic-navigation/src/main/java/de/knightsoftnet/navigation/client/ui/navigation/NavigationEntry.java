@@ -68,72 +68,72 @@ public class NavigationEntry implements NavigationEntryInterface {
   public NavigationEntry(final SafeHtml pmenuValue, final String ptoken,
       final Gatekeeper pgatekeeper) {
     super();
-    this.menuValue = pmenuValue;
-    this.token = ptoken;
-    this.tokenDynamic = null;
-    this.gatekeeper = pgatekeeper;
-    this.openOnStartup = true;
-    this.parentEntry = null;
+    menuValue = pmenuValue;
+    token = ptoken;
+    tokenDynamic = null;
+    gatekeeper = pgatekeeper;
+    openOnStartup = true;
+    parentEntry = null;
   }
 
   @Override
   public final SafeHtml getMenuValue() {
-    return this.menuValue;
+    return menuValue;
   }
 
   @Override
   public final String getToken() {
-    return this.token;
+    return token;
   }
 
   @Override
   public final String getFullToken() {
-    return this.token + StringUtils.defaultString(this.tokenDynamic);
+    return token + StringUtils.defaultString(tokenDynamic);
   }
 
   @Override
   public final String getTokenDynamic() {
-    return this.tokenDynamic;
+    return tokenDynamic;
   }
 
   @Override
   public final void setTokenDynamic(final String ptokenDynamic) {
-    if (this.token == null || ptokenDynamic == null) {
-      this.tokenDynamic = ptokenDynamic;
+    if (token == null || ptokenDynamic == null) {
+      tokenDynamic = ptokenDynamic;
     } else {
-      if (ptokenDynamic.equals(this.token)) {
-        this.tokenDynamic = null;
-      } else if (ptokenDynamic.startsWith(this.token)) {
-        this.tokenDynamic = ptokenDynamic.substring(this.token.length());
+      if (ptokenDynamic.equals(token)) {
+        tokenDynamic = null;
+      } else if (ptokenDynamic.startsWith(token)) {
+        tokenDynamic = ptokenDynamic.substring(token.length());
       } else {
-        this.tokenDynamic = ptokenDynamic;
+        tokenDynamic = ptokenDynamic;
       }
     }
   }
 
   @Override
   public final NavigationEntryInterface getParentEntry() {
-    return this.parentEntry;
+    return parentEntry;
   }
 
   @Override
   public final void setParentEntry(final NavigationEntryInterface pparentEntry) {
-    this.parentEntry = pparentEntry;
+    parentEntry = pparentEntry;
   }
 
   @Override
   public final boolean isOpenOnStartup() {
-    return this.openOnStartup;
+    return openOnStartup;
   }
 
   @Override
   public final boolean canReveal() {
-    return this.gatekeeper == null || this.gatekeeper.canReveal();
+    return gatekeeper == null || gatekeeper.canReveal();
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(this.menuValue, this.token);
+    return Objects.hash(menuValue, token);
   }
 
   @Override
@@ -148,7 +148,6 @@ public class NavigationEntry implements NavigationEntryInterface {
       return false;
     }
     final NavigationEntry other = (NavigationEntry) obj;
-    return Objects.equals(this.menuValue, other.menuValue)
-        && StringUtils.equals(this.token, other.token);
+    return Objects.equals(menuValue, other.menuValue) && StringUtils.equals(token, other.token);
   }
 }

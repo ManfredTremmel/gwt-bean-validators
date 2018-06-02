@@ -51,22 +51,22 @@ public abstract class AbstractBaseConfigurationState implements ConfigurationSta
 
   @Override
   public ConstraintValidatorFactory getConstraintValidatorFactory() {
-    return this.constraintValidatorFactory;
+    return constraintValidatorFactory;
   }
 
   @Override
   public MessageInterpolator getMessageInterpolator() {
-    return this.messageInterpolator;
+    return messageInterpolator;
   }
 
   @Override
   public Map<String, String> getProperties() {
-    return this.properties;
+    return properties;
   }
 
   @Override
   public TraversableResolver getTraversableResolver() {
-    return this.traversableResolver;
+    return traversableResolver;
   }
 
   @Override

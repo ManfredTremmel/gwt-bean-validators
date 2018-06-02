@@ -15,15 +15,15 @@
 
 package de.knightsoftnet.gwtp.spring.server.security;
 
-import de.knightsoftnet.gwtp.spring.server.converter.UserDetailsConverter;
-import de.knightsoftnet.gwtp.spring.shared.models.User;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+
+import de.knightsoftnet.gwtp.spring.server.converter.UserDetailsConverter;
+import de.knightsoftnet.gwtp.spring.shared.models.User;
 
 /**
  * check if user is logged in. based on the work of https://github.com/imrabti/gwtp-spring-security
@@ -38,7 +38,7 @@ public class LoggedInChecker {
   @Inject
   public LoggedInChecker(final UserDetailsConverter puserDetailsConverter) {
     super();
-    this.userDetailsConverter = puserDetailsConverter;
+    userDetailsConverter = puserDetailsConverter;
   }
 
   /**
@@ -55,7 +55,7 @@ public class LoggedInChecker {
 
       // principal can be "anonymousUser" (String)
       if (principal instanceof UserDetails) {
-        user = this.userDetailsConverter.convert((UserDetails) principal);
+        user = userDetailsConverter.convert((UserDetails) principal);
       }
     }
     return user;

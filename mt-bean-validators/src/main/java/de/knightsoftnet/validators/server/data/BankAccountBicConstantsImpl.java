@@ -27,22 +27,22 @@ public class BankAccountBicConstantsImpl implements BankAccountBicSharedConstant
 
   public BankAccountBicConstantsImpl() {
     super();
-    this.bankAccountBicMap = new HashMap<>();
+    bankAccountBicMap = new HashMap<>();
   }
 
   public BankAccountBicConstantsImpl(final Map<CountryBankAccountData, String> pmap) {
     super();
-    this.bankAccountBicMap = pmap;
+    bankAccountBicMap = pmap;
   }
 
   @Override
   public Map<CountryBankAccountData, String> bankAccounts() {
-    return this.bankAccountBicMap;
+    return bankAccountBicMap;
   }
 
   @Override
   public void addBankAccounts(final String pcountry, final Map<String, String> pmap) {
-    this.bankAccountBicMap.putAll(pmap.entrySet().stream().collect(Collectors.toMap( //
+    bankAccountBicMap.putAll(pmap.entrySet().stream().collect(Collectors.toMap( //
         entry -> new CountryBankAccountData(pcountry, entry.getKey()), //
         entry -> entry.getValue())));
   }

@@ -54,7 +54,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
     private ConstraintOrigin definedOn;
 
     public Builder<T> addComposingConstraint(final ConstraintDescriptor<?> composingConstraint) {
-      this.composingConstraints.add(composingConstraint);
+      composingConstraints.add(composingConstraint);
       return this;
     }
 
@@ -65,15 +65,15 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
      */
     public ConstraintDescriptorImpl<T> build() {
       return new ConstraintDescriptorImpl<>( // NOPMD
-          this.annotation, //
-          this.groups, //
-          this.payload, //
-          this.constraintValidatorClasses, //
-          this.attributes, //
-          this.composingConstraints, //
-          this.reportAsSingleViolation, //
-          this.elementType, //
-          this.definedOn);
+          annotation, //
+          groups, //
+          payload, //
+          constraintValidatorClasses, //
+          attributes, //
+          composingConstraints, //
+          reportAsSingleViolation, //
+          elementType, //
+          definedOn);
     }
 
     public Builder<T> setAnnotation(final T annotation) {
@@ -96,7 +96,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
         final Class<? extends ConstraintValidator<T, ?>>[] constraintValidatorClasses) {
       final List<Class<? extends ConstraintValidator<T, ?>>> list =
           Arrays.asList(constraintValidatorClasses);
-      this.setConstraintValidatorClasses(list);
+      setConstraintValidatorClasses(list);
       return this;
     }
 
@@ -117,7 +117,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
     }
 
     public Builder<T> setGroups(final Class<?>[] classes) {
-      this.setGroups(new HashSet<>(Arrays.asList(classes)));
+      setGroups(new HashSet<>(Arrays.asList(classes)));
       return this;
     }
 
@@ -127,7 +127,7 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
     }
 
     public Builder<T> setPayload(final Class<? extends Payload>[] classes) {
-      this.setPayload(new HashSet<>(Arrays.asList(classes)));
+      setPayload(new HashSet<>(Arrays.asList(classes)));
       return this;
     }
 
@@ -176,55 +176,55 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
 
   @Override
   public T getAnnotation() {
-    return this.annotation;
+    return annotation;
   }
 
   @Override
   public String getMessageTemplate() {
-    return (String) this.getAttributes().get(ConstraintHelper.MESSAGE);
+    return (String) getAttributes().get(ConstraintHelper.MESSAGE);
   }
 
   @Override
   public Map<String, Object> getAttributes() {
-    return this.attributes;
+    return attributes;
   }
 
   @Override
   public Set<ConstraintDescriptor<?>> getComposingConstraints() {
-    return this.composingConstraints;
+    return composingConstraints;
   }
 
   @Override
   public List<Class<? extends ConstraintValidator<T, ?>>> getConstraintValidatorClasses() {
-    return this.constraintValidatorClasses;
+    return constraintValidatorClasses;
   }
 
   public ConstraintOrigin getDefinedOn() {
-    return this.definedOn;
+    return definedOn;
   }
 
   public ElementType getElementType() {
-    return this.elementType;
+    return elementType;
   }
 
   @Override
   public Set<Class<?>> getGroups() {
-    return this.groups;
+    return groups;
   }
 
   @Override
   public Set<Class<? extends Payload>> getPayload() {
-    return this.payload;
+    return payload;
   }
 
   @Override
   public ConstraintTarget getValidationAppliesTo() {
-    return (ConstraintTarget) this.attributes.get(ConstraintHelper.VALIDATION_APPLIES_TO);
+    return (ConstraintTarget) attributes.get(ConstraintHelper.VALIDATION_APPLIES_TO);
   }
 
   @Override
   public boolean isReportAsSingleViolation() {
-    return this.reportAsSingleViolation;
+    return reportAsSingleViolation;
   }
 
   @Override
@@ -243,6 +243,6 @@ public class ConstraintDescriptorImpl<T extends Annotation> implements Constrain
    */
   @Override
   public String toString() {
-    return String.valueOf(this.annotation);
+    return String.valueOf(annotation);
   }
 }

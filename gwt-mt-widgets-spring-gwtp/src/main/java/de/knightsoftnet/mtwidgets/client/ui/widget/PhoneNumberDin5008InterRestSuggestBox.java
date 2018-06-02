@@ -47,14 +47,14 @@ public class PhoneNumberDin5008InterRestSuggestBox extends AbstractPhoneNumberRe
       final PhoneNumberRestService pservice, final PhoneNumberDin5008RestOracle poracle,
       final Session psession) {
     super(poracle, psession);
-    this.dispatcher = pdispatcher;
-    this.service = pservice;
+    dispatcher = pdispatcher;
+    service = pservice;
   }
 
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.dispatcher.execute(this.service.formatDin5008InternationalWithPos(pkey), presult);
+    dispatcher.execute(service.formatDin5008InternationalWithPos(pkey), presult);
   }
 
   @Override

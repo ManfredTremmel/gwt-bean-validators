@@ -34,6 +34,6 @@ public final class FeatureCheck {
    * @return true if supported
    */
   public static native boolean supportCustomValidity(final elemental.dom.Element pelement) /*-{
-    return (typeof(pelement.setCustomValidity) == 'function');
+    return (typeof (pelement.setCustomValidity) == 'function');
   }-*/;
 }

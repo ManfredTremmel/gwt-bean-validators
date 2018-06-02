@@ -40,9 +40,9 @@ public abstract class AbstractPhoneNumberSuggestBox extends AbstractFormatingSug
    */
   public AbstractPhoneNumberSuggestBox(final SuggestOracle poracle) {
     super(poracle, new TextBoxWithFormating(Browser.getDocument().createInputElement(), "tel"));
-    this.setWidth("15em");
-    this.phoneNumberUtil = new PhoneNumberUtil();
-    ((TextBoxWithFormating) this.getValueBox()).setFormating(this);
+    setWidth("15em");
+    phoneNumberUtil = new PhoneNumberUtil();
+    ((TextBoxWithFormating) getValueBox()).setFormating(this);
   }
 
   /**
@@ -51,12 +51,12 @@ public abstract class AbstractPhoneNumberSuggestBox extends AbstractFormatingSug
    * @param pcountryCodeField field which contains the country code
    */
   public final void setCountryCodeReferenceField(final TakesValue<?> pcountryCodeField) {
-    this.countryCodeField = pcountryCodeField;
+    countryCodeField = pcountryCodeField;
   }
 
   @Override
   public boolean isAllowedCharacter(final char pcharacter) {
-    return pcharacter >= '0' && pcharacter <= '9' || this.isFormatingCharacter(pcharacter);
+    return pcharacter >= '0' && pcharacter <= '9' || isFormatingCharacter(pcharacter);
   }
 
   @Override

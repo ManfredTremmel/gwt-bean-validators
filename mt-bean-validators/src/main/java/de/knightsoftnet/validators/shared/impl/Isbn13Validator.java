@@ -54,7 +54,7 @@ public class Isbn13Validator implements ConstraintValidator<Isbn13, Object> {
    */
   @Override
   public final void initialize(final Isbn13 pconstraintAnnotation) {
-    this.ignoreSeparators = pconstraintAnnotation.ignoreSeparators();
+    ignoreSeparators = pconstraintAnnotation.ignoreSeparators();
   }
 
   /**
@@ -66,7 +66,7 @@ public class Isbn13Validator implements ConstraintValidator<Isbn13, Object> {
   @Override
   public final boolean isValid(final Object pvalue, final ConstraintValidatorContext pcontext) {
     final String valueAsString;
-    if (this.ignoreSeparators) {
+    if (ignoreSeparators) {
       valueAsString =
           Objects.toString(pvalue, StringUtils.EMPTY).replaceAll("-", StringUtils.EMPTY);
     } else {

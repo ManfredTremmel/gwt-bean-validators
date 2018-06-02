@@ -59,12 +59,12 @@ public abstract class AbstractGwtValidator implements Validator {
    * @param validationGroupsMetadata Validation group metadata.
    */
   public AbstractGwtValidator(final ValidationGroupsMetadata validationGroupsMetadata) {
-    this.validGroups = validationGroupsMetadata.getAllGroupsAndSequences();
+    validGroups = validationGroupsMetadata.getAllGroupsAndSequences();
     this.validationGroupsMetadata = validationGroupsMetadata;
   }
 
   public ValidationGroupsMetadata getValidationGroupsMetadata() {
-    return this.validationGroupsMetadata;
+    return validationGroupsMetadata;
   }
 
   /**
@@ -78,10 +78,10 @@ public abstract class AbstractGwtValidator implements Validator {
   public void init(final ConstraintValidatorFactory factory,
       final MessageInterpolator messageInterpolator, final TraversableResolver traversableResolver,
       final ParameterNameProvider pparameterNameProvider) {
-    this.contraintValidatorFactory = factory;
+    contraintValidatorFactory = factory;
     this.messageInterpolator = messageInterpolator;
     this.traversableResolver = traversableResolver;
-    this.parameterNameProvider = pparameterNameProvider;
+    parameterNameProvider = pparameterNameProvider;
   }
 
   @Override
@@ -93,12 +93,12 @@ public abstract class AbstractGwtValidator implements Validator {
       Object object, Class<?>... groups) throws ValidationException;
 
   protected void checkGroups(final Class<?>... groups) {
-    if (!this.validGroups.containsAll(Arrays.asList(groups))) {
+    if (!validGroups.containsAll(Arrays.asList(groups))) {
       final HashSet<Class<?>> unknown = new HashSet<>();
       unknown.addAll(Arrays.asList(groups));
-      unknown.removeAll(this.validGroups);
-      throw new IllegalArgumentException(this.getClass() + " only processes the following groups "
-          + this.validGroups + ". " + "The following groups could not be processed " + unknown);
+      unknown.removeAll(validGroups);
+      throw new IllegalArgumentException(getClass() + " only processes the following groups "
+          + validGroups + ". " + "The following groups could not be processed " + unknown);
     }
   }
 
@@ -110,19 +110,19 @@ public abstract class AbstractGwtValidator implements Validator {
   }
 
   protected ConstraintValidatorFactory getConstraintValidatorFactory() {
-    return this.contraintValidatorFactory;
+    return contraintValidatorFactory;
   }
 
   public MessageInterpolator getMessageInterpolator() {
-    return this.messageInterpolator;
+    return messageInterpolator;
   }
 
   public TraversableResolver getTraversableResolver() {
-    return this.traversableResolver;
+    return traversableResolver;
   }
 
   protected ParameterNameProvider getParameterNameProvider() {
-    return this.parameterNameProvider;
+    return parameterNameProvider;
   }
 
   @Override
@@ -133,7 +133,7 @@ public abstract class AbstractGwtValidator implements Validator {
 
   /**
    * reflection replacement to get property of an object.
-   * 
+   *
    * @param object object to get property from
    * @param propertyName property name
    * @return object value

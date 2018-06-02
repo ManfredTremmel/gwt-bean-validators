@@ -45,7 +45,7 @@ public class IdAndNamePlusIconBean<T> extends IdAndNameBean<T> {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.getId());
+    return Objects.hashCode(getId());
   }
 
   @Override
@@ -60,6 +60,6 @@ public class IdAndNamePlusIconBean<T> extends IdAndNameBean<T> {
       return false;
     }
     final IdAndNameBean<?> other = (IdAndNameBean<?>) pobj;
-    return Objects.equals(this.getId(), other.getId());
+    return Objects.equals(getId(), other.getId());
   }
 }

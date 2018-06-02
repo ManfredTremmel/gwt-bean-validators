@@ -52,7 +52,7 @@ public class TimeParser implements Parser<Date> {
 
   public TimeParser(final String pformat) {
     super();
-    this.dateTimeFormat = DateTimeFormat.getFormat(pformat);
+    dateTimeFormat = DateTimeFormat.getFormat(pformat);
   }
 
   @Override
@@ -63,9 +63,9 @@ public class TimeParser implements Parser<Date> {
 
     try {
       if (StringUtils.countMatches(pobject, ':') == 2) {
-        return this.dateTimeFormat.parse(Objects.toString(pobject));
+        return dateTimeFormat.parse(Objects.toString(pobject));
       }
-      return this.dateTimeFormat.parse(Objects.toString(pobject) + ":00"); // NOPMD
+      return dateTimeFormat.parse(Objects.toString(pobject) + ":00"); // NOPMD
     } catch (final IllegalArgumentException e) {
       throw new ParseException(e.getMessage(), 0); // NOPMD, we needn't a stack trace
     }

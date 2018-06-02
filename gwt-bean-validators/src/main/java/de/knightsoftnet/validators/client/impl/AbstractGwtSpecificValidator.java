@@ -61,11 +61,11 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     }
 
     public Map<String, Object> build() {
-      return Collections.unmodifiableMap(this.tempMap);
+      return Collections.unmodifiableMap(tempMap);
     }
 
     public AttributeBuilder put(final String key, final Object value) {
-      this.tempMap.put(key, value);
+      tempMap.put(key, value);
       return this;
     }
   }
@@ -84,14 +84,14 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     context.addValidatedObject(object);
     try {
       final GroupValidator classGroupValidator = new ClassGroupValidator(object);
-      final GroupChain groupChain = this.createGroupChainFromGroups(context, groups);
-      final BeanMetadata beanMetadata = this.getBeanMetadata();
+      final GroupChain groupChain = createGroupChainFromGroups(context, groups);
+      final BeanMetadata beanMetadata = getBeanMetadata();
       final List<Class<?>> defaultGroupSeq = beanMetadata.getDefaultGroupSequence();
       if (beanMetadata.defaultGroupSequenceIsRedefined()) {
         // only need to check this on class-level validation
         groupChain.checkDefaultGroupSequenceIsExpandable(defaultGroupSeq);
       }
-      return this.validateGroups(context, classGroupValidator, groupChain);
+      return validateGroups(context, classGroupValidator, groupChain);
     } catch (final IllegalArgumentException e) { // NOPMD
       throw e;
     } catch (final ValidationException e) { // NOPMD
@@ -133,13 +133,13 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     final Set<Class<?>> constraintGroups = constraintDescriptor.getGroups();
 
     // check groups requested are in the set of constraint groups (including the implicit group)
-    if (!this.containsAny(groupsList, constraintGroups)
-        && !groupsList.contains(this.getConstraints(validationGroupsMetadata).getElementClass())) {
+    if (!containsAny(groupsList, constraintGroups)
+        && !groupsList.contains(getConstraints(validationGroupsMetadata).getElementClass())) {
       return false;
     }
 
     if (!validator.isValid(value, constraintValidatorContext)) {
-      this.addViolations(//
+      addViolations(//
           context, //
           violations, //
           object, //
@@ -158,8 +158,8 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     try {
       final GroupValidator propertyGroupValidator =
           new PropertyGroupValidator(object, propertyName);
-      final GroupChain groupChain = this.createGroupChainFromGroups(context, groups);
-      return this.validateGroups(context, propertyGroupValidator, groupChain);
+      final GroupChain groupChain = createGroupChainFromGroups(context, groups);
+      return validateGroups(context, propertyGroupValidator, groupChain);
     } catch (final IllegalArgumentException e) { // NOPMD
       throw e;
     } catch (final ValidationException e) { // NOPMD
@@ -177,8 +177,8 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     try {
       final GroupValidator valueGroupValidator =
           new ValueGroupValidator(beanType, propertyName, value);
-      final GroupChain groupChain = this.createGroupChainFromGroups(context, groups);
-      return this.validateGroups(context, valueGroupValidator, groupChain);
+      final GroupChain groupChain = createGroupChainFromGroups(context, groups);
+      return validateGroups(context, valueGroupValidator, groupChain);
     } catch (final IllegalArgumentException e) { // NOPMD
       throw e;
     } catch (final ValidationException e) { // NOPMD
@@ -204,7 +204,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
       final G object, final V value, final ConstraintDescriptorImpl<A> constraintDescriptor) {
     final ConstraintValidatorContextImpl<A, V> constraintValidatorContext =
         context.createConstraintValidatorContext(constraintDescriptor);
-    this.addViolations(context, violations, object, value, constraintDescriptor,
+    addViolations(context, violations, object, value, constraintDescriptor,
         constraintValidatorContext);
   }
 
@@ -213,7 +213,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
       final ConstraintDescriptorImpl<A> constraintDescriptor,
       final ConstraintValidatorContextImpl<A, V> constraintValidatorContext) {
     violations.addAll(constraintValidatorContext.getMessageAndPaths().stream()
-        .map(messageAndPath -> this.createConstraintViolation(//
+        .map(messageAndPath -> createConstraintViolation(//
             context, //
             object, //
             value, //
@@ -249,7 +249,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
 
   private <T> GroupChain createGroupChainFromGroups(final GwtValidationContext<T> context,
       final Class<?>... groups) {
-    final List<Class<?>> groupsList = this.addDefaultGroupWhenEmpty(Arrays.asList(groups));
+    final List<Class<?>> groupsList = addDefaultGroupWhenEmpty(Arrays.asList(groups));
     final ValidationGroupsMetadata validationGroupsMetadata =
         context.getValidator().getValidationGroupsMetadata();
     return new GroupChainGenerator(validationGroupsMetadata).getGroupChainFor(groupsList);
@@ -294,7 +294,7 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     @Override
     public <T> void validateGroups(final GwtValidationContext<T> context,
         final Set<ConstraintViolation<T>> violations, final Group... groups) {
-      AbstractGwtSpecificValidator.this.expandDefaultAndValidateClassGroups(context, this.object,
+      AbstractGwtSpecificValidator.this.expandDefaultAndValidateClassGroups(context, object,
           violations, groups);
     }
   }
@@ -311,8 +311,8 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     @Override
     public <T> void validateGroups(final GwtValidationContext<T> context,
         final Set<ConstraintViolation<T>> violations, final Group... groups) {
-      AbstractGwtSpecificValidator.this.expandDefaultAndValidatePropertyGroups(context, this.object,
-          this.propertyName, violations, groups);
+      AbstractGwtSpecificValidator.this.expandDefaultAndValidatePropertyGroups(context, object,
+          propertyName, violations, groups);
     }
   }
 
@@ -331,8 +331,8 @@ public abstract class AbstractGwtSpecificValidator<G> implements GwtSpecificVali
     @Override
     public <T> void validateGroups(final GwtValidationContext<T> context,
         final Set<ConstraintViolation<T>> violations, final Group... groups) {
-      AbstractGwtSpecificValidator.this.expandDefaultAndValidateValueGroups(context, this.beanType,
-          this.propertyName, this.value, violations, //
+      AbstractGwtSpecificValidator.this.expandDefaultAndValidateValueGroups(context, beanType,
+          propertyName, value, violations, //
           groups);
     }
   }

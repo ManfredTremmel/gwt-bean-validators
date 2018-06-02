@@ -40,7 +40,7 @@ public class PhoneNumberDin5008InterRestSuggestBox extends AbstractPhoneNumberRe
   @Override
   public void formatValue(final ValueWithPosAndCountry<String> pkey,
       final FutureResult<ValueWithPos<String>> presult) throws ExecutionException {
-    this.service.formatDin5008InternationalWithPos(pkey, presult);
+    service.formatDin5008InternationalWithPos(pkey, presult);
   }
 
   @Override

@@ -50,44 +50,44 @@ public class GwtValidatorContext implements ValidatorContext {
   public GwtValidatorContext(final AbstractGwtValidatorFactory validatorFactory) {
     this.validatorFactory = validatorFactory;
 
-    this.factoryConstraintValidatorfactory = validatorFactory.getConstraintValidatorFactory();
-    this.constraintValidatorfactoryEntry = validatorFactory.getConstraintValidatorFactory();
+    factoryConstraintValidatorfactory = validatorFactory.getConstraintValidatorFactory();
+    constraintValidatorfactoryEntry = validatorFactory.getConstraintValidatorFactory();
 
-    this.factoryMessageInterpolator = validatorFactory.getMessageInterpolator();
-    this.messageInterpolatorEntry = validatorFactory.getMessageInterpolator();
+    factoryMessageInterpolator = validatorFactory.getMessageInterpolator();
+    messageInterpolatorEntry = validatorFactory.getMessageInterpolator();
 
-    this.factoryTraversableResolver = validatorFactory.getTraversableResolver();
-    this.traversableResolverEntry = validatorFactory.getTraversableResolver();
+    factoryTraversableResolver = validatorFactory.getTraversableResolver();
+    traversableResolverEntry = validatorFactory.getTraversableResolver();
 
-    this.factoryParameterNameProvider = validatorFactory.getParameterNameProvider();
-    this.parameterNameProviderEntry = validatorFactory.getParameterNameProvider();
+    factoryParameterNameProvider = validatorFactory.getParameterNameProvider();
+    parameterNameProviderEntry = validatorFactory.getParameterNameProvider();
   }
 
   @Override
   public ValidatorContext constraintValidatorFactory(
       final ConstraintValidatorFactory constraintValidatorfactory) {
     if (constraintValidatorfactory == null) {
-      this.constraintValidatorfactoryEntry = this.factoryConstraintValidatorfactory;
+      constraintValidatorfactoryEntry = factoryConstraintValidatorfactory;
     } else {
-      this.constraintValidatorfactoryEntry = constraintValidatorfactory;
+      constraintValidatorfactoryEntry = constraintValidatorfactory;
     }
     return this;
   }
 
   @Override
   public Validator getValidator() {
-    final AbstractGwtValidator validator = this.validatorFactory.createValidator();
-    validator.init(this.constraintValidatorfactoryEntry, this.messageInterpolatorEntry,
-        this.traversableResolverEntry, this.parameterNameProviderEntry);
+    final AbstractGwtValidator validator = validatorFactory.createValidator();
+    validator.init(constraintValidatorfactoryEntry, messageInterpolatorEntry,
+        traversableResolverEntry, parameterNameProviderEntry);
     return validator;
   }
 
   @Override
   public ValidatorContext messageInterpolator(final MessageInterpolator messageInterpolator) {
     if (messageInterpolator == null) {
-      this.messageInterpolatorEntry = this.factoryMessageInterpolator;
+      messageInterpolatorEntry = factoryMessageInterpolator;
     } else {
-      this.messageInterpolatorEntry = messageInterpolator;
+      messageInterpolatorEntry = messageInterpolator;
     }
     return this;
   }
@@ -95,9 +95,9 @@ public class GwtValidatorContext implements ValidatorContext {
   @Override
   public ValidatorContext traversableResolver(final TraversableResolver traversableResolver) {
     if (traversableResolver == null) {
-      this.traversableResolverEntry = this.factoryTraversableResolver;
+      traversableResolverEntry = factoryTraversableResolver;
     } else {
-      this.traversableResolverEntry = traversableResolver;
+      traversableResolverEntry = traversableResolver;
     }
     return this;
   }
@@ -106,9 +106,9 @@ public class GwtValidatorContext implements ValidatorContext {
   public ValidatorContext parameterNameProvider(
       final ParameterNameProvider pparameterNameProvider) {
     if (pparameterNameProvider == null) {
-      this.parameterNameProviderEntry = this.factoryParameterNameProvider;
+      parameterNameProviderEntry = factoryParameterNameProvider;
     } else {
-      this.parameterNameProviderEntry = pparameterNameProvider;
+      parameterNameProviderEntry = pparameterNameProvider;
     }
     return this;
   }

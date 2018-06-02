@@ -15,8 +15,6 @@
 
 package de.knightsoftnet.gwtp.spring.server.security;
 
-import de.knightsoftnet.gwtp.spring.server.converter.UserDetailsConverter;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -27,13 +25,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import de.knightsoftnet.gwtp.spring.server.converter.UserDetailsConverter;
 
 /**
  * authentication success handler for gwt applications. based on the work of
@@ -55,16 +55,16 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     super();
     final MappingJackson2HttpMessageConverter pmessageConverter =
         new MappingJackson2HttpMessageConverter();
-    this.mapper = pmessageConverter.getObjectMapper();
-    this.csrfCookieHandler = pcsrfCookieHandler;
-    this.userDetailsConverter = puserDetailsConverter;
+    mapper = pmessageConverter.getObjectMapper();
+    csrfCookieHandler = pcsrfCookieHandler;
+    userDetailsConverter = puserDetailsConverter;
   }
 
   @Override
   public void onAuthenticationSuccess(final HttpServletRequest prequest,
       final HttpServletResponse presponse, final Authentication pauthentication)
       throws IOException, ServletException {
-    this.csrfCookieHandler.setCookie(prequest, presponse);
+    csrfCookieHandler.setCookie(prequest, presponse);
 
     if (pauthentication.isAuthenticated()) {
       presponse.setStatus(HttpServletResponse.SC_OK);
@@ -72,8 +72,8 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
       LOGGER.debug(pauthentication.toString());
 
       final PrintWriter writer = presponse.getWriter();
-      this.mapper.writeValue(writer,
-          this.userDetailsConverter.convert((UserDetails) pauthentication.getPrincipal()));
+      mapper.writeValue(writer,
+          userDetailsConverter.convert((UserDetails) pauthentication.getPrincipal()));
       writer.flush();
     } else {
       presponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

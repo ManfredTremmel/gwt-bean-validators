@@ -56,45 +56,45 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
     this.validationGroupsMetadata = validationGroupsMetadata;
     this.constraintDescriptors = constraintDescriptors;
     this.beanMetadata = beanMetadata;
-    this.elementTypes = new HashSet<>();
-    this.elementTypes.add(ElementType.TYPE);
-    this.elementTypes.add(ElementType.METHOD);
-    this.elementTypes.add(ElementType.FIELD);
-    this.definedInSet = new HashSet<>();
-    this.definedInSet.add(ConstraintOrigin.DEFINED_LOCALLY);
-    this.definedInSet.add(ConstraintOrigin.DEFINED_IN_HIERARCHY);
-    this.groups = Collections.emptyList();
+    elementTypes = new HashSet<>();
+    elementTypes.add(ElementType.TYPE);
+    elementTypes.add(ElementType.METHOD);
+    elementTypes.add(ElementType.FIELD);
+    definedInSet = new HashSet<>();
+    definedInSet.add(ConstraintOrigin.DEFINED_LOCALLY);
+    definedInSet.add(ConstraintOrigin.DEFINED_IN_HIERARCHY);
+    groups = Collections.emptyList();
   }
 
   @Override
   public ConstraintFinder declaredOn(final ElementType... types) {
-    this.elementTypes.clear();
-    this.elementTypes.addAll(Arrays.asList(types));
+    elementTypes.clear();
+    elementTypes.addAll(Arrays.asList(types));
     return this;
   }
 
   @Override
   public Set<ConstraintDescriptor<?>> getConstraintDescriptors() {
-    if (this.validationGroupsMetadata == null) {
+    if (validationGroupsMetadata == null) {
       // sanity check - this could be null if the caller does not set group metadata first
       throw new IllegalStateException("ConstraintFinderImpl not initialized properly. A "
           + "ValidationGroupsMetadata object is required by GWT to properly find all constraint "
           + "descriptors.");
     }
     final Set<ConstraintDescriptor<?>> matchingDescriptors = new HashSet<>();
-    this.findMatchingDescriptors(matchingDescriptors);
+    findMatchingDescriptors(matchingDescriptors);
     return Collections.unmodifiableSet(matchingDescriptors);
   }
 
   @Override
   public boolean hasConstraints() {
-    return !this.getConstraintDescriptors().isEmpty();
+    return !getConstraintDescriptors().isEmpty();
   }
 
   @Override
   public ConstraintFinder lookingAt(final Scope scope) {
     if (scope.equals(Scope.LOCAL_ELEMENT)) {
-      this.definedInSet.remove(ConstraintOrigin.DEFINED_IN_HIERARCHY);
+      definedInSet.remove(ConstraintOrigin.DEFINED_IN_HIERARCHY);
     }
     return this;
   }
@@ -103,8 +103,8 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
   public ConstraintFinder unorderedAndMatchingGroups(final Class<?>... groups) {
     this.groups = new ArrayList<>();
     for (final Class<?> clazz : groups) {
-      if (Default.class.equals(clazz) && this.beanMetadata.defaultGroupSequenceIsRedefined()) {
-        this.groups.addAll(this.beanMetadata.getDefaultGroupSequence());
+      if (Default.class.equals(clazz) && beanMetadata.defaultGroupSequenceIsRedefined()) {
+        this.groups.addAll(beanMetadata.getDefaultGroupSequence());
       } else {
         this.groups.add(clazz);
       }
@@ -114,28 +114,28 @@ public final class ConstraintFinderImpl implements ConstraintFinder {
 
   private void addMatchingDescriptorsForGroup(final Class<?> group,
       final Set<ConstraintDescriptor<?>> matchingDescriptors) {
-    matchingDescriptors.addAll(this.constraintDescriptors.stream()
-        .filter(descriptor -> this.definedInSet.contains(descriptor.getDefinedOn())
-            && this.elementTypes.contains(descriptor.getElementType())
+    matchingDescriptors.addAll(constraintDescriptors.stream()
+        .filter(descriptor -> definedInSet.contains(descriptor.getDefinedOn())
+            && elementTypes.contains(descriptor.getElementType())
             && descriptor.getGroups().contains(group))
         .collect(Collectors.toSet()));
   }
 
   private void findMatchingDescriptors(final Set<ConstraintDescriptor<?>> matchingDescriptors) {
-    if (this.groups.isEmpty()) {
-      for (final ConstraintDescriptorImpl<?> descriptor : this.constraintDescriptors) {
-        if (this.definedInSet.contains(descriptor.getDefinedOn())
-            && this.elementTypes.contains(descriptor.getElementType())) {
+    if (groups.isEmpty()) {
+      for (final ConstraintDescriptorImpl<?> descriptor : constraintDescriptors) {
+        if (definedInSet.contains(descriptor.getDefinedOn())
+            && elementTypes.contains(descriptor.getElementType())) {
           matchingDescriptors.add(descriptor);
         }
       }
     } else {
       final GroupChain groupChain =
-          new GroupChainGenerator(this.validationGroupsMetadata).getGroupChainFor(this.groups);
+          new GroupChainGenerator(validationGroupsMetadata).getGroupChainFor(groups);
       final Iterator<Group> groupIterator = groupChain.getGroupIterator();
       while (groupIterator.hasNext()) {
         final Group g = groupIterator.next();
-        this.addMatchingDescriptorsForGroup(g.getGroup(), matchingDescriptors);
+        addMatchingDescriptorsForGroup(g.getGroup(), matchingDescriptors);
       }
     }
   }

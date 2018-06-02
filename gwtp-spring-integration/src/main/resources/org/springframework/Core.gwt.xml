@@ -10,4 +10,11 @@
     <include name="NonNullApi.java"/>
     <include name="Nullable.java"/>
   </source>
+  <source path="util">
+    <include name="Assert.java"/>
+    <include name="CollectionUtils.java"/>
+    <include name="MultiValueMap.java"/>
+    <include name="ObjectUtils.java"/>
+    <include name="StringUtils.java"/>
+  </source>
 </module>

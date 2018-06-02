@@ -76,29 +76,29 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
    */
   @Override
   public final ConstraintValidatorFactory getConstraintValidatorFactory() {
-    return this.constraintValidatorFactory;
+    return constraintValidatorFactory;
   }
 
   @Override
   public final MessageInterpolator getMessageInterpolator() {
-    return this.messageInterpolator;
+    return messageInterpolator;
   }
 
   @Override
   public final TraversableResolver getTraversableResolver() {
-    return this.traversableResolver;
+    return traversableResolver;
   }
 
   @Override
   public ParameterNameProvider getParameterNameProvider() {
-    return this.parameterNameProvider;
+    return parameterNameProvider;
   }
 
   @Override
   public final Validator getValidator() {
-    final AbstractGwtValidator validator = this.createValidator();
-    validator.init(this.getConstraintValidatorFactory(), this.getMessageInterpolator(),
-        this.getTraversableResolver(), this.parameterNameProvider);
+    final AbstractGwtValidator validator = createValidator();
+    validator.init(getConstraintValidatorFactory(), getMessageInterpolator(),
+        getTraversableResolver(), parameterNameProvider);
     return validator;
   }
 
@@ -115,16 +115,16 @@ public abstract class AbstractGwtValidatorFactory implements ValidatorFactory {
   public final void init(final ConfigurationState configState) {
     final ConstraintValidatorFactory configConstraintValidatorFactory =
         configState.getConstraintValidatorFactory();
-    this.constraintValidatorFactory = configConstraintValidatorFactory == null
+    constraintValidatorFactory = configConstraintValidatorFactory == null
         ? GWT.<ConstraintValidatorFactory>create(ConstraintValidatorFactory.class)
         : configConstraintValidatorFactory;
     final TraversableResolver configTraversableResolver = configState.getTraversableResolver();
-    this.traversableResolver = configTraversableResolver == null ? new DefaultTraversableResolver()
+    traversableResolver = configTraversableResolver == null ? new DefaultTraversableResolver()
         : configTraversableResolver;
     final MessageInterpolator configMessageInterpolator = configState.getMessageInterpolator();
-    this.messageInterpolator = configMessageInterpolator == null ? new GwtMessageInterpolator()
+    messageInterpolator = configMessageInterpolator == null ? new GwtMessageInterpolator()
         : configMessageInterpolator;
-    this.parameterNameProvider = configState.getParameterNameProvider();
+    parameterNameProvider = configState.getParameterNameProvider();
   }
 
   /**

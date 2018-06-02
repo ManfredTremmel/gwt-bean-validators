@@ -33,12 +33,12 @@ public class MessageInterpolatorContextImpl implements Context {
 
   @Override
   public ConstraintDescriptor<?> getConstraintDescriptor() {
-    return this.constraintDescriptor;
+    return constraintDescriptor;
   }
 
   @Override
   public Object getValidatedValue() {
-    return this.value;
+    return value;
   }
 
   @Override
