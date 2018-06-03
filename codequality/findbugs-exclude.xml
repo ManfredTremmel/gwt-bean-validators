@@ -11,4 +11,8 @@
 		<Class name="de.knightsoftnet.mtwidgets.client.ui.widget.ValueBoxBaseWithEditorErrors" />
 		<Bug pattern="BC_UNCONFIRMED_CAST" />
 	</Match>
+	<Match>
+		<Class name="de.knightsoftnet.gwtp.spring.shared.data.DeserializeablePage" />
+		<Bug pattern="NP_NONNULL_RETURN_VIOLATION" />
+	</Match>
 </FindBugsFilter>

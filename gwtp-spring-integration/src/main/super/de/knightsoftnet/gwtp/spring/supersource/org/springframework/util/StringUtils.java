@@ -701,7 +701,7 @@ public abstract class StringUtils {
 
     for (int i = pathArray.length - 1; i >= 0; i--) {
       final String element = pathArray[i];
-      if (StringUtils.CURRENT_PATH.equals(element)) {
+      if (StringUtils.CURRENT_PATH.equals(element)) { // NOPMD
         // Points to current directory - drop it.
       } else if (StringUtils.TOP_PATH.equals(element)) {
         // Registering top path found.

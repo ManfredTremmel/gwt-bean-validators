@@ -20,7 +20,7 @@
 	</parent>
 	<groupId>de.knightsoft-net</groupId>
 	<artifactId>gwt-bean-validators-parent</artifactId>
-	<version>0.55.2</version>
+	<version>0.55.3</version>
 	<packaging>pom</packaging>
 	<name>GWT Bean Validators Parent project</name>
 	<inceptionYear>2015</inceptionYear>

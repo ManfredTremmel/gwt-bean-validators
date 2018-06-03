@@ -72,6 +72,29 @@ public class Sort implements Streamable<org.springframework.data.domain.Sort.Ord
   }
 
   /**
+   * default constructor needed for deserializing.
+   */
+  protected Sort() {
+    this(Collections.emptyList());
+  }
+
+  /**
+   * constructor needed for deserializing.
+   */
+  @SuppressWarnings("PMD.UnusedFormalParameter")
+  protected Sort(final boolean sorted, final boolean unsorted) {
+    this(Collections.emptyList());
+  }
+
+  /**
+   * constructor needed for deserializing.
+   */
+  @SuppressWarnings("PMD.UnusedFormalParameter")
+  protected Sort(final List<Order> orders, final boolean sorted, final boolean unsorted) {
+    this(orders);
+  }
+
+  /**
    * Creates a new {@link Sort} instance. Order defaults to {@value Direction#ASC}.
    *
    * @param properties must not be {@literal null} or contain {@literal null} or empty strings
@@ -313,7 +336,7 @@ public class Sort implements Streamable<org.springframework.data.domain.Sort.Ord
    *
    * @author Oliver Gierke
    */
-  public static enum Direction {
+  public enum Direction {
 
     ASC, DESC;
 
@@ -377,7 +400,7 @@ public class Sort implements Streamable<org.springframework.data.domain.Sort.Ord
    * @author Thomas Darimont
    * @since 1.8
    */
-  public static enum NullHandling {
+  public enum NullHandling {
 
     /**
      * Lets the data store decide what to do with nulls.

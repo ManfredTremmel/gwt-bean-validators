@@ -1,7 +1,7 @@
 # gwtp-dynamic-navigation
 A view helper classes to generate a dynamic navigation in a gwtp project. The navigation changes when user changes (login/logout). It can highlight the entry of the selected view, even if you use the back button or reload the page.
 
-With version 0.55.2 the spring integration stuff was moved into [gwtp-spring-integration](https://github.com/ManfredTremmel/gwtp-spring-integration) package, to solve failed imports replace `de.knightsoftnet.navigation.*` and `de.knightsoftnet.validators.*` with `de.knightsoftnet.gwtp.spring.*`.
+With version 0.55.3 the spring integration stuff was moved into [gwtp-spring-integration](https://github.com/ManfredTremmel/gwtp-spring-integration) package, to solve failed imports replace `de.knightsoftnet.navigation.*` and `de.knightsoftnet.validators.*` with `de.knightsoftnet.gwtp.spring.*`.
 
 Maven integraten
 ----------------
@@ -12,7 +12,7 @@ The dependency itself for GWT-Projects:
     <dependency>
       <groupId>de.knightsoft-net</groupId>
       <artifactId>gwtp-dynamic-navigation</artifactId>
-      <version>0.55.2</version>
+      <version>0.55.3</version>
     </dependency>
 ```
 
