@@ -1,3 +1,5 @@
+# This project is read only and was moved to gitlab: [https://gitlab.com/ManfredTremmel/gwt-bean-validators](https://gitlab.com/ManfredTremmel/gwt-bean-validators)
+
 gwt-bean-validators-parent
 ==========================
 
