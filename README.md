@@ -16,3 +16,6 @@ parent project of the modules
 * [gwt-mt-widgets-spring-gwtp](./gwt-mt-widgets-spring-gwtp)
 
 for more informations look at the modules
+
+Also take a look at the [gwt-bean-validators-example](https://gitlab.com/ManfredTremmel/gwt-bean-validators-example) project and the [wiki](https://gitlab.com/ManfredTremmel/gwt-bean-validators-example/-/wikis/home) which shows, how to use the stuff.
+If you are interested in a real world application, visit my [machine sharing platform](https://www.m-share.de/).
